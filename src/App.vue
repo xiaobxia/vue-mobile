@@ -3,7 +3,8 @@
     <img src="./assets/logo.png">
     <mt-tabbar v-model="tabSelect">
       <mt-tab-item id="fund">
-        基金
+        <i class="fas fa-camera-retro" slot="icon"></i>
+        净值
       </mt-tab-item>
       <mt-tab-item id="订单">
         订单
