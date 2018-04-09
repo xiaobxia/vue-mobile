@@ -1,8 +1,22 @@
-.mint-tabbar{
-  .mint-tab-item-icon{
+.mint-tabbar {
+  border-top: 1px solid $border-color;
+  background-color: #fff;
+  .mint-tab-item-icon {
 
   }
-  .mint-tab-item{
+  .mint-tab-item {
     height: 100px;
+    padding: 0;
+    &.is-selected {
+      background-color: #fff;
+      .mint-tab-item-label {
+        color: $theme-color;
+      }
+    }
+  }
+  .mint-tab-item-label {
+    font-size: 30px;
+    color: $main-text-color;
+    line-height: 100px;
   }
 }

@@ -5,13 +5,12 @@ $theme-color: #324157;
 //二级主题色
 $theme-color-second: #58B7FF;
 
-a:hover {
-  color: $theme-color !important;
-}
+$grey-color: #999;
 
-a:link, a:active, a:visited {
-  color: $theme-color;
-}
+$border-color: #ddd;
+$main-text-color: #999;
+
+$theme-red-color: red;
 
 ::-webkit-scrollbar {
   width: 8px;

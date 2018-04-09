@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-import './style/main.scss'
 import router from './router/index'
 import App from './App'
+import './style/main.scss'
 
 function setAdaptive () {
   var _baseFontSize = 20
