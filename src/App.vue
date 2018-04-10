@@ -28,7 +28,7 @@
             <p>定时任务</p>
           </mt-tab-item>
           <mt-tab-item id="square">
-            <i class="fab fa-bandcamp" slot="icon"></i>
+            <i class="fab fa-safari" slot="icon"></i>
             <p>广场</p>
           </mt-tab-item>
           <mt-tab-item id="mine">
@@ -45,7 +45,7 @@
 import Schedule from './tabViews/Schedule/index.vue'
 import Fund from './tabViews/Fund/index.vue'
 import Http from '@/util/httpUtil.js'
-import md5 from '@/util/md5.js'
+import md5 from 'md5'
 
 export default {
   data () {
@@ -94,6 +94,10 @@ export default {
       Http.post('auth/login', {account: this.account, password: md5(this.password), platform: 'pc'}).then((data) => {
         window._token = data.data.token
         localStorage.setItem('token', data.data.token)
+        this.loginUser = {
+          name: data.data.name,
+          isLogin: true
+        }
         return data
       })
     }

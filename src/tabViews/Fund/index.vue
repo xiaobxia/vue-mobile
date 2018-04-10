@@ -8,6 +8,12 @@
         </div>
         <div class="bottom">净值曲线</div>
       </div>
+      <div class="card" @click="toPath('/page/myFund')">
+        <div class="content">
+          <i class="fas fa-shopping-bag"></i>
+        </div>
+        <div class="bottom">基金持仓</div>
+      </div>
     </div>
 
   </div>

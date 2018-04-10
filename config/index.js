@@ -54,9 +54,14 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-
+    // assetsSubDirectory: 'static',
+    assetsSubDirectory: '',
+    // 解决打包时font的问题
+    assetsPathInCss: '../../',
+    // assetsPublicPath: './',
+    assetsPublicPath: './',
+    cdnPublicPath: 'http://p6yy0m78z.bkt.clouddn.com/',
+    ifCdn: true,
     /**
      * Source Maps
      */

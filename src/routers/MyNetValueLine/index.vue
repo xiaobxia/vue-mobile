@@ -20,13 +20,17 @@ export default {
     return {
       chartHeight: (500 / 20) + 'rem',
       chartTextStyle: {
-        fontSize: 28 * window.adaptive.zoom
+        fontSize: 20 * window.adaptive.zoom
       },
       myList: [],
       shangzheng: [],
       chuangye: [],
       hushen: [],
-      chartSettings: {}
+      chartSettings: {
+        lineStyle: {
+          width: 4 * window.adaptive.zoom
+        }
+      }
     }
   },
 
