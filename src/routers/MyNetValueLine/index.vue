@@ -6,7 +6,7 @@
       </mt-button>
     </mt-header>
     <div class="content-body">
-      <ve-line :textStyle="chartTextStyle" :height="chartHeight" :data="chartData" :settings="chartSettings"></ve-line>
+      <ve-line :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
     </div>
   </div>
 </template>
@@ -14,13 +14,19 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
+
+const zoom = window.adaptive.zoom
 export default {
   name: 'MyNetValueLine',
   data () {
     return {
       chartHeight: (500 / 20) + 'rem',
       chartTextStyle: {
-        fontSize: 20 * window.adaptive.zoom
+        fontSize: 20 * zoom
+      },
+      chartLegend: {
+        itemWidth: 50 * zoom,
+        itemHeight: 30 * zoom
       },
       myList: [],
       shangzheng: [],
@@ -28,7 +34,7 @@ export default {
       hushen: [],
       chartSettings: {
         lineStyle: {
-          width: 4 * window.adaptive.zoom
+          width: 4 * zoom
         }
       }
     }
