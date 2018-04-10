@@ -1,0 +1,25 @@
+.mint-cell{
+  position: relative;
+  padding: 20px 30px;
+  border-bottom: 1px solid $border-color;
+  .left-wrap{
+    display: block;
+    width: 70%;
+  }
+  .right-wrap{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+  }
+  h3{
+    margin: 0 0 10px 0;
+    font-size: 34px;
+  }
+  .explain{
+    margin: 0;
+    font-size: 28px;
+    color: $main-text-color;
+  }
+}

@@ -2,4 +2,45 @@
 
 @import "_var";
 
+@import "component/header";
 @import "component/tabbar";
+@import "component/switch";
+@import "component/cell";
+@import "component/card";
+@import "component/field";
+
+@import "page/login";
+
+body{
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bebdbd;
+  border-radius: 4px
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+  opacity: .5
+}
+
+::-webkit-scrollbar-track-piece:decrement, ::-webkit-scrollbar-track-piece:increment {
+  background: #f5f5f5
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $theme-color;
+}
+
+.net-line{
+  height: 450px;
+}

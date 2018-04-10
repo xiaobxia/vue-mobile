@@ -15,9 +15,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "font-awesome": "^4.7.0",
+    "echarts": "^4.0.4",
+    "md5": "^2.2.1",
     "mint-ui": "^2.2.13",
     "qs": "^6.5.1",
+    "v-charts": "^1.16.8",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

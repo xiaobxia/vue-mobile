@@ -6,6 +6,7 @@ import 'mint-ui/lib/style.css'
 import router from './router/index'
 import App from './App'
 import './style/main.scss'
+import VCharts from 'v-charts'
 
 function setAdaptive () {
   var _baseFontSize = 20
@@ -62,6 +63,7 @@ function setAdaptive () {
 setAdaptive()
 
 Vue.use(MintUI)
+Vue.use(VCharts)
 
 Vue.config.productionTip = false
 

@@ -4,29 +4,8 @@
 $theme-color: #324157;
 //二级主题色
 $theme-color-second: #58B7FF;
-
 $grey-color: #999;
-
 $border-color: #ddd;
 $main-text-color: #999;
-
 $theme-red-color: red;
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px
-}
-
-::-webkit-scrollbar-thumb {
-  background: #bebdbd;
-  border-radius: 4px
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #666;
-  opacity: .5
-}
-
-::-webkit-scrollbar-track-piece:decrement, ::-webkit-scrollbar-track-piece:increment {
-  background: #f5f5f5
-}
+$shadow-color: #ddd;

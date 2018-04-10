@@ -15,9 +15,14 @@ export default new Router({
   scrollBehavior: () => ({y: 0}),
   routes: [
     {
-      name: 'Dashboard Home',
+      name: 'HelloWorld',
       path: '/',
       component: lazyLoading('HelloWorld')
+    },
+    {
+      name: 'MyNetValueLine',
+      path: '/page/myNetValueLine',
+      component: lazyLoading('MyNetValueLine')
     }
   ]
 })
