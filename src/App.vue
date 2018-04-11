@@ -95,7 +95,7 @@ export default {
       Http.post('auth/login', {account: this.account, password: md5(this.password), platform: 'pc'}).then((data) => {
         if (data.success) {
           window._token = data.data.token
-          localStorage.setItem('token', data.data.token)
+          localStorage.setItuem('token', data.data.token)
           this.loginUser = {
             name: data.data.name,
             isLogin: true

@@ -70,7 +70,7 @@ export default {
         data['净值'] = item['net_value']
         row.push(data)
       })
-      console.log(row)
+      row.reverse()
       return {
         columns: ['日期', '净值'],
         rows: row
@@ -85,10 +85,10 @@ export default {
       listMonth.forEach(function (item, index) {
         let data = {}
         data['天数'] = index + 1
-        data['涨幅'] = item
+        data['涨幅'] = listMonth[listMonth.length - 1] - item
         row.push(data)
       })
-      console.log(row)
+      row.reverse()
       return {
         columns: ['天数', '涨幅'],
         rows: row
