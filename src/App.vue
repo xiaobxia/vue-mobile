@@ -9,7 +9,7 @@
           <input type="text" v-model="password">
         </div>
         <div class="input-item">
-          <mt-button type="default" @click="loginHandler">登录</mt-button>
+          <mt-button type="primary" @click="loginHandler">登录</mt-button>
         </div>
       </div>
     </template>
@@ -46,6 +46,7 @@ import Schedule from './tabViews/Schedule/index.vue'
 import Fund from './tabViews/Fund/index.vue'
 import Http from '@/util/httpUtil.js'
 import md5 from 'md5'
+import { Toast } from 'mint-ui'
 
 export default {
   data () {
@@ -92,13 +93,23 @@ export default {
     },
     loginHandler () {
       Http.post('auth/login', {account: this.account, password: md5(this.password), platform: 'pc'}).then((data) => {
-        window._token = data.data.token
-        localStorage.setItem('token', data.data.token)
-        this.loginUser = {
-          name: data.data.name,
-          isLogin: true
+        if (data.success) {
+          window._token = data.data.token
+          localStorage.setItem('token', data.data.token)
+          this.loginUser = {
+            name: data.data.name,
+            isLogin: true
+          }
+          Toast({
+            message: '登录成功',
+            iconClass: 'icon icon-success'
+          })
+        } else {
+          Toast({
+            message: data.message,
+            iconClass: 'icon icon-success'
+          })
         }
-        return data
       })
     }
   }
