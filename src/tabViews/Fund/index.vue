@@ -2,17 +2,32 @@
   <div>
     <mt-header title="基金"/>
     <div class="content-body">
-      <div class="card" @click="toPath('/page/myNetValueLine')">
-        <div class="content">
-          <i class="fas fa-chart-line"></i>
+      <div class="img-card" @click="toPath('/page/myNetValueLine')">
+        <img src="../../assets/timg.jpg" alt="">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="bottom">净值曲线</div>
         </div>
-        <div class="bottom">净值曲线</div>
       </div>
-      <div class="card" @click="toPath('/page/myFund')">
-        <div class="content">
-          <i class="fas fa-shopping-bag"></i>
+      <div class="img-card" @click="toPath('/page/myFund')">
+        <img src="../../assets/Desert-miniplanet.jpg" alt="">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-shopping-bag"></i>
+          </div>
+          <div class="bottom">基金持仓</div>
         </div>
-        <div class="bottom">基金持仓</div>
+      </div>
+      <div class="img-card" @click="toPath('/page/strategy')">
+        <img src="../../assets/800_600_dribbble_icons.jpg" alt="">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-crosshairs"></i>
+          </div>
+          <div class="bottom">买入策略</div>
+        </div>
       </div>
     </div>
 
@@ -23,8 +38,7 @@
 export default {
   name: 'Fund',
   data () {
-    return {
-    }
+    return {}
   },
   mounted () {
     this.initPage()
@@ -43,7 +57,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .content-body{
+  .content-body {
     padding: 30px;
   }
 </style>

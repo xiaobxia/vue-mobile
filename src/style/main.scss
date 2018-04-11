@@ -10,6 +10,8 @@
 @import "component/field";
 
 @import "page/login";
+@import "page/myFund";
+@import "page/strategy";
 
 body{
   margin: 0;
@@ -43,4 +45,12 @@ body{
 
 .net-line{
   height: 450px;
+}
+
+.red-text {
+  color: red !important;
+}
+
+.green-text {
+  color: green !important;
 }

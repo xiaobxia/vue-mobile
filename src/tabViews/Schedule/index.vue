@@ -1,10 +1,6 @@
 <template>
   <div>
-    <mt-header title="定时任务">
-      <mt-button slot="right">
-        <i class="fas fa-plus"></i>
-      </mt-button>
-    </mt-header>
+    <mt-header title="定时任务"/>
     <mt-cell-swipe v-for="(item) in scheduleList" :key="item._id">
       <div slot="title">
         <h3>{{item.key}}</h3>

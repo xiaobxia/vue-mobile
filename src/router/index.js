@@ -23,6 +23,16 @@ export default new Router({
       name: 'MyNetValueLine',
       path: '/page/myNetValueLine',
       component: lazyLoading('MyNetValueLine')
+    },
+    {
+      name: 'MyFund',
+      path: '/page/myFund',
+      component: lazyLoading('MyFund')
+    },
+    {
+      name: 'Strategy',
+      path: '/page/strategy',
+      component: lazyLoading('Strategy')
     }
   ]
 })
