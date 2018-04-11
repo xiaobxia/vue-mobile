@@ -38,6 +38,16 @@ export default new Router({
       name: 'FundDetail',
       path: '/page/fundDetail',
       component: lazyLoading('FundDetail')
+    },
+    {
+      name: 'MyFundAdd',
+      path: '/page/myFundAdd',
+      component: lazyLoading('MyFundAdd')
+    },
+    {
+      name: 'MyNetValueAdd',
+      path: '/page/myNetValueAdd',
+      component: lazyLoading('MyNetValueAdd')
     }
   ]
 })

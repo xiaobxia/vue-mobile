@@ -4,6 +4,9 @@
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
+      <mt-button slot="right">
+        <i class="fas fa-plus" @click="addHandler"></i>
+      </mt-button>
     </mt-header>
     <div class="content-body">
       <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
@@ -126,6 +129,9 @@ export default {
     },
     backHandler () {
       this.$router.history.go(-1)
+    },
+    addHandler () {
+      this.$router.push({path: '/page/myNetValueAdd', query: {type: 'add'}})
     }
   }
 }

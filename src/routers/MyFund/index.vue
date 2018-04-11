@@ -5,7 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-plus" @click="addHandler"></i>
       </mt-button>
     </mt-header>
     <div class="info-wrap">
@@ -89,19 +89,8 @@ export default {
     countRate (a, b) {
       return numberUtil.countDifferenceRate(a, b)
     },
-    stateChangeHandler (key) {
-      const item = this.scheduleList.find((item) => {
-        return item.key === key
-      })
-      Http.post('schedule/changeScheduleStatus', {
-        key: item.key,
-        value: item.value ? 'open' : 'close'
-      }).then((data) => {
-        if (data.success) {
-          this.initPage()
-        }
-        return data
-      })
+    addHandler () {
+      this.$router.push({path: '/page/myFundAdd', query: {type: 'add'}})
     }
   }
 }
