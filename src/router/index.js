@@ -12,7 +12,7 @@ export default new Router({
   mode: 'hash',
   linkActiveClass: 'is-active',
   // 这个功能只在 HTML5 history 模式下可用
-  scrollBehavior: () => ({y: 0}),
+  // scrollBehavior: () => ({y: 0}),
   routes: [
     {
       name: 'HelloWorld',
