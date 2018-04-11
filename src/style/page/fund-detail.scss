@@ -1,0 +1,17 @@
+.fund-detail{
+  .info-wrap{
+    background-color: $theme-color;
+    color: #fff;
+    padding: 30px 0;
+    font-size: 34px;
+    span {
+      padding-left: 30px;
+      font-size: 34px;
+    }
+  }
+  .item{
+    display: inline-block;
+    width: 49%;
+    box-sizing: border-box;
+  }
+}

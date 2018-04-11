@@ -6,7 +6,7 @@
       </mt-button>
     </mt-header>
     <div class="content-body">
-      <ve-line :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
+      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
     </div>
   </div>
 </template>
@@ -23,6 +23,12 @@ export default {
       chartHeight: (500 / 20) + 'rem',
       chartTextStyle: {
         fontSize: 20 * zoom
+      },
+      chartYAxis: {
+        axisLabel: {
+          fontSize: 20 * zoom
+        },
+        scale: [true, true]
       },
       chartLegend: {
         itemWidth: 50 * zoom,

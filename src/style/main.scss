@@ -12,6 +12,7 @@
 @import "page/login";
 @import "page/myFund";
 @import "page/strategy";
+@import "page/fund-detail";
 
 body{
   margin: 0;
@@ -53,4 +54,8 @@ body{
 
 .green-text {
   color: green !important;
+}
+
+.grey-back{
+  background-color: rgba(180,180,180, 0.2);
 }

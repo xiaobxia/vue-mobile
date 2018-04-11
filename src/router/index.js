@@ -33,6 +33,11 @@ export default new Router({
       name: 'Strategy',
       path: '/page/strategy',
       component: lazyLoading('Strategy')
+    },
+    {
+      name: 'FundDetail',
+      path: '/page/fundDetail',
+      component: lazyLoading('FundDetail')
     }
   ]
 })

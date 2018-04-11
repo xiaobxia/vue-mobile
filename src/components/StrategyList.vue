@@ -1,6 +1,6 @@
 <template>
   <div class="strategy-list">
-    <mt-cell-swipe v-for="(item) in listData" :key="item.code">
+    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
       <div slot="title">
         <h3>{{item.code}} {{item.name}} <span style="float: right"
                                               :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span>
