@@ -43,6 +43,7 @@ export default {
       shangzheng: [],
       chuangye: [],
       hushen: [],
+      wulin: [],
       chartSettings: {
         lineStyle: {
           width: 4 * zoom
@@ -57,6 +58,7 @@ export default {
       let listShangzheng = this.shangzheng
       let listChuangye = this.chuangye
       let listHushen = this.hushen
+      let listWulin = this.wulin
       let startIndex = 0
       for (let i = 0; i < listShangzheng.length; i++) {
         if (listShangzheng[i].date === 20180312) {
@@ -70,12 +72,15 @@ export default {
       listChuangye.reverse()
       listHushen = listHushen.slice(0, startIndex + 1)
       listHushen.reverse()
-      if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1) {
+      listWulin = listWulin.slice(0, startIndex + 1)
+      listWulin.reverse()
+      if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1|| listWulin.length < 1) {
         return {}
       }
       const baseShangzheng = listShangzheng[0].kline.close
       const baseChuangye = listChuangye[0].kline.close
       const baseHushen = listHushen[0].kline.close
+      const baseWulin = listWulin[0].kline.close
       let row = []
       listMonth.forEach(function (item, index) {
         let data = {}
@@ -84,11 +89,12 @@ export default {
         data['上证指数'] = numberUtil.keepTwoDecimals(((listShangzheng[index].kline.close - baseShangzheng) / baseShangzheng) * 100)
         data['创业指数'] = numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100)
         data['沪深300指数'] = numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100)
+        data['上证50指数'] = numberUtil.keepTwoDecimals(((listWulin[index].kline.close - baseWulin) / baseWulin) * 100)
         row.push(data)
       })
       console.log(row)
       return {
-        columns: ['日期', '我的组合', '上证指数', '创业指数', '沪深300指数'],
+        columns: ['日期', '我的组合', '上证指数', '创业指数', '沪深300指数','上证50指数'],
         rows: row
       }
     }
@@ -109,6 +115,13 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.shangzheng = data.data.list
+        }
+      })
+      Http.get('webData/getWebStockdaybar', {
+        code: 'sh000016'
+      }).then((data) => {
+        if (data.success) {
+          this.wulin = data.data.list
         }
       })
       Http.get('webData/getWebStockdaybar', {
