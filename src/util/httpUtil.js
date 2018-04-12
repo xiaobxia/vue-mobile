@@ -3,7 +3,7 @@ import qs from 'qs'
 const basePath = '/myService/'
 
 axios.interceptors.request.use(function (config) {
-  config.headers.token = window._token || ''
+  config.headers.token = window._token || localStorage.getItem('token') || ''
   return config
 }, function (error) {
   return Promise.reject(error)
@@ -18,7 +18,7 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-function makeUrl (url) {
+function makeUrl(url) {
   if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
     return url
   } else {
