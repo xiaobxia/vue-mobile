@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3 class="title">{{title}}</h3>
+    <h3 class="title">{{title}} {{totalCount}}</h3>
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?code='+item.code">
       <div slot="title">
         <h3>{{item.code}} {{item.name}} <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span></h3>
@@ -26,6 +26,14 @@ export default{
     return {}
   },
   computed: {
+    totalCount () {
+      let count = 0
+      const listData = this.listData
+      for (let i = 0; i < listData.length; i++) {
+        count += listData[i].costSum
+      }
+      return Math.round(count)
+    }
   },
   props: {
     listData: Array,

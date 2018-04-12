@@ -1,10 +1,11 @@
 <template>
   <div class="my-fund-add">
-    <mt-header :title="type==='add'?'添加':'编辑'">
+    <mt-header :title="type==='add'?'添加':'编辑'" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
+    <div class="main-body">
     <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>
     <mt-field label="策略组" placeholder="请输入策略组" v-model="form.strategy"></mt-field>
     <mt-field label="持仓成本" placeholder="请输入持仓成本" v-model="form.cost"></mt-field>
@@ -12,6 +13,7 @@
     <mt-field label="购买日期" placeholder="请输入购买日期" v-model="form.buy_date"></mt-field>
     <mt-field label="目标收益率" placeholder="请输入目标收益率" v-model="form.target_rate"></mt-field>
     <mt-button type="primary" @click="okHandler">完成</mt-button>
+    </div>
   </div>
 </template>
 

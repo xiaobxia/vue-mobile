@@ -2,6 +2,9 @@
   position: relative;
   padding: 20px 30px;
   border-bottom: 1px solid $border-color;
+  .mint-cell-wrapper{
+    background: none;
+  }
   .left-wrap{
     display: block;
     width: 70%;
@@ -16,6 +19,7 @@
   h3{
     margin: 0 0 10px 0;
     font-size: 34px;
+    color: #222;
   }
   .explain{
     margin: 0;

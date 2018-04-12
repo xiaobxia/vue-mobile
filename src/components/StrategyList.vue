@@ -13,10 +13,10 @@
             <mt-badge v-if="item.result.isMin" color="#13c2c2">新低</mt-badge>
         </p>
         <p class="explain">
-          <mt-badge v-if="item.result.isMonthBoom" color="red">近期暴涨</mt-badge>
-          <mt-badge v-if="item.result.isHalfMonthBoom" color="red">超短暴涨</mt-badge>
-          <mt-badge v-if="item.result.isHigh" color="gold">高位</mt-badge>
-          <mt-badge v-if="item.result.isLowHalf" color="gold">半年高位</mt-badge>
+          <mt-badge v-if="item.result.isMonthBoom" color="#f50">近期暴涨</mt-badge>
+          <mt-badge v-if="item.result.isHalfMonthBoom" color="#f50">超短暴涨</mt-badge>
+          <mt-badge v-if="item.result.isHigh" color="#faad14">高位</mt-badge>
+          <mt-badge v-if="item.result.isLowHalf" color="#faad14">半年高位</mt-badge>
         </p>
       </div>
       <div class="right-wrap">

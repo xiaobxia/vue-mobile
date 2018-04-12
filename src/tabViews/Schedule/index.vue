@@ -1,15 +1,17 @@
 <template>
   <div>
-    <mt-header title="定时任务"/>
-    <mt-cell-swipe v-for="(item) in scheduleList" :key="item._id">
-      <div slot="title">
-        <h3>{{item.key}}</h3>
-        <p class="explain">{{item.describe}}</p>
-      </div>
-      <div class="right-wrap">
-        <mt-switch v-model="item.value" @change="stateChangeHandler(item.key)"></mt-switch>
-      </div>
-    </mt-cell-swipe>
+    <mt-header title="定时任务" :fixed="true"/>
+    <div class="main-body">
+      <mt-cell-swipe v-for="(item) in scheduleList" :key="item._id">
+        <div slot="title">
+          <h3>{{item.key}}</h3>
+          <p class="explain">{{item.describe}}</p>
+        </div>
+        <div class="right-wrap">
+          <mt-switch v-model="item.value" @change="stateChangeHandler(item.key)"></mt-switch>
+        </div>
+      </mt-cell-swipe>
+    </div>
   </div>
 </template>
 
@@ -39,7 +41,10 @@ export default {
       const item = this.scheduleList.find((item) => {
         return item.key === key
       })
-      Http.post('schedule/changeScheduleStatus', {key: item.key, value: item.value ? 'open' : 'close'}).then((data) => {
+      Http.post('schedule/changeScheduleStatus', {
+        key: item.key,
+        value: item.value ? 'open' : 'close'
+      }).then((data) => {
         if (data.success) {
           this.initPage()
         }

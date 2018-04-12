@@ -1,10 +1,11 @@
 <template>
   <div class="schedule">
-    <mt-header title="策略">
+    <mt-header title="策略" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
+    <div class="main-body">
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">超跌</mt-tab-item>
       <mt-tab-item id="2">追涨</mt-tab-item>
@@ -21,6 +22,7 @@
         <strategy-list :listData="myStrategyList"/>
       </mt-tab-container-item>
     </mt-tab-container>
+    </div>
   </div>
 </template>
 

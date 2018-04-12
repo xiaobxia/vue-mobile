@@ -1,14 +1,16 @@
 <template>
   <div class="my-netValue-add">
-    <mt-header :title="type==='add'?'添加':'编辑'">
+    <mt-header :title="type==='add'?'添加':'编辑'" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
+    <div class="main-body">
     <mt-field label="资产" placeholder="请输入资产" v-model="form.asset"></mt-field>
     <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
     <mt-field label="净值日期" placeholder="请输入净值日期" v-model="form.net_value_date"></mt-field>
     <mt-button type="primary" @click="okHandler">完成</mt-button>
+    </div>
   </div>
 </template>
 

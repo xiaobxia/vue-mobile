@@ -1,6 +1,6 @@
 <template>
   <div class="fund-detail">
-    <mt-header :title="currentFund.name">
+    <mt-header :title="currentFund.name" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
@@ -8,6 +8,7 @@
         <i class="fas fa-plus"></i>
       </mt-button>
     </mt-header>
+    <div class="main-body">
     <div class="info-wrap">
       <span class="item">基金代码：{{currentFund.code}}</span>
       <span class="item">基金净值：{{currentFund.net_value}}</span>
@@ -20,6 +21,7 @@
     </div>
     <div class="content-body">
       <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartDataRecent" :settings="chartSettings"></ve-line>
+    </div>
     </div>
   </div>
 </template>
