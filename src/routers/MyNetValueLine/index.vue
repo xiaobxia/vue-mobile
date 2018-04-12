@@ -36,6 +36,7 @@ export default {
         scale: [true, true]
       },
       chartLegend: {
+        itemGap: 20 * zoom,
         itemWidth: 50 * zoom,
         itemHeight: 30 * zoom
       },
@@ -44,6 +45,7 @@ export default {
       chuangye: [],
       hushen: [],
       wulin: [],
+      wubai: [],
       chartSettings: {
         lineStyle: {
           width: 4 * zoom
@@ -59,6 +61,7 @@ export default {
       let listChuangye = this.chuangye
       let listHushen = this.hushen
       let listWulin = this.wulin
+      let listWubai = this.wubai
       let startIndex = 0
       for (let i = 0; i < listShangzheng.length; i++) {
         if (listShangzheng[i].date === 20180312) {
@@ -74,27 +77,31 @@ export default {
       listHushen.reverse()
       listWulin = listWulin.slice(0, startIndex + 1)
       listWulin.reverse()
-      if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1|| listWulin.length < 1) {
+      listWubai = listWubai.slice(0, startIndex + 1)
+      listWubai.reverse()
+      if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1 || listWulin.length < 1 || listWubai.length < 1) {
         return {}
       }
       const baseShangzheng = listShangzheng[0].kline.close
       const baseChuangye = listChuangye[0].kline.close
       const baseHushen = listHushen[0].kline.close
       const baseWulin = listWulin[0].kline.close
+      const baseWubai = listWubai[0].kline.close
       let row = []
       listMonth.forEach(function (item, index) {
         let data = {}
         data['日期'] = item['net_value_date']
         data['我的组合'] = numberUtil.keepTwoDecimals((item['net_value'] - 1) * 100)
-        data['上证指数'] = numberUtil.keepTwoDecimals(((listShangzheng[index].kline.close - baseShangzheng) / baseShangzheng) * 100)
-        data['创业指数'] = numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100)
-        data['沪深300指数'] = numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100)
-        data['上证50指数'] = numberUtil.keepTwoDecimals(((listWulin[index].kline.close - baseWulin) / baseWulin) * 100)
+        data['上证'] = numberUtil.keepTwoDecimals(((listShangzheng[index].kline.close - baseShangzheng) / baseShangzheng) * 100)
+        data['创业'] = numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100)
+        data['沪深300'] = numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100)
+        data['上证50'] = numberUtil.keepTwoDecimals(((listWulin[index].kline.close - baseWulin) / baseWulin) * 100)
+        data['中证500'] = numberUtil.keepTwoDecimals(((listWubai[index].kline.close - baseWubai) / baseWubai) * 100)
         row.push(data)
       })
       console.log(row)
       return {
-        columns: ['日期', '我的组合', '上证指数', '创业指数', '沪深300指数','上证50指数'],
+        columns: ['日期', '我的组合', '上证', '创业', '沪深300', '上证50', '中证500'],
         rows: row
       }
     }
@@ -122,6 +129,13 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.wulin = data.data.list
+        }
+      })
+      Http.get('webData/getWebStockdaybar', {
+        code: 'sh000906'
+      }).then((data) => {
+        if (data.success) {
+          this.wubai = data.data.list
         }
       })
       Http.get('webData/getWebStockdaybar', {
