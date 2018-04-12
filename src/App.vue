@@ -18,7 +18,7 @@
       <template v-else>
         <fund v-if="tabSelect === 'fund'"/>
         <schedule v-if="tabSelect === 'schedule'"/>
-        <mt-tabbar v-model="tabSelect">
+        <mt-tabbar v-model="tabSelect" :fixed="true">
           <mt-tab-item id="fund">
             <i class="fab fa-bitcoin" slot="icon"></i>
             <p>基金</p>

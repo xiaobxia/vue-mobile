@@ -1,7 +1,7 @@
 <template>
   <div>
     <mt-header title="定时任务" :fixed="true"/>
-    <div class="main-body">
+    <div class="main-body has-bar">
       <mt-cell-swipe v-for="(item) in scheduleList" :key="item._id">
         <div slot="title">
           <h3>{{item.key}}</h3>

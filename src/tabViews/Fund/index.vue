@@ -1,7 +1,7 @@
 <template>
   <div>
     <mt-header title="基金" :fixed="true"/>
-    <div class="main-body">
+    <div class="main-body has-bar">
       <div class="content-body">
         <div class="img-card" @click="toPath('/page/myNetValueLine')">
           <img src="../../assets/timg.jpg" alt="">
