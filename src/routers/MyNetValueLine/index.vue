@@ -5,7 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right">
-        <i class="fas fa-plus" @click="addHandler"></i>
+        <i class="fas fa-bars" @click="addHandler"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
@@ -160,7 +160,7 @@ export default {
       this.$router.history.go(-1)
     },
     addHandler () {
-      this.$router.push({path: '/page/myNetValueAdd', query: {type: 'add'}})
+      this.$router.push({path: '/page/myNetValueRecord'})
     }
   }
 }

@@ -9,7 +9,7 @@
     <mt-field label="资产" placeholder="请输入资产" v-model="form.asset"></mt-field>
     <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
     <mt-field label="净值日期" placeholder="请输入净值日期" v-model="form.net_value_date"></mt-field>
-    <mt-button type="primary" @click="okHandler">完成</mt-button>
+    <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
   </div>
 </template>
@@ -36,29 +36,26 @@ export default {
     initQuery () {
       const query = this.$router.history.current.query
       this.type = query.type
+      this.form = Object.assign({}, query)
     },
     backHandler () {
       this.$router.history.go(-1)
     },
     okHandler () {
-      if (this.type === 'add') {
-        Http.post('fund/addUserNetValue', this.form).then((data) => {
-          if (data.success) {
-            Toast({
-              message: '操作成功',
-              iconClass: 'icon icon-success'
-            })
-            this.$router.history.go(-1)
-          } else {
-            Toast({
-              message: '操作失败',
-              iconClass: 'icon icon-success'
-            })
-          }
-        })
-      } else {
-
-      }
+      Http.post(this.type === 'add' ? 'fund/addUserNetValue' : 'fund/updateUserNetValue', this.form).then((data) => {
+        if (data.success) {
+          Toast({
+            message: '操作成功',
+            iconClass: 'icon icon-success'
+          })
+          this.$router.history.go(-1)
+        } else {
+          Toast({
+            message: '操作失败',
+            iconClass: 'icon icon-success'
+          })
+        }
+      })
     }
   }
 }

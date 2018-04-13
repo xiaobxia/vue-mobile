@@ -48,6 +48,11 @@ export default new Router({
       name: 'MyNetValueAdd',
       path: '/page/myNetValueAdd',
       component: lazyLoading('MyNetValueAdd')
+    },
+    {
+      name: 'MyNetValueRecord',
+      path: '/page/myNetValueRecord',
+      component: lazyLoading('MyNetValueRecord')
     }
   ]
 })

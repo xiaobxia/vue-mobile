@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <h3 class="title">{{title}} {{totalCount}}</h3>
-    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?code='+item.code">
+    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/myFundAdd?'+qsStringify(item)">
       <div slot="title">
         <h3>{{item.code}} {{item.name}} <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span></h3>
         <p class="explain">
@@ -20,6 +20,7 @@
 </template>
 <script>
 import numberUtil from '@/util/numberUtil.js'
+import qs from 'qs'
 export default{
   name: 'MyFundCard',
   data () {
@@ -47,6 +48,10 @@ export default{
     },
     countRate (a, b) {
       return numberUtil.countDifferenceRate(a, b)
+    },
+    qsStringify (query) {
+      query.type = 'edit'
+      return qs.stringify(query)
     }
   }
 }
