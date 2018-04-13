@@ -18,7 +18,7 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-function makeUrl(url) {
+function makeUrl (url) {
   if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
     return url
   } else {

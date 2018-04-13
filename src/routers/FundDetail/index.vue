@@ -9,19 +9,23 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-    <div class="info-wrap">
-      <span class="item">基金代码：{{currentFund.code}}</span>
-      <span class="item">基金净值：{{currentFund.net_value}}</span>
-      <span class="item">估算净值：{{currentFund.valuation}}</span>
-      <span class="item">估算涨幅：<span :class="countRate(currentFund.valuation,currentFund.net_value) < 0 ? 'green-text' : 'red-text'">{{countRate(currentFund.valuation,currentFund.net_value)}}%</span></span>
-      <span>估值时间：{{new Date(currentFund.valuation_date).toLocaleString()}}</span>
-    </div>
-    <div class="content-body">
-      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartDataNetValue" :settings="chartSettings"></ve-line>
-    </div>
-    <div class="content-body">
-      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartDataRecent" :settings="chartSettings"></ve-line>
-    </div>
+      <div class="info-wrap">
+        <span class="item">基金代码：{{currentFund.code}}</span>
+        <span class="item">基金净值：{{currentFund.net_value}}</span>
+        <span class="item">估算净值：{{currentFund.valuation}}</span>
+        <span class="item">估算涨幅：<span
+          :class="countRate(currentFund.valuation,currentFund.net_value) < 0 ? 'green-text' : 'red-text'">{{countRate(currentFund.valuation, currentFund.net_value)}}%</span></span>
+        <span>估值时间：{{new Date(currentFund.valuation_date).toLocaleString()}}</span>
+      </div>
+      <div class="content-body">
+        <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
+                 :height="chartHeight" :legend="chartLegend" :data="chartDataNetValue"
+                 :settings="chartSettings"></ve-line>
+      </div>
+      <div class="content-body">
+        <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
+                 :data="chartDataRecent" :settings="chartSettings"></ve-line>
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +64,81 @@ export default {
   },
 
   computed: {
+    chartMakeLineNetValue () {
+      const result = this.currentFundAnalyzeRecent.result
+      if (!result) {
+        return {}
+      }
+      return {
+        data: [
+          {
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            type: 'average',
+            name: '平均值',
+            lineStyle: {
+              color: '#000'
+            }
+          },
+          {
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            type: 'max',
+            name: '最高点',
+            lineStyle: {
+              color: 'red'
+            }
+          },
+          {
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            type: 'min',
+            name: '最小值',
+            lineStyle: {
+              color: 'green'
+            }
+          },
+          {
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            name: '半年均线',
+            lineStyle: {
+              color: '#f50'
+            },
+            yAxis: result.costLineHalf
+          },
+          {
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            name: '当前',
+            lineStyle: {
+              color: '#1890ff'
+            },
+            yAxis: this.currentFund.valuation
+          }
+        ]
+      }
+    },
     chartDataNetValue () {
       if (!this.currentFundAnalyzeRecent.recentNetValue) {
         return {}
@@ -87,10 +166,9 @@ export default {
       listMonth.forEach(function (item, index) {
         let data = {}
         data['天数'] = index + 1
-        data['涨幅'] = listMonth[listMonth.length - 1] - item
+        data['涨幅'] = item
         row.push(data)
       })
-      row.reverse()
       return {
         columns: ['天数', '涨幅'],
         rows: row
