@@ -39,7 +39,7 @@ export default{
         pageSize: 10
       },
       list: [],
-      loading: false
+      loading: true
     }
   },
   computed: {
@@ -51,13 +51,14 @@ export default{
     queryRecord () {
       Http.get('fund/getUserNetValues', this.queryData).then((data) => {
         if (data.data.list.length < 10) {
+          this.loading = true
+        } else {
           this.loading = false
         }
         this.list = [...this.list, ...data.data.list]
       })
     },
     loadMore () {
-      this.loading = true
       this.queryData.current++
       this.queryRecord()
     },
