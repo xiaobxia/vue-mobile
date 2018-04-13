@@ -53,7 +53,7 @@ export default {
       currentFundAnalyzeRecent: {},
       chartSettings: {
         lineStyle: {
-          width: 4 * zoom
+          width: 3 * zoom
         }
       }
     }

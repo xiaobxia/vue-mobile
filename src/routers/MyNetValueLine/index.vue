@@ -48,7 +48,7 @@ export default {
       wubai: [],
       chartSettings: {
         lineStyle: {
-          width: 4 * zoom
+          width: 3 * zoom
         }
       }
     }
