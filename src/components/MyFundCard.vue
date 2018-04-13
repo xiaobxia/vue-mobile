@@ -3,7 +3,7 @@
     <h3 class="title">{{title}} {{totalCount}}</h3>
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/myFundAdd?'+qsStringify(item)">
       <div slot="title">
-        <h3>{{item.code}} {{item.name}} <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span></h3>
+        <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span></h3>
         <p class="explain">
           <span class="item">持有天数：{{item.has_days}}天</span>
           <span class="item">持仓金额：{{item.sum}}</span>
@@ -52,6 +52,13 @@ export default{
     qsStringify (query) {
       query.type = 'edit'
       return qs.stringify(query)
+    },
+    formatName (name) {
+      if (name.length > 12) {
+        return name.substr(0, 11) + '...'
+      } else {
+        return name
+      }
     }
   }
 }

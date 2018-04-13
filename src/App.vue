@@ -25,7 +25,7 @@
           </mt-tab-item>
           <mt-tab-item id="schedule">
             <i class="fas fa-calendar-alt" slot="icon"></i>
-            <p>定时任务</p>
+            <p>任务</p>
           </mt-tab-item>
           <mt-tab-item id="square">
             <i class="fab fa-safari" slot="icon"></i>

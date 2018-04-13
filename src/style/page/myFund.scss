@@ -10,12 +10,12 @@
   }
   .card{
     margin: 20px 0 30px 0;
-    box-shadow: 0 5px 30px $shadow-color;
+    box-shadow: 0 0 30px $shadow-color;
     .title{
       margin: 0;
       padding: 15px 30px;
       font-size: 40px;
-      color: $theme-color-second;
+      color: rgb(255, 147, 22);
       text-align: center;
       border-bottom: 1px solid $border-color;
     }

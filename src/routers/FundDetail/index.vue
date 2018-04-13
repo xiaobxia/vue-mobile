@@ -15,7 +15,7 @@
         <span class="item">估算净值：{{currentFund.valuation}}</span>
         <span class="item">估算涨幅：<span
           :class="countRate(currentFund.valuation,currentFund.net_value) < 0 ? 'green-text' : 'red-text'">{{countRate(currentFund.valuation, currentFund.net_value)}}%</span></span>
-        <span>估值时间：{{new Date(currentFund.valuation_date).toLocaleString()}}</span>
+        <span>估值时间：{{formatDate(currentFund.valuation_date)}}</span>
       </div>
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
@@ -33,6 +33,7 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
+import moment from 'moment'
 
 const zoom = window.adaptive.zoom
 export default {
@@ -201,6 +202,9 @@ export default {
     },
     backHandler () {
       this.$router.history.go(-1)
+    },
+    formatDate (date) {
+      return moment(date).format('YYYY-MM-DD HH:mm:SS')
     }
   }
 }

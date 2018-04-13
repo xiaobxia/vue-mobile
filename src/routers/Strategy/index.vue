@@ -6,22 +6,22 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-    <mt-navbar v-model="selected">
-      <mt-tab-item id="1">超跌</mt-tab-item>
-      <mt-tab-item id="2">追涨</mt-tab-item>
-      <mt-tab-item id="3">我的</mt-tab-item>
-    </mt-navbar>
-    <mt-tab-container v-model="selected">
-      <mt-tab-container-item id="1">
-        <strategy-list :listData="strategyListSlump"/>
-      </mt-tab-container-item>
-      <mt-tab-container-item id="2">
-        <strategy-list :listData="strategyListBoom"/>
-      </mt-tab-container-item>
-      <mt-tab-container-item id="3">
-        <strategy-list :listData="myStrategyList"/>
-      </mt-tab-container-item>
-    </mt-tab-container>
+      <mt-navbar v-model="selected">
+        <mt-tab-item id="1">超跌</mt-tab-item>
+        <mt-tab-item id="2">追涨</mt-tab-item>
+        <mt-tab-item id="3">我的</mt-tab-item>
+      </mt-navbar>
+      <mt-tab-container v-model="selected">
+        <mt-tab-container-item id="1">
+          <strategy-list :listData="strategyListSlump"/>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="2">
+          <strategy-list :listData="strategyListBoom"/>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="3">
+          <strategy-list :listData="myStrategyList"/>
+        </mt-tab-container-item>
+      </mt-tab-container>
     </div>
   </div>
 </template>
@@ -41,8 +41,7 @@ export default {
     }
   },
   components: {StrategyList},
-  computed: {
-  },
+  computed: {},
   mounted () {
     this.initPage()
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-net-value-record">
     <mt-header title="净值记录" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
