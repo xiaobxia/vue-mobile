@@ -6,7 +6,7 @@
       </mt-button>
       <mt-button slot="right">
         <i class="fas fa-edit"  v-if="type==='edit'" @click="toEditHandler"></i>
-        <i class="fas fa-plus" @click="toAddHandler"></i>
+        <i class="fas fa-plus" v-else @click="toAddHandler"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
