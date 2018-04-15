@@ -4,9 +4,6 @@
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
-      <mt-button slot="right" v-if="type === 'edit'">
-        <i class="fas fa-file-alt" @click="toPath('/page/fundDetail?code='+form.code)"></i>
-      </mt-button>
     </mt-header>
     <div class="main-body">
     <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>

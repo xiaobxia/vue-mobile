@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <h3 class="title">{{title}} {{totalCount}}</h3>
-    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/myFundAdd?'+qsStringify(item)">
+    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)">
       <div slot="title">
         <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span></h3>
         <p class="explain">

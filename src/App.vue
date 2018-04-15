@@ -2,6 +2,7 @@
   <div id="app">
     <template v-if="loginUser.isLogin === false">
       <div class="login-wrap">
+        <h3>基金分析系统</h3>
         <div class="input-item">
           <input type="text" v-model="account">
         </div>

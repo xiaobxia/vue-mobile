@@ -5,7 +5,8 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-edit"  v-if="type==='edit'" @click="toEditHandler"></i>
+        <i class="fas fa-plus" @click="toAddHandler"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
@@ -23,7 +24,7 @@
                  :settings="chartSettings"></ve-line>
       </div>
       <div class="content-body">
-        <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
+        <ve-line  :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
                  :data="chartDataRecent" :settings="chartSettings"></ve-line>
       </div>
     </div>
@@ -60,7 +61,9 @@ export default {
         lineStyle: {
           width: 3 * zoom
         }
-      }
+      },
+      queryData: {},
+      type: 'add'
     }
   },
 
@@ -70,74 +73,90 @@ export default {
       if (!result) {
         return {}
       }
-      return {
-        data: [
-          {
-            label: {
-              normal: {
-                position: 'end',
-                formatter: '{c}'
-              }
-            },
-            type: 'average',
-            name: '平均值',
-            lineStyle: {
-              color: '#000'
+      let dataList = [
+        {
+          label: {
+            normal: {
+              position: 'end',
+              formatter: '{c}'
             }
           },
-          {
-            label: {
-              normal: {
-                position: 'end',
-                formatter: '{c}'
-              }
-            },
-            type: 'max',
-            name: '最高点',
-            lineStyle: {
-              color: 'red'
-            }
-          },
-          {
-            label: {
-              normal: {
-                position: 'end',
-                formatter: '{c}'
-              }
-            },
-            type: 'min',
-            name: '最小值',
-            lineStyle: {
-              color: 'green'
-            }
-          },
-          {
-            label: {
-              normal: {
-                position: 'end',
-                formatter: '{c}'
-              }
-            },
-            name: '半年均线',
-            lineStyle: {
-              color: '#f50'
-            },
-            yAxis: result.costLineHalf
-          },
-          {
-            label: {
-              normal: {
-                position: 'end',
-                formatter: '{c}'
-              }
-            },
-            name: '当前',
-            lineStyle: {
-              color: '#1890ff'
-            },
-            yAxis: this.currentFund.valuation
+          type: 'average',
+          name: '平均值',
+          lineStyle: {
+            color: '#000'
           }
-        ]
+        },
+        {
+          label: {
+            normal: {
+              position: 'end',
+              formatter: '{c}'
+            }
+          },
+          type: 'max',
+          name: '最高点',
+          lineStyle: {
+            color: 'red'
+          }
+        },
+        {
+          label: {
+            normal: {
+              position: 'end',
+              formatter: '{c}'
+            }
+          },
+          type: 'min',
+          name: '最小值',
+          lineStyle: {
+            color: 'green'
+          }
+        },
+        {
+          label: {
+            normal: {
+              position: 'end',
+              formatter: '{c}'
+            }
+          },
+          name: '半年均线',
+          lineStyle: {
+            color: '#f50'
+          },
+          yAxis: result.costLineHalf
+        },
+        {
+          label: {
+            normal: {
+              position: 'end',
+              formatter: '{c}'
+            }
+          },
+          name: '当前',
+          lineStyle: {
+            color: '#1890ff'
+          },
+          yAxis: this.currentFund.valuation
+        }
+      ]
+      if (this.type === 'edit') {
+        dataList.push({
+          label: {
+            normal: {
+              position: 'end',
+              formatter: '{c}'
+            }
+          },
+          name: '成本',
+          lineStyle: {
+            color: '#faad14'
+          },
+          yAxis: this.queryData.cost
+        })
+      }
+      return {
+        data: dataList
       }
     },
     chartDataNetValue () {
@@ -182,6 +201,9 @@ export default {
 
   methods: {
     initPage () {
+      const query = this.$router.history.current.query
+      this.type = query.type
+      this.queryData = Object.assign({}, query)
       const code = this.$router.history.current.query.code
       Http.get('fund/getFundBase', {code}).then((data) => {
         if (data.success) {
@@ -205,6 +227,17 @@ export default {
     },
     formatDate (date) {
       return moment(date).format('YYYY-MM-DD HH:mm:SS')
+    },
+    toEditHandler () {
+      this.$router.push({path: '/page/myFundAdd', query: this.queryData})
+    },
+    toAddHandler () {
+      this.$router.push({path: '/page/myFundAdd',
+        query: {
+          code: this.currentFund.code,
+          target_rate: 7
+
+        }})
     }
   }
 }
