@@ -84,7 +84,8 @@ export default {
           type: 'average',
           name: '平均值',
           lineStyle: {
-            color: '#000'
+            color: '#000',
+            width: 2 * zoom
           }
         },
         {
@@ -97,7 +98,8 @@ export default {
           type: 'max',
           name: '最高点',
           lineStyle: {
-            color: 'red'
+            color: 'red',
+            width: 2 * zoom
           }
         },
         {
@@ -110,7 +112,8 @@ export default {
           type: 'min',
           name: '最小值',
           lineStyle: {
-            color: 'green'
+            color: 'green',
+            width: 2 * zoom
           }
         },
         {
@@ -122,7 +125,8 @@ export default {
           },
           name: '半年均线',
           lineStyle: {
-            color: '#f50'
+            color: '#f50',
+            width: 2 * zoom
           },
           yAxis: result.costLineHalf
         },
@@ -135,7 +139,8 @@ export default {
           },
           name: '当前',
           lineStyle: {
-            color: '#1890ff'
+            color: '#1890ff',
+            width: 2 * zoom
           },
           yAxis: this.currentFund.valuation
         }
@@ -150,7 +155,9 @@ export default {
           },
           name: '成本',
           lineStyle: {
-            color: '#faad14'
+            color: '#faad14',
+            width: 2 * zoom
+
           },
           yAxis: this.queryData.cost
         })
