@@ -1,6 +1,8 @@
 .img-card{
   position: relative;
-  margin-bottom: 30px;
+  display: inline-block;
+  width: 340px;
+  margin: 30px 0 0 20px;
   border-radius: 20px;
   box-shadow: 0 5px 30px $shadow-color;
   overflow: hidden;
@@ -12,7 +14,7 @@
     width: 100%;
   }
   .container{
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgb(183, 183, 183);
   }
   .content{
     padding: 20px 0 0 0;
