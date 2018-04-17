@@ -4,6 +4,9 @@
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
+      <mt-button slot="right" v-if="type==='edit'">
+        <i class="fas fa-trash-alt" @click="deleteHandler"></i>
+      </mt-button>
     </mt-header>
     <div class="main-body">
     <mt-field label="资产" placeholder="请输入资产" v-model="form.asset"></mt-field>
@@ -16,7 +19,7 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import { Toast } from 'mint-ui'
+import { Toast, MessageBox } from 'mint-ui'
 export default {
   name: 'MyNetValueAdd',
   data () {
@@ -40,6 +43,26 @@ export default {
     },
     backHandler () {
       this.$router.history.go(-1)
+    },
+    deleteHandler () {
+      MessageBox.confirm('确定执行此操作?').then(action => {
+        if (action === 'confirm') {
+          Http.get('fund/deleteUserNetValue', {net_value_date:this.form.net_value_date}).then((data) => {
+            if (data.success) {
+              Toast({
+                message: '操作成功',
+                iconClass: 'icon icon-success'
+              })
+              this.$router.history.go(-1)
+            } else {
+              Toast({
+                message: '操作失败',
+                iconClass: 'icon icon-success'
+              })
+            }
+          })
+        }
+      })
     },
     okHandler () {
       Http.post(this.type === 'add' ? 'fund/addUserNetValue' : 'fund/updateUserNetValue', this.form).then((data) => {
