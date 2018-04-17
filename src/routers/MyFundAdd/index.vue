@@ -12,7 +12,16 @@
     <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
     <mt-field label="购买日期" placeholder="请输入购买日期" v-model="form.buy_date"></mt-field>
     <mt-field label="目标收益率" placeholder="请输入目标收益率" v-model="form.target_rate"></mt-field>
-    <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
+    <template v-if="type==='edit'">
+        <mt-cell title="加仓">
+          <mt-switch v-model="ifAdd"></mt-switch>
+        </mt-cell>
+      <template v-if="ifAdd">
+        <mt-field label="新成本" placeholder="" v-model="addForm.newNetValue"></mt-field>
+        <mt-field label="新金额" placeholder="" v-model="addForm.newAsset"></mt-field>
+      </template>
+      </template>
+      <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
   </div>
 </template>
@@ -26,7 +35,9 @@ export default {
   data () {
     return {
       type: 'add',
-      form: {}
+      ifAdd: false,
+      form: {},
+      addForm: {}
     }
   },
   computed: {},
@@ -53,6 +64,17 @@ export default {
       this.$router.history.go(-1)
     },
     okHandler () {
+      if (this.ifAdd) {
+        const shares = parseFloat(this.form.shares || 0)
+        const cost = parseFloat(this.form.cost || 0)
+        const newAsset = parseFloat(this.addForm.newAsset || 0)
+        const newNetValue = parseFloat(this.addForm.newNetValue || 0)
+        const asset = shares * cost
+        const newShares = numberUtil.keepTwoDecimals(shares + (newAsset / newNetValue))
+        const newCost = numberUtil.keepFourDecimals((asset + newAsset) / (newShares))
+        this.form.shares = newShares
+        this.form.cost = newCost
+      }
       this.form.target_net_value = Math.round(10000 * ((this.form.target_rate / 100) + 1) * this.form.cost) / 10000
       Http.post(this.type === 'add' ? 'fund/addUserFund' : 'fund/updateUserFund', this.form).then((data) => {
         if (data.success) {
