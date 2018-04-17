@@ -1,0 +1,20 @@
+.mint-msgbox {
+  .mint-msgbox-header {
+    .mint-msgbox-title {
+      font-size: 40px;
+    }
+  }
+  .mint-msgbox-content {
+    padding: 20px 0;
+    .mint-msgbox-message {
+      font-size: 34px;
+    }
+  }
+  .mint-msgbox-btns {
+    height: auto;
+    .mint-msgbox-btn {
+      padding: 20px 0;
+      font-size: 34px;
+    }
+  }
+}

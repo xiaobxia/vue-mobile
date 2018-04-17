@@ -243,7 +243,6 @@ export default {
         query: {
           code: this.currentFund.code,
           target_rate: 7
-
         }})
     }
   }

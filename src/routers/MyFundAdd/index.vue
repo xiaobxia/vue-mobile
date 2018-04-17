@@ -4,6 +4,9 @@
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
+      <mt-button slot="right" v-if="type==='edit'">
+        <i class="fas fa-trash-alt" @click="deleteHandler"></i>
+      </mt-button>
     </mt-header>
     <div class="main-body">
     <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>
@@ -28,7 +31,7 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import { Toast } from 'mint-ui'
+import { Toast, MessageBox } from 'mint-ui'
 import numberUtil from '@/util/numberUtil.js'
 export default {
   name: 'MyFundAdd',
@@ -62,6 +65,26 @@ export default {
     },
     backHandler () {
       this.$router.history.go(-1)
+    },
+    deleteHandler () {
+      MessageBox.confirm('确定执行此操作?').then(action => {
+        if (action === 'confirm') {
+          Http.get('fund/deleteUserFund', {code: this.form.code}).then((data) => {
+            if (data.success) {
+              Toast({
+                message: '操作成功',
+                iconClass: 'icon icon-success'
+              })
+              this.$router.history.go(-1)
+            } else {
+              Toast({
+                message: '操作失败',
+                iconClass: 'icon icon-success'
+              })
+            }
+          })
+        }
+      })
     },
     okHandler () {
       if (this.ifAdd) {
