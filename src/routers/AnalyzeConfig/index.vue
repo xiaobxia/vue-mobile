@@ -14,7 +14,6 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import numberUtil from '@/util/numberUtil.js'
 import { Toast } from 'mint-ui'
 export default {
   name: 'AnalyzeConfig',
