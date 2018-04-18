@@ -29,12 +29,12 @@
           <div class="bottom">买入策略</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/utilAdd')">
+      <div class="img-card" @click="toPath('/page/analyzeConfig')">
         <div class="container">
           <div class="content">
-            <i class="fas fa-calculator"></i>
+            <i class="fas fa-wrench"></i>
           </div>
-          <div class="bottom">加仓工具</div>
+          <div class="bottom">分析配置</div>
         </div>
       </div>
     </div>

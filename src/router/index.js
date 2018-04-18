@@ -55,9 +55,9 @@ export default new Router({
       component: lazyLoading('MyNetValueRecord')
     },
     {
-      name: 'UtilAdd',
-      path: '/page/utilAdd',
-      component: lazyLoading('UtilAdd')
+      name: 'AnalyzeConfig',
+      path: '/page/analyzeConfig',
+      component: lazyLoading('AnalyzeConfig')
     }
   ]
 })
