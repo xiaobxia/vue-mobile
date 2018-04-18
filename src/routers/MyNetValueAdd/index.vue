@@ -47,7 +47,7 @@ export default {
     deleteHandler () {
       MessageBox.confirm('确定执行此操作?').then(action => {
         if (action === 'confirm') {
-          Http.get('fund/deleteUserNetValue', {net_value_date:this.form.net_value_date}).then((data) => {
+          Http.get('fund/deleteUserNetValue', {net_value_date: this.form.net_value_date}).then((data) => {
             if (data.success) {
               Toast({
                 message: '操作成功',

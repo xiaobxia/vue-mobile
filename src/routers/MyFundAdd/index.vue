@@ -12,7 +12,8 @@
     <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>
     <mt-field label="策略组" placeholder="请输入策略组" v-model="form.strategy"></mt-field>
     <mt-field label="持仓成本" placeholder="请输入持仓成本" v-model="form.cost"></mt-field>
-    <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
+    <mt-field label="金额" placeholder="请输入金额" v-if="type === 'add'" v-model="form.asset"></mt-field>
+    <mt-field label="份额" placeholder="请输入份额" v-if="type === 'edit'" v-model="form.shares"></mt-field>
     <mt-field label="购买日期" placeholder="请输入购买日期" v-model="form.buy_date"></mt-field>
     <mt-field label="目标收益率" placeholder="请输入目标收益率" v-model="form.target_rate"></mt-field>
     <template v-if="type==='edit'">
@@ -97,6 +98,9 @@ export default {
         const newCost = numberUtil.keepFourDecimals((asset + newAsset) / (newShares))
         this.form.shares = newShares
         this.form.cost = newCost
+      }
+      if(this.type === 'add') {
+        this.form.shares = numberUtil.keepTwoDecimals(this.form.asset / this.form.cost)
       }
       this.form.target_net_value = Math.round(10000 * ((this.form.target_rate / 100) + 1) * this.form.cost) / 10000
       Http.post(this.type === 'add' ? 'fund/addUserFund' : 'fund/updateUserFund', this.form).then((data) => {
