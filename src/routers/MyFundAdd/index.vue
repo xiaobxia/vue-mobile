@@ -99,7 +99,7 @@ export default {
         this.form.shares = newShares
         this.form.cost = newCost
       }
-      if(this.type === 'add') {
+      if (this.type === 'add') {
         this.form.shares = numberUtil.keepTwoDecimals(this.form.asset / this.form.cost)
       }
       this.form.target_net_value = Math.round(10000 * ((this.form.target_rate / 100) + 1) * this.form.cost) / 10000
