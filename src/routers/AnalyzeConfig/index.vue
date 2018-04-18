@@ -6,7 +6,7 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <mt-field v-for="(item) in list" :label="keyMap[item.key]" placeholder="" v-model="item.value"></mt-field>
+      <mt-field v-for="(item) in list" :label="keyMap[item.key]" :key="item.key" placeholder="" v-model="item.value"></mt-field>
       <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
   </div>
