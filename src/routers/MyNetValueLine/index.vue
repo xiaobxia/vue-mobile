@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-net-value-line">
     <mt-header title="净值曲线" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
@@ -10,6 +10,11 @@
     </mt-header>
     <div class="main-body">
     <div class="content-body">
+      <div class="info">
+        <span>近一星期：{{recentInfo.week}}%</span>
+        <span>近一月：{{recentInfo.month}}%</span>
+        <span>近一年：{{recentInfo.year}}%</span>
+      </div>
       <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
     </div>
     </div>
@@ -50,7 +55,8 @@ export default {
         lineStyle: {
           width: 3 * zoom
         }
-      }
+      },
+      recentInfo: {}
     }
   },
 
@@ -150,6 +156,11 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.hushen = data.data.list
+        }
+      })
+      Http.get('fund/getUserNetValuesRecent').then((data) => {
+        if (data.success) {
+          this.recentInfo = data.data
         }
       })
     },
