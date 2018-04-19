@@ -15,6 +15,20 @@
         <span>近一月：{{recentInfo.month}}%</span>
         <span>近一年：{{recentInfo.year}}%</span>
       </div>
+      <div class="info-big">
+        <span>上证一星期：{{recentAll.shangzheng}}%</span>
+        <span>创业一星期：{{recentAll.chuangye}}%</span>
+        <span>沪深300一星期：{{recentAll.hushen}}%</span>
+        <span>上证50一星期：{{recentAll.wulin}}%</span>
+        <span>中证500一星期：{{recentAll.wubai}}%</span>
+      </div>
+      <div class="info-big">
+        <span>上证一月：{{monthAll.shangzheng}}%</span>
+        <span>创业一月：{{monthAll.chuangye}}%</span>
+        <span>沪深300一月：{{monthAll.hushen}}%</span>
+        <span>上证50一月：{{monthAll.wulin}}%</span>
+        <span>中证500一月：{{monthAll.wubai}}%</span>
+      </div>
       <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
     </div>
     </div>
@@ -56,7 +70,9 @@ export default {
           width: 3 * zoom
         }
       },
-      recentInfo: {}
+      recentInfo: {},
+      recentAll: {},
+      monthAll: {}
     }
   },
 
@@ -128,6 +144,8 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.shangzheng = data.data.list
+          this.recentAll.shangzheng = this.countWeek(data.data.list)
+          this.monthAll.shangzheng = this.countMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -135,6 +153,8 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.wulin = data.data.list
+          this.recentAll.wulin = this.countWeek(data.data.list)
+          this.monthAll.wulin = this.countMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -142,6 +162,8 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.wubai = data.data.list
+          this.recentAll.wubai = this.countWeek(data.data.list)
+          this.monthAll.wubai = this.countMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -149,6 +171,8 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.chuangye = data.data.list
+          this.recentAll.chuangye = this.countWeek(data.data.list)
+          this.monthAll.chuangye = this.countMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -156,6 +180,8 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.hushen = data.data.list
+          this.recentAll.hushen = this.countWeek(data.data.list)
+          this.monthAll.hushen = this.countMonth(data.data.list)
         }
       })
       Http.get('fund/getUserNetValuesRecent').then((data) => {
@@ -166,6 +192,16 @@ export default {
     },
     toPath (path) {
       this.$router.push(path)
+    },
+    countWeek (list) {
+      const nowNetValue = list[0].kline.close
+      const weekNetValue = list[5].kline.close
+      return numberUtil.countDifferenceRate(nowNetValue, weekNetValue)
+    },
+    countMonth (list) {
+      const nowNetValue = list[0].kline.close
+      const monthNetValue = list[21].kline.close
+      return numberUtil.countDifferenceRate(nowNetValue, monthNetValue)
     },
     backHandler () {
       this.$router.history.go(-1)
