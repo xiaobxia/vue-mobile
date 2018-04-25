@@ -12,6 +12,7 @@
     <div class="content-body">
       <div class="info">
         <span>近一星期：{{recentInfo.week}}%</span>
+        <span>近半月：{{recentInfo.halfMonth}}%</span>
         <span>近一月：{{recentInfo.month}}%</span>
         <span>近一年：{{recentInfo.year}}%</span>
       </div>
