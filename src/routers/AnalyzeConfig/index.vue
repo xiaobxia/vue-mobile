@@ -6,7 +6,13 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <mt-field v-for="(item) in list" :label="keyMap[item.key]" :key="item.key" placeholder="" v-model="item.value"></mt-field>
+      <mt-radio
+        align="right"
+        v-model="defaultModelValue"
+        :options="options">
+      </mt-radio>
+      <mt-field v-for="(item) in list" :label="keyMap[item.key]" :key="item.key" placeholder=""
+                v-model="item.value"></mt-field>
       <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
   </div>
@@ -14,7 +20,7 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import { Toast } from 'mint-ui'
+import {Toast} from 'mint-ui'
 export default {
   name: 'AnalyzeConfig',
   data () {
@@ -25,6 +31,19 @@ export default {
         halfMonthSlumpValue: '半月跌',
         monthBoomValue: '月涨',
         halfMonthBoomValue: '半月涨'
+      },
+      defaultModelValue: '',
+      options: ['保守', '平衡', '激进']
+    }
+  },
+  watch: {
+    defaultModelValue (val) {
+      if (val === '保守') {
+        this.list = [{'key': 'monthSlumpValue', 'value': -9}, {'key': 'halfMonthSlumpValue', 'value': -7}, {'key': 'monthBoomValue', 'value': 5}, {'key': 'halfMonthBoomValue', 'value': 4}]
+      } else if (val === '平衡') {
+        this.list = [{'key': 'monthSlumpValue', 'value': -7}, {'key': 'halfMonthSlumpValue', 'value': -5}, {'key': 'monthBoomValue', 'value': 5}, {'key': 'halfMonthBoomValue', 'value': 4}]
+      } else if (val === '激进') {
+        this.list = [{'key': 'monthSlumpValue', 'value': -7}, {'key': 'halfMonthSlumpValue', 'value': -5}, {'key': 'monthBoomValue', 'value': 9}, {'key': 'halfMonthBoomValue', 'value': 7}]
       }
     }
   },
@@ -38,6 +57,9 @@ export default {
         if (data.success) {
           this.list = data.data.list
         }
+      })
+      Http.get('strategy/getFundsMaxMinDistribution').then((data) => {
+        console.log(data)
       })
     },
     backHandler () {
