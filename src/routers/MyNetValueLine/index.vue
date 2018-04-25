@@ -24,6 +24,13 @@
         <span>中证500一星期：{{recentAll.wubai}}%</span>
       </div>
       <div class="info-big">
+        <span>上证半月：{{halfMonthAll.shangzheng}}%</span>
+        <span>创业半月：{{halfMonthAll.chuangye}}%</span>
+        <span>沪深300半月：{{halfMonthAll.hushen}}%</span>
+        <span>上证50半月：{{halfMonthAll.wulin}}%</span>
+        <span>中证500半月：{{halfMonthAll.wubai}}%</span>
+      </div>
+      <div class="info-big">
         <span>上证一月：{{monthAll.shangzheng}}%</span>
         <span>创业一月：{{monthAll.chuangye}}%</span>
         <span>沪深300一月：{{monthAll.hushen}}%</span>
@@ -73,7 +80,8 @@ export default {
       },
       recentInfo: {},
       recentAll: {},
-      monthAll: {}
+      monthAll: {},
+      halfMonthAll: {}
     }
   },
 
@@ -147,6 +155,7 @@ export default {
           this.shangzheng = data.data.list
           this.recentAll.shangzheng = this.countWeek(data.data.list)
           this.monthAll.shangzheng = this.countMonth(data.data.list)
+          this.halfMonthAll.shangzheng = this.countHalfMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -156,6 +165,7 @@ export default {
           this.wulin = data.data.list
           this.recentAll.wulin = this.countWeek(data.data.list)
           this.monthAll.wulin = this.countMonth(data.data.list)
+          this.halfMonthAll.wulin = this.countHalfMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -165,6 +175,7 @@ export default {
           this.wubai = data.data.list
           this.recentAll.wubai = this.countWeek(data.data.list)
           this.monthAll.wubai = this.countMonth(data.data.list)
+          this.halfMonthAll.wubai = this.countHalfMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -174,6 +185,7 @@ export default {
           this.chuangye = data.data.list
           this.recentAll.chuangye = this.countWeek(data.data.list)
           this.monthAll.chuangye = this.countMonth(data.data.list)
+          this.halfMonthAll.chuangye = this.countHalfMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -183,6 +195,7 @@ export default {
           this.hushen = data.data.list
           this.recentAll.hushen = this.countWeek(data.data.list)
           this.monthAll.hushen = this.countMonth(data.data.list)
+          this.halfMonthAll.hushen = this.countHalfMonth(data.data.list)
         }
       })
       Http.get('fund/getUserNetValuesRecent').then((data) => {
@@ -198,6 +211,11 @@ export default {
       const nowNetValue = list[0].kline.close
       const weekNetValue = list[5].kline.close
       return numberUtil.countDifferenceRate(nowNetValue, weekNetValue)
+    },
+    countHalfMonth (list) {
+      const nowNetValue = list[0].kline.close
+      const halfMonthNetValue = list[10].kline.close
+      return numberUtil.countDifferenceRate(nowNetValue, halfMonthNetValue)
     },
     countMonth (list) {
       const nowNetValue = list[0].kline.close
