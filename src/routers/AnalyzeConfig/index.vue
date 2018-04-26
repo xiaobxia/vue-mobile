@@ -39,11 +39,11 @@ export default {
   watch: {
     defaultModelValue (val) {
       if (val === '保守') {
-        this.list = [{'key': 'monthSlumpValue', 'value': -9}, {'key': 'halfMonthSlumpValue', 'value': -7}, {'key': 'monthBoomValue', 'value': 5}, {'key': 'halfMonthBoomValue', 'value': 4}]
+        this.list = [{'key': 'monthSlumpValue', 'value': -8}, {'key': 'halfMonthSlumpValue', 'value': -7}, {'key': 'monthBoomValue', 'value': 5}, {'key': 'halfMonthBoomValue', 'value': 4}]
       } else if (val === '平衡') {
-        this.list = [{'key': 'monthSlumpValue', 'value': -7}, {'key': 'halfMonthSlumpValue', 'value': -5}, {'key': 'monthBoomValue', 'value': 5}, {'key': 'halfMonthBoomValue', 'value': 4}]
+        this.list = [{'key': 'monthSlumpValue', 'value': -7}, {'key': 'halfMonthSlumpValue', 'value': -6}, {'key': 'monthBoomValue', 'value': 5}, {'key': 'halfMonthBoomValue', 'value': 4}]
       } else if (val === '激进') {
-        this.list = [{'key': 'monthSlumpValue', 'value': -7}, {'key': 'halfMonthSlumpValue', 'value': -5}, {'key': 'monthBoomValue', 'value': 9}, {'key': 'halfMonthBoomValue', 'value': 7}]
+        this.list = [{'key': 'monthSlumpValue', 'value': -7}, {'key': 'halfMonthSlumpValue', 'value': -6}, {'key': 'monthBoomValue', 'value': 7}, {'key': 'halfMonthBoomValue', 'value': 5}]
       }
     }
   },
