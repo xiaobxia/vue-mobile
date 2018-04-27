@@ -66,7 +66,10 @@ export default{
     },
     ifSell (item) {
       if (item.result) {
-        return item.result.isHalfMonthBoom || item.result.isMonthBoom
+        const isBoom = item.result.isHalfMonthBoom || item.result.isMonthBoom
+        const minTime = item.has_days > 7
+        const ifGain = this.countRate(item.valuationSum, item.costSum) > 0.5
+        return isBoom && minTime && ifGain
       } else {
         return false
       }
