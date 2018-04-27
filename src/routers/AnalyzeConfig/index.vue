@@ -58,9 +58,6 @@ export default {
           this.list = data.data.list
         }
       })
-      Http.get('strategy/getFundsMaxMinDistribution').then((data) => {
-        console.log(data)
-      })
     },
     backHandler () {
       this.$router.history.go(-1)
