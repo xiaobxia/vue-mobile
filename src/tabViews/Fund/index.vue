@@ -37,6 +37,14 @@
           <div class="bottom">分析配置</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/market')">
+        <div class="container">
+          <div class="content">
+            <i class="fab fa-tripadvisor"></i>
+          </div>
+          <div class="bottom">市场行情</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

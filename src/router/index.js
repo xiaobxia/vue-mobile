@@ -58,6 +58,11 @@ export default new Router({
       name: 'AnalyzeConfig',
       path: '/page/analyzeConfig',
       component: lazyLoading('AnalyzeConfig')
+    },
+    {
+      name: 'Market',
+      path: '/page/market',
+      component: lazyLoading('Market')
     }
   ]
 })
