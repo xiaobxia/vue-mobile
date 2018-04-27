@@ -2,7 +2,9 @@
   position: relative;
   padding: 20px 30px;
   border-bottom: 1px solid $border-color;
+  min-height: 0;
   .mint-cell-wrapper{
+    min-height: 0;
     background: none;
   }
   .left-wrap{
