@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <h3 class="title">{{title}} {{totalCount}}</h3>
-    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)" :class="(item.result) && (item.result.isHalfMonthBoom || item.result.isMonthBoom)?'sell':''">
+    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)" :class="ifSell(item)?'sell':''">
       <div slot="title">
         <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span></h3>
         <p class="explain">
@@ -62,6 +62,13 @@ export default{
         return name.substr(0, 11) + '...'
       } else {
         return name
+      }
+    },
+    ifSell (item) {
+      if (item.result) {
+        return item.result.isHalfMonthBoom || item.result.isMonthBoom
+      } else {
+        return false
       }
     }
   }
