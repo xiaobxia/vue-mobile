@@ -8,7 +8,8 @@
     <div class="main-body">
       <mt-cell-swipe>
         <div slot="title">
-          <h3>上升</h3>
+          <h3>排序</h3>
+          <p class="explain">上升</p>
         </div>
         <div class="right-wrap">
           <mt-switch v-model="ifUp" @change="stateChangeHandler()"></mt-switch>
@@ -36,7 +37,7 @@ export default{
     return {
       queryData: {
         current: 1,
-        pageSize: 10,
+        pageSize: 20,
         sort: 'up'
       },
       list: [],
@@ -52,7 +53,7 @@ export default{
   methods: {
     queryRecord () {
       Http.get('fund/getMarket', this.queryData).then((data) => {
-        if (data.data.list.length < 10) {
+        if (data.data.list.length < 20) {
           this.loading = true
         } else {
           this.loading = false
@@ -77,7 +78,7 @@ export default{
     initModel () {
       this.queryData = {
         current: 1,
-        pageSize: 10,
+        pageSize: 20,
         sort: 'up'
       }
       this.list = []
