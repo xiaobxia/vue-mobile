@@ -9,7 +9,7 @@
       <mt-cell-swipe>
         <div slot="title">
           <h3>排序</h3>
-          <p class="explain">上升</p>
+          <p class="explain">{{ifUp?'涨幅':'跌幅'}}</p>
         </div>
         <div class="right-wrap">
           <mt-switch v-model="ifUp" @change="stateChangeHandler()"></mt-switch>
