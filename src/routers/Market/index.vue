@@ -31,18 +31,20 @@
 </template>
 <script>
 import Http from '@/util/httpUtil.js'
+import storageUtil from '@/util/storageUtil.js'
 export default{
   name: 'Market',
   data () {
+    const sort = storageUtil.getAppConfig('marketSort') || 'up'
     return {
       queryData: {
         current: 1,
         pageSize: 20,
-        sort: 'up'
+        sort: sort
       },
       list: [],
       loading: true,
-      ifUp: true
+      ifUp: sort === 'up'
     }
   },
   computed: {
@@ -86,7 +88,9 @@ export default{
     },
     stateChangeHandler () {
       this.initModel()
-      this.queryData.sort = this.ifUp ? 'up' : 'down'
+      const sort = this.ifUp ? 'up' : 'down'
+      this.queryData.sort = sort
+      storageUtil.setAppConfig('marketSort', sort)
       this.queryRecord()
     }
   }
