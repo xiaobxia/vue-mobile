@@ -4,9 +4,9 @@
   width: 340px;
   margin: 30px 0 0 20px;
   border-radius: 20px;
-  box-shadow: 0 5px 30px $shadow-color;
+  border: 3px solid $border-color;
   overflow: hidden;
-  color: #fff;
+  color: $lighter-text-color;
   img{
     z-index: -1;
     position: absolute;
@@ -14,7 +14,7 @@
     width: 100%;
   }
   .container{
-    background-color: rgb(74, 74, 74);
+    background-color: #fff;
   }
   .content{
     padding: 20px 0 0 0;

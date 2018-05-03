@@ -1,14 +1,25 @@
 @charset "UTF-8";
 
-//主题色
+//颜色
+$green-color: rgb(57, 181, 74);
+$red-color: rgb(251, 121, 110);
 $theme-color: rgb(60, 60, 60);
+
 //二级主题色
-$theme-color-second: rgb(59, 126, 238);
-$active-color: rgb(59, 126, 238);
+$theme-color-second: rgb(57, 181, 74);
+$active-color: rgb(57, 181, 74);
 $grey-color: #999;
-$border-color: #ddd;
-$main-text-color: #999;
+
 $theme-red-color: red;
+
+$body-color: rgb(249, 249, 249);
+$border-color: rgb(225, 225, 225);
 $shadow-color: #ddd;
-$green-color: rgb(35, 210, 96);
-$red-color: rgb(255, 55, 98);
+
+//字体
+$dark-text-color: rgb(30, 30, 30);
+$main-text-color: rgb(55, 55, 55);
+$light-text-color: rgb(116, 116, 116);
+$lighter-text-color: rgb(160, 160, 160);
+
+
