@@ -9,15 +9,15 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-    <div class="info-wrap">
-      <span class="item">持仓金额：{{info.totalSum}}</span>
-      <span class="item">持仓成本：{{info.costTotalSum}}</span>
-      <span class="item">估算金额：{{info.valuationTotalSum}}</span>
-      <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
-    </div>
-    <my-fund-card :listData="myFundList1" :title="'超跌'"/>
-    <my-fund-card :listData="myFundList2" :title="'追涨'"/>
-    <my-fund-card :listData="myFundList3" :title="'趋势'"/>
+      <div class="info-wrap">
+        <span class="item">持仓金额：{{info.totalSum}}</span>
+        <span class="item">持仓成本：{{info.costTotalSum}}</span>
+        <span class="item">估算金额：{{info.valuationTotalSum}}</span>
+        <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
+      </div>
+      <my-fund-card :listData="myFundList1" :title="'超跌'"/>
+      <my-fund-card :listData="myFundList2" :title="'追涨'"/>
+      <my-fund-card :listData="myFundList3" :title="'趋势'"/>
     </div>
   </div>
 </template>
