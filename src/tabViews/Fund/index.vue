@@ -15,7 +15,7 @@
         <!--<img src="../../assets/Desert-miniplanet.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fas fa-shopping-bag"></i>
+            <i class="fab fa-cc-apple-pay"></i>
           </div>
           <div class="bottom">基金持仓</div>
         </div>
@@ -32,7 +32,7 @@
       <div class="img-card" @click="toPath('/page/analyzeConfig')">
         <div class="container">
           <div class="content">
-            <i class="fas fa-wrench"></i>
+            <i class="fas fa-gavel"></i>
           </div>
           <div class="bottom">分析配置</div>
         </div>

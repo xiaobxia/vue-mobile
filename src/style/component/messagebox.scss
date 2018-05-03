@@ -1,20 +1,27 @@
 .mint-msgbox {
+  border-radius: 20px;
+  box-shadow: 0 0 20px $shadow-color;
+  border: 1px solid $border-color;
   .mint-msgbox-header {
     .mint-msgbox-title {
       font-size: 40px;
+      font-weight: 400;
+      color: $main-text-color;
     }
   }
   .mint-msgbox-content {
     padding: 20px 0;
     .mint-msgbox-message {
-      font-size: 34px;
+      font-size: 36px;
+      color: $light-text-color;
     }
   }
   .mint-msgbox-btns {
     height: auto;
     .mint-msgbox-btn {
       padding: 20px 0;
-      font-size: 34px;
+      font-size: 38px;
+      font-weight: 400;
     }
   }
 }

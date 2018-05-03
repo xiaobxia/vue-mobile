@@ -1,6 +1,29 @@
 .mint-toast {
-  padding: 60px;
+  &.success{
+    .mint-toast-text, .icon{
+      color: $green-color;
+    }
+  }
+  &.error{
+    .mint-toast-text, .icon{
+      color: $red-color;
+    }
+  }
+  width: 400px;
+  height: 400px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px $shadow-color;
+  border: 1px solid $border-color;
+  background-color: #fff;
+  text-align: center;
   .mint-toast-text {
-    font-size: 36px;
+    font-size: 40px;
+  }
+  .icon{
+    display: inline-block;
+    margin: 60px 0;
+    height: 145px;
+    width: 145px;
+    font-size: 145px;
   }
 }

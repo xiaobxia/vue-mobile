@@ -21,19 +21,19 @@
         <schedule v-if="tabSelect === 'schedule'"/>
         <mt-tabbar v-model="tabSelect" :fixed="true">
           <mt-tab-item id="fund">
-            <i class="fab fa-bitcoin" slot="icon"></i>
+            <i class="fas fa-donate" slot="icon"></i>
             <p>基金</p>
           </mt-tab-item>
           <mt-tab-item id="schedule">
-            <i class="fas fa-calendar-alt" slot="icon"></i>
+            <i class="far fa-calendar-alt" slot="icon"></i>
             <p>任务</p>
           </mt-tab-item>
           <mt-tab-item id="square">
-            <i class="fab fa-safari" slot="icon"></i>
+            <i class="far fa-compass" slot="icon"></i>
             <p>广场</p>
           </mt-tab-item>
           <mt-tab-item id="mine">
-            <i class="fas fa-user" slot="icon"></i>
+            <i class="far fa-user" slot="icon"></i>
             <p>我的</p>
           </mt-tab-item>
         </mt-tabbar>

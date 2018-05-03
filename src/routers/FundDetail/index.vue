@@ -5,7 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right">
-        <i class="fas fa-edit"  v-if="type==='edit'" @click="toEditHandler"></i>
+        <i class="far fa-edit"  v-if="type==='edit'" @click="toEditHandler"></i>
         <i class="fas fa-plus" v-else @click="toAddHandler"></i>
       </mt-button>
     </mt-header>

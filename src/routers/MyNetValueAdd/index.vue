@@ -5,7 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right" v-if="type==='edit'">
-        <i class="fas fa-trash-alt" @click="deleteHandler"></i>
+        <i class="far fa-trash-alt" @click="deleteHandler"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
@@ -51,13 +51,15 @@ export default {
             if (data.success) {
               Toast({
                 message: '操作成功',
-                iconClass: 'icon icon-success'
+                iconClass: 'icon far fa-check-circle',
+                className: 'success'
               })
               this.$router.history.go(-1)
             } else {
               Toast({
                 message: '操作失败',
-                iconClass: 'icon icon-success'
+                iconClass: 'icon far fa-frown',
+                className: 'error'
               })
             }
           })
@@ -69,13 +71,15 @@ export default {
         if (data.success) {
           Toast({
             message: '操作成功',
-            iconClass: 'icon icon-success'
+            iconClass: 'icon far fa-check-circle',
+            className: 'success'
           })
           this.$router.history.go(-1)
         } else {
           Toast({
             message: '操作失败',
-            iconClass: 'icon icon-success'
+            iconClass: 'icon far fa-frown',
+            className: 'error'
           })
         }
       })
