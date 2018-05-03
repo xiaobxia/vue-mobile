@@ -30,18 +30,25 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import StrategyList from '@/components/StrategyList.vue'
+import storageUtil from '@/util/storageUtil.js'
 export default {
   name: 'Strategy',
   data () {
+    const selected = storageUtil.getAppConfig('strategySelected') || '1'
     return {
       strategyListSlump: [],
       strategyListBoom: [],
       myStrategyList: [],
-      selected: '1'
+      selected: selected
     }
   },
   components: {StrategyList},
   computed: {},
+  watch: {
+    selected (val) {
+      storageUtil.setAppConfig('strategySelected', val)
+    }
+  },
   mounted () {
     this.initPage()
   },
