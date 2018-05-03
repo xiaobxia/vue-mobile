@@ -12,7 +12,9 @@
     <mt-field label="资产" placeholder="请输入资产" v-model="form.asset"></mt-field>
     <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
     <mt-field label="净值日期" placeholder="请输入净值日期" v-model="form.net_value_date"></mt-field>
-    <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
+    </div>
+    <div class="bottom-bar">
+      <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
   </div>
 </template>

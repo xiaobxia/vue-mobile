@@ -103,12 +103,14 @@ export default {
           }
           Toast({
             message: '登录成功',
-            iconClass: 'icon icon-success'
+            iconClass: 'icon far fa-check-circle',
+            className: 'success'
           })
         } else {
           Toast({
             message: data.message,
-            iconClass: 'icon icon-success'
+            iconClass: 'icon far fa-frown',
+            className: 'error'
           })
         }
       })

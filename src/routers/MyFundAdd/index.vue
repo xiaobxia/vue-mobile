@@ -25,6 +25,8 @@
         <mt-field label="新金额" placeholder="" v-model="addForm.newAsset"></mt-field>
       </template>
       </template>
+    </div>
+    <div class="bottom-bar">
       <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
   </div>

@@ -13,6 +13,8 @@
       </mt-radio>
       <mt-field v-for="(item) in list" :label="keyMap[item.key]" :key="item.key" placeholder=""
                 v-model="item.value"></mt-field>
+    </div>
+    <div class="bottom-bar">
       <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
   </div>
