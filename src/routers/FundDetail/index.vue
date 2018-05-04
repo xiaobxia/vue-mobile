@@ -20,7 +20,7 @@
       </div>
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
-                 :height="chartHeight" :legend="chartLegend" :data="chartDataNetValue"
+                 :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValue"
                  :settings="chartSettings"></ve-line>
       </div>
       <div class="content-body">
@@ -50,6 +50,16 @@ export default {
           fontSize: 20 * zoom
         },
         scale: [true, true]
+      },
+      chartLegendNetValue: {
+        itemWidth: 50 * zoom,
+        itemHeight: 30 * zoom,
+        selected: {
+          '净值': true,
+          '月均': false,
+          '半月均': false,
+          '星期均': false
+        }
       },
       chartLegend: {
         itemWidth: 50 * zoom,

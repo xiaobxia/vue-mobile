@@ -65,7 +65,15 @@ export default {
       chartLegend: {
         itemGap: 20 * zoom,
         itemWidth: 50 * zoom,
-        itemHeight: 30 * zoom
+        itemHeight: 30 * zoom,
+        selected: {
+          '我的组合': true,
+          '上证': false,
+          '创业': false,
+          '沪深300': true,
+          '上证50': false
+          // '中证500': false
+        }
       },
       myList: [],
       shangzheng: [],
@@ -117,7 +125,7 @@ export default {
       const baseChuangye = listChuangye[0].kline.close
       const baseHushen = listHushen[0].kline.close
       const baseWulin = listWulin[0].kline.close
-      const baseWubai = listWubai[0].kline.close
+      // const baseWubai = listWubai[0].kline.close
       let row = []
       listMonth.forEach(function (item, index) {
         let data = {}
@@ -127,12 +135,12 @@ export default {
         data['创业'] = numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100)
         data['沪深300'] = numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100)
         data['上证50'] = numberUtil.keepTwoDecimals(((listWulin[index].kline.close - baseWulin) / baseWulin) * 100)
-        data['中证500'] = numberUtil.keepTwoDecimals(((listWubai[index].kline.close - baseWubai) / baseWubai) * 100)
+        // data['中证500'] = numberUtil.keepTwoDecimals(((listWubai[index].kline.close - baseWubai) / baseWubai) * 100)
         row.push(data)
       })
       console.log(row)
       return {
-        columns: ['日期', '我的组合', '上证', '创业', '沪深300', '上证50', '中证500'],
+        columns: ['日期', '我的组合', '上证', '创业', '沪深300', '上证50'],
         rows: row
       }
     }
