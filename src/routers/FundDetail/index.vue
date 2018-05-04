@@ -5,7 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right">
-        <i class="far fa-edit"  v-if="type==='edit'" @click="toEditHandler"></i>
+        <i class="far fa-edit" v-if="type==='edit'" @click="toEditHandler"></i>
         <i class="fas fa-plus" v-else @click="toAddHandler"></i>
       </mt-button>
     </mt-header>
@@ -24,7 +24,7 @@
                  :settings="chartSettings"></ve-line>
       </div>
       <div class="content-body">
-        <ve-line  :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
+        <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
                  :data="chartDataRecent" :settings="chartSettings"></ve-line>
       </div>
     </div>
@@ -171,16 +171,18 @@ export default {
         return {}
       }
       const netValue = this.currentFundAnalyzeRecent.recentNetValue
+      netValue.reverse()
       let row = []
+      const average = this.getAverageList(netValue, 20)
       netValue.forEach(function (item, index) {
         let data = {}
         data['日期'] = item['net_value_date']
         data['净值'] = item['net_value']
+        data['平均'] = average[index]
         row.push(data)
       })
-      row.reverse()
       return {
-        columns: ['日期', '净值'],
+        columns: ['日期', '净值', '平均'],
         rows: row
       }
     },
@@ -239,11 +241,30 @@ export default {
       this.$router.push({path: '/page/myFundAdd', query: this.queryData})
     },
     toAddHandler () {
-      this.$router.push({path: '/page/myFundAdd',
+      this.$router.push({
+        path: '/page/myFundAdd',
         query: {
           code: this.currentFund.code,
           target_rate: 7
-        }})
+        }
+      })
+    },
+    getAverageList (netValue, day) {
+      let list = []
+      netValue.forEach((item, index) => {
+        const average = this.getAverage(netValue, day, index)
+        list.push(average)
+      })
+      return list
+    },
+    getAverage (netValue, day, index) {
+      let start = index - day
+      start = start < 0 ? 0 : start
+      let count = 0
+      for (let i = index; i >= start; i--) {
+        count += netValue[i]['net_value']
+      }
+      return numberUtil.keepFourDecimals(count / (index + 1 - start))
     }
   }
 }
