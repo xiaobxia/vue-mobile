@@ -31,7 +31,8 @@ export default {
   data () {
     return {
       info: {},
-      list: []
+      list: [],
+      timer: null
     }
   },
   components: {MyFundCard},
@@ -71,13 +72,18 @@ export default {
       return temp
     }
   },
+  beforeDestroy () {
+    clearInterval(this.timer)
+  },
   mounted () {
+    this.timer = setInterval(() => {
+      this.initPage()
+    }, 5000)
     this.initPage()
   },
   methods: {
     initPage () {
       Http.get('fund/getUserFunds').then((data) => {
-        console.log(data)
         this.info = data.data.info
         this.list = data.data.list
       })
