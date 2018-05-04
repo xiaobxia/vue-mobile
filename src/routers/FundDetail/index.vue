@@ -258,7 +258,7 @@ export default {
       return list
     },
     getAverage (netValue, day, index) {
-      let start = index - day
+      let start = index - day + 1
       start = start < 0 ? 0 : start
       let count = 0
       for (let i = index; i >= start; i--) {
