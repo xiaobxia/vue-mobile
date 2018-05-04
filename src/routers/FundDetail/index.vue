@@ -173,16 +173,18 @@ export default {
       const netValue = this.currentFundAnalyzeRecent.recentNetValue
       netValue.reverse()
       let row = []
-      const average = this.getAverageList(netValue, 20)
+      const averageMonth = this.getAverageList(netValue, 20)
+      const averageHalfMonth = this.getAverageList(netValue, 10)
       netValue.forEach(function (item, index) {
         let data = {}
         data['日期'] = item['net_value_date']
         data['净值'] = item['net_value']
-        data['平均'] = average[index]
+        data['月均'] = averageMonth[index]
+        data['半月均'] = averageHalfMonth[index]
         row.push(data)
       })
       return {
-        columns: ['日期', '净值', '平均'],
+        columns: ['日期', '净值', '月均', '半月均'],
         rows: row
       }
     },
