@@ -63,6 +63,16 @@ export default new Router({
       name: 'Market',
       path: '/page/market',
       component: lazyLoading('Market')
+    },
+    {
+      name: 'AverageStrategy',
+      path: '/page/averageStrategy',
+      component: lazyLoading('AverageStrategy')
+    },
+    {
+      name: 'MyStrategy',
+      path: '/page/myStrategy',
+      component: lazyLoading('MyStrategy')
     }
   ]
 })

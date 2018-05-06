@@ -6,7 +6,7 @@
         <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fas fa-chart-line"></i>
+            <i class="fas fa-chart-area"></i>
           </div>
           <div class="bottom">净值曲线</div>
         </div>
@@ -15,7 +15,7 @@
         <!--<img src="../../assets/Desert-miniplanet.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fab fa-cc-apple-pay"></i>
+            <i class="fab fa-shirtsinbulk"></i>
           </div>
           <div class="bottom">基金持仓</div>
         </div>
@@ -24,25 +24,42 @@
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fas fa-crosshairs"></i>
+            <i class="fab fa-sellsy"></i>
           </div>
-          <div class="bottom">买入策略</div>
+          <div class="bottom">幅度策略</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/analyzeConfig')">
+      <div class="img-card" @click="toPath('/page/averageStrategy')">
+        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fas fa-gavel"></i>
+            <i class="fas fa-balance-scale"></i>
           </div>
-          <div class="bottom">分析配置</div>
+          <div class="bottom">均线策略</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/myStrategy')">
+        <div class="container">
+          <div class="content">
+            <i class="fab fa-keycdn"></i>
+          </div>
+          <div class="bottom">持仓分析</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/market')">
         <div class="container">
           <div class="content">
-            <i class="fab fa-tripadvisor"></i>
+            <i class="fab fa-cloudversify"></i>
           </div>
           <div class="bottom">市场行情</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/analyzeConfig')">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <div class="bottom">分析配置</div>
         </div>
       </div>
     </div>
