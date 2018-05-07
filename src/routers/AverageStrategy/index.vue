@@ -8,10 +8,19 @@
     <div class="main-body">
       <mt-navbar v-model="selected">
         <mt-tab-item id="1">上行</mt-tab-item>
+        <mt-tab-item id="2">反转</mt-tab-item>
       </mt-navbar>
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">
-          <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code">
+          <mt-cell-swipe v-for="(item) in list1" :key="item.code" :to="'/page/fundDetail?code='+item.code">
+            <div slot="title">
+              <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
+                                                                :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
+            </div>
+          </mt-cell-swipe>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="2">
+          <mt-cell-swipe v-for="(item) in list2" :key="item.code" :to="'/page/fundDetail?code='+item.code">
             <div slot="title">
               <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
@@ -33,7 +42,8 @@ export default {
   data () {
     const selected = storageUtil.getAppConfig('averageStrategySelected') || '1'
     return {
-      list: [],
+      list1: [],
+      list2: [],
       selected: selected
     }
   },
@@ -50,7 +60,19 @@ export default {
   methods: {
     initPage () {
       Http.get('strategy/getAverageStrategy').then((data) => {
-        this.list = data.data.result
+        const list = data.data.result
+        let list1 = []
+        let list2 = []
+        list.forEach((item) => {
+          if (item.isUp) {
+            list1.push(item)
+          }
+          if (item.isReverse) {
+            list2.push(item)
+          }
+        })
+        this.list1 = list1
+        this.list2 = list2
       })
     },
     backHandler () {

@@ -12,6 +12,7 @@
             <mt-badge v-if="item.result.isLowHalf" color="#108ee9">半月低位</mt-badge>
             <mt-badge v-if="item.result.isMin" color="#13c2c2">新低</mt-badge>
             <mt-badge v-if="item.isUp" color="rgb(181,57,74)">上行</mt-badge>
+            <mt-badge v-if="item.isReverse" color="rgb(255, 147, 22)">反转</mt-badge>
         </p>
         <p class="explain">
           <mt-badge v-if="item.result.isMonthBoom" color="#f50">近期暴涨</mt-badge>
