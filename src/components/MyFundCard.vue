@@ -65,11 +65,29 @@ export default{
       }
     },
     ifSell (item) {
+      // 上升趋势不卖
+      if (item.isUp) {
+        return false
+      }
+      // 反转不卖
+      if (item.isReverse) {
+        return false
+      }
       if (item.result) {
-        const isBoom = item.result.isHalfMonthBoom || item.result.isMonthBoom
-        const minTime = item.has_days > 7
-        const ifGain = this.countRate(item.valuationSum, item.costSum) > 0.5
-        return isBoom && minTime && ifGain
+        const isSlump = item.result.isHalfMonthSlump || item.result.isHalfMonthBoom
+        // 暴跌不卖
+        if (isSlump) {
+          return false
+        }
+        // 小于7天
+        if (item.has_days <= 7) {
+          return false
+        }
+        return true
+        //        const isBoom = item.result.isHalfMonthBoom || item.result.isMonthBoom
+        //        const minTime = item.has_days > 7
+        //        const ifGain = this.countRate(item.valuationSum, item.costSum) > 0.5
+        //        return isBoom && minTime && ifGain
       } else {
         return false
       }
