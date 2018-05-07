@@ -181,6 +181,11 @@ export default {
         return {}
       }
       const netValue = this.currentFundAnalyzeRecent.recentNetValue
+      netValue.unshift({
+        net_value_date: this.currentFund.valuation,
+        net_value: moment(this.currentFund.valuation_date).format('YYYY-MM-DD')
+      })
+      console.log(netValue)
       netValue.reverse()
       let row = []
       const averageMonth = this.getAverageList(netValue, 20)
