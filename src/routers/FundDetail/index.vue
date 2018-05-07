@@ -182,8 +182,8 @@ export default {
       }
       const netValue = this.currentFundAnalyzeRecent.recentNetValue
       netValue.unshift({
-        net_value_date: this.currentFund.valuation,
-        net_value: moment(this.currentFund.valuation_date).format('YYYY-MM-DD')
+        net_value_date: moment(this.currentFund.valuation_date).format('YYYY-MM-DD'),
+        net_value: this.currentFund.valuation
       })
       console.log(netValue)
       netValue.reverse()
