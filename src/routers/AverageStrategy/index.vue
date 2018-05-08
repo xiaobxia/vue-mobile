@@ -16,6 +16,9 @@
             <div slot="title">
               <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
+              <p class="explain">
+                <mt-badge v-if="item.toUp" color="rgb(255, 147, 22)">突破</mt-badge>
+              </p>
             </div>
           </mt-cell-swipe>
         </mt-tab-container-item>
