@@ -32,7 +32,10 @@ export default {
     return {
       info: {},
       list: [],
-      timer: null
+      timer: null,
+      myFundList1: [],
+      myFundList2: [],
+      myFundList3: []
     }
   },
   components: {MyFundCard},
@@ -43,33 +46,6 @@ export default {
       } else {
         return 0
       }
-    },
-    myFundList1 () {
-      let temp = []
-      this.list.forEach((item) => {
-        if (item.strategy === '1') {
-          temp.push(item)
-        }
-      })
-      return temp
-    },
-    myFundList2 () {
-      let temp = []
-      this.list.forEach((item) => {
-        if (item.strategy === '2') {
-          temp.push(item)
-        }
-      })
-      return temp
-    },
-    myFundList3 () {
-      let temp = []
-      this.list.forEach((item) => {
-        if (item.strategy === '3') {
-          temp.push(item)
-        }
-      })
-      return temp
     }
   },
   beforeDestroy () {
@@ -85,7 +61,24 @@ export default {
     initPage () {
       Http.get('fund/getUserFunds').then((data) => {
         this.info = data.data.info
-        this.list = data.data.list
+        const list = data.data.list
+        let list1 = []
+        let list2 = []
+        let list3 = []
+        list.forEach((item) => {
+          if (item.strategy === '1') {
+            list1.push(item)
+          }
+          if (item.strategy === '2') {
+            list2.push(item)
+          }
+          if (item.strategy === '3') {
+            list3.push(item)
+          }
+        })
+        this.myFundList1 = list1
+        this.myFundList2 = list2
+        this.myFundList3 = list3
       })
     },
     backHandler () {

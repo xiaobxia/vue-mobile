@@ -28,10 +28,7 @@ export default {
   data () {
     return {
       type: 'add',
-      form: {
-        shares: 200000,
-        net_value_date: moment().format('YYYY-MM-DD')
-      }
+      form: {}
     }
   },
   computed: {},
@@ -45,7 +42,10 @@ export default {
     initQuery () {
       const query = this.$router.history.current.query
       this.type = query.type
-      this.form = Object.assign({}, query)
+      this.form = Object.assign({
+        shares: 200000,
+        net_value_date: moment().format('YYYY-MM-DD')
+      }, query)
     },
     backHandler () {
       this.$router.history.go(-1)

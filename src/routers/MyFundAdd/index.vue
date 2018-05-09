@@ -43,10 +43,7 @@ export default {
     return {
       type: 'add',
       ifAdd: false,
-      form: {
-        target_rate: 7,
-        buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD')
-      },
+      form: {},
       addForm: {}
     }
   },
@@ -64,8 +61,10 @@ export default {
       if (query.target_net_value) {
         query.target_rate = numberUtil.countDifferenceRate(parseFloat(query.target_net_value), parseFloat(query.cost))
       }
-      console.log(query)
-      this.form = Object.assign({}, query)
+      this.form = Object.assign({
+        target_rate: 7,
+        buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD')
+      }, query)
     },
     toPath (path) {
       this.$router.push(path)
