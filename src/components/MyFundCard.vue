@@ -74,7 +74,7 @@ export default{
         return false
       }
       if (item.result) {
-        const isSlump = item.result.isHalfMonthSlump || item.result.isHalfMonthBoom
+        const isSlump = item.result.isHalfMonthSlump || item.result.isMonthSlump
         // 暴跌不卖
         if (isSlump) {
           return false
