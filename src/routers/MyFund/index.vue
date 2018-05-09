@@ -78,7 +78,7 @@ export default {
   mounted () {
     this.timer = setInterval(() => {
       this.initPage()
-    }, 5000)
+    }, 1000 * 60)
     this.initPage()
   },
   methods: {
