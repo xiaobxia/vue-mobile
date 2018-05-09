@@ -36,13 +36,17 @@
 import Http from '@/util/httpUtil.js'
 import { Toast, MessageBox } from 'mint-ui'
 import numberUtil from '@/util/numberUtil.js'
+import moment from 'moment'
 export default {
   name: 'MyFundAdd',
   data () {
     return {
       type: 'add',
       ifAdd: false,
-      form: {},
+      form: {
+        target_rate: 7,
+        buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD')
+      },
       addForm: {}
     }
   },
