@@ -22,12 +22,16 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import { Toast, MessageBox } from 'mint-ui'
+import moment from 'moment'
 export default {
   name: 'MyNetValueAdd',
   data () {
     return {
       type: 'add',
-      form: {}
+      form: {
+        shares: 200000,
+        net_value_date: moment().format('YYYY-MM-DD')
+      }
     }
   },
   computed: {},
