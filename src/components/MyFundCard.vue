@@ -65,8 +65,8 @@ export default{
       }
     },
     ifSell (item) {
-      // 上升趋势不卖
-      if (item.isUp) {
+      // 均线上部
+      if (item.isAbove) {
         return false
       }
       // 反转不卖
