@@ -66,15 +66,18 @@ export default {
         const list = data.data.result
         let list1 = []
         let list2 = []
+        let list3 = []
         list.forEach((item) => {
-          if (item.isUp) {
+          if (item.toUp) {
+            list3.push(item)
+          } else if (item.isUp) {
             list1.push(item)
           }
           if (item.isReverse) {
             list2.push(item)
           }
         })
-        this.list1 = list1
+        this.list1 = list3.concat(list1)
         this.list2 = list2
       })
     },
