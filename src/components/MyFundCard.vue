@@ -1,9 +1,12 @@
 <template>
   <div class="card">
     <h3 class="title">{{title}} <span style="float: right">{{totalCount}}</span></h3>
-    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)" :class="{sell: ifSell(item), mustSell: item.toDown, up:item.isUp}">
+    <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)"
+                   :class="{sell: ifSell(item), up:item.isUp}">
       <div slot="title">
-        <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span></h3>
+        <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
+                                                          :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
+        </h3>
         <p class="explain">
           <span class="item">一月最低：<span :class="item.monthMin < 0 ? 'green-text' : 'red-text'">{{item.monthMin}}%</span></span>
           <span class="item">一月最高：<span :class="item.monthMax < 0 ? 'green-text' : 'red-text'">{{item.monthMax}}%</span></span>
@@ -12,9 +15,11 @@
           <span class="item">持有天数：{{item.has_days}}天</span>
           <span class="item">持仓金额：{{item.sum}}</span>
           <span class="item">估算金额：{{item.valuationSum}}</span>
-          <span class="item">估算收益：<span :class="countValue(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countValue(item.valuationSum, item.sum)}}</span></span>
+          <span class="item">估算收益：<span
+            :class="countValue(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countValue(item.valuationSum, item.sum)}}</span></span>
           <span class="item">持仓成本：{{item.costSum}}</span>
-          <span class="item">收益率：<span :class="countRate(item.valuationSum, item.costSum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.costSum)}}%</span></span>
+          <span class="item">收益率：<span
+            :class="countRate(item.valuationSum, item.costSum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.costSum)}}%</span></span>
         </p>
       </div>
       <div class="right-wrap">
@@ -65,32 +70,28 @@ export default{
       }
     },
     ifSell (item) {
-      // 均线上部
-      if (item.isAbove) {
+      // 小于7天
+      if (item.has_days <= 7) {
         return false
       }
-      // 反转不卖
-      if (item.isReverse) {
-        return false
-      }
-      if (item.result) {
+      if (item.strategy === '1') {
+        // 上升不卖，更换策略
+        if (item.isUp) {
+          return false
+        }
         const isSlump = item.result.isHalfMonthSlump || item.result.isMonthSlump
-        // 暴跌不卖
-        if (isSlump) {
-          return false
+        // 不是暴跌了卖
+        if (!isSlump) {
+          return true
         }
-        // 小于7天
-        if (item.has_days <= 7) {
-          return false
-        }
-        return true
-        //        const isBoom = item.result.isHalfMonthBoom || item.result.isMonthBoom
-        //        const minTime = item.has_days > 7
-        //        const ifGain = this.countRate(item.valuationSum, item.costSum) > 0.5
-        //        return isBoom && minTime && ifGain
-      } else {
-        return false
       }
+      if (item.strategy === '3') {
+        // 转为下跌
+        if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
+          return true
+        }
+      }
+      return false
     }
   }
 }
