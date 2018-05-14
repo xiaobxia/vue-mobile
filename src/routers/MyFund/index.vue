@@ -16,7 +16,7 @@
         <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
       </div>
       <my-fund-card :listData="myFundList1" :title="'超跌'"/>
-      <my-fund-card :listData="myFundList2" :title="'追涨'"/>
+      <my-fund-card :listData="myFundList2" :title="'潜伏'"/>
       <my-fund-card :listData="myFundList3" :title="'趋势'"/>
     </div>
   </div>
