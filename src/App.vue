@@ -1,20 +1,5 @@
 <template>
   <div id="app">
-    <template v-if="loginUser.isLogin === false">
-      <div class="login-wrap">
-        <h3>基金分析系统</h3>
-        <div class="input-item">
-          <input type="text" v-model="account">
-        </div>
-        <div class="input-item">
-          <input type="text" v-model="password">
-        </div>
-        <div class="input-item">
-          <mt-button type="primary" @click="loginHandler">登录</mt-button>
-        </div>
-      </div>
-    </template>
-    <template v-else>
       <router-view v-if="subPath"/>
       <template v-else>
         <fund v-if="tabSelect === 'fund'"/>
@@ -38,7 +23,6 @@
           </mt-tab-item>
         </mt-tabbar>
       </template>
-    </template>
   </div>
 </template>
 
@@ -46,19 +30,12 @@
 import Schedule from './tabViews/Schedule/index.vue'
 import Fund from './tabViews/Fund/index.vue'
 import Http from '@/util/httpUtil.js'
-import md5 from 'md5'
-import { Toast } from 'mint-ui'
 
 export default {
   data () {
     return {
       tabSelect: 'fund',
-      subPath: false,
-      loginUser: {
-        isLogin: true
-      },
-      account: '',
-      password: ''
+      subPath: false
     }
   },
   components: {Schedule, Fund},
@@ -80,40 +57,15 @@ export default {
       Http.get('auth/checkLogin', {token}).then((data) => {
         window._token = data.data.token
         if (data.data.isLogin === false) {
-          this.loginUser = {
-            isLogin: false
-          }
+          this.$router.push('/page/login')
         } else {
-          this.loginUser = data.data
+          // this.loginUser = data.data
         }
       })
     },
     checkPath (path) {
       console.log(path)
       this.subPath = path.startsWith('/page')
-    },
-    loginHandler () {
-      Http.post('auth/login', {account: this.account, password: md5(this.password), platform: 'pc'}).then((data) => {
-        if (data.success) {
-          window._token = data.data.token
-          localStorage.setItem('token', data.data.token)
-          this.loginUser = {
-            name: data.data.name,
-            isLogin: true
-          }
-          Toast({
-            message: '登录成功',
-            iconClass: 'icon far fa-check-circle',
-            className: 'success'
-          })
-        } else {
-          Toast({
-            message: data.message,
-            iconClass: 'icon far fa-frown',
-            className: 'error'
-          })
-        }
-      })
     }
   }
 }

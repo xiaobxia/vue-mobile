@@ -20,6 +20,11 @@ export default new Router({
       component: lazyLoading('HelloWorld')
     },
     {
+      name: 'Login',
+      path: '/page/login',
+      component: lazyLoading('Login')
+    },
+    {
       name: 'MyNetValueLine',
       path: '/page/myNetValueLine',
       component: lazyLoading('MyNetValueLine')
