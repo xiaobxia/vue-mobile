@@ -17,6 +17,7 @@
 import Http from '@/util/httpUtil.js'
 import md5 from 'md5'
 import { Toast } from 'mint-ui'
+import storageUtil from '@/util/storageUtil.js'
 
 export default {
   name: 'Login',
@@ -39,10 +40,10 @@ export default {
           window._token = data.data.token
           localStorage.setItem('token', data.data.token)
           this.$router.push('/')
-          //          this.loginUser = {
-          //            name: data.data.name,
-          //            isLogin: true
-          //          }
+          storageUtil.initUserInfo({
+            ...data.data,
+            isLogin: true
+          })
           Toast({
             message: '登录成功',
             iconClass: 'icon far fa-check-circle',

@@ -30,6 +30,7 @@
 import Schedule from './tabViews/Schedule/index.vue'
 import Fund from './tabViews/Fund/index.vue'
 import Http from '@/util/httpUtil.js'
+import storageUtil from '@/util/storageUtil.js'
 
 export default {
   data () {
@@ -57,9 +58,15 @@ export default {
       Http.get('auth/checkLogin', {token}).then((data) => {
         window._token = data.data.token
         if (data.data.isLogin === false) {
+          storageUtil.initUserInfo({
+            isLogin: false
+          })
           this.$router.push('/page/login')
         } else {
-          // this.loginUser = data.data
+          storageUtil.initUserInfo({
+            ...data.data,
+            isLogin: true
+          })
         }
       })
     },

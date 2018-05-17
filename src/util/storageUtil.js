@@ -24,6 +24,34 @@ const storageUtil = {
     window._appConfig = config
     localStorage.setItem('appConfig', JSON.stringify(config))
     return config
+  },
+  getUserInfo: function (key) {
+    let userInfo = {}
+    if (window._userInfo) {
+      userInfo = window._userInfo
+    } else {
+      const userInfoString = localStorage.getItem('userInfo')
+      if (userInfoString) {
+        userInfo = JSON.parse(userInfoString)
+      }
+      window._userInfo = userInfo
+    }
+    if (key) {
+      return userInfo[key]
+    }
+    return userInfo
+  },
+  setUserInfo: function (key, value) {
+    let userInfo = this.getUserInfo()
+    userInfo[key] = value
+    window._userInfo = userInfo
+    localStorage.setItem('userInfo', JSON.stringify(userInfo))
+    return userInfo
+  },
+  initUserInfo: function (info) {
+    window._userInfo = info
+    localStorage.setItem('userInfo', JSON.stringify(info))
+    return info
   }
 }
 
