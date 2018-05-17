@@ -67,20 +67,18 @@ export default {
     okHandler () {
       Http.post('strategy/updateAnalyzeValue', {list: JSON.stringify(this.list)}).then((data) => {
         if (data.success) {
-          if (data.success) {
-            Toast({
-              message: '操作成功',
-              iconClass: 'icon far fa-check-circle',
-              className: 'success'
-            })
-            this.initPage()
-          } else {
-            Toast({
-              message: '操作失败',
-              iconClass: 'icon far fa-frown',
-              className: 'error'
-            })
-          }
+          Toast({
+            message: '操作成功',
+            iconClass: 'icon far fa-check-circle',
+            className: 'success'
+          })
+          this.initPage()
+        } else {
+          Toast({
+            message: '操作失败',
+            iconClass: 'icon far fa-frown',
+            className: 'error'
+          })
         }
       })
     }

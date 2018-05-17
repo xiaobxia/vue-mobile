@@ -4,6 +4,7 @@
       <template v-else>
         <fund v-if="tabSelect === 'fund'"/>
         <schedule v-if="tabSelect === 'schedule'"/>
+        <mine v-if="tabSelect === 'mine'"/>
         <mt-tabbar v-model="tabSelect" :fixed="true">
           <mt-tab-item id="fund">
             <i class="fas fa-donate" slot="icon"></i>
@@ -29,17 +30,24 @@
 <script>
 import Schedule from './tabViews/Schedule/index.vue'
 import Fund from './tabViews/Fund/index.vue'
+import Mine from './tabViews/Mine/index.vue'
 import Http from '@/util/httpUtil.js'
 import storageUtil from '@/util/storageUtil.js'
 
 export default {
   data () {
+    const tabSelect = storageUtil.getAppConfig('homeTabSelect') || 'fund'
     return {
-      tabSelect: 'fund',
+      tabSelect: tabSelect,
       subPath: false
     }
   },
-  components: {Schedule, Fund},
+  components: {Schedule, Fund, Mine},
+  watch: {
+    tabSelect (val) {
+      storageUtil.setAppConfig('homeTabSelect', val)
+    }
+  },
   name: 'App',
   mounted () {
     this.initPage()
