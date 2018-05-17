@@ -3,10 +3,15 @@
  */
 const storageUtil = {
   getAppConfig: function (key) {
-    const appConfigString = localStorage.getItem('appConfig')
     let config = {}
-    if (appConfigString) {
-      config = JSON.parse(appConfigString)
+    if (window._appConfig) {
+      config = window._appConfig
+    } else {
+      const appConfigString = localStorage.getItem('appConfig')
+      if (appConfigString) {
+        config = JSON.parse(appConfigString)
+      }
+      window._appConfig = config
     }
     if (key) {
       return config[key]
@@ -16,6 +21,7 @@ const storageUtil = {
   setAppConfig: function (key, value) {
     let config = this.getAppConfig()
     config[key] = value
+    window._appConfig = config
     localStorage.setItem('appConfig', JSON.stringify(config))
     return config
   }
