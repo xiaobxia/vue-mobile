@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <div class="loading-wrap" v-if="!ifChecked">
+      <i class="fas fa-life-ring fa-spin"></i>
+      <p>加载中...</p>
+    </div>
+    <template v-else>
       <router-view v-if="subPath"/>
       <template v-else>
         <fund v-if="tabSelect === 'fund'"/>
@@ -24,6 +29,7 @@
           </mt-tab-item>
         </mt-tabbar>
       </template>
+    </template>
   </div>
 </template>
 
@@ -39,7 +45,8 @@ export default {
     const tabSelect = storageUtil.getAppConfig('homeTabSelect') || 'fund'
     return {
       tabSelect: tabSelect,
-      subPath: false
+      subPath: false,
+      ifChecked: false
     }
   },
   components: {Schedule, Fund, Mine},
@@ -64,6 +71,7 @@ export default {
     checkLogin () {
       const token = localStorage.getItem('token') || ''
       Http.get('auth/checkLogin', {token}).then((data) => {
+        this.ifChecked = true
         window._token = data.data.token
         if (data.data.isLogin === false) {
           storageUtil.initUserInfo({

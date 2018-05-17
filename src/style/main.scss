@@ -90,3 +90,15 @@ ul{
   padding: 30px;
   font-size: 30px;
 }
+
+.loading-wrap{
+  margin-top: 400px;
+  text-align: center;
+  color: $green-color;
+  i{
+    font-size: 160px;
+  }
+  p{
+    font-size: 40px;
+  }
+}
