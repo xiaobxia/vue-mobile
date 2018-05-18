@@ -11,6 +11,7 @@
     <div class="main-body">
     <div class="content-body">
       <div class="info">
+        <span>本月：{{nowMonth}}%</span>
         <span>近一星期：{{recentInfo.week}}%</span>
         <span>近半月：{{recentInfo.halfMonth}}%</span>
         <span>近一月：{{recentInfo.month}}%</span>
@@ -46,6 +47,7 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
+import moment from 'moment'
 
 const zoom = window.adaptive.zoom
 export default {
@@ -89,7 +91,8 @@ export default {
       recentInfo: {},
       recentAll: {},
       monthAll: {},
-      halfMonthAll: {}
+      halfMonthAll: {},
+      nowMonth: 0
     }
   },
 
@@ -154,6 +157,7 @@ export default {
       Http.get('fund/getUserNetValuesAll').then((data) => {
         if (data.success) {
           this.myList = data.data.list
+          this.nowMonth = this.countNowMonth(data.data.list)
         }
       })
       Http.get('webData/getWebStockdaybar', {
@@ -229,6 +233,19 @@ export default {
       const nowNetValue = list[0].kline.close
       const monthNetValue = list[21].kline.close
       return numberUtil.countDifferenceRate(nowNetValue, monthNetValue)
+    },
+    countNowMonth (list) {
+      const last = list[list.length - 1]
+      const today = last['net_value_date']
+      const todayNetValue = last['net_value']
+      let lastMonthNetValue = 0
+      for (let i = list.length - 2; i >= 0; i--) {
+        if (!moment(today).isSame(list[i]['net_value_date'], 'month')) {
+          lastMonthNetValue = list[i]['net_value']
+          break
+        }
+      }
+      return numberUtil.countDifferenceRate(todayNetValue, lastMonthNetValue)
     },
     backHandler () {
       this.$router.history.go(-1)
