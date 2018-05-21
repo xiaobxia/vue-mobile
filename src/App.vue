@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="loading-wrap" v-if="!ifChecked">
-      <i class="fas fa-life-ring fa-spin"></i>
+      <i class="fas fa-spinner fa-spin"></i>
       <p>加载中...</p>
     </div>
     <template v-else>
@@ -71,7 +71,6 @@ export default {
     checkLogin () {
       const token = localStorage.getItem('token') || ''
       Http.get('auth/checkLogin', {token}).then((data) => {
-        this.ifChecked = true
         window._token = data.data.token
         if (data.data.isLogin === false) {
           storageUtil.initUserInfo({
@@ -84,6 +83,7 @@ export default {
             isLogin: true
           })
         }
+        this.ifChecked = true
       })
     },
     checkPath (path) {

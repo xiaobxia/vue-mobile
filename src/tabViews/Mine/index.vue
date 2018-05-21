@@ -2,9 +2,18 @@
   <div class="tabView-mine">
     <mt-header title="我的" :fixed="true"/>
     <div class="main-body">
-      <h3 class="user-name">{{userName}}</h3>
+      <div class="info-wrap">
+        <img class="b-g" src="../../assets/Desert-miniplanet.jpg" alt="">
+        <div class="mask"></div>
+        <div class="user-img-wrap">
+          <img src="../../assets/3ac79f3df8dcd1003f9df38f728b4710b9122f1e.jpg" alt="">
+        </div>
+        <h3 class="user-name">{{userName}}</h3>
+      </div>
     </div>
+    <div class="btn-wrap">
       <mt-button type="primary" @click="okHandler" class="main-btn">退出登录</mt-button>
+    </div>
   </div>
 </template>
 
