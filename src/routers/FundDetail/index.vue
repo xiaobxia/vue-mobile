@@ -21,7 +21,7 @@
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValue"
-                 :settings="chartSettings"></ve-line>
+                 :settings="chartSettings" :tooltip="chartTooltip"></ve-line>
       </div>
       <div class="content-body">
         <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
@@ -41,7 +41,13 @@ export default {
   name: 'MyNetValueLine',
   data () {
     return {
-      chartHeight: (500 / 20) + 'rem',
+      chartTooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
+        }
+      },
+      chartHeight: (650 / 20) + 'rem',
       chartTextStyle: {
         fontSize: 20 * zoom
       },
