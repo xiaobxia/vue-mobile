@@ -32,260 +32,290 @@
 </template>
 
 <script>
-import Http from '@/util/httpUtil.js'
-import numberUtil from '@/util/numberUtil.js'
-import moment from 'moment'
+  import Http from '@/util/httpUtil.js'
+  import numberUtil from '@/util/numberUtil.js'
+  import moment from 'moment'
 
-const zoom = window.adaptive.zoom
-export default {
-  name: 'MyNetValueLine',
-  data () {
-    return {
-      chartHeight: (500 / 20) + 'rem',
-      chartTextStyle: {
-        fontSize: 20 * zoom
-      },
-      chartYAxis: {
-        axisLabel: {
+  const zoom = window.adaptive.zoom
+  export default {
+    name: 'MyNetValueLine',
+    data () {
+      return {
+        chartHeight: (500 / 20) + 'rem',
+        chartTextStyle: {
           fontSize: 20 * zoom
         },
-        scale: [true, true]
-      },
-      chartLegendNetValue: {
-        itemWidth: 50 * zoom,
-        itemHeight: 30 * zoom,
-        selected: {
-          '净值': true,
-          '月均': false,
-          '半月均': false,
-          '星期均': false
-        }
-      },
-      chartLegend: {
-        itemWidth: 50 * zoom,
-        itemHeight: 30 * zoom
-      },
-      currentFund: {},
-      currentFundAnalyzeRecent: {},
-      chartSettings: {
-        lineStyle: {
-          width: 3 * zoom
-        }
-      },
-      queryData: {},
-      type: 'add'
-    }
-  },
-
-  computed: {
-    chartMakeLineNetValue () {
-      const result = this.currentFundAnalyzeRecent.result
-      if (!result) {
-        return {}
+        chartYAxis: {
+          axisLabel: {
+            fontSize: 20 * zoom
+          },
+          scale: [true, true]
+        },
+        chartLegendNetValue: {
+          itemWidth: 50 * zoom,
+          itemHeight: 30 * zoom,
+          selected: {
+            '净值': true,
+            '月均': false,
+            '半月均': false,
+            '星期均': false
+          }
+        },
+        chartLegend: {
+          itemWidth: 50 * zoom,
+          itemHeight: 30 * zoom
+        },
+        currentFund: {},
+        currentFundAnalyzeRecent: {},
+        chartSettings: {
+          lineStyle: {
+            width: 3 * zoom
+          }
+        },
+        queryData: {},
+        type: 'add'
       }
-      let dataList = [
-        {
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          type: 'average',
-          name: '平均值',
-          lineStyle: {
-            color: '#000',
-            width: 2 * zoom
-          }
-        },
-        {
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          type: 'max',
-          name: '最高点',
-          lineStyle: {
-            color: 'red',
-            width: 2 * zoom
-          }
-        },
-        {
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          type: 'min',
-          name: '最小值',
-          lineStyle: {
-            color: 'green',
-            width: 2 * zoom
-          }
-        },
-        {
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          name: '半年均线',
-          lineStyle: {
-            color: '#f50',
-            width: 2 * zoom
-          },
-          yAxis: result.costLineHalf
-        },
-        {
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          name: '当前',
-          lineStyle: {
-            color: '#1890ff',
-            width: 2 * zoom
-          },
-          yAxis: this.currentFund.valuation
-        }
-      ]
-      if (this.type === 'edit') {
-        dataList.push({
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          name: '成本',
-          lineStyle: {
-            color: '#faad14',
-            width: 2 * zoom
+    },
 
-          },
-          yAxis: this.queryData.cost
+    computed: {
+      chartMakeLineNetValue () {
+        const result = this.currentFundAnalyzeRecent.result
+        if (!result) {
+          return {}
+        }
+        let dataList = [
+//        {
+//          label: {
+//            normal: {
+//              position: 'end',
+//              formatter: '{c}'
+//            }
+//          },
+//          type: 'average',
+//          name: '平均值',
+//          lineStyle: {
+//            color: '#000',
+//            width: 2 * zoom
+//          }
+//        },
+//        {
+//          label: {
+//            normal: {
+//              position: 'end',
+//              formatter: '{c}'
+//            }
+//          },
+//          type: 'max',
+//          name: '最高点',
+//          lineStyle: {
+//            color: 'red',
+//            width: 2 * zoom
+//          }
+//        },
+//        {
+//          label: {
+//            normal: {
+//              position: 'end',
+//              formatter: '{c}'
+//            }
+//          },
+//          type: 'min',
+//          name: '最小值',
+//          lineStyle: {
+//            color: 'green',
+//            width: 2 * zoom
+//          }
+//        },
+//        {
+//          label: {
+//            normal: {
+//              position: 'end',
+//              formatter: '{c}'
+//            }
+//          },
+//          name: '半年均线',
+//          lineStyle: {
+//            color: '#f50',
+//            width: 2 * zoom
+//          },
+//          yAxis: result.costLineHalf
+//        },
+          {
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            name: '当前',
+            lineStyle: {
+              color: '#1890ff',
+              width: 2 * zoom
+            },
+            yAxis: this.currentFund.valuation
+          }
+        ]
+        if (this.type === 'edit') {
+          dataList.push({
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            name: '成本',
+            lineStyle: {
+              color: '#faad14',
+              width: 2 * zoom
+
+            },
+            yAxis: this.queryData.cost
+          })
+          dataList.push({
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            type: 'max',
+            name: '止盈点',
+            lineStyle: {
+              color: 'red',
+              width: 2 * zoom
+            },
+            yAxis: this.queryData.target_net_value || this.queryData.cost
+          })
+          dataList.push({
+            label: {
+              normal: {
+                position: 'end',
+                formatter: '{c}'
+              }
+            },
+            type: 'max',
+            name: '止损点',
+            lineStyle: {
+              color: 'green',
+              width: 2 * zoom
+            },
+            yAxis: this.queryData.stop_net_value || this.queryData.cost
+          })
+        }
+        return {
+          data: dataList
+        }
+      },
+      chartDataNetValue () {
+        if (!this.currentFundAnalyzeRecent.recentNetValue) {
+          return {}
+        }
+        const netValue = this.currentFundAnalyzeRecent.recentNetValue
+        netValue.unshift({
+          net_value_date: moment(this.currentFund.valuation_date).format('YYYY-MM-DD'),
+          net_value: this.currentFund.valuation
         })
-      }
-      return {
-        data: dataList
+        netValue.reverse()
+        let row = []
+        const averageMonth = this.getAverageList(netValue, 20)
+        const averageHalfMonth = this.getAverageList(netValue, 10)
+        const averageWeek = this.getAverageList(netValue, 5)
+        netValue.forEach(function (item, index) {
+          let data = {}
+          data['日期'] = item['net_value_date']
+          data['净值'] = item['net_value']
+          data['月均'] = averageMonth[index]
+          data['半月均'] = averageHalfMonth[index]
+          data['星期均'] = averageWeek[index]
+          row.push(data)
+        })
+        return {
+          columns: ['日期', '净值', '月均', '半月均', '星期均'],
+          rows: row
+        }
+      },
+      chartDataRecent () {
+        if (!this.currentFundAnalyzeRecent.listMonth) {
+          return {}
+        }
+        const listMonth = this.currentFundAnalyzeRecent.listMonth
+        let row = []
+        listMonth.forEach(function (item, index) {
+          let data = {}
+          data['天数'] = index + 1
+          data['涨幅'] = item
+          row.push(data)
+        })
+        return {
+          columns: ['天数', '涨幅'],
+          rows: row
+        }
       }
     },
-    chartDataNetValue () {
-      if (!this.currentFundAnalyzeRecent.recentNetValue) {
-        return {}
-      }
-      const netValue = this.currentFundAnalyzeRecent.recentNetValue
-      netValue.unshift({
-        net_value_date: moment(this.currentFund.valuation_date).format('YYYY-MM-DD'),
-        net_value: this.currentFund.valuation
-      })
-      netValue.reverse()
-      let row = []
-      const averageMonth = this.getAverageList(netValue, 20)
-      const averageHalfMonth = this.getAverageList(netValue, 10)
-      const averageWeek = this.getAverageList(netValue, 5)
-      netValue.forEach(function (item, index) {
-        let data = {}
-        data['日期'] = item['net_value_date']
-        data['净值'] = item['net_value']
-        data['月均'] = averageMonth[index]
-        data['半月均'] = averageHalfMonth[index]
-        data['星期均'] = averageWeek[index]
-        row.push(data)
-      })
-      return {
-        columns: ['日期', '净值', '月均', '半月均', '星期均'],
-        rows: row
-      }
+    mounted () {
+      this.initPage()
     },
-    chartDataRecent () {
-      if (!this.currentFundAnalyzeRecent.listMonth) {
-        return {}
-      }
-      const listMonth = this.currentFundAnalyzeRecent.listMonth
-      let row = []
-      listMonth.forEach(function (item, index) {
-        let data = {}
-        data['天数'] = index + 1
-        data['涨幅'] = item
-        row.push(data)
-      })
-      return {
-        columns: ['天数', '涨幅'],
-        rows: row
-      }
-    }
-  },
-  mounted () {
-    this.initPage()
-  },
 
-  methods: {
-    initPage () {
-      const query = this.$router.history.current.query
-      this.type = query.type
-      this.queryData = Object.assign({}, query)
-      const code = this.$router.history.current.query.code
-      Http.get('fund/getFundBase', {code}).then((data) => {
-        if (data.success) {
-          this.currentFund = data.data
+    methods: {
+      initPage () {
+        const query = this.$router.history.current.query
+        this.type = query.type
+        this.queryData = Object.assign({}, query)
+        const code = this.$router.history.current.query.code
+        Http.get('fund/getFundBase', {code}).then((data) => {
+          if (data.success) {
+            this.currentFund = data.data
+          }
+        })
+        Http.get('fund/getFundAnalyzeRecent', {code}).then((data) => {
+          if (data.success) {
+            this.currentFundAnalyzeRecent = data.data
+          }
+        })
+      },
+      countRate (a, b) {
+        return numberUtil.countDifferenceRate(a, b)
+      },
+      toPath (path) {
+        this.$router.push(path)
+      },
+      backHandler () {
+        this.$router.history.go(-1)
+      },
+      formatDate (date) {
+        return moment(date).format('YYYY-MM-DD HH:mm:SS')
+      },
+      toEditHandler () {
+        this.$router.push({path: '/page/myFundAdd', query: this.queryData})
+      },
+      toAddHandler () {
+        this.$router.push({
+          path: '/page/myFundAdd',
+          query: {
+            code: this.currentFund.code,
+            cost: this.currentFund.net_value
+          }
+        })
+      },
+      getAverageList (netValue, day) {
+        let list = []
+        netValue.forEach((item, index) => {
+          const average = this.getAverage(netValue, day, index)
+          list.push(average)
+        })
+        return list
+      },
+      getAverage (netValue, day, index) {
+        let start = index - day + 1
+        start = start < 0 ? 0 : start
+        let count = 0
+        for (let i = index; i >= start; i--) {
+          count += netValue[i]['net_value']
         }
-      })
-      Http.get('fund/getFundAnalyzeRecent', {code}).then((data) => {
-        if (data.success) {
-          this.currentFundAnalyzeRecent = data.data
-        }
-      })
-    },
-    countRate (a, b) {
-      return numberUtil.countDifferenceRate(a, b)
-    },
-    toPath (path) {
-      this.$router.push(path)
-    },
-    backHandler () {
-      this.$router.history.go(-1)
-    },
-    formatDate (date) {
-      return moment(date).format('YYYY-MM-DD HH:mm:SS')
-    },
-    toEditHandler () {
-      this.$router.push({path: '/page/myFundAdd', query: this.queryData})
-    },
-    toAddHandler () {
-      this.$router.push({
-        path: '/page/myFundAdd',
-        query: {
-          code: this.currentFund.code,
-          cost: this.currentFund.net_value
-        }
-      })
-    },
-    getAverageList (netValue, day) {
-      let list = []
-      netValue.forEach((item, index) => {
-        const average = this.getAverage(netValue, day, index)
-        list.push(average)
-      })
-      return list
-    },
-    getAverage (netValue, day, index) {
-      let start = index - day + 1
-      start = start < 0 ? 0 : start
-      let count = 0
-      for (let i = index; i >= start; i--) {
-        count += netValue[i]['net_value']
+        return numberUtil.keepFourDecimals(count / (index + 1 - start))
       }
-      return numberUtil.keepFourDecimals(count / (index + 1 - start))
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
