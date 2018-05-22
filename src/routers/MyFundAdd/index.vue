@@ -9,21 +9,22 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-    <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>
-    <mt-field label="策略组" placeholder="请输入策略组" v-model="form.strategy"></mt-field>
-    <mt-field label="持仓成本" placeholder="请输入持仓成本" v-model="form.cost"></mt-field>
-    <mt-field label="金额" placeholder="请输入金额" v-if="type === 'add'" v-model="form.asset"></mt-field>
-    <mt-field label="份额" placeholder="请输入份额" v-if="type === 'edit'" v-model="form.shares"></mt-field>
-    <mt-field label="购买日期" placeholder="请输入购买日期" v-model="form.buy_date"></mt-field>
-    <mt-field label="目标收益率" placeholder="请输入目标收益率" v-model="form.target_rate"></mt-field>
-    <template v-if="type==='edit'">
+      <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>
+      <mt-field label="策略组" placeholder="请输入策略组" v-model="form.strategy"></mt-field>
+      <mt-field label="持仓成本" placeholder="请输入持仓成本" v-model="form.cost"></mt-field>
+      <mt-field label="金额" placeholder="请输入金额" v-if="type === 'add'" v-model="form.asset"></mt-field>
+      <mt-field label="份额" placeholder="请输入份额" v-if="type === 'edit'" v-model="form.shares"></mt-field>
+      <mt-field label="购买日期" placeholder="请输入购买日期" v-model="form.buy_date"></mt-field>
+      <mt-field label="目标点位" placeholder="请输入目标点位" v-model="form.target_net_value"></mt-field>
+      <mt-field label="止损点位" placeholder="请输入止损点位" v-model="form.stop_net_value"></mt-field>
+      <template v-if="type==='edit'">
         <mt-cell title="加仓">
           <mt-switch v-model="ifAdd"></mt-switch>
         </mt-cell>
-      <template v-if="ifAdd">
-        <mt-field label="新成本" placeholder="" v-model="addForm.newNetValue"></mt-field>
-        <mt-field label="新金额" placeholder="" v-model="addForm.newAsset"></mt-field>
-      </template>
+        <template v-if="ifAdd">
+          <mt-field label="新成本" placeholder="" v-model="addForm.newNetValue"></mt-field>
+          <mt-field label="新金额" placeholder="" v-model="addForm.newAsset"></mt-field>
+        </template>
       </template>
     </div>
     <div class="bottom-bar">
@@ -34,7 +35,7 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import { Toast, MessageBox } from 'mint-ui'
+import {Toast, MessageBox} from 'mint-ui'
 import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
 export default {
@@ -58,11 +59,9 @@ export default {
     initQuery () {
       const query = this.$router.history.current.query
       this.type = query.type
-      if (query.target_net_value) {
-        query.target_rate = numberUtil.countDifferenceRate(parseFloat(query.target_net_value), parseFloat(query.cost))
-      }
       this.form = Object.assign({
-        target_rate: 7,
+        target_net_value: numberUtil.keepFourDecimals(parseFloat(query.cost) * (1 + 0.07)),
+        stop_net_value: numberUtil.keepFourDecimals(parseFloat(query.cost) * (1 - 0.02)),
         buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD')
       }, query)
     },
@@ -109,7 +108,6 @@ export default {
       if (this.type === 'add') {
         this.form.shares = numberUtil.keepTwoDecimals(this.form.asset / this.form.cost)
       }
-      this.form.target_net_value = Math.round(10000 * ((this.form.target_rate / 100) + 1) * this.form.cost) / 10000
       Http.post(this.type === 'add' ? 'fund/addUserFund' : 'fund/updateUserFund', this.form).then((data) => {
         if (data.success) {
           Toast({

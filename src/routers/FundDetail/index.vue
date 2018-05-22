@@ -263,7 +263,7 @@ export default {
         path: '/page/myFundAdd',
         query: {
           code: this.currentFund.code,
-          target_rate: 7
+          cost: this.currentFund.net_value
         }
       })
     },

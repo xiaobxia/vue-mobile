@@ -11,7 +11,8 @@
     <div class="main-body">
     <div class="content-body">
       <div class="info">
-        <span>本月：{{nowMonth}}%</span>
+        <span>本月：{{myNetValueInfo.nowMonth}}%</span>
+        <span>总收益：{{myNetValueInfo.all}}%</span>
         <span>近一星期：{{recentInfo.week}}%</span>
         <span>近半月：{{recentInfo.halfMonth}}%</span>
         <span>近一月：{{recentInfo.month}}%</span>
@@ -92,7 +93,10 @@ export default {
       recentAll: {},
       monthAll: {},
       halfMonthAll: {},
-      nowMonth: 0
+      myNetValueInfo: {
+        nowMonth: 0,
+        all: 0
+      }
     }
   },
 
@@ -156,8 +160,12 @@ export default {
     initPage () {
       Http.get('fund/getUserNetValuesAll').then((data) => {
         if (data.success) {
-          this.myList = data.data.list
-          this.nowMonth = this.countNowMonth(data.data.list)
+          let list = data.data.list
+          this.myList = list
+          this.myNetValueInfo = {
+            nowMonth: this.countNowMonth(list),
+            all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
+          }
         }
       })
       Http.get('webData/getWebStockdaybar', {
