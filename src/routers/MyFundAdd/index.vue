@@ -52,7 +52,7 @@ export default {
   watch: {
     'form.cost' (val) {
       val = val || 0
-      this.form.target_net_value = numberUtil.keepFourDecimals(parseFloat(val) * (1 + 0.07))
+      this.form.target_net_value = numberUtil.keepFourDecimals(parseFloat(val) * (1 + 0.06))
       this.form.stop_net_value = numberUtil.keepFourDecimals(parseFloat(val) * (1 - 0.02))
     }
   },
@@ -68,7 +68,7 @@ export default {
       this.type = query.type
       query.cost = query.cost || 0
       this.form = Object.assign({
-        target_net_value: numberUtil.keepFourDecimals(parseFloat(query.cost) * (1 + 0.07)),
+        target_net_value: numberUtil.keepFourDecimals(parseFloat(query.cost) * (1 + 0.06)),
         stop_net_value: numberUtil.keepFourDecimals(parseFloat(query.cost) * (1 - 0.02)),
         buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD')
       }, query)
