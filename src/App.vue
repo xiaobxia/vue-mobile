@@ -10,6 +10,7 @@
         <fund v-if="tabSelect === 'fund'"/>
         <schedule v-if="tabSelect === 'schedule'"/>
         <mine v-if="tabSelect === 'mine'"/>
+        <square v-if="tabSelect === 'square'"></square>
         <mt-tabbar v-model="tabSelect" :fixed="true">
           <mt-tab-item id="fund">
             <i class="fas fa-donate" slot="icon"></i>
@@ -37,6 +38,7 @@
 import Schedule from './tabViews/Schedule/index.vue'
 import Fund from './tabViews/Fund/index.vue'
 import Mine from './tabViews/Mine/index.vue'
+import Square from './tabViews/Square/index.vue'
 import Http from '@/util/httpUtil.js'
 import storageUtil from '@/util/storageUtil.js'
 
@@ -49,7 +51,7 @@ export default {
       ifChecked: false
     }
   },
-  components: {Schedule, Fund, Mine},
+  components: {Schedule, Fund, Mine, Square},
   watch: {
     tabSelect (val) {
       storageUtil.setAppConfig('homeTabSelect', val)

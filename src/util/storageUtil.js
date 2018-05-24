@@ -52,6 +52,29 @@ const storageUtil = {
     window._userInfo = info
     localStorage.setItem('userInfo', JSON.stringify(info))
     return info
+  },
+  getSearchHistory: function (key) {
+    let searchHistory = {}
+    if (window._searchHistory) {
+      searchHistory = window._searchHistory
+    } else {
+      const searchHistoryString = localStorage.getItem('searchHistory')
+      if (searchHistoryString) {
+        searchHistory = JSON.parse(searchHistoryString)
+      }
+      window._searchHistory = searchHistory
+    }
+    if (key) {
+      return searchHistory[key]
+    }
+    return searchHistory
+  },
+  setSearchHistory: function (key, value) {
+    let searchHistory = this.getSearchHistory()
+    searchHistory[key] = value
+    window._searchHistory = searchHistory
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory))
+    return searchHistory
   }
 }
 
