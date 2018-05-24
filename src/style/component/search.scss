@@ -1,10 +1,11 @@
 .mint-searchbar {
-  padding: 10px 20px;
+  padding: 13px 20px;
   background-color: rgb(225, 225, 225);
   .mint-searchbar-inner{
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 10px 10px;
     border-radius: 10px;
+    height: 70px;
     .mintui-search{
       font-size: 40px;
       margin-right: 20px;
