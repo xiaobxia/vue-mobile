@@ -14,7 +14,8 @@
         <span class="item">持仓成本：{{info.costTotalSum}}</span>
         <span class="item">估算金额：{{info.valuationTotalSum}}</span>
         <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
-      </div>
+        <span class="item">市场平均：<span :class="marketRise < 0 ? 'green-text' : 'red-text'">{{marketRise}}</span></span>
+        </div>
       <my-fund-card :listData="myFundList1" :title="'超跌'"/>
       <my-fund-card :listData="myFundList2" :title="'潜伏'"/>
       <my-fund-card :listData="myFundList3" :title="'趋势'"/>
@@ -33,6 +34,7 @@ export default {
       info: {},
       list: [],
       timer: null,
+      marketRise: 0,
       myFundList1: [],
       myFundList2: [],
       myFundList3: []
@@ -79,6 +81,9 @@ export default {
         this.myFundList1 = list1
         this.myFundList2 = list2
         this.myFundList3 = list3
+      })
+      Http.get('fund/getAverageValuationRate').then((data) => {
+        this.marketRise = data.data.rate
       })
     },
     backHandler () {
