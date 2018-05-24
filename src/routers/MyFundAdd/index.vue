@@ -65,7 +65,7 @@ export default {
     },
     initQuery () {
       const query = this.$router.history.current.query
-      this.type = query.type
+      this.type = query.type || 'add'
       const cost = parseFloat(query.cost || 0)
       this.form = Object.assign({
         target_net_value: numberUtil.keepFourDecimals(cost * (1 + 0.06)),
