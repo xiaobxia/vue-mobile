@@ -51,9 +51,9 @@ export default {
   computed: {},
   watch: {
     'form.cost' (val) {
-      val = val || 0
-      this.form.target_net_value = numberUtil.keepFourDecimals(parseFloat(val) * (1 + 0.06))
-      this.form.stop_net_value = numberUtil.keepFourDecimals(parseFloat(val) * (1 - 0.02))
+      val = parseFloat(val || 0)
+      this.form.target_net_value = numberUtil.keepFourDecimals(val * (1 + 0.06))
+      this.form.stop_net_value = numberUtil.keepFourDecimals(val * (1 - 0.02))
     }
   },
   mounted () {
@@ -66,10 +66,10 @@ export default {
     initQuery () {
       const query = this.$router.history.current.query
       this.type = query.type
-      query.cost = query.cost || 0
+      const cost = parseFloat(query.cost || 0)
       this.form = Object.assign({
-        target_net_value: numberUtil.keepFourDecimals(parseFloat(query.cost) * (1 + 0.06)),
-        stop_net_value: numberUtil.keepFourDecimals(parseFloat(query.cost) * (1 - 0.02)),
+        target_net_value: numberUtil.keepFourDecimals(cost * (1 + 0.06)),
+        stop_net_value: numberUtil.keepFourDecimals(cost * (1 - 0.02)),
         buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD')
       }, query)
     },

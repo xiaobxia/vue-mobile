@@ -2,7 +2,7 @@
   <div class="card">
     <h3 class="title">{{title}} <span style="float: right">{{totalCount}}</span></h3>
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)"
-                   :class="{up:item.isUp, sell: ifSell(item)}">
+                   :class="{up:item.isUp, cut: ifCut(item), sell: ifSell(item)}">
       <div slot="title">
         <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                           :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
@@ -70,14 +70,32 @@ export default{
       }
     },
     ifCut (item) {
+      const rate = this.countRate(item.valuationSum, item.costSum)
+      const level1 = 5000
+      const level2 = 4000
+      const level3 = 3000
       if (item.has_days <= 7) {
         return false
       }
-      if (item.target_net_value && item.valuation > item.target_net_value) {
-        return true
+      if (rate >= 3) {
+        if (item.valuationSum > level1) {
+          return true
+        }
       }
-      if (item.stop_net_value && item.valuation < item.stop_net_value) {
-        return true
+      if (rate >= 6) {
+        if (item.valuationSum > level2) {
+          return true
+        }
+      }
+      if (rate <= -1) {
+        if (item.valuationSum > level2) {
+          return true
+        }
+      }
+      if (rate <= -2) {
+        if (item.valuationSum > level3) {
+          return true
+        }
       }
       return false
     },
@@ -86,22 +104,9 @@ export default{
       if (item.has_days <= 7) {
         return false
       }
-      if (item.strategy === '1') {
-        // 上升不卖，更换策略
-        if (item.isUp) {
-          return false
-        }
-        const isSlump = item.result.isHalfMonthSlump || item.result.isMonthSlump
-        // 不是暴跌了卖
-        if (!isSlump) {
-          return true
-        }
-      }
-      if (item.strategy === '3') {
-        // 转为下跌
-        if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
-          return true
-        }
+      // 转为下跌
+      if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
+        return true
       }
       return false
     }
