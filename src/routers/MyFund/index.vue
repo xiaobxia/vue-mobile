@@ -18,7 +18,7 @@
         <span class="item">估算比率：<span :class="myRise < 0 ? 'green-text' : 'red-text'">{{myRise}}%</span></span>
         </div>
       <my-fund-card :listData="myFundList1" :title="'超跌'"/>
-      <my-fund-card :listData="myFundList2" :title="'潜伏'"/>
+      <my-fund-card :listData="myFundList2" :title="'逆势'"/>
       <my-fund-card :listData="myFundList3" :title="'趋势'"/>
     </div>
   </div>
