@@ -1,11 +1,15 @@
 <template>
-  <div class="schedule">
+  <div class="average-strategy">
     <mt-header title="均线策略" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
+      <div class="info">
+        平均幅度: <span style="float: right"
+                    :class="average < 0 ? 'green-text' : 'red-text'">{{average}}%</span>
+      </div>
       <mt-navbar v-model="selected">
         <mt-tab-item id="1">上行</mt-tab-item>
         <mt-tab-item id="2">反转</mt-tab-item>
@@ -47,7 +51,8 @@ export default {
     return {
       list1: [],
       list2: [],
-      selected: selected
+      selected: selected,
+      average: 0
     }
   },
   components: {StrategyList},
@@ -67,7 +72,9 @@ export default {
         let list1 = []
         let list2 = []
         let list3 = []
+        let average = 0
         list.forEach((item) => {
+          average += item.valuationRate
           if (item.toUp) {
             list3.push(item)
           } else if (item.isUp) {
@@ -77,6 +84,7 @@ export default {
             list2.push(item)
           }
         })
+        this.average = numberUtil.keepTwoDecimals(average / list.length)
         this.list1 = list3.concat(list1)
         this.list2 = list2
       })

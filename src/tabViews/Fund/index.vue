@@ -1,10 +1,6 @@
 <template>
   <div>
-    <mt-header title="基金" :fixed="true">
-      <mt-button slot="right" @click="toPath('/page/search')">
-        <i class="fas fa-search"></i>
-      </mt-button>
-    </mt-header>
+    <mt-header title="基金" :fixed="true"/>
     <div class="main-body has-bar">
       <div class="img-card" @click="toPath('/page/myNetValueLine')">
         <!--<img src="../../assets/timg.jpg" alt="">-->
