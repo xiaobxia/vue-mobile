@@ -83,6 +83,11 @@ export default new Router({
       name: 'Rank',
       path: '/page/rank',
       component: lazyLoading('Rank')
+    },
+    {
+      name: 'Principle',
+      path: '/page/principle',
+      component: lazyLoading('Principle')
     }
   ]
 })

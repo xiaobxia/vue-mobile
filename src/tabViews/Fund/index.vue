@@ -70,6 +70,14 @@
           <div class="bottom">分析配置</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/principle')">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="bottom">买卖原则</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

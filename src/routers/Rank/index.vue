@@ -4,8 +4,8 @@
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
-      <mt-button slot="right">
-        <i class="far fa-hand-point-right" @click="queryRecord"></i>
+      <mt-button slot="right"  @click="queryRecord">
+        <i class="far fa-hand-point-right"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
@@ -33,6 +33,8 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import storageUtil from '@/util/storageUtil.js'
+import { Indicator } from 'mint-ui'
+
 export default{
   name: 'Rank',
   data () {
@@ -55,7 +57,11 @@ export default{
     queryRecord () {
       this.queryData.day = this.queryData.day || 1
       storageUtil.setAppConfig('rankDay', this.queryData.day)
+      Indicator.open({
+        spinnerType: 'fading-circle'
+      })
       Http.get('fund/getRank', this.queryData).then((data) => {
+        Indicator.close()
         let list = data.data.list
         if (this.ifUp) {
           list.sort((a, b) => {
