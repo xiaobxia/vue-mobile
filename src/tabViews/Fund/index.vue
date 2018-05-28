@@ -54,6 +54,14 @@
           <div class="bottom">市场行情</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/rank')">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-sort-amount-up"></i>
+          </div>
+          <div class="bottom">近期排行</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/analyzeConfig')">
         <div class="container">
           <div class="content">
