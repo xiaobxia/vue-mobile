@@ -88,6 +88,11 @@ export default new Router({
       name: 'Principle',
       path: '/page/principle',
       component: lazyLoading('Principle')
+    },
+    {
+      name: 'Plate',
+      path: '/page/plate',
+      component: lazyLoading('Plate')
     }
   ]
 })
