@@ -20,6 +20,7 @@
       <my-fund-card :listData="myFundList1" :title="'超跌'"/>
       <my-fund-card :listData="myFundList2" :title="'逆势'"/>
       <my-fund-card :listData="myFundList3" :title="'趋势'"/>
+      <my-fund-card :listData="myFundList4" :title="'锁仓'"/>
     </div>
   </div>
 </template>
@@ -39,7 +40,8 @@ export default {
       myRise: 0,
       myFundList1: [],
       myFundList2: [],
-      myFundList3: []
+      myFundList3: [],
+      myFundList4: []
     }
   },
   components: {MyFundCard},
@@ -70,20 +72,26 @@ export default {
         let list1 = []
         let list2 = []
         let list3 = []
+        let list4 = []
         list.forEach((item) => {
-          if (item.strategy === '1') {
-            list1.push(item)
-          }
-          if (item.strategy === '2') {
-            list2.push(item)
-          }
-          if (item.strategy === '3') {
-            list3.push(item)
+          if (item.has_days <= 7) {
+            list4.push(item)
+          } else {
+            if (item.strategy === '1') {
+              list1.push(item)
+            }
+            if (item.strategy === '2') {
+              list2.push(item)
+            }
+            if (item.strategy === '3') {
+              list3.push(item)
+            }
           }
         })
         this.myFundList1 = list1
         this.myFundList2 = list2
         this.myFundList3 = list3
+        this.myFundList4 = list4
         this.myRise = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
       Http.get('fund/getAverageValuationRate').then((data) => {
