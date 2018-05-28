@@ -20,6 +20,11 @@
       </div>
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
+                 :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValueMonth"
+                 :settings="chartSettings" :tooltip="chartTooltip"></ve-line>
+      </div>
+      <div class="content-body">
+        <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValue"
                  :settings="chartSettings" :tooltip="chartTooltip"></ve-line>
       </div>
@@ -79,7 +84,8 @@ export default {
         }
       },
       queryData: {},
-      type: 'add'
+      type: 'add',
+      netValue: []
     }
   },
 
@@ -212,16 +218,34 @@ export default {
         data: dataList
       }
     },
-    chartDataNetValue () {
-      if (!this.currentFundAnalyzeRecent.recentNetValue) {
+    chartDataNetValueMonth () {
+      if (!(this.netValue.length > 1)) {
         return {}
       }
-      const netValue = this.currentFundAnalyzeRecent.recentNetValue
-      netValue.unshift({
-        net_value_date: moment(this.currentFund.valuation_date).format('YYYY-MM-DD'),
-        net_value: this.currentFund.valuation
+      let netValue = this.netValue.slice(-60)
+      let row = []
+      const averageMonth = this.getAverageList(netValue, 20)
+      const averageHalfMonth = this.getAverageList(netValue, 10)
+      const averageWeek = this.getAverageList(netValue, 5)
+      netValue.forEach(function (item, index) {
+        let data = {}
+        data['日期'] = item['net_value_date']
+        data['净值'] = item['net_value']
+        data['月均'] = averageMonth[index]
+        data['半月均'] = averageHalfMonth[index]
+        data['星期均'] = averageWeek[index]
+        row.push(data)
       })
-      netValue.reverse()
+      return {
+        columns: ['日期', '净值', '月均', '半月均', '星期均'],
+        rows: row
+      }
+    },
+    chartDataNetValue () {
+      if (!(this.netValue.length > 1)) {
+        return {}
+      }
+      let netValue = this.netValue
       let row = []
       const averageMonth = this.getAverageList(netValue, 20)
       const averageHalfMonth = this.getAverageList(netValue, 10)
@@ -268,15 +292,25 @@ export default {
       this.type = query.type
       this.queryData = Object.assign({}, query)
       const code = this.$router.history.current.query.code
-      Http.get('fund/getFundBase', {code}).then((data) => {
-        if (data.success) {
-          this.currentFund = data.data
-        }
-      })
-      Http.get('fund/getFundAnalyzeRecent', {code}).then((data) => {
-        if (data.success) {
-          this.currentFundAnalyzeRecent = data.data
-        }
+      Promise.all([
+        Http.get('fund/getFundBase', {code}).then((data) => {
+          if (data.success) {
+            this.currentFund = data.data
+          }
+        }),
+        Http.get('fund/getFundAnalyzeRecent', {code}).then((data) => {
+          if (data.success) {
+            this.currentFundAnalyzeRecent = data.data
+          }
+        })
+      ]).then(() => {
+        const netValue = this.currentFundAnalyzeRecent.recentNetValue
+        netValue.unshift({
+          net_value_date: moment(this.currentFund.valuation_date).format('YYYY-MM-DD'),
+          net_value: this.currentFund.valuation
+        })
+        netValue.reverse()
+        this.netValue = netValue
       })
     },
     countRate (a, b) {
