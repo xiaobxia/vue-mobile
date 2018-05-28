@@ -50,7 +50,6 @@ export default {
   methods: {
     initPage () {
       Http.get('strategy/getStrategy').then((data) => {
-        console.log(data)
         this.strategyListSlump = data.data.slump
         this.strategyListBoom = data.data.boom
       })

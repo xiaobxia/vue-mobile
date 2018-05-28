@@ -145,7 +145,6 @@ export default {
         // data['中证500'] = numberUtil.keepTwoDecimals(((listWubai[index].kline.close - baseWubai) / baseWubai) * 100)
         row.push(data)
       })
-      console.log(row)
       return {
         columns: ['日期', '我的组合', '上证', '创业', '沪深300', '上证50'],
         rows: row

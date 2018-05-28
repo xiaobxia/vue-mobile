@@ -66,7 +66,6 @@ export default {
       this.checkLogin()
       this.checkPath(this.$router.history.current.path)
       this.$router.afterEach((transition) => {
-        console.log(transition)
         this.checkPath(transition.path)
       })
     },
@@ -89,7 +88,6 @@ export default {
       })
     },
     checkPath (path) {
-      console.log(path)
       this.subPath = path.startsWith('/page')
     }
   }
