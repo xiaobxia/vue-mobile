@@ -55,7 +55,9 @@ export default {
       dichan: [],
       xiaofei: [],
       gangtie: [],
-      meitan: []
+      meitan: [],
+      huanbao: [],
+      youse: []
     }
   },
 
@@ -70,8 +72,11 @@ export default {
       let xiaofei = this.xiaofei
       let gangtie = this.gangtie
       let meitan = this.meitan
-      if (jungong.length < 1 || baijiu.length < 1 || yiyao.length < 1 || jisuanji.length < 1 || yinhang.length < 1 ||
-      dichan.length < 1 || xiaofei.length < 1 || gangtie.length < 1 || meitan.length < 1) {
+      let huanbao = this.huanbao
+      let youse = this.youse
+      if (jungong.length < 1 || baijiu.length < 1 || yiyao.length < 1 || jisuanji.length < 1
+        || yinhang.length < 1 || dichan.length < 1 || xiaofei.length < 1 ||
+        gangtie.length < 1 || meitan.length < 1 || huanbao.length<1|| youse.length<1) {
         return {}
       }
       let startIndex = 0
@@ -108,6 +113,12 @@ export default {
       meitan = meitan.slice(0, startIndex + 1)
       meitan.reverse()
       const baseMeitan = meitan[0].kline.close
+      huanbao = huanbao.slice(0, startIndex + 1)
+      huanbao.reverse()
+      const baseHuanbao = huanbao[0].kline.close
+      youse = youse.slice(0, startIndex + 1)
+      youse.reverse()
+      const baseYouse = youse[0].kline.close
       let row = []
       jungong.forEach(function (item, index) {
         let data = {}
@@ -121,10 +132,12 @@ export default {
         data['消费'] = numberUtil.keepTwoDecimals(((xiaofei[index].kline.close - baseXiaofei) / baseXiaofei) * 100)
         data['钢铁'] = numberUtil.keepTwoDecimals(((gangtie[index].kline.close - baseGangtie) / baseGangtie) * 100)
         data['煤炭'] = numberUtil.keepTwoDecimals(((meitan[index].kline.close - baseMeitan) / baseMeitan) * 100)
+        data['环保'] = numberUtil.keepTwoDecimals(((huanbao[index].kline.close - baseHuanbao) / baseHuanbao) * 100)
+        data['有色'] = numberUtil.keepTwoDecimals(((youse[index].kline.close - baseYouse) / baseYouse) * 100)
         row.push(data)
       })
       return {
-        columns: ['日期', '军工', '白酒', '医药', '计算机', '银行', '地产', '消费', '钢铁', '煤炭'],
+        columns: ['日期', '军工', '白酒', '医药', '计算机', '银行', '地产', '消费', '钢铁', '煤炭', '环保', '有色'],
         rows: row
       }
     }
@@ -196,6 +209,20 @@ export default {
       }).then((data) => {
         if (data.success) {
           this.meitan = data.data.list
+        }
+      })
+      Http.get('webData/getWebStockdaybar', {
+        code: 'sh000827'
+      }).then((data) => {
+        if (data.success) {
+          this.huanbao = data.data.list
+        }
+      })
+      Http.get('webData/getWebStockdaybar', {
+        code: 'sh000823'
+      }).then((data) => {
+        if (data.success) {
+          this.youse = data.data.list
         }
       })
     },
