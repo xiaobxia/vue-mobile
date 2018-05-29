@@ -93,6 +93,11 @@ export default new Router({
       name: 'Plate',
       path: '/page/plate',
       component: lazyLoading('Plate')
+    },
+    {
+      name: 'MyFocus',
+      path: '/page/myFocus',
+      component: lazyLoading('MyFocus')
     }
   ]
 })

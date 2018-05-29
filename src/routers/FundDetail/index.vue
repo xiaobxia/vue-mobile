@@ -32,6 +32,7 @@
         <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
                  :data="chartDataRecent" :settings="chartSettings"></ve-line>
       </div>
+      <mt-button type="primary" @click="focusChangeHandler" class="main-btn">{{queryData.focus==='true'?'取消关注':'关注'}}</mt-button>
     </div>
   </div>
 </template>
@@ -40,6 +41,7 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
+import {Toast} from 'mint-ui'
 
 const zoom = window.adaptive.zoom
 export default {
@@ -96,62 +98,6 @@ export default {
         return {}
       }
       let dataList = [
-        //        {
-        //          label: {
-        //            normal: {
-        //              position: 'end',
-        //              formatter: '{c}'
-        //            }
-        //          },
-        //          type: 'average',
-        //          name: '平均值',
-        //          lineStyle: {
-        //            color: '#000',
-        //            width: 2 * zoom
-        //          }
-        //        },
-        //        {
-        //          label: {
-        //            normal: {
-        //              position: 'end',
-        //              formatter: '{c}'
-        //            }
-        //          },
-        //          type: 'max',
-        //          name: '最高点',
-        //          lineStyle: {
-        //            color: 'red',
-        //            width: 2 * zoom
-        //          }
-        //        },
-        //        {
-        //          label: {
-        //            normal: {
-        //              position: 'end',
-        //              formatter: '{c}'
-        //            }
-        //          },
-        //          type: 'min',
-        //          name: '最小值',
-        //          lineStyle: {
-        //            color: 'green',
-        //            width: 2 * zoom
-        //          }
-        //        },
-        //        {
-        //          label: {
-        //            normal: {
-        //              position: 'end',
-        //              formatter: '{c}'
-        //            }
-        //          },
-        //          name: '半年均线',
-        //          lineStyle: {
-        //            color: '#f50',
-        //            width: 2 * zoom
-        //          },
-        //          yAxis: result.costLineHalf
-        //        },
         {
           label: {
             normal: {
@@ -353,6 +299,42 @@ export default {
         count += netValue[i]['net_value']
       }
       return numberUtil.keepFourDecimals(count / (index + 1 - start))
+    },
+    successMessage () {
+      Toast({
+        message: '操作成功',
+        iconClass: 'icon far fa-check-circle',
+        className: 'success'
+      })
+    },
+    errorMessage () {
+      Toast({
+        message: '操作失败',
+        iconClass: 'icon far fa-frown',
+        className: 'error'
+      })
+    },
+    focusChangeHandler () {
+      const code = this.$router.history.current.query.code
+      if (this.queryData.focus === 'true') {
+        Http.get('fund/deleteFocusFund', {code}).then((data) => {
+          if (data.success) {
+            this.successMessage()
+            this.queryData.focus = 'false'
+          } else {
+            this.errorMessage()
+          }
+        })
+      } else {
+        Http.post('fund/addFocusFund', {code}).then((data) => {
+          if (data.success) {
+            this.successMessage()
+            this.queryData.focus = 'true'
+          } else {
+            this.errorMessage()
+          }
+        })
+      }
     }
   }
 }

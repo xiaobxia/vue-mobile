@@ -17,9 +17,10 @@
         <span class="item">市场平均：<span :class="marketRise < 0 ? 'green-text' : 'red-text'">{{marketRise}}%</span></span>
         <span class="item">估算比率：<span :class="myRise < 0 ? 'green-text' : 'red-text'">{{myRise}}%</span></span>
         </div>
-      <my-fund-card :listData="myFundList1" :title="'超跌'"/>
-      <my-fund-card :listData="myFundList2" :title="'逆势'"/>
-      <my-fund-card :listData="myFundList3" :title="'趋势'"/>
+      <my-fund-card :listData="myFundList1" :title="'超跌博反'"/>
+      <my-fund-card :listData="myFundList2" :title="'逆势上涨'"/>
+      <my-fund-card :listData="myFundList3" :title="'机构趋势'"/>
+      <my-fund-card :listData="myFundList5" :title="'待卖'"/>
       <my-fund-card :listData="myFundList4" :title="'锁仓'"/>
     </div>
   </div>
@@ -41,7 +42,8 @@ export default {
       myFundList1: [],
       myFundList2: [],
       myFundList3: [],
-      myFundList4: []
+      myFundList4: [],
+      myFundList5: []
     }
   },
   components: {MyFundCard},
@@ -73,18 +75,23 @@ export default {
         let list2 = []
         let list3 = []
         let list4 = []
+        let list5 = []
         list.forEach((item) => {
           if (item.has_days <= 7) {
             list4.push(item)
           } else {
-            if (item.strategy === '1') {
-              list1.push(item)
-            }
-            if (item.strategy === '2') {
-              list2.push(item)
-            }
-            if (item.strategy === '3') {
-              list3.push(item)
+            if (this.ifWaitSell(item)) {
+              list5.push(item)
+            } else {
+              if (item.strategy === '1') {
+                list1.push(item)
+              }
+              if (item.strategy === '2') {
+                list2.push(item)
+              }
+              if (item.strategy === '3') {
+                list3.push(item)
+              }
             }
           }
         })
@@ -92,11 +99,26 @@ export default {
         this.myFundList2 = list2
         this.myFundList3 = list3
         this.myFundList4 = list4
+        this.myFundList5 = list5
         this.myRise = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
       Http.get('fund/getAverageValuationRate').then((data) => {
         this.marketRise = data.data.rate
       })
+    },
+    ifWaitSell (item) {
+      const rate = numberUtil.countDifferenceRate(item.valuationSum, item.costSum)
+      if (rate > 0) {
+        // 上涨的情况
+        if (item.valuationSum < 4000) {
+          return true
+        }
+      } else {
+        if (item.valuationSum < 3000) {
+          return true
+        }
+      }
+      return false
     },
     backHandler () {
       this.$router.history.go(-1)

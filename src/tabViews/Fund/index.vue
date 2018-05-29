@@ -54,12 +54,29 @@
           <div class="bottom">市场行情</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/myFocus')">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-eye"></i>
+          </div>
+          <div class="bottom">我的关注</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/rank')">
         <div class="container">
           <div class="content">
             <i class="fas fa-sort-amount-up"></i>
           </div>
           <div class="bottom">近期排行</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/plate')">
+        <!--<img src="../../assets/timg.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="bottom">板块走势</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/analyzeConfig')">
@@ -76,15 +93,6 @@
             <i class="fas fa-book"></i>
           </div>
           <div class="bottom">买卖原则</div>
-        </div>
-      </div>
-      <div class="img-card" @click="toPath('/page/plate')">
-        <!--<img src="../../assets/timg.jpg" alt="">-->
-        <div class="container">
-          <div class="content">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <div class="bottom">板块走势</div>
         </div>
       </div>
     </div>

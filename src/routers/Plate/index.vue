@@ -74,9 +74,9 @@ export default {
       let meitan = this.meitan
       let huanbao = this.huanbao
       let youse = this.youse
-      if (jungong.length < 1 || baijiu.length < 1 || yiyao.length < 1 || jisuanji.length < 1
-        || yinhang.length < 1 || dichan.length < 1 || xiaofei.length < 1 ||
-        gangtie.length < 1 || meitan.length < 1 || huanbao.length<1|| youse.length<1) {
+      if (jungong.length < 1 || baijiu.length < 1 || yiyao.length < 1 || jisuanji.length < 1 ||
+        yinhang.length < 1 || dichan.length < 1 || xiaofei.length < 1 ||
+        gangtie.length < 1 || meitan.length < 1 || huanbao.length < 1 || youse.length < 1) {
         return {}
       }
       let startIndex = 0
