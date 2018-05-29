@@ -32,7 +32,7 @@
         <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
                  :data="chartDataRecent" :settings="chartSettings"></ve-line>
       </div>
-      <mt-button type="primary" @click="focusChangeHandler" class="main-btn">{{queryData.focus==='true'?'取消关注':'关注'}}</mt-button>
+      <mt-button type="primary" @click="focusChangeHandler" class="main-btn">{{ifFocus==='true'?'取消关注':'关注'}}</mt-button>
     </div>
   </div>
 </template>
@@ -87,7 +87,8 @@ export default {
       },
       queryData: {},
       type: 'add',
-      netValue: []
+      netValue: [],
+      ifFocus: 'false'
     }
   },
 
@@ -238,6 +239,11 @@ export default {
       this.type = query.type
       this.queryData = Object.assign({}, query)
       const code = this.$router.history.current.query.code
+      Http.get('fund/checkFocusFund', {code}).then((data) => {
+        if (data.success) {
+          this.ifFocus = data.data.focus ? 'true' : 'false'
+        }
+      })
       Promise.all([
         Http.get('fund/getFundBase', {code}).then((data) => {
           if (data.success) {
@@ -260,7 +266,7 @@ export default {
       })
     },
     countRate (a, b) {
-      return numberUtil.countDifferenceRate(a, b)
+      return numberUtil.countDifferenceRate(a || 1, b || 1)
     },
     toPath (path) {
       this.$router.push(path)
@@ -316,11 +322,11 @@ export default {
     },
     focusChangeHandler () {
       const code = this.$router.history.current.query.code
-      if (this.queryData.focus === 'true') {
+      if (this.ifFocus === 'true') {
         Http.get('fund/deleteFocusFund', {code}).then((data) => {
           if (data.success) {
             this.successMessage()
-            this.queryData.focus = 'false'
+            this.ifFocus = 'false'
           } else {
             this.errorMessage()
           }
@@ -329,7 +335,7 @@ export default {
         Http.post('fund/addFocusFund', {code}).then((data) => {
           if (data.success) {
             this.successMessage()
-            this.queryData.focus = 'true'
+            this.ifFocus = 'true'
           } else {
             this.errorMessage()
           }
