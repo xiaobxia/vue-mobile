@@ -16,6 +16,7 @@
         </div>
       </mt-cell-swipe>
       <ul
+        class="simple"
         v-infinite-scroll="loadMore"
         infinite-scroll-disabled="loading"
         infinite-scroll-distance="10">

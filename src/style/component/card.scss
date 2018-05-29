@@ -15,6 +15,9 @@
   }
   .container{
     background-color: #fff;
+    &:active {
+      background-color: rgba(57, 181, 74, 0.1);
+    }
   }
   .content{
     padding: 20px 0 0 0;

@@ -1,18 +1,22 @@
 <template>
-  <div class="my-net-value-record">
+  <div class="my-focus">
     <mt-header title="我的关注" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="fund-list">
+      <div v-if="list.length>0" class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code+'&focus=true'">
           <div slot="title">
             <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                               :class="item.rise < 0 ? 'green-text' : 'red-text'">{{item.rise}}%</span></h3>
           </div>
         </mt-cell-swipe>
+      </div>
+      <div v-else class="no-record">
+        <i class="fab fa-optin-monster"></i>
+        <p>没有关注记录</p>
       </div>
     </div>
   </div>

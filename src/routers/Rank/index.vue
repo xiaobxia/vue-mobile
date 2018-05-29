@@ -19,7 +19,7 @@
           <mt-switch v-model="ifUp" @change="stateChangeHandler()"></mt-switch>
         </div>
       </mt-cell-swipe>
-      <div class="fund-list">
+      <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code">
           <div slot="title">
             <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
