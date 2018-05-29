@@ -49,6 +49,7 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
+import { Indicator } from 'mint-ui'
 
 const zoom = window.adaptive.zoom
 export default {
@@ -157,70 +158,77 @@ export default {
 
   methods: {
     initPage () {
-      Http.get('fund/getUserNetValuesAll').then((data) => {
-        if (data.success) {
-          let list = data.data.list
-          this.myList = list
-          this.myNetValueInfo = {
-            nowMonth: this.countNowMonth(list),
-            all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
+      Indicator.open({
+        spinnerType: 'fading-circle'
+      })
+      Promise.all([
+        Http.get('fund/getUserNetValuesAll').then((data) => {
+          if (data.success) {
+            let list = data.data.list
+            this.myList = list
+            this.myNetValueInfo = {
+              nowMonth: this.countNowMonth(list),
+              all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
+            }
           }
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sh000001'
-      }).then((data) => {
-        if (data.success) {
-          this.shangzheng = data.data.list
-          this.recentAll.shangzheng = this.countWeek(data.data.list)
-          this.monthAll.shangzheng = this.countMonth(data.data.list)
-          this.halfMonthAll.shangzheng = this.countHalfMonth(data.data.list)
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sh000016'
-      }).then((data) => {
-        if (data.success) {
-          this.wulin = data.data.list
-          this.recentAll.wulin = this.countWeek(data.data.list)
-          this.monthAll.wulin = this.countMonth(data.data.list)
-          this.halfMonthAll.wulin = this.countHalfMonth(data.data.list)
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sh000906'
-      }).then((data) => {
-        if (data.success) {
-          this.wubai = data.data.list
-          this.recentAll.wubai = this.countWeek(data.data.list)
-          this.monthAll.wubai = this.countMonth(data.data.list)
-          this.halfMonthAll.wubai = this.countHalfMonth(data.data.list)
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399006'
-      }).then((data) => {
-        if (data.success) {
-          this.chuangye = data.data.list
-          this.recentAll.chuangye = this.countWeek(data.data.list)
-          this.monthAll.chuangye = this.countMonth(data.data.list)
-          this.halfMonthAll.chuangye = this.countHalfMonth(data.data.list)
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399300'
-      }).then((data) => {
-        if (data.success) {
-          this.hushen = data.data.list
-          this.recentAll.hushen = this.countWeek(data.data.list)
-          this.monthAll.hushen = this.countMonth(data.data.list)
-          this.halfMonthAll.hushen = this.countHalfMonth(data.data.list)
-        }
-      })
-      Http.get('fund/getUserNetValuesRecent').then((data) => {
-        if (data.success) {
-          this.recentInfo = data.data
-        }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sh000001'
+        }).then((data) => {
+          if (data.success) {
+            this.shangzheng = data.data.list
+            this.recentAll.shangzheng = this.countWeek(data.data.list)
+            this.monthAll.shangzheng = this.countMonth(data.data.list)
+            this.halfMonthAll.shangzheng = this.countHalfMonth(data.data.list)
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sh000016'
+        }).then((data) => {
+          if (data.success) {
+            this.wulin = data.data.list
+            this.recentAll.wulin = this.countWeek(data.data.list)
+            this.monthAll.wulin = this.countMonth(data.data.list)
+            this.halfMonthAll.wulin = this.countHalfMonth(data.data.list)
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sh000906'
+        }).then((data) => {
+          if (data.success) {
+            this.wubai = data.data.list
+            this.recentAll.wubai = this.countWeek(data.data.list)
+            this.monthAll.wubai = this.countMonth(data.data.list)
+            this.halfMonthAll.wubai = this.countHalfMonth(data.data.list)
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399006'
+        }).then((data) => {
+          if (data.success) {
+            this.chuangye = data.data.list
+            this.recentAll.chuangye = this.countWeek(data.data.list)
+            this.monthAll.chuangye = this.countMonth(data.data.list)
+            this.halfMonthAll.chuangye = this.countHalfMonth(data.data.list)
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399300'
+        }).then((data) => {
+          if (data.success) {
+            this.hushen = data.data.list
+            this.recentAll.hushen = this.countWeek(data.data.list)
+            this.monthAll.hushen = this.countMonth(data.data.list)
+            this.halfMonthAll.hushen = this.countHalfMonth(data.data.list)
+          }
+        }),
+        Http.get('fund/getUserNetValuesRecent').then((data) => {
+          if (data.success) {
+            this.recentInfo = data.data
+          }
+        })
+      ]).then(() => {
+        Indicator.close()
       })
     },
     toPath (path) {

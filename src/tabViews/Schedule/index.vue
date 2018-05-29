@@ -17,6 +17,7 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
+import { Indicator } from 'mint-ui'
 export default {
   name: 'Schedule',
   data () {
@@ -29,7 +30,11 @@ export default {
   },
   methods: {
     initPage () {
+      Indicator.open({
+        spinnerType: 'fading-circle'
+      })
       Http.get('schedule/getSchedules').then((data) => {
+        Indicator.close()
         let list = data.data.list
         list.forEach((item) => {
           item.value = item.value === 'open'

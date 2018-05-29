@@ -17,6 +17,7 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
+import { Indicator } from 'mint-ui'
 
 const zoom = window.adaptive.zoom
 const startDate = parseInt(moment().subtract(3, 'months').format('YYYYMMDD'))
@@ -148,82 +149,89 @@ export default {
 
   methods: {
     initPage () {
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399959'
-      }).then((data) => {
-        if (data.success) {
-          this.jungong = data.data.list
-        }
+      Indicator.open({
+        spinnerType: 'fading-circle'
       })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399997'
-      }).then((data) => {
-        if (data.success) {
-          this.baijiu = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sh000037'
-      }).then((data) => {
-        if (data.success) {
-          this.yiyao = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399363'
-      }).then((data) => {
-        if (data.success) {
-          this.jisuanji = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399986'
-      }).then((data) => {
-        if (data.success) {
-          this.yinhang = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399393'
-      }).then((data) => {
-        if (data.success) {
-          this.dichan = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399932'
-      }).then((data) => {
-        if (data.success) {
-          this.xiaofei = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399440'
-      }).then((data) => {
-        if (data.success) {
-          this.gangtie = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sz399998'
-      }).then((data) => {
-        if (data.success) {
-          this.meitan = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sh000827'
-      }).then((data) => {
-        if (data.success) {
-          this.huanbao = data.data.list
-        }
-      })
-      Http.get('webData/getWebStockdaybar', {
-        code: 'sh000823'
-      }).then((data) => {
-        if (data.success) {
-          this.youse = data.data.list
-        }
+      Promise.all([
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399959'
+        }).then((data) => {
+          if (data.success) {
+            this.jungong = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399997'
+        }).then((data) => {
+          if (data.success) {
+            this.baijiu = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sh000037'
+        }).then((data) => {
+          if (data.success) {
+            this.yiyao = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399363'
+        }).then((data) => {
+          if (data.success) {
+            this.jisuanji = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399986'
+        }).then((data) => {
+          if (data.success) {
+            this.yinhang = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399393'
+        }).then((data) => {
+          if (data.success) {
+            this.dichan = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399932'
+        }).then((data) => {
+          if (data.success) {
+            this.xiaofei = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399440'
+        }).then((data) => {
+          if (data.success) {
+            this.gangtie = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sz399998'
+        }).then((data) => {
+          if (data.success) {
+            this.meitan = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sh000827'
+        }).then((data) => {
+          if (data.success) {
+            this.huanbao = data.data.list
+          }
+        }),
+        Http.get('webData/getWebStockdaybar', {
+          code: 'sh000823'
+        }).then((data) => {
+          if (data.success) {
+            this.youse = data.data.list
+          }
+        })
+      ]).then(() => {
+        Indicator.close()
       })
     },
     toPath (path) {
