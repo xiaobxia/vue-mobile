@@ -15,7 +15,7 @@
         <mt-tab-item id="2">反转</mt-tab-item>
       </mt-navbar>
       <mt-tab-container v-model="selected">
-        <mt-tab-container-item id="1">
+        <mt-tab-container-item id="1" class="simple">
           <mt-cell-swipe v-for="(item) in list1" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
             <div slot="title">
               <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
@@ -26,7 +26,7 @@
             </div>
           </mt-cell-swipe>
         </mt-tab-container-item>
-        <mt-tab-container-item id="2">
+        <mt-tab-container-item id="2" class="simple">
           <mt-cell-swipe v-for="(item) in list2" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
             <div slot="title">
               <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
@@ -44,6 +44,8 @@ import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import StrategyList from '@/components/StrategyList.vue'
 import storageUtil from '@/util/storageUtil.js'
+import { Indicator } from 'mint-ui'
+
 export default {
   name: 'AverageStrategy',
   data () {
@@ -67,7 +69,11 @@ export default {
   },
   methods: {
     initPage () {
+      Indicator.open({
+        spinnerType: 'fading-circle'
+      })
       Http.get('strategy/getAverageStrategy').then((data) => {
+        Indicator.close()
         const list = data.data.result
         let list1 = []
         let list2 = []

@@ -15,6 +15,8 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import StrategyList from '@/components/StrategyList.vue'
+import { Indicator } from 'mint-ui'
+
 export default {
   name: 'Strategy',
   data () {
@@ -29,7 +31,11 @@ export default {
   },
   methods: {
     initPage () {
+      Indicator.open({
+        spinnerType: 'fading-circle'
+      })
       Http.get('strategy/getMyStrategy').then((data) => {
+        Indicator.close()
         this.myStrategyList = data.data.strategy
       })
     },
