@@ -112,8 +112,8 @@ export default {
         this.myFundList5 = list5
         this.myRise = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
-      Http.get('fund/getAverageValuationRate').then((data) => {
-        this.marketRise = data.data.rate
+      Http.get('fund/getMarketInfo').then((data) => {
+        this.marketRise = data.data.info.rise
       })
     },
     ifWaitSell (item) {
