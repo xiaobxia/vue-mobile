@@ -62,7 +62,7 @@ export default{
       selected: selected,
       chartHeight: (650 / 20) + 'rem',
       chartTextStyle: {
-        fontSize: 20 * zoom
+        fontSize: 30 * zoom
       },
       chartSettings: {
         radius: 200 * zoom,
