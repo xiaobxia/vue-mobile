@@ -23,6 +23,7 @@
 import Http from '@/util/httpUtil.js'
 import { Toast, MessageBox } from 'mint-ui'
 import moment from 'moment'
+
 export default {
   name: 'MyNetValueAdd',
   data () {

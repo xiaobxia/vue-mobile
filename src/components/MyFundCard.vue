@@ -30,6 +30,8 @@
 <script>
 import numberUtil from '@/util/numberUtil.js'
 import qs from 'qs'
+import constUtil from '@/util/constUtil.js'
+
 export default{
   name: 'MyFundCard',
   data () {
@@ -71,9 +73,9 @@ export default{
     },
     ifCut (item) {
       const rate = this.countRate(item.valuationSum, item.costSum)
-      const level1 = 5000
-      const level2 = 4000
-      const level3 = 3000
+      const level1 = constUtil.standard
+      const level2 = constUtil.cutLevel1
+      const level3 = constUtil.cutLevel1
       if (item.has_days <= 7) {
         return false
       }

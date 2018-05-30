@@ -30,6 +30,8 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import MyFundCard from '@/components/MyFundCard.vue'
+import constUtil from '@/util/constUtil.js'
+
 export default {
   name: 'MyFund',
   data () {
@@ -100,7 +102,7 @@ export default {
           }
         })
         // 大于49000就说明大于了5000，因为每个标准仓5000
-        if (buyIn7DaysCount > 49000) {
+        if (buyIn7DaysCount > constUtil.buyIn7DaysLimit) {
           this.couldBuyMore = false
         }
         this.myFundList1 = list1
@@ -118,11 +120,11 @@ export default {
       const rate = numberUtil.countDifferenceRate(item.valuationSum, item.costSum)
       if (rate > 0) {
         // 上涨的情况
-        if (item.valuationSum < 4000) {
+        if (item.valuationSum < constUtil.cutLevel1) {
           return true
         }
       } else {
-        if (item.valuationSum < 3000) {
+        if (item.valuationSum < constUtil.cutLevel2) {
           return true
         }
       }
