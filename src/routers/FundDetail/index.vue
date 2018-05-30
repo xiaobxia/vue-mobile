@@ -6,7 +6,7 @@
       </mt-button>
       <mt-button slot="right">
         <i class="far fa-edit" v-if="type==='edit'" @click="toEditHandler"></i>
-        <i class="fas fa-plus" v-else @click="toAddHandler"></i>
+        <i :class="{'fas': true, 'fa-plus': true, 'warn': !couldBuyMore}" v-else @click="toAddHandler"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
@@ -88,7 +88,8 @@ export default {
       queryData: {},
       type: 'add',
       netValue: [],
-      ifFocus: 'false'
+      ifFocus: 'false',
+      couldBuyMore: true
     }
   },
 
@@ -96,7 +97,8 @@ export default {
     chartMakeLineNetValue () {
       const result = this.currentFundAnalyzeRecent.result
       if (!result) {
-        return {}
+        return {
+        }
       }
       let dataList = [
         {
@@ -263,6 +265,29 @@ export default {
         })
         netValue.reverse()
         this.netValue = netValue
+      })
+      // 判断是否有持仓
+      Http.get('fund/getUserFunds').then((data) => {
+        const list = data.data.list
+        let buyIn7DaysCount = 0
+        list.forEach((item) => {
+          if (item.has_days <= 7) {
+            buyIn7DaysCount += item.costSum
+          }
+          if (item.code === code) {
+            delete item.listMonth
+            delete item.result
+            this.type = 'edit'
+            this.queryData = {
+              type: 'edit',
+              ...item
+            }
+          }
+        })
+        // 大于49000就说明大于了5000，因为每个标准仓5000
+        if (buyIn7DaysCount > 49000) {
+          this.couldBuyMore = false
+        }
       })
     },
     countRate (a, b) {

@@ -5,7 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right">
-        <i class="fas fa-plus" @click="addHandler"></i>
+        <i :class="{'fas': true, 'fa-plus': true, 'warn': !couldBuyMore}" @click="addHandler"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
@@ -43,7 +43,8 @@ export default {
       myFundList2: [],
       myFundList3: [],
       myFundList4: [],
-      myFundList5: []
+      myFundList5: [],
+      couldBuyMore: true
     }
   },
   components: {MyFundCard},
@@ -76,8 +77,11 @@ export default {
         let list3 = []
         let list4 = []
         let list5 = []
+        // 7天内购买的金额
+        let buyIn7DaysCount = 0
         list.forEach((item) => {
           if (item.has_days <= 7) {
+            buyIn7DaysCount += item.costSum
             list4.push(item)
           } else {
             if (this.ifWaitSell(item)) {
@@ -95,6 +99,10 @@ export default {
             }
           }
         })
+        // 大于49000就说明大于了5000，因为每个标准仓5000
+        if (buyIn7DaysCount > 49000) {
+          this.couldBuyMore = false
+        }
         this.myFundList1 = list1
         this.myFundList2 = list2
         this.myFundList3 = list3
