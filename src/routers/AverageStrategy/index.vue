@@ -80,11 +80,12 @@ export default {
         let list3 = []
         let average = 0
         list.forEach((item) => {
-          average += item.valuationRate
           if (item.toUp) {
             list3.push(item)
+            average += item.valuationRate
           } else if (item.isUp) {
             list1.push(item)
+            average += item.valuationRate
           }
           if (item.isReverse) {
             list2.push(item)
