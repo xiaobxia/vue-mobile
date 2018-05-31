@@ -19,7 +19,7 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import {Toast} from 'mint-ui'
+import Toast from '@/common/toast.js'
 import storageUtil from '@/util/storageUtil.js'
 
 export default {
@@ -45,11 +45,7 @@ export default {
           })
           this.$router.push('/page/login')
         } else {
-          Toast({
-            message: '操作失败',
-            iconClass: 'icon far fa-frown',
-            className: 'error'
-          })
+          Toast.error('操作失败')
         }
       })
     }

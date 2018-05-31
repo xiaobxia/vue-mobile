@@ -21,7 +21,8 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import { Toast, MessageBox } from 'mint-ui'
+import {MessageBox} from 'mint-ui'
+import Toast from '@/common/toast.js'
 import moment from 'moment'
 
 export default {
@@ -56,18 +57,10 @@ export default {
         if (action === 'confirm') {
           Http.get('fund/deleteUserNetValue', {net_value_date: this.form.net_value_date}).then((data) => {
             if (data.success) {
-              Toast({
-                message: '操作成功',
-                iconClass: 'icon far fa-check-circle',
-                className: 'success'
-              })
+              Toast.success('操作成功')
               this.$router.history.go(-1)
             } else {
-              Toast({
-                message: '操作失败',
-                iconClass: 'icon far fa-frown',
-                className: 'error'
-              })
+              Toast.error('操作失败')
             }
           })
         }
@@ -76,18 +69,10 @@ export default {
     okHandler () {
       Http.post(this.type === 'add' ? 'fund/addUserNetValue' : 'fund/updateUserNetValue', this.form).then((data) => {
         if (data.success) {
-          Toast({
-            message: '操作成功',
-            iconClass: 'icon far fa-check-circle',
-            className: 'success'
-          })
+          Toast.success('操作成功')
           this.$router.history.go(-1)
         } else {
-          Toast({
-            message: '操作失败',
-            iconClass: 'icon far fa-frown',
-            className: 'error'
-          })
+          Toast.error('操作失败')
         }
       })
     }

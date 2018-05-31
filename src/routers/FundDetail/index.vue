@@ -42,7 +42,7 @@ import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import constUtil from '@/util/constUtil.js'
 import moment from 'moment'
-import {Toast} from 'mint-ui'
+import Toast from '@/common/toast.js'
 
 const zoom = window.adaptive.zoom
 export default {
@@ -333,18 +333,10 @@ export default {
       return numberUtil.keepFourDecimals(count / (index + 1 - start))
     },
     successMessage () {
-      Toast({
-        message: '操作成功',
-        iconClass: 'icon far fa-check-circle',
-        className: 'success'
-      })
+      Toast.success('操作成功')
     },
     errorMessage () {
-      Toast({
-        message: '操作失败',
-        iconClass: 'icon far fa-frown',
-        className: 'error'
-      })
+      Toast.error('操作失败')
     },
     focusChangeHandler () {
       const code = this.$router.history.current.query.code

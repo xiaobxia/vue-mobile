@@ -16,8 +16,8 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import md5 from 'md5'
-import { Toast } from 'mint-ui'
 import storageUtil from '@/util/storageUtil.js'
+import Toast from '@/common/toast.js'
 
 export default {
   name: 'Login',
@@ -44,17 +44,9 @@ export default {
             ...data.data,
             isLogin: true
           })
-          Toast({
-            message: '登录成功',
-            iconClass: 'icon far fa-check-circle',
-            className: 'success'
-          })
+          Toast.success('登录成功')
         } else {
-          Toast({
-            message: data.message,
-            iconClass: 'icon far fa-frown',
-            className: 'error'
-          })
+          Toast.error(data.message)
         }
       })
     }

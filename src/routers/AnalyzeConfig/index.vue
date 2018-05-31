@@ -22,7 +22,8 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import {Toast} from 'mint-ui'
+import Toast from '@/common/toast.js'
+
 export default {
   name: 'AnalyzeConfig',
   data () {
@@ -67,18 +68,10 @@ export default {
     okHandler () {
       Http.post('strategy/updateAnalyzeValue', {list: JSON.stringify(this.list)}).then((data) => {
         if (data.success) {
-          Toast({
-            message: '操作成功',
-            iconClass: 'icon far fa-check-circle',
-            className: 'success'
-          })
+          Toast.success('操作成功')
           this.initPage()
         } else {
-          Toast({
-            message: '操作失败',
-            iconClass: 'icon far fa-frown',
-            className: 'error'
-          })
+          Toast.error('操作失败')
         }
       })
     }
