@@ -27,9 +27,10 @@
         </ol>
       </div>
       <div class="principle-block">
-        <h3>普跌</h3>
+        <h3>下跌</h3>
         <ol>
-          <li>1.在普跌行情中，逆势的板块可以买入。</li>
+          <li class="red-text">1.在普跌行情中，逆势的板块可以买入。</li>
+          <li>2.下跌趋势会以最后的暴跌结束。</li>
         </ol>
       </div>
       <div class="principle-block">
