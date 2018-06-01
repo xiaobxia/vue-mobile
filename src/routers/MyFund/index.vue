@@ -14,8 +14,8 @@
         <span class="item">持仓成本：{{info.costTotalSum}}</span>
         <span class="item">估算金额：{{info.valuationTotalSum}}</span>
         <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
-        <span class="item">市场平均：<span :class="marketRise < 0 ? 'green-text' : 'red-text'">{{marketRise}}%</span></span>
-        <span class="item">估算比率：<span :class="myRise < 0 ? 'green-text' : 'red-text'">{{myRise}}%</span></span>
+        <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
+        <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
         </div>
       <my-fund-card :listData="myFundList1" :title="'超跌博反'"/>
       <my-fund-card :listData="myFundList2" :title="'逆势上涨'"/>
@@ -39,8 +39,8 @@ export default {
       info: {},
       list: [],
       timer: null,
-      marketRise: 0,
-      myRise: 0,
+      marketRate: 0,
+      myRate: 0,
       myFundList1: [],
       myFundList2: [],
       myFundList3: [],
@@ -110,10 +110,10 @@ export default {
         this.myFundList3 = list3
         this.myFundList4 = list4
         this.myFundList5 = list5
-        this.myRise = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
+        this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
       Http.get('fund/getMarketInfo').then((data) => {
-        this.marketRise = data.data.info.rise
+        this.marketRate = data.data.info.rate
       })
     },
     ifWaitSell (item) {
