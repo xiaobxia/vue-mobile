@@ -117,16 +117,9 @@ export default {
       })
     },
     ifWaitSell (item) {
-      const rate = numberUtil.countDifferenceRate(item.valuationSum, item.costSum)
-      if (rate > 0) {
-        // 上涨的情况
-        if (item.valuationSum < constUtil.cutLevel1) {
-          return true
-        }
-      } else {
-        if (item.valuationSum < constUtil.cutLevel2) {
-          return true
-        }
+      const standard = item.standard || 1
+      if (numberUtil.ifAround(item.costSum, constUtil.cutLevel2 * standard)) {
+        return true
       }
       return false
     },

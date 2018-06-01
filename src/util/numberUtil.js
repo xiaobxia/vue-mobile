@@ -15,6 +15,10 @@ const numberUtil = {
   },
   keepFourDecimals: function (number) {
     return Math.round(10000 * number) / 10000
+  },
+  ifAround: function (number, target) {
+    const step = 500
+    return (number >= (target - step)) && (number <= (target + step))
   }
 }
 

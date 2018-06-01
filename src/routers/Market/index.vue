@@ -29,7 +29,7 @@
             <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code">
               <div slot="title">
                 <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
-                                                                  :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span></h3>
+                                                                  :class="item.rise < 0 ? 'green-text' : 'red-text'">{{item.rise}}%</span></h3>
               </div>
             </mt-cell-swipe>
           </ul>

@@ -15,6 +15,7 @@
       <mt-field label="金额" placeholder="请输入金额" v-if="type === 'add'" v-model="form.asset"></mt-field>
       <mt-field label="份额" placeholder="请输入份额" v-if="type === 'edit'" v-model="form.shares"></mt-field>
       <mt-field label="购买日期" placeholder="请输入购买日期" v-model="form.buy_date"></mt-field>
+      <mt-field label="倍仓" placeholder="请输入倍仓" v-model="form.standard"></mt-field>
       <mt-field label="目标点位" placeholder="请输入目标点位" v-model="form.target_net_value"></mt-field>
       <mt-field label="止损点位" placeholder="请输入止损点位" v-model="form.stop_net_value"></mt-field>
       <template v-if="type==='edit'">
@@ -71,7 +72,8 @@ export default {
       this.form = Object.assign({
         target_net_value: numberUtil.keepFourDecimals(cost * (1 + 0.06)),
         stop_net_value: numberUtil.keepFourDecimals(cost * (1 - 0.02)),
-        buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD')
+        buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD'),
+        standard: 1
       }, query)
     },
     toPath (path) {
