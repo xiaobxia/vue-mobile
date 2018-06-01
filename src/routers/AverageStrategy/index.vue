@@ -91,10 +91,11 @@ export default {
             list2.push(item)
           }
         })
-        this.average = numberUtil.keepTwoDecimals(average / list.length)
         this.list1 = list3.concat(list1)
         this.list2 = list2
+        this.average = numberUtil.keepTwoDecimals(average / this.list1.length)
       })
+      // Http.get('fund/getUserNetValueMonthRate')
     },
     backHandler () {
       this.$router.history.go(-1)
