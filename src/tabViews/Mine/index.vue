@@ -11,7 +11,7 @@
         <h3 class="user-name">{{userName}}</h3>
       </div>
     </div>
-    <div class="info-wrap simple">
+    <div class="my-info-wrap simple large">
       <mt-cell-swipe :to="'/page/myFund'" is-link>
         <div slot="title">
           <h3><i class="fab fa-shirtsinbulk"></i>我的持仓</h3>
