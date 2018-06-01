@@ -1,6 +1,10 @@
 <template>
   <div>
-    <mt-header title="定时任务" :fixed="true"/>
+    <mt-header title="定时任务" :fixed="true">
+      <mt-button slot="left" @click="backHandler">
+        <i class="fas fa-chevron-left"></i>
+      </mt-button>
+    </mt-header>
     <div class="main-body has-bar">
       <mt-cell-swipe v-for="(item) in scheduleList" :key="item._id">
         <div slot="title">
@@ -55,6 +59,9 @@ export default {
         }
         return data
       })
+    },
+    backHandler () {
+      this.$router.history.go(-1)
     }
   }
 }

@@ -98,6 +98,11 @@ export default new Router({
       name: 'MyFocus',
       path: '/page/myFocus',
       component: lazyLoading('MyFocus')
+    },
+    {
+      name: 'Schedule',
+      path: '/page/schedule',
+      component: lazyLoading('Schedule')
     }
   ]
 })

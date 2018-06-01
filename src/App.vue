@@ -8,7 +8,7 @@
       <router-view v-if="subPath"/>
       <template v-else>
         <fund v-if="tabSelect === 'fund'"/>
-        <schedule v-if="tabSelect === 'schedule'"/>
+        <configCenter v-if="tabSelect === 'configCenter'"/>
         <mine v-if="tabSelect === 'mine'"/>
         <square v-if="tabSelect === 'square'"></square>
         <mt-tabbar v-model="tabSelect" :fixed="true">
@@ -16,9 +16,9 @@
             <i class="fas fa-donate" slot="icon"></i>
             <p>基金</p>
           </mt-tab-item>
-          <mt-tab-item id="schedule">
-            <i class="far fa-calendar-alt" slot="icon"></i>
-            <p>任务</p>
+          <mt-tab-item id="configCenter">
+            <i class="fas fa-cogs" slot="icon"></i>
+            <p>配置</p>
           </mt-tab-item>
           <mt-tab-item id="square">
             <i class="far fa-compass" slot="icon"></i>
@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import Schedule from './tabViews/Schedule/index.vue'
+import Square from './tabViews/Square/index.vue'
 import Fund from './tabViews/Fund/index.vue'
 import Mine from './tabViews/Mine/index.vue'
-import Square from './tabViews/Square/index.vue'
+import ConfigCenter from './tabViews/ConfigCenter/index.vue'
 import Http from '@/util/httpUtil.js'
 import storageUtil from '@/util/storageUtil.js'
 
@@ -51,7 +51,7 @@ export default {
       ifChecked: false
     }
   },
-  components: {Schedule, Fund, Mine, Square},
+  components: {Square, Fund, Mine, ConfigCenter},
   watch: {
     tabSelect (val) {
       storageUtil.setAppConfig('homeTabSelect', val)

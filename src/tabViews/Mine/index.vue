@@ -11,6 +11,28 @@
         <h3 class="user-name">{{userName}}</h3>
       </div>
     </div>
+    <div class="info-wrap simple">
+      <mt-cell-swipe :to="'/page/myFund'" is-link>
+        <div slot="title">
+          <h3><i class="fab fa-shirtsinbulk"></i>我的持仓</h3>
+        </div>
+      </mt-cell-swipe>
+      <mt-cell-swipe :to="'/page/myStrategy'" is-link>
+        <div slot="title">
+          <h3><i class="fab fa-keycdn"></i>持仓分析</h3>
+        </div>
+      </mt-cell-swipe>
+      <mt-cell-swipe :to="'/page/myFocus'" is-link>
+        <div slot="title">
+          <h3><i class="fas fa-eye"></i>我的关注</h3>
+        </div>
+      </mt-cell-swipe>
+      <mt-cell-swipe :to="'/page/myNetValueLine'" is-link>
+        <div slot="title">
+          <h3><i class="fas fa-chart-area"></i>净值管理</h3>
+        </div>
+      </mt-cell-swipe>
+    </div>
     <div class="btn-wrap">
       <mt-button type="primary" @click="okHandler" class="main-btn">退出登录</mt-button>
     </div>
