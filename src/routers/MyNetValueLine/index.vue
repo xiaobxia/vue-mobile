@@ -10,6 +10,11 @@
     </mt-header>
     <div class="main-body">
     <div class="content-body">
+      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
+               :height="chartHeight" :legend="chartLegend"
+               :data="chartData" :settings="chartSettings"
+               :tooltip="tooltip" :grid="grid"
+      ></ve-line>
       <div class="info">
         <span>本月：{{myNetValueInfo.nowMonth}}%</span>
         <span>总收益：{{myNetValueInfo.all}}%</span>
@@ -39,11 +44,6 @@
         <span>上证50一月：{{monthAll.wulin}}%</span>
         <span>中证500一月：{{monthAll.wubai}}%</span>
       </div>
-      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
-               :height="chartHeight" :legend="chartLegend"
-               :data="chartData" :settings="chartSettings"
-               :tooltip="tooltip" :grid="grid"
-      ></ve-line>
     </div>
     </div>
   </div>
@@ -70,7 +70,7 @@ export default {
           fontSize: baseFontSize * zoom
         }
       },
-      chartHeight: (500 / 20) + 'rem',
+      chartHeight: (700 / 20) + 'rem',
       chartTextStyle: {
         fontSize: baseFontSize * zoom
       },
