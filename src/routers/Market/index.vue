@@ -1,5 +1,5 @@
 <template>
-  <div class="my-net-value-record">
+  <div class="page-market">
     <mt-header title="行情" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
@@ -35,9 +35,9 @@
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="2" class="simple">
-          <ve-pie :data="pieChartData" :textStyle="chartTextStyle"
-                  :height="chartHeight" :legend="chartLegend" :settings="chartSettings"
-          ></ve-pie>
+          <div class="chart-wrap">
+            <chart v-if="selected==='2'"/>
+          </div>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -46,8 +46,8 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import storageUtil from '@/util/storageUtil.js'
+import Chart from './chart.vue'
 
-const zoom = window.adaptive.zoom
 export default{
   name: 'Market',
   data () {
@@ -60,40 +60,12 @@ export default{
         sort: sort
       },
       selected: selected,
-      chartHeight: (650 / 20) + 'rem',
-      chartTextStyle: {
-        fontSize: 30 * zoom
-      },
-      chartSettings: {
-        radius: 200 * zoom,
-        offsetY: 350 * zoom
-      },
-      chartLegend: {
-        itemWidth: 50 * zoom,
-        itemHeight: 30 * zoom
-      },
       list: [],
       loading: true,
-      ifUp: sort === 'up',
-      marketInfo: {},
-      distribution: {}
+      ifUp: sort === 'up'
     }
   },
-  computed: {
-    pieChartData () {
-      let rows = []
-      for (let key in this.distribution) {
-        rows.push({
-          '区间': key,
-          '数量': this.distribution[key]
-        })
-      }
-      return {
-        columns: ['区间', '数量'],
-        rows
-      }
-    }
-  },
+  components: {Chart},
   watch: {
     selected (val) {
       storageUtil.setAppConfig('marketSelected', val)
@@ -111,10 +83,6 @@ export default{
           this.loading = false
         }
         this.list = [...this.list, ...data.data.list]
-      })
-      Http.get('fund/getMarketInfo').then((data) => {
-        this.marketInfo = data.data.info
-        this.distribution = data.data.info.distribution
       })
     },
     formatName (name) {

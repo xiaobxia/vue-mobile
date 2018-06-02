@@ -7,7 +7,10 @@
     </mt-header>
     <div class="main-body">
     <div class="content-body">
-      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
+      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight"
+               :legend="chartLegend" :data="chartData" :settings="chartSettings"
+               :tooltip="tooltip" :grid="grid"
+      ></ve-line>
     </div>
     </div>
   </div>
@@ -22,17 +25,28 @@ import { Indicator } from 'mint-ui'
 const zoom = window.adaptive.zoom
 const startDate = parseInt(moment().subtract(3, 'months').format('YYYYMMDD'))
 console.log(startDate)
+const baseFontSize = 22
 export default {
   name: 'Plate',
   data () {
     return {
+      grid: {
+        top: '20%'
+      },
       chartHeight: (900 / 20) + 'rem',
       chartTextStyle: {
-        fontSize: 20 * zoom
+        fontSize: baseFontSize * zoom
+      },
+      tooltip: {
+        trigger: 'axis',
+        textStyle: {
+          fontSize: baseFontSize * zoom
+        }
       },
       chartYAxis: {
         axisLabel: {
-          fontSize: 20 * zoom
+          fontSize: baseFontSize * zoom,
+          formatter: '{value} %'
         },
         scale: [true, true]
       },

@@ -39,7 +39,11 @@
         <span>上证50一月：{{monthAll.wulin}}%</span>
         <span>中证500一月：{{monthAll.wubai}}%</span>
       </div>
-      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend" :data="chartData" :settings="chartSettings"></ve-line>
+      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
+               :height="chartHeight" :legend="chartLegend"
+               :data="chartData" :settings="chartSettings"
+               :tooltip="tooltip" :grid="grid"
+      ></ve-line>
     </div>
     </div>
   </div>
@@ -52,20 +56,36 @@ import moment from 'moment'
 import { Indicator } from 'mint-ui'
 
 const zoom = window.adaptive.zoom
+const baseFontSize = 22
 export default {
   name: 'MyNetValueLine',
   data () {
     return {
+      grid: {
+        top: '18%'
+      },
+      tooltip: {
+        trigger: 'axis',
+        textStyle: {
+          fontSize: baseFontSize * zoom
+        }
+      },
       chartHeight: (500 / 20) + 'rem',
       chartTextStyle: {
-        fontSize: 20 * zoom
+        fontSize: baseFontSize * zoom
       },
       chartYAxis: {
         axisLabel: {
-          fontSize: 20 * zoom
+          fontSize: baseFontSize * zoom,
+          formatter: '{value} %'
         },
         scale: [true, true]
       },
+      //      chartXAxis: {
+      //        nameTextStyle: {
+      //          fontSize: baseFontSize * zoom
+      //        }
+      //      },
       chartLegend: {
         itemGap: 20 * zoom,
         itemWidth: 50 * zoom,
@@ -88,7 +108,8 @@ export default {
       chartSettings: {
         lineStyle: {
           width: 3 * zoom
-        }
+        },
+        offsetY: 350 * zoom
       },
       recentInfo: {},
       recentAll: {},

@@ -21,16 +21,16 @@
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValueMonth"
-                 :settings="chartSettings" :tooltip="chartTooltip"></ve-line>
+                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
       </div>
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValue"
-                 :settings="chartSettings" :tooltip="chartTooltip"></ve-line>
+                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
       </div>
       <div class="content-body">
-        <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
-                 :data="chartDataRecent" :settings="chartSettings"></ve-line>
+        <ve-line :yAxis="chartYAxisPercent" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
+                 :data="chartDataRecent" :settings="chartSettingsPercent"  :tooltip="chartTooltip" :grid="grid"></ve-line>
       </div>
       <mt-button type="primary" @click="focusChangeHandler" class="main-btn">{{ifFocus==='true'?'取消关注':'关注'}}</mt-button>
     </div>
@@ -45,23 +45,43 @@ import moment from 'moment'
 import Toast from '@/common/toast.js'
 
 const zoom = window.adaptive.zoom
+const baseFontSize = 22
 export default {
   name: 'MyNetValueLine',
   data () {
     return {
+      grid: {
+        top: '15%'
+      },
       chartTooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'cross'
+          type: 'cross',
+          crossStyle: {
+            width: 2 * zoom
+          },
+          label: {
+            fontSize: baseFontSize * zoom
+          }
+        },
+        textStyle: {
+          fontSize: baseFontSize * zoom
         }
       },
       chartHeight: (650 / 20) + 'rem',
       chartTextStyle: {
-        fontSize: 20 * zoom
+        fontSize: baseFontSize * zoom
       },
       chartYAxis: {
         axisLabel: {
-          fontSize: 20 * zoom
+          fontSize: baseFontSize * zoom
+        },
+        scale: [true, true]
+      },
+      chartYAxisPercent: {
+        axisLabel: {
+          fontSize: baseFontSize * zoom,
+          formatter: '{value} %'
         },
         scale: [true, true]
       },
@@ -85,6 +105,12 @@ export default {
         lineStyle: {
           width: 3 * zoom
         }
+      },
+      chartSettingsPercent: {
+        lineStyle: {
+          width: 3 * zoom
+        },
+        yAxisType: 'percent'
       },
       queryData: {},
       type: 'add',

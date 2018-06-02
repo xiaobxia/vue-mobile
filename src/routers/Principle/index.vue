@@ -9,34 +9,34 @@
       <div class="principle-block">
         <h3>图形</h3>
         <ol>
-          <li>1.支撑是没有用的，大概率破位。</li>
-          <li>2.没有到情绪崩溃的尾盘上拉，那就减仓，大概率继续跌。</li>
+          <li>支撑是没有用的，大概率破位。</li>
+          <li>没有到情绪崩溃的尾盘上拉，那就减仓，大概率继续跌。</li>
         </ol>
       </div>
       <div class="principle-block">
         <h3>持仓</h3>
         <ol>
-          <li>1.很多时候你掉不了头，就是因为持仓没有流动。</li>
+          <li>很多时候你掉不了头，就是因为持仓没有流动。</li>
         </ol>
       </div>
       <div class="principle-block">
         <h3>态度</h3>
         <ol>
-          <li>1.放消息说了不能炒的，那就一定不要炒。</li>
-          <li>2.国家队砸盘那就离场，应该还会砸几天，特别是，砸什么那就卖什么。</li>
+          <li>放消息说了不能炒的，那就一定不要炒。</li>
+          <li>国家队砸盘那就离场，应该还会砸几天，特别是，砸什么那就卖什么。</li>
         </ol>
       </div>
       <div class="principle-block">
         <h3>下跌</h3>
         <ol>
-          <li class="red-text">1.在普跌行情中，逆势的板块可以买入。</li>
-          <li>2.下跌趋势会以最后的暴跌结束。</li>
+          <li class="red-text">在普跌行情中，逆势的板块可以买入。</li>
+          <li>下跌趋势会以最后的暴跌结束。</li>
         </ol>
       </div>
       <div class="principle-block">
         <h3>趋势</h3>
         <ol>
-          <li>1.历史上没有走出趋势的，不要做趋势。</li>
+          <li>历史上没有走出趋势的，不要做趋势。</li>
         </ol>
       </div>
     </div>
