@@ -19,13 +19,11 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
-import moment from 'moment'
 import { Indicator } from 'mint-ui'
 
 const zoom = window.adaptive.zoom
-const startDate = parseInt(moment().subtract(3, 'months').format('YYYYMMDD'))
-console.log(startDate)
 const baseFontSize = 22
+
 export default {
   name: 'Plate',
   data () {
@@ -94,13 +92,7 @@ export default {
         gangtie.length < 1 || meitan.length < 1 || huanbao.length < 1 || youse.length < 1) {
         return {}
       }
-      let startIndex = 0
-      for (let i = 0; i < jungong.length; i++) {
-        if (jungong[i].date === startDate) {
-          startIndex = i
-          break
-        }
-      }
+      let startIndex = 60
       jungong = jungong.slice(0, startIndex + 1)
       jungong.reverse()
       const baseJungong = jungong[0].kline.close
