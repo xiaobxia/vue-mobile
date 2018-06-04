@@ -15,35 +15,55 @@
                :data="chartData" :settings="chartSettings"
                :tooltip="tooltip" :grid="grid"
       ></ve-line>
-      <div class="info">
+      <div class="my-net-value-info">
         <span>本月：{{myNetValueInfo.nowMonth}}%</span>
         <span>总收益：{{myNetValueInfo.all}}%</span>
-        <span>近一星期：{{recentInfo.week}}%</span>
-        <span>近半月：{{recentInfo.halfMonth}}%</span>
-        <span>近一月：{{recentInfo.month}}%</span>
         <span>近一年：{{recentInfo.year}}%</span>
       </div>
-      <div class="info-big">
-        <span>上证一星期：{{recentAll.shangzheng}}%</span>
-        <span>创业一星期：{{recentAll.chuangye}}%</span>
-        <span>沪深300一星期：{{recentAll.hushen}}%</span>
-        <span>上证50一星期：{{recentAll.wulin}}%</span>
-        <span>中证500一星期：{{recentAll.wubai}}%</span>
-      </div>
-      <div class="info-big">
-        <span>上证半月：{{halfMonthAll.shangzheng}}%</span>
-        <span>创业半月：{{halfMonthAll.chuangye}}%</span>
-        <span>沪深300半月：{{halfMonthAll.hushen}}%</span>
-        <span>上证50半月：{{halfMonthAll.wulin}}%</span>
-        <span>中证500半月：{{halfMonthAll.wubai}}%</span>
-      </div>
-      <div class="info-big">
-        <span>上证一月：{{monthAll.shangzheng}}%</span>
-        <span>创业一月：{{monthAll.chuangye}}%</span>
-        <span>沪深300一月：{{monthAll.hushen}}%</span>
-        <span>上证50一月：{{monthAll.wulin}}%</span>
-        <span>中证500一月：{{monthAll.wubai}}%</span>
-      </div>
+      <table width="100%" border="0" cellspacing="1" cellpadding="4">
+        <tr>
+          <th>指数\时间</th>
+          <th>一星期</th>
+          <th>半月</th>
+          <th>一月</th>
+        </tr>
+        <tr>
+          <td>我的</td>
+          <td>{{recentInfo.week}}%</td>
+          <td>{{recentInfo.halfMonth}}%</td>
+          <td>{{recentInfo.month}}%</td>
+        </tr>
+        <tr>
+          <td>上证</td>
+          <td>{{recentAll.shangzheng}}%</td>
+          <td>{{halfMonthAll.shangzheng}}%</td>
+          <td>{{monthAll.shangzheng}}%</td>
+        </tr>
+        <tr>
+          <td>创业</td>
+          <td>{{recentAll.chuangye}}%</td>
+          <td>{{halfMonthAll.chuangye}}%</td>
+          <td>{{monthAll.chuangye}}%</td>
+        </tr>
+        <tr>
+          <td>沪深300</td>
+          <td>{{recentAll.hushen}}%</td>
+          <td>{{halfMonthAll.hushen}}%</td>
+          <td>{{monthAll.hushen}}%</td>
+        </tr>
+        <tr>
+          <td>上证50</td>
+          <td>{{recentAll.wulin}}%</td>
+          <td>{{halfMonthAll.wulin}}%</td>
+          <td>{{monthAll.wulin}}%</td>
+        </tr>
+        <tr>
+          <td>中证500</td>
+          <td>{{recentAll.wubai}}%</td>
+          <td>{{halfMonthAll.wubai}}%</td>
+          <td>{{monthAll.wubai}}%</td>
+        </tr>
+      </table>
     </div>
     </div>
   </div>

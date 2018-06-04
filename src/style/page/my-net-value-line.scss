@@ -1,18 +1,35 @@
-.my-net-value-line{
-  .info{
+.my-net-value-line {
+  .info {
     padding: 0 0 30px 0;
     font-size: 24px;
-    span{
+    span {
       display: inline-block;
       width: 49%;
     }
   }
-  .info-big{
+  .info-big {
     padding: 0 0 30px 0;
     font-size: 24px;
-    span{
+    span {
       display: inline-block;
       width: 49%;
+    }
+  }
+  .my-net-value-info{
+    margin: 20px 0;
+    font-size: 28px;
+    span{
+      margin-right: 1.5em;
+    }
+  }
+  table {
+    th {
+      font-size: 30px;
+      text-align: left;
+    }
+    td{
+      font-size: 28px;
+      text-align: left;
     }
   }
 }

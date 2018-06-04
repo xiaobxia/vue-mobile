@@ -21,6 +21,7 @@
       <my-fund-card :listData="myFundList2" :title="'逆势上涨'"/>
       <my-fund-card :listData="myFundList3" :title="'机构趋势'"/>
       <my-fund-card :listData="myFundList5" :title="'待卖'"/>
+      <my-fund-card :listData="myFundList6" :title="'解锁'"/>
       <my-fund-card :listData="myFundList4" :title="'锁仓'"/>
     </div>
   </div>
@@ -46,6 +47,7 @@ export default {
       myFundList3: [],
       myFundList4: [],
       myFundList5: [],
+      myFundList6: [],
       couldBuyMore: true
     }
   },
@@ -79,24 +81,32 @@ export default {
         let list3 = []
         let list4 = []
         let list5 = []
+        let list6 = []
         // 7天内购买的金额
         let buyIn7DaysCount = 0
         list.forEach((item) => {
+          // 锁仓
           if (item.has_days <= 7) {
             buyIn7DaysCount += item.costSum
             list4.push(item)
           } else {
-            if (this.ifWaitSell(item)) {
-              list5.push(item)
+            // 刚解锁，需要更新仓位
+            if (item.has_days <= 14) {
+              list6.push(item)
             } else {
-              if (item.strategy === '1') {
-                list1.push(item)
-              }
-              if (item.strategy === '2') {
-                list2.push(item)
-              }
-              if (item.strategy === '3') {
-                list3.push(item)
+              // 待卖
+              if (this.ifWaitSell(item)) {
+                list5.push(item)
+              } else {
+                if (item.strategy === '1') {
+                  list1.push(item)
+                }
+                if (item.strategy === '2') {
+                  list2.push(item)
+                }
+                if (item.strategy === '3') {
+                  list3.push(item)
+                }
               }
             }
           }
@@ -110,6 +120,7 @@ export default {
         this.myFundList3 = list3
         this.myFundList4 = list4
         this.myFundList5 = list5
+        this.myFundList6 = list6
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
       Http.get('fund/getMarketInfo').then((data) => {
