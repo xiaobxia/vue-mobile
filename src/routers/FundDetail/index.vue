@@ -104,19 +104,13 @@ export default {
       chartSettings: {
         lineStyle: {
           width: 3 * zoom
-        },
-        xAxisLabel: {
-          fontSize: baseFontSize * zoom
         }
       },
       chartSettingsPercent: {
         lineStyle: {
           width: 3 * zoom
         },
-        yAxisType: 'percent',
-        xAxisLabel: {
-          fontSize: baseFontSize * zoom
-        }
+        yAxisType: 'percent'
       },
       queryData: {},
       type: 'add',
