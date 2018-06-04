@@ -5,7 +5,7 @@ import MintUI from 'mint-ui'
 import router from './router/index'
 import App from './App'
 import './style/main.scss'
-import VCharts from 'v-charts'
+import VCharts from '../lib/chart'
 
 function setAdaptive () {
   var _baseFontSize = 20

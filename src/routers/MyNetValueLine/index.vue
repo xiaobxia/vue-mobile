@@ -137,7 +137,10 @@ export default {
         lineStyle: {
           width: 3 * zoom
         },
-        offsetY: 350 * zoom
+        offsetY: 350 * zoom,
+        xAxisLabel: {
+          fontSize: baseFontSize * zoom
+        }
       },
       recentInfo: {},
       recentAll: {},
