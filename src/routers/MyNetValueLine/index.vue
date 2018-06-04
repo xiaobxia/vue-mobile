@@ -20,7 +20,7 @@
         <span>总收益：{{myNetValueInfo.all}}%</span>
         <span>近一年：{{recentInfo.year}}%</span>
       </div>
-      <table width="100%" border="0" cellspacing="1" cellpadding="4">
+      <table border="1" width="100%" cellspacing="1" cellpadding="4">
         <tr>
           <th>指数\时间</th>
           <th>一星期</th>
@@ -64,6 +64,11 @@
           <td>{{monthAll.wubai}}%</td>
         </tr>
       </table>
+      <ve-histogram :data="monthRateChartData" :grid="monthRateGrid"
+                    :yAxis="chartYAxis" :textStyle="chartTextStyle"
+                    :height="chartHeight" :legend="chartLegend"
+                    :settings="chartSettings" :tooltip="tooltip"
+      ></ve-histogram>
     </div>
     </div>
   </div>
@@ -83,6 +88,9 @@ export default {
     return {
       grid: {
         top: '18%'
+      },
+      monthRateGrid: {
+        top: '10%'
       },
       tooltip: {
         trigger: 'axis',
@@ -138,7 +146,8 @@ export default {
       myNetValueInfo: {
         nowMonth: 0,
         all: 0
-      }
+      },
+      netValueMonthRate: []
     }
   },
 
@@ -189,6 +198,23 @@ export default {
       })
       return {
         columns: ['日期', '我的组合', '上证', '创业', '沪深300', '上证50'],
+        rows: row
+      }
+    },
+    monthRateChartData () {
+      if (!this.netValueMonthRate.length > 0) {
+        return {}
+      }
+      const listMonth = this.netValueMonthRate
+      let row = []
+      listMonth.forEach(function (item) {
+        let data = {}
+        data['日期'] = item['yearMonth']
+        data['收益率'] = item['rate']
+        row.push(data)
+      })
+      return {
+        columns: ['日期', '收益率'],
         rows: row
       }
     }
@@ -270,6 +296,11 @@ export default {
         })
       ]).then(() => {
         Indicator.close()
+      })
+      Http.get('fund/getUserNetValueMonthRate').then((data) => {
+        if (data.success) {
+          this.netValueMonthRate = data.data.list
+        }
       })
     },
     toPath (path) {

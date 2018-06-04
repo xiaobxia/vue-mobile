@@ -23,13 +23,16 @@
     }
   }
   table {
+    margin: 20px 0 40px 0;
+    border-color: $border-color;
+    background-color: rgb(235, 235, 235);
     th {
       font-size: 30px;
-      text-align: left;
+      text-align: center;
     }
     td{
       font-size: 28px;
-      text-align: left;
+      text-align: center;
     }
   }
 }
