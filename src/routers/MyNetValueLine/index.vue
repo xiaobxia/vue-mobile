@@ -29,9 +29,9 @@
         </tr>
         <tr>
           <td>我的</td>
-          <td>{{recentInfo.wode}}%</td>
-          <td>{{recentInfo.wode}}%</td>
-          <td>{{recentInfo.wode}}%</td>
+          <td>{{recentAll.wode}}%</td>
+          <td>{{halfMonthAll.wode}}%</td>
+          <td>{{monthAll.wode}}%</td>
         </tr>
         <tr>
           <td>上证</td>
