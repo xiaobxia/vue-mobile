@@ -29,9 +29,9 @@
         </tr>
         <tr>
           <td>我的</td>
-          <td>{{recentAll.wode}}%</td>
-          <td>{{halfMonthAll.wode}}%</td>
-          <td>{{monthAll.wode}}%</td>
+          <td>{{recentInfo.week}}%</td>
+          <td>{{recentInfo.halfMonth}}%</td>
+          <td>{{recentInfo.month}}%</td>
         </tr>
         <tr>
           <td>上证</td>
@@ -237,9 +237,6 @@ export default {
               nowMonth: this.countNowMonth(list),
               all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
             }
-            this.recentAll.wode = this.countWeek(data.data.list)
-            this.monthAll.wode = this.countMonth(data.data.list)
-            this.halfMonthAll.wode = this.countHalfMonth(data.data.list)
           }
         }),
         Http.get('webData/getWebStockdaybar', {
