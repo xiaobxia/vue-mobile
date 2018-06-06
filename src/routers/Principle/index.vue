@@ -27,6 +27,12 @@
         </ol>
       </div>
       <div class="principle-block">
+        <h3>上升</h3>
+        <ol>
+          <li class="red-text">在普涨行情中，还是下跌，并且没出现买入理由的就卖掉。</li>
+        </ol>
+      </div>
+      <div class="principle-block">
         <h3>下跌</h3>
         <ol>
           <li class="red-text">在普跌行情中，逆势的板块可以买入。</li>
