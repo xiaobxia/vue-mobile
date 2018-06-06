@@ -42,4 +42,20 @@
   .warn{
     color: $red-color;
   }
+  .sell {
+    background-color: rgba(57, 181, 74, 0.3) !important;
+  }
+  .cut {
+    background-color: rgba(255, 147, 22, 0.2);
+  }
+  .tag-info{
+    text-align: center;
+    span{
+      margin: 0 40px;
+      padding: 10px 20px;
+      color: #fff;
+      font-size: 28px;
+      border-radius: 10px;
+    }
+  }
 }

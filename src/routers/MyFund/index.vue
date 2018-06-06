@@ -16,7 +16,12 @@
         <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
         <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
         <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
-        </div>
+      </div>
+      <div class="tag-info">
+        <span class="up">上升</span>
+        <span class="cut">减仓</span>
+        <span class="sell">卖出</span>
+      </div>
       <my-fund-card :listData="myFundList1" :title="'超跌博反'"/>
       <my-fund-card :listData="myFundList2" :title="'逆势上涨'"/>
       <my-fund-card :listData="myFundList3" :title="'机构趋势'"/>

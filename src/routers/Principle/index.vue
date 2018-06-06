@@ -16,6 +16,7 @@
       <div class="principle-block">
         <h3>持仓</h3>
         <ol>
+          <li>涨出分歧了就降仓位。</li>
           <li>很多时候你掉不了头，就是因为持仓没有流动。</li>
         </ol>
       </div>
@@ -42,6 +43,7 @@
       <div class="principle-block">
         <h3>趋势</h3>
         <ol>
+          <li>在上升市中做超跌，在下跌市中做强势。</li>
           <li>历史上没有走出趋势的，不要做趋势。</li>
         </ol>
       </div>
