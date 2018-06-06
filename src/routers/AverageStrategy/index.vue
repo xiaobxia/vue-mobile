@@ -18,7 +18,7 @@
         <mt-tab-container-item id="1" class="simple">
           <mt-cell-swipe v-for="(item) in list1" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
             <div slot="title">
-              <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
+              <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
               <p class="explain">
                 <mt-badge v-if="item.toUp" color="rgb(255, 147, 22)">突破</mt-badge>
@@ -29,7 +29,7 @@
         <mt-tab-container-item id="2" class="simple">
           <mt-cell-swipe v-for="(item) in list2" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
             <div slot="title">
-              <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
+              <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
             </div>
           </mt-cell-swipe>

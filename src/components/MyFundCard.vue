@@ -4,7 +4,7 @@
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)"
                    :class="{up:item.isUp, cut: ifCut(item), sell: ifSell(item)}">
       <div slot="title">
-        <h3>{{item.code}} {{formatName(item.name)}} <span style="float: right"
+        <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                           :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
         </h3>
         <p class="explain">
