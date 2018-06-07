@@ -16,7 +16,7 @@
       <div class="principle-block">
         <h3>持仓</h3>
         <ol>
-          <li>涨出分歧了就降仓位。</li>
+          <li>涨出分歧了就降仓位。卖掉领涨的。</li>
           <li>很多时候你掉不了头，就是因为持仓没有流动。</li>
         </ol>
       </div>
@@ -38,6 +38,7 @@
         <ol>
           <li class="red-text">在普跌行情中，逆势的板块可以买入。</li>
           <li>下跌趋势会以最后的暴跌结束。</li>
+          <li>超跌后反弹，还是以表现强势的领涨。</li>
         </ol>
       </div>
       <div class="principle-block">
