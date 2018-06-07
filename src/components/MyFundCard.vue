@@ -73,7 +73,7 @@ export default{
     },
     ifCut (item) {
       const standard = item.standard || 1
-      const rate = this.countRate(item.valuationSum)
+      const rate = this.countRate(item.valuationSum, item.costSum)
       const level1 = constUtil.standard
       const level2 = constUtil.cutLevel1
       const level3 = constUtil.cutLevel1
@@ -90,13 +90,13 @@ export default{
           return true
         }
       }
-      if (rate <= -1) {
-        if (numberUtil.ifAround(item.costSum, level2 * standard)) {
+      if (rate <= -2) {
+        if (numberUtil.ifAround(item.costSum, level3 * standard)) {
           return true
         }
       }
-      if (rate <= -2) {
-        if (numberUtil.ifAround(item.costSum, level3 * standard)) {
+      if (rate <= -1) {
+        if (numberUtil.ifAround(item.costSum, level2 * standard)) {
           return true
         }
       }

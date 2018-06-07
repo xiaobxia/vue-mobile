@@ -14,7 +14,7 @@ module.exports = {
       "/myService": {
         "target": "http://47.98.140.76:3002/"
         //"target": "http://39.108.114.91:3002/"
-        // "target": "http://localhost:3002/"
+        //"target": "http://localhost:3002/"
       }
     },
 
