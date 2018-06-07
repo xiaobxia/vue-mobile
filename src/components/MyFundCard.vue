@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3 class="title">{{title}} <span style="float: right">{{totalCount}}</span></h3>
+    <h3 class="title">{{title}} <span :class="totalRate < 0 ? 'green-text' : 'red-text'">{{totalRate}}%</span><span style="float: right">{{totalCount}}</span></h3>
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)"
                    :class="{up:item.isUp, cut: ifCut(item), sell: ifSell(item)}">
       <div slot="title">
@@ -45,6 +45,15 @@ export default{
         count += listData[i].costSum
       }
       return Math.round(count)
+    },
+    totalRate () {
+      let valuation = 0
+      let sum = 0
+      for (let i = 0; i < this.listData.length; i++) {
+        valuation += this.listData[i].valuationSum
+        sum += this.listData[i].sum
+      }
+      return this.countRate(valuation || 1, sum || 1)
     }
   },
   props: {
