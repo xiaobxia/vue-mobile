@@ -116,6 +116,7 @@ export default{
       if (item.has_days <= 7) {
         return false
       }
+      // 待卖状态，亏损超过3个点的
       if (this.title === '待卖' && (this.countRate(item.valuationSum, item.costSum)<=3)) {
           return true
       }
