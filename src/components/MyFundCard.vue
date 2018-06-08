@@ -120,6 +120,12 @@ export default{
       if (this.title === '待卖' && (this.countRate(item.valuationSum, item.costSum) <= 3)) {
         return true
       }
+      //老的仓位，一接近成本线就卖
+      if (item.has_days > 30) {
+        if (item.rate < 1 && item.rate > -1) {
+          return true
+        }
+      }
       // 转为下跌
       if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
         return true
