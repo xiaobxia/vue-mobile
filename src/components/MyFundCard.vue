@@ -116,6 +116,9 @@ export default{
       if (item.has_days <= 7) {
         return false
       }
+      if (this.title === '待卖' && (this.countRate(item.valuationSum, item.costSum)<=3)) {
+          return true
+      }
       // 转为下跌
       if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
         return true
