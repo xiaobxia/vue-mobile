@@ -82,29 +82,29 @@ export default{
     },
     ifCut (item) {
       const standard = item.standard || 1
-      const rate = this.countRate(item.valuationSum, item.costSum)
+      const allRate = this.countRate(item.valuationSum, item.costSum)
       const level1 = constUtil.standard
       const level2 = constUtil.cutLevel1
       const level3 = constUtil.cutLevel1
       if (item.has_days <= 7) {
         return false
       }
-      if (rate >= 2.5) {
+      if (allRate >= 2.5) {
         if (numberUtil.ifAround(item.costSum, level1 * standard)) {
           return true
         }
       }
-      if (rate >= 5) {
+      if (allRate >= 5) {
         if (numberUtil.ifAround(item.costSum, level2 * standard)) {
           return true
         }
       }
-      if (rate <= -2) {
+      if (allRate <= -2) {
         if (numberUtil.ifAround(item.costSum, level3 * standard)) {
           return true
         }
       }
-      if (rate <= -1) {
+      if (allRate <= -1) {
         if (numberUtil.ifAround(item.costSum, level2 * standard)) {
           return true
         }
@@ -112,22 +112,23 @@ export default{
       return false
     },
     ifSell (item) {
+        const allRate = this.countRate(item.valuationSum, item.costSum)
       // 小于7天
       if (item.has_days <= 7) {
         return false
       }
       // 待卖状态，亏损超过3个点的
-      if (this.title === '待卖' && (this.countRate(item.valuationSum, item.costSum) <= 3)) {
+      if (this.title === '待卖' && (allRate <= -3)) {
         return true
       }
       // 老的仓位，一接近成本线就卖
       if (item.has_days > 30) {
-        if (item.rate < 1 && item.rate > -1) {
+        if (allRate < 1 && allRate > -1) {
           return true
         }
       }
       // 利润大于5个点，并且并不是机构趋势的，卖掉
-      if (item.rate >= 5 && item.strategy !== '3') {
+      if (allRate >= 5 && item.strategy !== '3') {
         return true
       }
       // 转为下跌
