@@ -112,7 +112,7 @@ export default{
       return false
     },
     ifSell (item) {
-        const allRate = this.countRate(item.valuationSum, item.costSum)
+      const allRate = this.countRate(item.valuationSum, item.costSum)
       // 小于7天
       if (item.has_days <= 7) {
         return false

@@ -6,6 +6,7 @@ import router from './router/index'
 import App from './App'
 import './style/main.scss'
 import VCharts from 'v-charts'
+import '../static/web-fonts-with-css/css/fontawesome-all.css'
 
 function setAdaptive () {
   var _baseFontSize = 20
