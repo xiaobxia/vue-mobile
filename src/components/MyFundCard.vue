@@ -127,10 +127,15 @@ export default{
       if (item.has_days <= 7) {
         return false
       }
-      if (item.monthMax < 5 || item.halfMonthMax < 4) {
-        if (allRate < monthMax || allRate < halfMonthMax) {
-          return false
+      // 亏损仓，如果处于近期低点，还可以持有，那就不卖
+      if (allRate < 0) {
+        if (item.monthMax < 5 || item.halfMonthMax < 4) {
+          if (allRate < monthMax || allRate < halfMonthMax) {
+            return false
+          }
         }
+      } else {
+        // 盈利仓
       }
       // 待卖状态，亏损超过3个点的
       if (this.title === '待卖' && (allRate <= -3)) {
