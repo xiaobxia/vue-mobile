@@ -132,9 +132,9 @@ export default{
         return true
       }
       // 转为下跌
-      if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
-        return true
-      }
+//      if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
+//        return true
+//      }
       return false
     }
   }
