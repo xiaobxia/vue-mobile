@@ -92,9 +92,11 @@ export default{
       if (item.has_days <= 7) {
         return false
       }
-      if (item.monthMax < 5 || item.halfMonthMax < 4) {
-        if (allRate < monthMax || allRate < halfMonthMax) {
-          return false
+      if (allRate < 0) {
+        if (item.monthMax < 5 || item.halfMonthMax < 4) {
+          if (allRate < monthMax || allRate < halfMonthMax) {
+            return false
+          }
         }
       }
       if (allRate >= 2.5) {
