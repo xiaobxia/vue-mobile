@@ -9,6 +9,7 @@
       <div class="principle-block">
         <h3>图形</h3>
         <ol>
+          <li class="red-text">均线策略里，如果普遍大跌了，那就可以买入。</li>
           <li>支撑是没有用的，大概率破位。</li>
           <li>没有到情绪崩溃的尾盘上拉，那就减仓，大概率继续跌。</li>
         </ol>

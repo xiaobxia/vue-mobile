@@ -83,11 +83,19 @@ export default{
     ifCut (item) {
       const standard = item.standard || 1
       const allRate = this.countRate(item.valuationSum, item.costSum)
+      // 5000
       const level1 = constUtil.standard
+      // 4000
       const level2 = constUtil.cutLevel1
-      const level3 = constUtil.cutLevel1
+      const monthMax = item.monthMax + 1.5
+      const halfMonthMax = item.halfMonthMax + 1.5
       if (item.has_days <= 7) {
         return false
+      }
+      if (item.monthMax < 5 || item.halfMonthMax < 4) {
+        if (allRate < monthMax || allRate < halfMonthMax) {
+          return false
+        }
       }
       if (allRate >= 2.5) {
         if (numberUtil.ifAround(item.costSum, level1 * standard)) {
@@ -99,23 +107,30 @@ export default{
           return true
         }
       }
-      if (allRate <= -2) {
-        if (numberUtil.ifAround(item.costSum, level3 * standard)) {
+      if (allRate <= -3) {
+        if (numberUtil.ifAround(item.costSum, level2 * standard)) {
           return true
         }
       }
-      if (allRate <= -1) {
-        if (numberUtil.ifAround(item.costSum, level2 * standard)) {
+      if (allRate <= -1.5) {
+        if (numberUtil.ifAround(item.costSum, level1 * standard)) {
           return true
         }
       }
       return false
     },
     ifSell (item) {
+      const monthMax = item.monthMax + 1.5
+      const halfMonthMax = item.halfMonthMax + 1.5
       const allRate = this.countRate(item.valuationSum, item.costSum)
       // 小于7天
       if (item.has_days <= 7) {
         return false
+      }
+      if (item.monthMax < 5 || item.halfMonthMax < 4) {
+        if (allRate < monthMax || allRate < halfMonthMax) {
+          return false
+        }
       }
       // 待卖状态，亏损超过3个点的
       if (this.title === '待卖' && (allRate <= -3)) {
@@ -132,9 +147,9 @@ export default{
         return true
       }
       // 转为下跌
-//      if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
-//        return true
-//      }
+      //      if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
+      //        return true
+      //      }
       return false
     }
   }
