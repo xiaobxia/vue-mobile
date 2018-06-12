@@ -87,33 +87,28 @@ export default{
       const level1 = constUtil.standard
       // 4000
       const level2 = constUtil.cutLevel1
-      const monthMax = item.monthMax + 1.5
-      const halfMonthMax = item.halfMonthMax + 1.5
       if (item.has_days <= 7) {
         return false
       }
-      if (allRate < 0) {
-        if (item.monthMax < 5 || item.halfMonthMax < 4) {
-          if (allRate < monthMax || allRate < halfMonthMax) {
-            return false
-          }
-        }
-      }
+      // 盈利2.5点，减一次
       if (allRate >= 2.5) {
         if (numberUtil.ifAround(item.costSum, level1 * standard)) {
           return true
         }
       }
+      // 盈利5点，减一次
       if (allRate >= 5) {
         if (numberUtil.ifAround(item.costSum, level2 * standard)) {
           return true
         }
       }
+      // 亏损3点，减一次
       if (allRate <= -3) {
         if (numberUtil.ifAround(item.costSum, level2 * standard)) {
           return true
         }
       }
+      // 亏损1.5点，减一次
       if (allRate <= -1.5) {
         if (numberUtil.ifAround(item.costSum, level1 * standard)) {
           return true
@@ -122,22 +117,10 @@ export default{
       return false
     },
     ifSell (item) {
-      const monthMax = item.monthMax + 1.5
-      const halfMonthMax = item.halfMonthMax + 1.5
       const allRate = this.countRate(item.valuationSum, item.costSum)
       // 小于7天
       if (item.has_days <= 7) {
         return false
-      }
-      // 亏损仓，如果处于近期低点，还可以持有，那就不卖
-      if (allRate < 0) {
-        if (item.monthMax < 5 || item.halfMonthMax < 4) {
-          if (allRate < monthMax || allRate < halfMonthMax) {
-            return false
-          }
-        }
-      } else {
-        // 盈利仓
       }
       // 待卖状态，亏损超过3个点的
       if (this.title === '待卖' && (allRate <= -3)) {
