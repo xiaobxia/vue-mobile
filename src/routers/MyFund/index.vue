@@ -96,7 +96,7 @@ export default {
             list4.push(item)
           } else {
             // 刚解锁，需要更新仓位
-            if (item.has_days <= 14) {
+            if (item.has_days <= 21) {
               list6.push(item)
             } else {
               // 待卖
