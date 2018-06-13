@@ -1,5 +1,5 @@
 <template>
-  <div class="my-net-value-record">
+  <div class="page-rank">
     <mt-header title="排行" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
@@ -19,6 +19,11 @@
           <mt-switch v-model="ifUp" @change="stateChangeHandler()"></mt-switch>
         </div>
       </mt-cell-swipe>
+      <div class="count-wrap">
+        <span class="red-text">{{upCount}}</span>
+        <span>:</span>
+        <span class="green-text">{{downCount}}</span>
+      </div>
       <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code">
           <div slot="title">
@@ -45,7 +50,9 @@ export default{
         day: rankDay
       },
       list: [],
-      ifUp: sort === 'up'
+      ifUp: sort === 'up',
+      upCount: 0,
+      downCount: 0
     }
   },
   computed: {
@@ -63,6 +70,17 @@ export default{
       Http.get('fund/getRank', this.queryData).then((data) => {
         Indicator.close()
         let list = data.data.list
+        let up = 0
+        let down = 0
+        for (let i = 0; i < list.length; i++) {
+          if (list[i].recentRate > 0) {
+            up++
+          } else if (list[i].recentRate < 0) {
+            down++
+          }
+        }
+        this.upCount = up
+        this.downCount = down
         if (this.ifUp) {
           list.sort((a, b) => {
             return b.recentRate - a.recentRate
