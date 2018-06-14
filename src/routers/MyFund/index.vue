@@ -16,6 +16,7 @@
         <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
         <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
         <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
+        <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
       </div>
       <div class="tag-info">
         <span class="up">上升</span>
@@ -53,7 +54,8 @@ export default {
       myFundList4: [],
       myFundList5: [],
       myFundList6: [],
-      couldBuyMore: true
+      couldBuyMore: true,
+      newRate: 0
     }
   },
   components: {MyFundCard},
@@ -81,6 +83,8 @@ export default {
         const info = data.data.info
         this.info = info
         const list = data.data.list
+        let newCost = 0
+        let newValuation = 0
         let list1 = []
         let list2 = []
         let list3 = []
@@ -90,6 +94,10 @@ export default {
         // 7天内购买的金额
         let buyIn7DaysCount = 0
         list.forEach((item) => {
+          if (item.has_days <= 14) {
+            newCost += item.costSum
+            newValuation += item.valuationSum
+          }
           // 锁仓
           if (item.has_days <= 7) {
             buyIn7DaysCount += item.costSum
@@ -126,6 +134,7 @@ export default {
         this.myFundList4 = list4
         this.myFundList5 = list5
         this.myFundList6 = list6
+        this.newRate = numberUtil.countDifferenceRate(newValuation, newCost)
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
       Http.get('fund/getMarketInfo').then((data) => {

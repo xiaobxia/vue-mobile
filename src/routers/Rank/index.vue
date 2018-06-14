@@ -23,6 +23,8 @@
         <span class="red-text">{{upCount}}</span>
         <span>:</span>
         <span class="green-text">{{downCount}}</span>
+        <span> 幅度 </span>
+        <span :class="allRate < 0 ? 'green-text' : 'red-text'">{{allRate}}%</span>
       </div>
       <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code">
@@ -39,6 +41,7 @@
 import Http from '@/util/httpUtil.js'
 import storageUtil from '@/util/storageUtil.js'
 import { Indicator } from 'mint-ui'
+import numberUtil from '@/util/numberUtil.js'
 
 export default{
   name: 'Rank',
@@ -52,7 +55,8 @@ export default{
       list: [],
       ifUp: sort === 'up',
       upCount: 0,
-      downCount: 0
+      downCount: 0,
+      allRate: 0
     }
   },
   computed: {
@@ -72,15 +76,18 @@ export default{
         let list = data.data.list
         let up = 0
         let down = 0
+        let allRate = 0
         for (let i = 0; i < list.length; i++) {
           if (list[i].recentRate > 0) {
             up++
           } else if (list[i].recentRate < 0) {
             down++
           }
+          allRate += list[i].recentRate
         }
         this.upCount = up
         this.downCount = down
+        this.allRate = numberUtil.keepTwoDecimals(allRate / list.length)
         if (this.ifUp) {
           list.sort((a, b) => {
             return b.recentRate - a.recentRate
