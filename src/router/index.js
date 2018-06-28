@@ -103,6 +103,16 @@ export default new Router({
       name: 'Schedule',
       path: '/page/schedule',
       component: lazyLoading('Schedule')
+    },
+    {
+      name: 'IndexInfo',
+      path: '/page/indexInfo',
+      component: lazyLoading('IndexInfo')
+    },
+    {
+      name: 'IndexDetail',
+      path: '/page/indexDetail',
+      component: lazyLoading('IndexDetail')
     }
   ]
 })

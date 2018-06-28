@@ -45,6 +45,15 @@
           <div class="bottom">板块走势</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/indexInfo')">
+        <!--<img src="../../assets/timg.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="bottom">指数分析</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/principle')">
         <div class="container">
           <div class="content">

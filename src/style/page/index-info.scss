@@ -1,0 +1,29 @@
+.index-info{
+  .info-block-wrap{
+    padding: 10px 30px;
+    margin-bottom: 10px;
+    h3{
+      margin: 0 0 20px 0;
+      font-size: 30px;
+    }
+    span{
+      font-size: 30px;
+      padding: 5px 10px;
+      color: #fff;
+      margin-right: 10px;
+      &:last-child{
+        margin: 0;
+      }
+    }
+    &.buy{
+      span{
+        background-color: rgba(181,57,74, 0.3);
+      }
+    }
+    &.sell{
+      span{
+        background-color: rgba(57, 181, 74, 0.3);
+      }
+    }
+  }
+}
