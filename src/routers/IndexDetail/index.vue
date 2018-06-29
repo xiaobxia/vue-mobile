@@ -150,10 +150,6 @@ export default {
           // 近的在前
           let buyList = []
           let sellList = []
-          console.log(fnMap[query.key + 'Buy'])
-          console.log(fnMap[query.key + 'Sell'])
-          console.log(infoUtil[fnMap[query.key + 'Buy']])
-          console.log(infoUtil[fnMap[query.key + 'Sell']])
           for (let i = 0; i < (recentNetValue.length - 3); i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
