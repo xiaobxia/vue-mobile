@@ -87,7 +87,7 @@ export default{
       const level1 = constUtil.standard
       // 4000
       const level2 = constUtil.cutLevel1
-      if (item.has_days <= 7) {
+      if (item.has_days <= constUtil.minHasDay) {
         return false
       }
       // 盈利2.5点，减一次
@@ -119,7 +119,7 @@ export default{
     ifSell (item) {
       const allRate = this.countRate(item.valuationSum, item.costSum)
       // 小于7天
-      if (item.has_days <= 7) {
+      if (item.has_days <= constUtil.minHasDay) {
         return false
       }
       // 待卖状态，亏损超过3个点的

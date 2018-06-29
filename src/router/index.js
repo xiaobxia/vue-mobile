@@ -113,6 +113,11 @@ export default new Router({
       name: 'IndexDetail',
       path: '/page/indexDetail',
       component: lazyLoading('IndexDetail')
+    },
+    {
+      name: 'OperatingInfo',
+      path: '/page/operatingInfo',
+      component: lazyLoading('OperatingInfo')
     }
   ]
 })

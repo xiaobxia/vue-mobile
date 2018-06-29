@@ -99,7 +99,7 @@ export default {
             newValuation += item.valuationSum
           }
           // 锁仓
-          if (item.has_days <= 7) {
+          if (item.has_days <= constUtil.minHasDay) {
             buyIn7DaysCount += item.costSum
             list4.push(item)
           } else {

@@ -40,7 +40,7 @@
         <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fas fa-chart-line"></i>
+            <i class="fas fa-th"></i>
           </div>
           <div class="bottom">板块走势</div>
         </div>
@@ -52,6 +52,15 @@
             <i class="fas fa-chart-line"></i>
           </div>
           <div class="bottom">指数分析</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/operatingInfo')">
+        <!--<img src="../../assets/timg.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-allergies"></i>
+          </div>
+          <div class="bottom">操作分析</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/principle')">

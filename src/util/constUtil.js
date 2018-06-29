@@ -8,7 +8,8 @@ const constUtil = {
   buyIn7DaysLimit: (asset / 4) - 1000,
   standard: 5000,
   cutLevel1: 4000,
-  cutLevel2: 3000
+  cutLevel2: 3000,
+  minHasDay: 6
 }
 
 export default constUtil
