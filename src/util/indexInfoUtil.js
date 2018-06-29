@@ -3,46 +3,47 @@
  */
 import numberUtil from './numberUtil'
 
-function IndexInfoUtil (threshold) {
+function Util (threshold) {
   this.threshold = threshold
 }
 
-IndexInfoUtil.prototype = {
-  ifUpOpen: (record) => {
+Util.prototype = {
+  ifUpOpen: function (record) {
     const preClose = record.preClose
     const open = record.open
     return open >= preClose
   },
-  ifUpClose: (record) => {
+  ifUpClose: function (record) {
     return record.netChangeRatio > 0
   },
   // 盘中下跌
-  ifSessionDown: (record) => {
+  ifSessionDown: function (record) {
     const threshold = this.threshold
+    console.log(this.threshold)
     return numberUtil.countDifferenceRate(record.low, record.preClose) <= -threshold
   },
   // 收盘拉起
-  ifSessionUpClose: (record) => {
+  ifSessionUpClose: function (record) {
     const threshold = this.threshold
     return numberUtil.countDifferenceRate(record.close, record.low) >= threshold
   },
 
   // 盘中上升
-  ifSessionUp: (record) => {
+  ifSessionUp: function (record) {
     const threshold = this.threshold
     return numberUtil.countDifferenceRate(record.high, record.preClose) >= threshold
   },
   // 收盘回落
-  ifSessionDownClose: (record) => {
+  ifSessionDownClose: function (record) {
     const threshold = this.threshold
     return numberUtil.countDifferenceRate(record.close, record.high) <= -threshold
   },
-  ifHighPreCloseDown: (record) => {
+  ifHighPreCloseDown: function (record) {
     const threshold = this.threshold
     return numberUtil.countDifferenceRate(record.high, record.preClose) < -threshold
   },
 
-  ifLowPreCloseHigh: (record) => {
+  ifLowPreCloseHigh: function (record) {
     const threshold = this.threshold
     return numberUtil.countDifferenceRate(record.low, record.preClose) > threshold
   },
@@ -773,6 +774,7 @@ IndexInfoUtil.prototype = {
   },
 
   ifSellJisuanji: function (record, oneDayRecord) {
+    console.log(this)
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
     const ifSessionDown = this.ifSessionDown(record)
@@ -1638,8 +1640,8 @@ const fnMap = {
   xiaofeiSell: 'ifSellXiaofei'
 }
 
-export default {
-  util: IndexInfoUtil,
+const IndexInfoUtil = {
+  Util,
   codeMap,
   fnMap,
   formatData: function (list) {
@@ -1661,3 +1663,5 @@ export default {
     return {list: listTemp, threshold: threshold}
   }
 }
+
+export default IndexInfoUtil

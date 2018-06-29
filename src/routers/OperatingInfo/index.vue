@@ -29,7 +29,7 @@ import indexInfoUtil from '@/util/indexInfoUtil.js'
 import qs from 'qs'
 
 const codeMap = indexInfoUtil.codeMap
-const InfoUtil = indexInfoUtil.util
+const InfoUtil = indexInfoUtil.Util
 const fnMap = indexInfoUtil.fnMap
 const formatData = indexInfoUtil.formatData
 export default {

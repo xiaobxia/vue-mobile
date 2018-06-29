@@ -24,7 +24,7 @@ import Toast from '@/common/toast.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
 
 const codeMap = indexInfoUtil.codeMap
-const InfoUtil = indexInfoUtil.util
+const InfoUtil = indexInfoUtil.Util
 const fnMap = indexInfoUtil.fnMap
 const formatData = indexInfoUtil.formatData
 
@@ -103,9 +103,10 @@ export default {
           }
         })
       })
-      console.log(dataList)
       return {
-        data: dataList
+        data: dataList,
+        symbol: 'circle',
+        symbolSize: 10 * zoom
       }
     },
     chartDataNetValue () {
@@ -141,21 +142,29 @@ export default {
         if (data.success) {
           const list = data.data.list
           const info = formatData(list)
+          console.log(info.threshold)
           const infoUtil = new InfoUtil(info.threshold)
-          const recentNetValue = info.list
-          this.netValue = info.list
+          const infoList = info.list.slice(0, 60)
+          const recentNetValue = infoList
+          this.netValue = infoList
           // 近的在前
           let buyList = []
           let sellList = []
+          console.log(fnMap[query.key + 'Buy'])
+          console.log(fnMap[query.key + 'Sell'])
+          console.log(infoUtil[fnMap[query.key + 'Buy']])
+          console.log(infoUtil[fnMap[query.key + 'Sell']])
           for (let i = 0; i < (recentNetValue.length - 3); i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
             const twoDayRecord = recentNetValue[i + 2]
             if (infoUtil[fnMap[query.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
               buyList.push(nowRecord)
+              console.log('in buy')
             }
             if (infoUtil[fnMap[query.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
               sellList.push(nowRecord)
+              console.log('in sell')
             }
           }
           console.log(sellList)
