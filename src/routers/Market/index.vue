@@ -14,6 +14,15 @@
         <mt-tab-container-item id="1" class="simple">
           <mt-cell-swipe>
             <div slot="title">
+              <h3>费率</h3>
+              <p class="explain">{{ifLowRate?'低':'正常'}}</p>
+            </div>
+            <div class="right-wrap">
+              <mt-switch v-model="ifLowRate" @change="lowRateChangeHandler()"></mt-switch>
+            </div>
+          </mt-cell-swipe>
+          <mt-cell-swipe>
+            <div slot="title">
               <h3>排序</h3>
               <p class="explain">{{ifUp?'涨幅':'跌幅'}}</p>
             </div>
@@ -52,17 +61,20 @@ export default{
   name: 'Market',
   data () {
     const sort = storageUtil.getAppConfig('marketSort') || 'up'
+    const lowRate = storageUtil.getAppConfig('marketLowRate') || 'false'
     const selected = storageUtil.getAppConfig('marketSelected') || '1'
     return {
       queryData: {
         current: 1,
         pageSize: 20,
-        sort: sort
+        sort: sort,
+        lowRate: lowRate === 'true' ? 1 : 0
       },
       selected: selected,
       list: [],
       loading: true,
-      ifUp: sort === 'up'
+      ifUp: sort === 'up',
+      ifLowRate: lowRate === 'true'
     }
   },
   components: {Chart},
@@ -100,11 +112,8 @@ export default{
       this.$router.history.go(-1)
     },
     initModel () {
-      this.queryData = {
-        current: 1,
-        pageSize: 20,
-        sort: 'up'
-      }
+      this.queryData.current = 1
+      this.queryData.pageSize = 20
       this.list = []
       this.loading = true
     },
@@ -113,6 +122,13 @@ export default{
       const sort = this.ifUp ? 'up' : 'down'
       this.queryData.sort = sort
       storageUtil.setAppConfig('marketSort', sort)
+      this.queryRecord()
+    },
+    lowRateChangeHandler () {
+      this.initModel()
+      const lowRate = this.ifLowRate ? 1 : 0
+      this.queryData.lowRate = lowRate
+      storageUtil.setAppConfig('marketLowRate', this.ifLowRate ? 'true' : 'false')
       this.queryRecord()
     }
   }
