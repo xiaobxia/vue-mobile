@@ -84,7 +84,7 @@ export default {
               })
             }
             if (infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
-              this.sell.push({
+              this.sellList.push({
                 name: item.name,
                 day: i
               })

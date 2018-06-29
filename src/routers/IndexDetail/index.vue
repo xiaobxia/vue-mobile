@@ -142,7 +142,6 @@ export default {
         if (data.success) {
           const list = data.data.list
           const info = formatData(list)
-          console.log(info.threshold)
           const infoUtil = new InfoUtil(info.threshold)
           const infoList = info.list.slice(0, 80)
           const recentNetValue = infoList
@@ -156,15 +155,11 @@ export default {
             const twoDayRecord = recentNetValue[i + 2]
             if (infoUtil[fnMap[query.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
               buyList.push(nowRecord)
-              console.log('in buy')
             }
             if (infoUtil[fnMap[query.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
               sellList.push(nowRecord)
-              console.log('in sell')
             }
           }
-          console.log(sellList)
-          console.log(buyList)
           this.sellList = sellList
           this.buyList = buyList
         }
