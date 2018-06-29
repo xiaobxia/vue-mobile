@@ -144,7 +144,7 @@ export default {
           const info = formatData(list)
           console.log(info.threshold)
           const infoUtil = new InfoUtil(info.threshold)
-          const infoList = info.list.slice(0, 60)
+          const infoList = info.list.slice(0, 80)
           const recentNetValue = infoList
           this.netValue = infoList
           // 近的在前
