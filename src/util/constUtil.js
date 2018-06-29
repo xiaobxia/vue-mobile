@@ -9,7 +9,7 @@ const constUtil = {
   standard: 5000,
   cutLevel1: 4000,
   cutLevel2: 3000,
-  minHasDay: 6
+  minHasDay: 5
 }
 
 export default constUtil
