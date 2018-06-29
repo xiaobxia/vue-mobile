@@ -3,7 +3,7 @@
  */
 import numberUtil from './numberUtil'
 
-function Util(threshold) {
+function Util (threshold) {
   this.threshold = threshold
 }
 
@@ -1543,113 +1543,113 @@ Util.prototype = {
     }
     return false
   },
-  ifSellBaoxianfunction : function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record);
-    const ifUpClose = this.ifUpClose(record);
-    const ifSessionDown = this.ifSessionDown(record);
-    const ifSessionUpClose = this.ifSessionUpClose(record);
-    const ifSessionUp = this.ifSessionUp(record);
-    const ifSessionDownClose = this.ifSessionDownClose(record);
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+  ifSellBaoxian: function (record, oneDayRecord) {
+    const ifUpOpen = this.ifUpOpen(record)
+    const ifUpClose = this.ifUpClose(record)
+    const ifSessionDown = this.ifSessionDown(record)
+    const ifSessionUpClose = this.ifSessionUpClose(record)
+    const ifSessionUp = this.ifSessionUp(record)
+    const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (ifUpOpenOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true;
+        return true
       }
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true;
+      return true
     }
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true;
+      return true
     }
     if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      return true;
+      return true
     }
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (!ifUpOpenOne && ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
     }
     return false
   },
 
-  ifBuyBaoxian : function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record);
-    const ifUpClose = this.ifUpClose(record);
-    const ifSessionDown = this.ifSessionDown(record);
-    const ifSessionUpClose = this.ifSessionUpClose(record);
-    const ifSessionUp = this.ifSessionUp(record);
-    const ifSessionDownClose = this.ifSessionDownClose(record);
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+  ifBuyBaoxian: function (record, oneDayRecord) {
+    const ifUpOpen = this.ifUpOpen(record)
+    const ifUpClose = this.ifUpClose(record)
+    const ifSessionDown = this.ifSessionDown(record)
+    const ifSessionUpClose = this.ifSessionUpClose(record)
+    const ifSessionUp = this.ifSessionUp(record)
+    const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
-      return true;
+      return true
     }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true;
+        return true
       }
     }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true;
+        return true
       }
     }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true;
+        return true
       }
     }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true;
+        return true
       }
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true;
+        return true
       }
     }
     return false
