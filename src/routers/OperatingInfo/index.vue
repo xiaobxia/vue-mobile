@@ -6,18 +6,14 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="info-block-wrap buy">
-        <h3>买</h3>
-        <div>
-          <span v-for="(item) in buyList" :key="item.name + item.day" >{{item.name}}({{item.day}})</span>
+      <mt-cell-swipe v-for="(item) in list" :key="item.code">
+        <div slot="title">
+          <h3>{{item.name}}</h3>
+          <p class="explain">
+            <span  v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index" :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
+          </p>
         </div>
-      </div>
-      <div class="info-block-wrap sell">
-        <h3>卖</h3>
-        <div>
-          <span v-for="(item) in sellList" :key="item.name + item.day" >{{item.name}}({{item.day}})</span>
-        </div>
-      </div>
+      </mt-cell-swipe>
     </div>
   </div>
 </template>
@@ -35,6 +31,7 @@ const formatData = indexInfoUtil.formatData
 export default {
   name: 'OperatingInfo',
   data () {
+    let allInfo = {}
     let list = []
     for (let key in codeMap) {
       list.push({
@@ -42,11 +39,11 @@ export default {
         code: codeMap[key].code,
         name: codeMap[key].name
       })
+      allInfo[key] = []
     }
     return {
       list: list,
-      buyList: [],
-      sellList: []
+      allInfo: allInfo
     }
   },
   computed: {},
@@ -59,6 +56,7 @@ export default {
       for (let i = 0; i < list.length; i++) {
         this.queryData(list[i])
       }
+      // this.queryData(list[0])
     },
     qsStringify (query) {
       return qs.stringify(query)
@@ -72,24 +70,21 @@ export default {
           const info = formatData(list)
           const infoUtil = new InfoUtil(info.threshold)
           const recentNetValue = info.list
+          let infoList = []
           // 近的在前
           for (let i = 0; i < 5; i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
             const twoDayRecord = recentNetValue[i + 2]
             if (infoUtil[fnMap[item.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
-              this.buyList.push({
-                name: item.name,
-                day: i
-              })
-            }
-            if (infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
-              this.sellList.push({
-                name: item.name,
-                day: i
-              })
+              infoList[i] = '买'
+            } else if (infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
+              infoList[i] = '卖'
+            } else {
+              infoList[i] = ''
             }
           }
+          this.allInfo[item.key] = infoList
         }
       })
     },

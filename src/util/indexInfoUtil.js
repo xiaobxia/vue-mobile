@@ -3,7 +3,7 @@
  */
 import numberUtil from './numberUtil'
 
-function Util(threshold) {
+function Util (threshold) {
   this.threshold = threshold
 }
 
