@@ -1,12 +1,12 @@
 .index-info{
   .explain{
     span{
-      margin: 0 10px 10px 0;
       display: inline-block;
       padding: 5px 10px;
       width: 15%;
       color: #fff;
       background-color: #eee;
+      text-align: center;
       &.buy{
         background-color: $red-color;
       }
