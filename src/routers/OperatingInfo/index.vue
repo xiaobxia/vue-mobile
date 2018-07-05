@@ -6,7 +6,7 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <mt-cell-swipe v-for="(item) in list" :key="item.code">
+      <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)">
         <div slot="title">
           <h3>{{item.name}}</h3>
           <p class="explain">
@@ -64,7 +64,7 @@ export default {
     queryData (item) {
       Http.get('webData/getWebStockdaybarAll', {
         code: item.code,
-        days: 20
+        days: 10
       }).then((data) => {
         if (data.success) {
           const list = data.data.list
