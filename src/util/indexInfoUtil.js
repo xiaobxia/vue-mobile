@@ -1852,67 +1852,83 @@ Util.prototype = {
 const codeMap = {
   'chuangye': {
     code: 'sz399006',
-    name: '创业'
+    name: '创业',
+    threshold: 0.96
   },
   'gangtie': {
     code: 'sz399440',
-    name: '钢铁'
+    name: '钢铁',
+    threshold: 1.01
   },
   'jungong': {
     code: 'sz399959',
-    name: '军工'
+    name: '军工',
+    threshold: 1.03
   },
   'yiyao': {
     code: 'sh000037',
-    name: '医药'
+    name: '医药',
+    threshold: 0.96
   },
   'meitan': {
     code: 'sz399998',
-    name: '煤炭'
+    name: '煤炭',
+    threshold: 1.13
   },
   'youse': {
     code: 'sh000823',
-    name: '有色'
+    name: '有色',
+    threshold: 1.04
   },
   'dichan': {
     code: 'sz399393',
-    name: '地产'
+    name: '地产',
+    threshold: 1.01
   },
   'jisuanji': {
     code: 'sz399363',
-    name: '计算机'
+    name: '计算机',
+    threshold: 1.09
   },
   'baijiu': {
     code: 'sz399997',
-    name: '白酒'
+    name: '白酒',
+    threshold: 1.42
   },
   'huanbao': {
     code: 'sh000827',
-    name: '环保'
+    name: '环保',
+    threshold: 0.75
   },
   'nengyuan': {
     code: 'sh000986',
-    name: '能源'
+    name: '能源',
+    threshold: 0.84
   },
   'xinxi': {
     code: 'sh000993',
-    name: '信息'
+    name: '信息',
+    threshold: 1.09
   },
   'zhengquan': {
     code: 'sz399975',
-    name: '证券'
+    name: '证券',
+    threshold: 0.94
   },
   'xiaofei': {
     code: 'sh000990',
-    name: '消费'
+    name: '消费',
+    threshold: 0.93
   },
   'baoxian': {
     code: 'sz399809',
-    name: '保险'
+    name: '保险',
+    threshold: 1.17
   },
   'wulin': {
     code: 'sh000016',
-    name: '50'
+    name: '50',
+    threshold: 0.73
   }
 }
 const fnMap = {

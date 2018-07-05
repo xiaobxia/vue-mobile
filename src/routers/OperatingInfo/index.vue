@@ -37,7 +37,8 @@ export default {
       list.push({
         key: key,
         code: codeMap[key].code,
-        name: codeMap[key].name
+        name: codeMap[key].name,
+        threshold: codeMap[key].threshold
       })
       allInfo[key] = []
     }
@@ -69,7 +70,7 @@ export default {
         if (data.success) {
           const list = data.data.list
           const info = formatData(list)
-          const infoUtil = new InfoUtil(info.threshold)
+          const infoUtil = new InfoUtil(item.threshold)
           const recentNetValue = info.list
           let infoList = []
           // 近的在前
