@@ -137,7 +137,8 @@ export default {
       this.queryData = Object.assign({}, query)
       const code = this.$router.history.current.query.code
       Http.get('webData/getWebStockdaybarAll', {
-        code: query.code
+        code: query.code,
+        days: 100
       }).then((data) => {
         if (data.success) {
           const list = data.data.list
