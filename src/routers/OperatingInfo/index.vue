@@ -63,7 +63,8 @@ export default {
     },
     queryData (item) {
       Http.get('webData/getWebStockdaybarAll', {
-        code: item.code
+        code: item.code,
+        days: 20
       }).then((data) => {
         if (data.success) {
           const list = data.data.list
