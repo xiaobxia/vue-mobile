@@ -118,6 +118,11 @@ export default new Router({
       name: 'OperatingInfo',
       path: '/page/operatingInfo',
       component: lazyLoading('OperatingInfo')
+    },
+    {
+      name: 'FilterFund',
+      path: '/page/filterFund',
+      component: lazyLoading('FilterFund')
     }
   ]
 })

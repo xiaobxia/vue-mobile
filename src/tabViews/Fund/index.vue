@@ -2,6 +2,15 @@
   <div>
     <mt-header title="基金" :fixed="true"/>
     <div class="main-body has-bar">
+      <div class="img-card" @click="toPath('/page/filterFund')">
+        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-filter"></i>
+          </div>
+          <div class="bottom">筛选基金</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/strategy')">
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">

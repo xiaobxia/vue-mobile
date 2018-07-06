@@ -18,6 +18,17 @@
           :class="countRate(currentFund.valuation,currentFund.net_value) < 0 ? 'green-text' : 'red-text'">{{countRate(currentFund.valuation, currentFund.net_value)}}%</span></span>
         <span>估值时间：{{formatDate(currentFund.valuation_date)}}</span>
       </div>
+      <div class="theme-wrap">
+        <span class="name">{{filterTheme}}</span>
+        <mt-button type="primary" @click="themeChangeHandler">改变</mt-button>
+      </div>
+      <mt-popup
+        v-model="popupVisible"
+        position="bottom">
+        <ul class="theme-list">
+          <li class="theme-item" v-for="(item) in filterList" :key="item.code" @click="onThemeChangeHandler(item.name)">{{item.name}}</li>
+        </ul>
+      </mt-popup>
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValueMonth"
@@ -43,12 +54,23 @@ import numberUtil from '@/util/numberUtil.js'
 import constUtil from '@/util/constUtil.js'
 import moment from 'moment'
 import Toast from '@/common/toast.js'
+import indexInfoUtil from '@/util/indexInfoUtil.js'
+
+const codeMap = indexInfoUtil.codeMap
 
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
 export default {
   name: 'MyNetValueLine',
   data () {
+    let filterList = []
+    for (let key in codeMap) {
+      filterList.push({
+        key: key,
+        code: codeMap[key].code,
+        name: codeMap[key].name
+      })
+    }
     return {
       grid: {
         top: '15%'
@@ -116,7 +138,10 @@ export default {
       type: 'add',
       netValue: [],
       ifFocus: 'false',
-      couldBuyMore: true
+      couldBuyMore: true,
+      filterTheme: '',
+      filterList,
+      popupVisible: false
     }
   },
 
@@ -277,6 +302,7 @@ export default {
         Http.get('fund/getFundBase', {code}).then((data) => {
           if (data.success) {
             this.currentFund = data.data
+            this.filterTheme = data.data.theme || '未设置'
           }
         }),
         Http.get('fund/getFundAnalyzeRecent', {code}).then((data) => {
@@ -385,6 +411,20 @@ export default {
           }
         })
       }
+    },
+    updateFundTheme (theme) {
+      const code = this.$router.history.current.query.code
+      Http.post('fund/updateFundTheme', {theme, code}).then((data) => {
+        this.list = data.data.funds
+      })
+    },
+    themeChangeHandler () {
+      this.popupVisible = true
+    },
+    onThemeChangeHandler (theme) {
+      this.filterTheme = theme
+      this.popupVisible = false
+      this.updateFundTheme(theme)
     }
   }
 }

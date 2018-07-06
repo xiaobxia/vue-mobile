@@ -1,21 +1,4 @@
-.fund-detail{
-  .info-wrap{
-    color: $light-text-color;
-    padding: 30px 0;
-    font-size: 34px;
-    span {
-      padding-left: 30px;
-      font-size: 34px;
-    }
-  }
-  .item{
-    display: inline-block;
-    width: 49%;
-    box-sizing: border-box;
-  }
-  .warn{
-    color: $red-color;
-  }
+.page-filter-fund {
   .theme-wrap {
     padding: 20px 30px;
     font-size: 30px;
