@@ -1,16 +1,18 @@
 <template>
-  <div class="index-info">
+  <div class="operating-info">
     <mt-header title="操作分析" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)">
+      <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
+                     :class="firstInfo[item.key]">
         <div slot="title">
           <h3>{{item.name}}</h3>
           <p class="explain">
-            <span  v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index" :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
+            <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
+                  :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
           </p>
         </div>
       </mt-cell-swipe>
@@ -33,6 +35,7 @@ export default {
   data () {
     let allInfo = {}
     let list = []
+    let firstInfo = {}
     for (let key in codeMap) {
       list.push({
         key: key,
@@ -41,10 +44,12 @@ export default {
         threshold: codeMap[key].threshold
       })
       allInfo[key] = []
+      firstInfo[key] = ''
     }
     return {
       list: list,
-      allInfo: allInfo
+      allInfo: allInfo,
+      firstInfo: firstInfo
     }
   },
   computed: {},
@@ -65,7 +70,7 @@ export default {
     queryData (item) {
       Http.get('webData/getWebStockdaybarAll', {
         code: item.code,
-        days: 10
+        days: 20
       }).then((data) => {
         if (data.success) {
           const list = data.data.list
@@ -73,20 +78,40 @@ export default {
           const infoUtil = new InfoUtil(item.threshold)
           const recentNetValue = info.list
           let infoList = []
+          let classInfo = ''
           // 近的在前
-          for (let i = 0; i < 5; i++) {
+          for (let i = 0; i < 18; i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
             const twoDayRecord = recentNetValue[i + 2]
-            if (infoUtil[fnMap[item.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
-              infoList[i] = '买'
-            } else if (infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
-              infoList[i] = '卖'
+            if (i < 5) {
+              if (infoUtil[fnMap[item.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
+                infoList[i] = '买'
+                if (classInfo === '') {
+                  classInfo = 'buy'
+                }
+              } else if (infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
+                infoList[i] = '卖'
+                if (classInfo === '') {
+                  classInfo = 'sell'
+                }
+              } else {
+                infoList[i] = ''
+              }
             } else {
-              infoList[i] = ''
+              if (infoUtil[fnMap[item.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
+                if (classInfo === '') {
+                  classInfo = 'buy'
+                }
+              } else if (infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
+                if (classInfo === '') {
+                  classInfo = 'sell'
+                }
+              }
             }
           }
           this.allInfo[item.key] = infoList
+          this.firstInfo[item.key] = classInfo
         }
       })
     },
