@@ -1,5 +1,5 @@
 <template>
-  <div class="tabView-mine">
+  <div class="tabView-mine has-bar">
     <mt-header title="我的" :fixed="true"/>
     <div class="main-body">
       <div class="info-wrap">

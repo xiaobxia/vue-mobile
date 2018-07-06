@@ -1,5 +1,5 @@
 <template>
-  <div class="page-search">
+  <div class="page-search has-bar">
     <mt-search
       v-model="searchText"
       cancel-text="取消"
