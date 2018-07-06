@@ -225,6 +225,7 @@ export default {
 
   methods: {
     initPage () {
+      const days = Math.ceil((moment().diff(moment('2018-03-12'), 'days')/7) + 2) * 5;
       Indicator.open({
         spinnerType: 'fading-circle'
       })
@@ -239,8 +240,9 @@ export default {
             }
           }
         }),
-        Http.get('webData/getWebStockdaybar', {
-          code: 'sh000001'
+        Http.get('webData/getWebStockdaybarAll', {
+          code: 'sh000001',
+          days
         }).then((data) => {
           if (data.success) {
             this.shangzheng = data.data.list
@@ -249,8 +251,9 @@ export default {
             this.halfMonthAll.shangzheng = this.countHalfMonth(data.data.list)
           }
         }),
-        Http.get('webData/getWebStockdaybar', {
-          code: 'sh000016'
+        Http.get('webData/getWebStockdaybarAll', {
+          code: 'sh000016',
+          days
         }).then((data) => {
           if (data.success) {
             this.wulin = data.data.list
@@ -259,8 +262,9 @@ export default {
             this.halfMonthAll.wulin = this.countHalfMonth(data.data.list)
           }
         }),
-        Http.get('webData/getWebStockdaybar', {
-          code: 'sh000906'
+        Http.get('webData/getWebStockdaybarAll', {
+          code: 'sh000906',
+          days
         }).then((data) => {
           if (data.success) {
             this.wubai = data.data.list
@@ -269,8 +273,9 @@ export default {
             this.halfMonthAll.wubai = this.countHalfMonth(data.data.list)
           }
         }),
-        Http.get('webData/getWebStockdaybar', {
-          code: 'sz399006'
+        Http.get('webData/getWebStockdaybarAll', {
+          code: 'sz399006',
+          days
         }).then((data) => {
           if (data.success) {
             this.chuangye = data.data.list
@@ -279,8 +284,9 @@ export default {
             this.halfMonthAll.chuangye = this.countHalfMonth(data.data.list)
           }
         }),
-        Http.get('webData/getWebStockdaybar', {
-          code: 'sz399300'
+        Http.get('webData/getWebStockdaybarAll', {
+          code: 'sz399300',
+          days
         }).then((data) => {
           if (data.success) {
             this.hushen = data.data.list
