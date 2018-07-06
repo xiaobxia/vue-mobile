@@ -225,7 +225,7 @@ export default {
 
   methods: {
     initPage () {
-      const days = Math.ceil((moment().diff(moment('2018-03-12'), 'days')/7) + 2) * 5;
+      const days = Math.ceil((moment().diff(moment('2018-03-12'), 'days') / 7) + 2) * 5
       Indicator.open({
         spinnerType: 'fading-circle'
       })
