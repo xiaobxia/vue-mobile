@@ -1933,7 +1933,7 @@ Util.prototype = {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
         return true
       }
-      //否
+      // 否
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         if (ifUpOpenOne && ifUpCloseOne) {
           return false
