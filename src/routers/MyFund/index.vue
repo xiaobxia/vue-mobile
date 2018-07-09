@@ -142,8 +142,9 @@ export default {
       })
     },
     ifWaitSell (item) {
-      const standard = item.standard || 1
-      if (numberUtil.ifAround(item.costSum, constUtil.cutLevel2 * standard)) {
+      const multiple = item.standard || 1
+      const standard = constUtil.standard * multiple
+      if (numberUtil.ifAround(item.costSum, constUtil.cutRateLevelTwo * standard)) {
         return true
       }
       return false

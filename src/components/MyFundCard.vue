@@ -81,36 +81,35 @@ export default{
       }
     },
     ifCut (item) {
-      const standard = item.standard || 1
+      const multiple = item.standard || 1
       const allRate = this.countRate(item.valuationSum, item.costSum)
-      // 5000
-      const level1 = constUtil.standard
-      // 4000
-      const level2 = constUtil.cutLevel1
+      const standard = constUtil.standard * multiple
+      const cutRateLevelOne = constUtil.cutRateLevelOne
+
       if (item.has_days <= constUtil.minHasDay) {
         return false
       }
       // 盈利2.5点，减一次
       if (allRate >= 2.5) {
-        if (numberUtil.ifAround(item.costSum, level1 * standard)) {
+        if (numberUtil.ifAround(item.costSum, standard)) {
           return true
         }
       }
       // 盈利5点，减一次
       if (allRate >= 5) {
-        if (numberUtil.ifAround(item.costSum, level2 * standard)) {
-          return true
-        }
-      }
-      // 亏损3点，减一次
-      if (allRate <= -3) {
-        if (numberUtil.ifAround(item.costSum, level2 * standard)) {
+        if (numberUtil.ifAround(item.costSum, cutRateLevelOne * standard)) {
           return true
         }
       }
       // 亏损1.5点，减一次
       if (allRate <= -1.5) {
-        if (numberUtil.ifAround(item.costSum, level1 * standard)) {
+        if (numberUtil.ifAround(item.costSum, standard)) {
+          return true
+        }
+      }
+      // 亏损3点，减一次
+      if (allRate <= -3) {
+        if (numberUtil.ifAround(item.costSum, cutRateLevelOne * standard)) {
           return true
         }
       }
@@ -136,10 +135,6 @@ export default{
       if (allRate >= 5 && item.strategy !== '3') {
         return true
       }
-      // 转为下跌
-      //      if (this.countRate(item.weekAverage, item.monthAverage) < -0.5 || this.countRate(item.weekAverage, item.halfMonthAverage) < -0.5) {
-      //        return true
-      //      }
       return false
     }
   }

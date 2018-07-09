@@ -17,7 +17,7 @@ const numberUtil = {
     return Math.round(10000 * number) / 10000
   },
   ifAround: function (number, target) {
-    const step = 500
+    const step = 100
     return (number >= (target - step)) && (number <= (target + step))
   }
 }
