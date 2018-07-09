@@ -20,6 +20,8 @@
           <span class="item">持仓成本：{{item.costSum}}</span>
           <span class="item">收益率：<span
             :class="countRate(item.valuationSum, item.costSum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.costSum)}}%</span></span>
+          <span class="item">持有份额：{{item.shares}}</span>
+          <span class="item">调仓份额：{{countCutShares(item)}}</span>
         </p>
       </div>
       <div class="right-wrap">
@@ -79,6 +81,22 @@ export default{
       } else {
         return name
       }
+    },
+    countCutShares (item) {
+      const costSum = item.costSum
+      const multiple = item.standard || 1
+      const standard = constUtil.standard * multiple
+      const cutLevelOne = constUtil.cutRateLevelOne * standard
+      const cutLevelTwo = constUtil.cutRateLevelTwo * standard
+      if ((costSum > cutLevelOne) && !numberUtil.ifAround(item.costSum, cutLevelOne)) {
+        let newShares = cutLevelOne / item.cost
+        return parseInt(item.shares - newShares)
+      }
+      if ((costSum > cutLevelTwo) && !numberUtil.ifAround(item.costSum, cutLevelTwo)) {
+        let newShares = cutLevelTwo / item.cost
+        return parseInt(item.shares - newShares)
+      }
+      return item.shares
     },
     ifCut (item) {
       const multiple = item.standard || 1

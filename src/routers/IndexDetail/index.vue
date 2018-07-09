@@ -11,6 +11,14 @@
                  :height="chartHeight" :data="chartDataNetValue"
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
       </div>
+      <div class="fund-list simple">
+        <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
+          <div slot="title">
+            <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
+                                                                                               :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span></h3>
+          </div>
+        </mt-cell-swipe>
+      </div>
     </div>
   </div>
 </template>
@@ -70,7 +78,8 @@ export default {
       queryData: {},
       netValue: [],
       buyList: [],
-      sellList: []
+      sellList: [],
+      list: []
     }
   },
 
@@ -165,6 +174,20 @@ export default {
           this.buyList = buyList
         }
       })
+      this.queryRecord()
+    },
+    queryRecord () {
+      const query = this.$router.history.current.query
+      Http.get('fund/getFundsByTheme', {theme: query.name}).then((data) => {
+        this.list = data.data.funds
+      })
+    },
+    formatName (name) {
+      if (name.length > 12) {
+        return name.substr(0, 11) + '...'
+      } else {
+        return name
+      }
     },
     backHandler () {
       this.$router.history.go(-1)

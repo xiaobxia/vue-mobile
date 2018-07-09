@@ -134,7 +134,7 @@ export default {
         this.myFundList4 = list4
         this.myFundList5 = list5
         this.myFundList6 = list6
-        this.newRate = numberUtil.countDifferenceRate(newValuation, newCost)
+        this.newRate = numberUtil.countDifferenceRate(newValuation || 1, newCost || 1)
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
       Http.get('fund/getMarketInfo').then((data) => {
