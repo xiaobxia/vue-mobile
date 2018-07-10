@@ -47,7 +47,7 @@ export default {
         Http.get('fund/getFunds', {
           keyword: searchText,
           current: 1,
-          pageSize: 20
+          pageSize: 40
         }).then((data) => {
           this.showList = data.data.list
         })
