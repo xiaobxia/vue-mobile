@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     initPage () {
-      // Http.post('fund/updateFundThemeByKeyword', {theme: '医药', keyword: '医'}).then((data) => {})
+      // Http.post('fund/updateFundThemeByKeyword', {theme: '新能源', keyword: '新能源'}).then((data) => {})
     },
     qsStringify (query) {
       return qs.stringify(query)

@@ -11,6 +11,9 @@
                  :height="chartHeight" :data="chartDataNetValue"
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
       </div>
+      <div class="index-rate">
+        <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
+      </div>
       <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
           <div slot="title">
@@ -79,7 +82,8 @@ export default {
       netValue: [],
       buyList: [],
       sellList: [],
-      list: []
+      list: [],
+      indexRate: 0
     }
   },
 
@@ -154,6 +158,7 @@ export default {
           const info = formatData(list)
           const infoUtil = new InfoUtil(info.threshold)
           const infoList = info.list.slice(0, 80)
+          this.indexRate = numberUtil.keepTwoDecimals(infoList[0].netChangeRatio) || 0
           const recentNetValue = infoList
           this.netValue = infoList
           // 近的在前
