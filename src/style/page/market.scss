@@ -2,4 +2,44 @@
   .chart-wrap{
     margin-top: 200px;
   }
+  .tag-info{
+    padding: 20px;
+    font-size: 26px;
+    text-align: center;
+    span{
+      margin-right: 40px;
+    }
+    i{
+      margin-right: 10px;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+    }
+    .sell-info {
+      i{
+        background-color: $yellow-color;
+      }
+    }
+    .theme-info {
+      i{
+        background-color: $blue-color;
+      }
+    }
+  }
+  .simple {
+    i{
+      margin: 0;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+    }
+    .sell-tag{
+      background-color: $yellow-color;
+    }
+    .theme-tag{
+      background-color: $blue-color;
+    }
+  }
 }

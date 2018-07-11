@@ -30,6 +30,10 @@
               <mt-switch v-model="ifUp" @change="stateChangeHandler()"></mt-switch>
             </div>
           </mt-cell-swipe>
+          <div class="tag-info">
+            <span class="sell-info"><i></i>不可售</span>
+            <span class="theme-info"><i></i>无主题</span>
+          </div>
           <ul
             class="simple"
             v-infinite-scroll="loadMore"
@@ -37,8 +41,12 @@
             infinite-scroll-distance="10">
             <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
               <div slot="title">
-                <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
-                                                                  :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span></h3>
+                <h3 :class="{lowRate: item.lowRate}">
+                  {{item.code}} {{formatName(item.name)}}
+                  <i class="sell-tag" v-if="!item.sell"></i>
+                  <i class="theme-tag" v-if="!item.theme"></i>
+                  <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
+                </h3>
               </div>
             </mt-cell-swipe>
           </ul>
@@ -98,8 +106,8 @@ export default{
       })
     },
     formatName (name) {
-      if (name.length > 12) {
-        return name.substr(0, 11) + '...'
+      if (name.length > 11) {
+        return name.substr(0, 10) + '...'
       } else {
         return name
       }

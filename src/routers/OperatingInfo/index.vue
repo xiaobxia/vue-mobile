@@ -9,7 +9,8 @@
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
         <div slot="title">
-          <h3>{{item.name}}</h3>
+          <h3>{{item.name}} <span style="float: right"
+                                  :class="rateInfo[item.key] < 0 ? 'green-text' : 'red-text'">{{rateInfo[item.key]}}%</span></h3>
           <p class="explain">
             <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
                   :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
@@ -25,6 +26,7 @@ import Http from '@/util/httpUtil.js'
 import Toast from '@/common/toast.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
 import qs from 'qs'
+import numberUtil from '@/util/numberUtil.js'
 
 const codeMap = indexInfoUtil.codeMap
 const InfoUtil = indexInfoUtil.Util
@@ -36,6 +38,7 @@ export default {
     let allInfo = {}
     let list = []
     let firstInfo = {}
+    let rateInfo = {}
     for (let key in codeMap) {
       list.push({
         key: key,
@@ -45,11 +48,13 @@ export default {
       })
       allInfo[key] = []
       firstInfo[key] = ''
+      rateInfo[key] = 0
     }
     return {
       list: list,
       allInfo: allInfo,
-      firstInfo: firstInfo
+      firstInfo: firstInfo,
+      rateInfo: rateInfo
     }
   },
   computed: {},
@@ -112,6 +117,7 @@ export default {
           }
           this.allInfo[item.key] = infoList
           this.firstInfo[item.key] = classInfo
+          this.rateInfo[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
         }
       })
     },
