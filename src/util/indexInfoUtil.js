@@ -2224,6 +2224,116 @@ Util.prototype = {
       }
     }
     return false
+  },
+  //2018-07-11
+  ifSellHuanjing: function (record, oneDayRecord) {
+    const ifUpOpen = this.ifUpOpen(record)
+    const ifUpClose = this.ifUpClose(record)
+    const ifSessionDown = this.ifSessionDown(record)
+    const ifSessionUpClose = this.ifSessionUpClose(record)
+    const ifSessionUp = this.ifSessionUp(record)
+    const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionUpOne && !ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    return false
+  },
+  //2018-07-11
+  ifBuyHuanjing: function (record, oneDayRecord) {
+    const ifUpOpen = this.ifUpOpen(record)
+    const ifUpClose = this.ifUpClose(record)
+    const ifSessionDown = this.ifSessionDown(record)
+    const ifSessionUpClose = this.ifSessionUpClose(record)
+    const ifSessionUp = this.ifSessionUp(record)
+    const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    if (this.ifHighPreCloseDown(record)) {
+      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      return true
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    return false
   }
 }
 
@@ -2322,6 +2432,11 @@ const codeMap = {
     code: 'sz399971',
     name: '传媒',
     threshold: 0.83
+  },
+  'huanjing': {
+    code: 'sz399806',
+    name: '环境',
+    threshold: 0.81
   }
 }
 const fnMap = {
@@ -2364,7 +2479,9 @@ const fnMap = {
   xinnengyuanBuy: 'ifBuyXinnengyuan',
   xinnengyuanSell: 'ifSellXinnengyuan',
   chuanmeiBuy: 'ifBuyChuanmei',
-  chuanmeiSell: 'ifSellChuanmei'
+  chuanmeiSell: 'ifSellChuanmei',
+  huanjingBuy: 'ifBuyHuanjing',
+  huanjingSell: 'ifSellHuanjing'
 }
 
 const IndexInfoUtil = {
