@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     initPage () {
-      //Http.post('fund/updateFundThemeByKeyword', {theme: '环境', keyword: '环境'}).then((data) => {})
+      // Http.post('fund/updateFundThemeByKeyword', {theme: '环境', keyword: '环境'}).then((data) => {})
     },
     qsStringify (query) {
       return qs.stringify(query)
