@@ -64,7 +64,11 @@ export default{
   methods: {
     queryRecord () {
       Http.get('fund/getFundsByTheme', {theme: this.filterTheme}).then((data) => {
-        this.list = data.data.funds
+        let funds = data.data.funds
+        funds.sort((a, b) => {
+          return b.rate - a.rate
+        })
+        this.list = funds
       })
     },
     formatName (name) {

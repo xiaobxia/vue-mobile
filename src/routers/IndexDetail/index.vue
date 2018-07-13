@@ -190,7 +190,11 @@ export default {
     queryRecord () {
       const query = this.$router.history.current.query
       Http.get('fund/getFundsByTheme', {theme: query.name}).then((data) => {
-        this.list = data.data.funds
+        let funds = data.data.funds
+        funds.sort((a, b) => {
+          return b.rate - a.rate
+        })
+        this.list = funds
       })
     },
     ifLock (item) {
