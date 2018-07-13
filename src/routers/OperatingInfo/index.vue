@@ -73,10 +73,10 @@ export default {
       return qs.stringify(query)
     },
     queryData (item) {
-      Http.get('webData/getWebStockdaybarAll', {
+      Http.getWithCache('webData/getWebStockdaybarAll', {
         code: item.code,
         days: 20
-      }).then((data) => {
+      }, {interval: 30}).then((data) => {
         if (data.success) {
           const list = data.data.list
           const info = formatData(list)

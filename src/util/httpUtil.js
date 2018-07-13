@@ -41,6 +41,38 @@ const Http = {
     return axios.get(makeUrl(url + (queryString ? '?' + queryString : '')), options).then(data => data.data)
   },
 
+  getWithCache (url, query, cache, options) {
+    let queryString = ''
+    let cacheKey = url
+    if (query) {
+      cacheKey += qs.stringify({
+        ...query
+      })
+      query.timestamp = new Date().getTime()
+      queryString = qs.stringify(query)
+    } else {
+      queryString = qs.stringify({timestamp: new Date().getTime()})
+    }
+    let cacheData = localStorage.getItem(cacheKey)
+    if (cacheData) {
+      let cacheDataRaw = JSON.parse(cacheData)
+      // 可以使用缓存
+      if (!((Date.now() - cacheDataRaw.time) > cache.interval * 1000)) {
+        return new Promise((resolve, reject) => {
+          resolve(cacheDataRaw.data)
+        })
+      }
+    }
+    return axios.get(makeUrl(url + (queryString ? '?' + queryString : '')), options).then(data => {
+      cacheData = {
+        time: Date.now(),
+        data: data.data
+      }
+      localStorage.setItem(cacheKey, JSON.stringify(cacheData))
+      return data.data
+    })
+  },
+
   getRaw (url, query, options) {
     let queryString = ''
     if (query) {
