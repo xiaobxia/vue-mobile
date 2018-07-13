@@ -14,11 +14,17 @@
       <div class="index-rate">
         <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
       </div>
+      <div class="tag-info">
+        <span class="lock-info"><i></i>锁仓</span>
+      </div>
       <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
           <div slot="title">
-            <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
-                                                                                               :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span></h3>
+            <h3 :class="{lowRate: item.lowRate}">
+              {{item.code}} {{formatName(item.name)}}
+              <i class="lock-tag" v-if="ifLock(item)"></i>
+              <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
+            </h3>
           </div>
         </mt-cell-swipe>
       </div>
@@ -186,6 +192,9 @@ export default {
       Http.get('fund/getFundsByTheme', {theme: query.name}).then((data) => {
         this.list = data.data.funds
       })
+    },
+    ifLock (item) {
+      return item.has_days <= constUtil.minHasDay
     },
     formatName (name) {
       if (name.length > 12) {
