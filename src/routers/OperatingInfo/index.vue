@@ -76,7 +76,7 @@ export default {
       Http.getWithCache('webData/getWebStockdaybarAll', {
         code: item.code,
         days: 20
-      }, {interval: 30}).then((data) => {
+      }, {interval: 60}).then((data) => {
         if (data.success) {
           const list = data.data.list
           const info = formatData(list)
