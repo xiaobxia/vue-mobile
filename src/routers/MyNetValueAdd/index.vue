@@ -24,6 +24,7 @@ import Http from '@/util/httpUtil.js'
 import {MessageBox} from 'mint-ui'
 import Toast from '@/common/toast.js'
 import moment from 'moment'
+import constUtil from '@/util/constUtil.js'
 
 export default {
   name: 'MyNetValueAdd',
@@ -45,7 +46,7 @@ export default {
       const query = this.$router.history.current.query
       this.type = query.type
       this.form = Object.assign({
-        shares: 200000,
+        shares: constUtil.myShares,
         net_value_date: moment().format('YYYY-MM-DD')
       }, query)
     },

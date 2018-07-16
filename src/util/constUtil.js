@@ -6,6 +6,7 @@ const standard = 5000
 
 const constUtil = {
   asset,
+  myShares: 200000,
   buyIn7DaysLimit: asset / 4,
   standard,
   cutRateLevelOne: 0.8,
