@@ -23,12 +23,7 @@
         <span class="cut">减仓</span>
         <span class="sell">卖出</span>
       </div>
-      <my-fund-card :listData="myFundList1" :title="'超跌博反'"/>
-      <my-fund-card :listData="myFundList2" :title="'逆势上涨'"/>
-      <my-fund-card :listData="myFundList3" :title="'机构趋势'"/>
-      <my-fund-card :listData="myFundList5" :title="'待卖'"/>
-      <my-fund-card :listData="myFundList6" :title="'解锁'"/>
-      <my-fund-card :listData="myFundList4" :title="'锁仓'"/>
+      <my-fund-card  v-for="(item) in cardInfo" :key="item.name"  :listData="item.list" :title="item.name"/>
     </div>
   </div>
 </template>
@@ -38,24 +33,36 @@ import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import MyFundCard from '@/components/MyFundCard.vue'
 import constUtil from '@/util/constUtil.js'
+import indexInfoUtil from '@/util/indexInfoUtil.js'
 
+const codeMap = indexInfoUtil.codeMap
 export default {
   name: 'MyFund',
   data () {
+    let cardInfo = []
+    for (let key in codeMap) {
+      cardInfo.push({
+        name: codeMap[key].name,
+        list: []
+      })
+    }
+    cardInfo.push({
+      name: '其他',
+      list: []
+    })
+    cardInfo.push({
+      name: '锁仓',
+      list: []
+    })
     return {
       info: {},
       list: [],
       timer: null,
       marketRate: 0,
       myRate: 0,
-      myFundList1: [],
-      myFundList2: [],
-      myFundList3: [],
-      myFundList4: [],
-      myFundList5: [],
-      myFundList6: [],
       couldBuyMore: true,
-      newRate: 0
+      newRate: 0,
+      cardInfo
     }
   },
   components: {MyFundCard},
@@ -79,18 +86,18 @@ export default {
   },
   methods: {
     initPage () {
+      let dataMap = {}
+      for (let key in codeMap) {
+        dataMap[codeMap[key].name] = []
+      }
+      dataMap['其他'] = []
+      dataMap['锁仓'] = []
       Http.get('fund/getUserFunds').then((data) => {
         const info = data.data.info
         this.info = info
         const list = data.data.list
         let newCost = 0
         let newValuation = 0
-        let list1 = []
-        let list2 = []
-        let list3 = []
-        let list4 = []
-        let list5 = []
-        let list6 = []
         // 7天内购买的金额
         let buyIn7DaysCount = 0
         list.forEach((item) => {
@@ -101,26 +108,12 @@ export default {
           // 锁仓
           if (item.has_days <= constUtil.minHasDay) {
             buyIn7DaysCount += item.costSum
-            list4.push(item)
+            dataMap['锁仓'].push(item)
           } else {
-            // 刚解锁，需要更新仓位
-            if (item.has_days <= 21) {
-              list6.push(item)
+            if (item.theme) {
+              dataMap[item.theme].push(item)
             } else {
-              // 待卖
-              if (this.ifWaitSell(item)) {
-                list5.push(item)
-              } else {
-                if (item.strategy === '1') {
-                  list1.push(item)
-                }
-                if (item.strategy === '2') {
-                  list2.push(item)
-                }
-                if (item.strategy === '3') {
-                  list3.push(item)
-                }
-              }
+              dataMap['其他'].push(item)
             }
           }
         })
@@ -128,12 +121,9 @@ export default {
         if (buyIn7DaysCount > constUtil.buyIn7DaysLimit) {
           this.couldBuyMore = false
         }
-        this.myFundList1 = list1
-        this.myFundList2 = list2
-        this.myFundList3 = list3
-        this.myFundList4 = list4
-        this.myFundList5 = list5
-        this.myFundList6 = list6
+        for (let i = 0; i < this.cardInfo.length; i++) {
+          this.cardInfo[i].list = dataMap[this.cardInfo[i].name]
+        }
         this.newRate = numberUtil.countDifferenceRate(newValuation || 1, newCost || 1)
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
