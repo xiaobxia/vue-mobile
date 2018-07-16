@@ -176,8 +176,7 @@ export default {
             const twoDayRecord = recentNetValue[i + 2]
             if (infoUtil[fnMap[query.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
               buyList.push(nowRecord)
-            }
-            if (infoUtil[fnMap[query.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
+            } else if (infoUtil[fnMap[query.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
               sellList.push(nowRecord)
             }
           }
