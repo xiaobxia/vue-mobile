@@ -26,7 +26,7 @@
         v-model="popupVisible"
         position="bottom">
         <ul class="theme-list">
-          <li class="theme-item" v-for="(item) in filterList" :key="item.code" @click="onThemeChangeHandler(item.name)">{{item.name}}</li>
+          <li class="theme-item" v-for="(item) in filterList" :key="item.code" @click="onThemeChangeHandler(item.name)">{{item.name || '置空'}}</li>
         </ul>
       </mt-popup>
       <div class="content-body">
@@ -71,6 +71,11 @@ export default {
         name: codeMap[key].name
       })
     }
+    filterList.push({
+      key: 'kong',
+      code: 'kong',
+      name: ''
+    })
     return {
       grid: {
         top: '15%'
