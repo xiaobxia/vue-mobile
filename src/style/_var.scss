@@ -1,12 +1,28 @@
 @charset "UTF-8";
 
 //颜色
-$green-color: rgb(57, 181, 74);
-$red-color: rgb(181,57,74);
-$yellow-color: rgb(255, 147, 22);
-$blue-color: rgb(57, 74, 181);
+$green-color: rgb(62, 179, 121);
+$red-color: rgb(244, 51, 60);
+$yellow-color: rgb(244, 148, 110);
+$blue-color: rgb(0, 192, 255);
+
+$green-color-back: rgba(62, 179, 121, 0.1);
+$red-color-back: rgba(244, 51, 60, 0.1);
+$yellow-color-back: rgba(244, 148, 110, 0.1);
+$blue-color-back: rgba(0, 192, 255, 0.1);
+
+$green-color-back-2: rgba(62, 179, 121, 0.2);
+$red-color-back-2: rgba(244, 51, 60, 0.2);
+$yellow-color-back-2: rgba(244, 148, 110, 0.2);
+$blue-color-back-2: rgba(0, 192, 255, 0.2);
+
+$green-color-back-3: rgba(62, 179, 121, 0.3);
+$red-color-back-3: rgba(244, 51, 60, 0.3);
+$yellow-color-back-3: rgba(244, 148, 110, 0.3);
+$blue-color-back-3: rgba(0, 192, 255, 0.3);
+
 //二级主题色
-$active-color: rgb(57, 181, 74);
+$active-color: rgb(62, 179, 121);
 $grey-color: #999;
 
 $body-color: rgb(249, 249, 249);

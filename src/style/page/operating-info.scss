@@ -16,13 +16,13 @@
     }
   }
   .sell {
-    background-color: rgba(57, 181, 74, 0.3);
+    background-color: $green-color-back-3;
   }
   .buy{
-    background-color: rgba(181,57,74, 0.3);
+    background-color: $red-color-back-3;
   }
   .has-tag{
-    margin-left: 2em;
+    margin-left: 1em;
     font-size: 26px;
     padding: 0 0.3em;
     border: 1px solid $blue-color;

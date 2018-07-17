@@ -19,7 +19,6 @@
         <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
       </div>
       <div class="tag-info">
-        <span class="up">上升</span>
         <span class="cut">减仓</span>
         <span class="sell">卖出</span>
       </div>

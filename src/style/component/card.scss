@@ -16,7 +16,7 @@
   .container{
     background-color: #fff;
     &:active {
-      background-color: rgba(57, 181, 74, 0.1);
+      background-color: $green-color-back;
     }
   }
   .content{
