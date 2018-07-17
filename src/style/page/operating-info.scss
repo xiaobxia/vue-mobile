@@ -21,4 +21,12 @@
   .buy{
     background-color: rgba(181,57,74, 0.3);
   }
+  .has-tag{
+    margin-left: 2em;
+    font-size: 26px;
+    padding: 0 0.3em;
+    border: 1px solid $blue-color;
+    color: $blue-color;
+    border-radius: 4px;
+  }
 }

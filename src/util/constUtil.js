@@ -1,7 +1,9 @@
 /**
  * Created by xiaobxia on 2018/5/30.
  */
+// 资产
 const asset = 200000
+// 标准仓金额
 const standard = 5000
 
 const constUtil = {

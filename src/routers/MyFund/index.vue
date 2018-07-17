@@ -110,7 +110,8 @@ export default {
             buyIn7DaysCount += item.costSum
             dataMap['锁仓'].push(item)
           } else {
-            if (item.theme) {
+            // 防止基金有主题，但是主题已经被删除的情况
+            if (item.theme && dataMap[item.theme]) {
               dataMap[item.theme].push(item)
             } else {
               dataMap['其他'].push(item)

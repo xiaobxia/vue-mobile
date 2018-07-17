@@ -9,8 +9,11 @@
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
         <div slot="title">
-          <h3>{{item.name}} <span style="float: right"
-                                  :class="rateInfo[item.key] < 0 ? 'green-text' : 'red-text'">{{rateInfo[item.key]}}%</span></h3>
+          <h3>
+            {{item.name}}
+            <span v-if="hasInfo[item.name]" class="has-tag">持有</span>
+            <span style="float: right" :class="rateInfo[item.key] < 0 ? 'green-text' : 'red-text'">{{rateInfo[item.key]}}%</span>
+          </h3>
           <p class="explain">
             <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
                   :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
@@ -39,6 +42,7 @@ export default {
     let list = []
     let firstInfo = {}
     let rateInfo = {}
+    let hasInfo = {}
     for (let key in codeMap) {
       list.push({
         key: key,
@@ -49,12 +53,14 @@ export default {
       allInfo[key] = []
       firstInfo[key] = ''
       rateInfo[key] = 0
+      hasInfo[codeMap[key].name] = false
     }
     return {
       list: list,
       allInfo: allInfo,
       firstInfo: firstInfo,
-      rateInfo: rateInfo
+      rateInfo: rateInfo,
+      hasInfo
     }
   },
   computed: {},
@@ -67,6 +73,16 @@ export default {
       for (let i = 0; i < list.length; i++) {
         this.queryData(list[i])
       }
+      Http.get('fund/getUserFundsNormal').then((data) => {
+        if (data.success) {
+          const list = data.data.list
+          for (let i = 0; i < list.length; i++) {
+            if (list[i].theme) {
+              this.hasInfo[list[i].theme] = true
+            }
+          }
+        }
+      })
       // this.queryData(list[0])
     },
     qsStringify (query) {
