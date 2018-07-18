@@ -17,6 +17,7 @@
         <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
         <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
         <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
+        <span class="item">相对波动：<span :class="relativeRate < 0 ? 'green-text' : 'red-text'">{{relativeRate}}%</span></span>
       </div>
       <div class="tag-info">
         <span class="cut">减仓</span>
@@ -61,6 +62,7 @@ export default {
       myRate: 0,
       couldBuyMore: true,
       newRate: 0,
+      myAsset: constUtil.asset,
       cardInfo
     }
   },
@@ -69,6 +71,14 @@ export default {
     valuationInfo () {
       if (this.info.valuationTotalSum && this.info.totalSum) {
         return numberUtil.keepTwoDecimals(this.info.valuationTotalSum - this.info.totalSum)
+      } else {
+        return 0
+      }
+    },
+    relativeRate () {
+      if (this.info.valuationTotalSum && this.info.totalSum) {
+        const income = numberUtil.keepTwoDecimals(this.info.valuationTotalSum - this.info.totalSum)
+        return numberUtil.countRate(income, this.myAsset)
       } else {
         return 0
       }
@@ -82,6 +92,7 @@ export default {
       this.initPage()
     }, 1000 * 60)
     this.initPage()
+    this.queryMyNetValue()
   },
   methods: {
     initPage () {
@@ -129,6 +140,14 @@ export default {
       })
       Http.get('fund/getMarketInfo').then((data) => {
         this.marketRate = data.data.info.rate
+      })
+    },
+    queryMyNetValue () {
+      Http.get('fund/getUserNetValues', {current: 1, pageSize: 1}).then((data) => {
+        const nowNetValue = data.data.list[0]
+        if (nowNetValue) {
+          this.myAsset = nowNetValue.asset
+        }
       })
     },
     ifWaitSell (item) {
