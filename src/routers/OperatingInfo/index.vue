@@ -6,6 +6,11 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
+      <div class="count-wrap">
+        <span class="red-text">{{buyCount}}</span>
+        :
+        <span class="green-text">{{sellCount}}</span>
+      </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
         <div slot="title">
@@ -63,7 +68,26 @@ export default {
       hasInfo
     }
   },
-  computed: {},
+  computed: {
+    buyCount () {
+      let count = 0
+      for (let key in this.firstInfo) {
+        if (this.firstInfo[key] === 'buy') {
+          count++
+        }
+      }
+      return count
+    },
+    sellCount () {
+      let count = 0
+      for (let key in this.firstInfo) {
+        if (this.firstInfo[key] === 'sell') {
+          count++
+        }
+      }
+      return count
+    }
+  },
   mounted () {
     this.initPage()
   },
