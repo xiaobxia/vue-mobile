@@ -17,6 +17,9 @@ const fundAccountUtil = {
   cutRateLevelTwo: 0.6,
   minHasDay,
   ifRelieve: function (item) {
+    if(!item.has_days) {
+      return true
+    }
     if (item.has_days > minHasDay) {
       return true
     } else if (item.has_days === minHasDay) {
