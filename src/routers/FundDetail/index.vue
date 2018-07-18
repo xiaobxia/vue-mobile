@@ -51,7 +51,7 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
-import constUtil from '@/util/constUtil.js'
+import fundAccountUtil from '@/util/fundAccountUtil.js'
 import moment from 'moment'
 import Toast from '@/common/toast.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
@@ -343,7 +343,7 @@ export default {
           }
         })
         // 大于49000就说明大于了5000，因为每个标准仓5000
-        if (buyIn7DaysCount > constUtil.buyIn7DaysLimit) {
+        if (buyIn7DaysCount > fundAccountUtil.buyIn7DaysLimit) {
           this.couldBuyMore = false
         }
       })

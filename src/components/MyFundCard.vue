@@ -35,7 +35,7 @@
 <script>
 import numberUtil from '@/util/numberUtil.js'
 import qs from 'qs'
-import constUtil from '@/util/constUtil.js'
+import fundAccountUtil from '@/util/fundAccountUtil.js'
 
 export default{
   name: 'MyFundCard',
@@ -86,14 +86,14 @@ export default{
       }
     },
     ifLock (item) {
-      return item.has_days <= constUtil.minHasDay
+      return !fundAccountUtil.ifRelieve(item)
     },
     countCutShares (item) {
       const costSum = item.costSum
       const multiple = item.standard || 1
-      const standard = constUtil.standard * multiple
-      const cutLevelOne = constUtil.cutRateLevelOne * standard
-      const cutLevelTwo = constUtil.cutRateLevelTwo * standard
+      const standard = fundAccountUtil.standard * multiple
+      const cutLevelOne = fundAccountUtil.cutRateLevelOne * standard
+      const cutLevelTwo = fundAccountUtil.cutRateLevelTwo * standard
       if ((costSum > cutLevelOne) && !numberUtil.ifAround(item.costSum, cutLevelOne)) {
         let newShares = cutLevelOne / item.cost
         return parseInt(item.shares - newShares)
@@ -107,10 +107,10 @@ export default{
     ifCut (item) {
       const multiple = item.standard || 1
       const allRate = this.countRate(item.valuationSum, item.costSum)
-      const standard = constUtil.standard * multiple
-      const cutRateLevelOne = constUtil.cutRateLevelOne
+      const standard = fundAccountUtil.standard * multiple
+      const cutRateLevelOne = fundAccountUtil.cutRateLevelOne
 
-      if (item.has_days <= constUtil.minHasDay) {
+      if (!fundAccountUtil.ifRelieve(item)) {
         return false
       }
       // 盈利2.5点，减一次
@@ -141,8 +141,7 @@ export default{
     },
     ifSell (item) {
       const allRate = this.countRate(item.valuationSum, item.costSum)
-      // 小于7天
-      if (item.has_days <= constUtil.minHasDay) {
+      if (!fundAccountUtil.ifRelieve(item)) {
         return false
       }
       // 待卖状态，亏损超过3个点的

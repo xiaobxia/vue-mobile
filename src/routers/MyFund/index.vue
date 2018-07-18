@@ -32,7 +32,7 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import MyFundCard from '@/components/MyFundCard.vue'
-import constUtil from '@/util/constUtil.js'
+import fundAccountUtil from '@/util/fundAccountUtil.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
 
 const codeMap = indexInfoUtil.codeMap
@@ -62,7 +62,7 @@ export default {
       myRate: 0,
       couldBuyMore: true,
       newRate: 0,
-      myAsset: constUtil.asset,
+      myAsset: fundAccountUtil.asset,
       cardInfo
     }
   },
@@ -116,7 +116,7 @@ export default {
             newValuation += item.valuationSum
           }
           // 锁仓
-          if (item.has_days <= constUtil.minHasDay) {
+          if (!fundAccountUtil.ifRelieve(item)) {
             buyIn7DaysCount += item.costSum
             // dataMap['锁仓'].push(item)
           }
@@ -128,7 +128,7 @@ export default {
           }
         })
         // 大于49000就说明大于了5000，因为每个标准仓5000
-        if (buyIn7DaysCount > constUtil.buyIn7DaysLimit) {
+        if (buyIn7DaysCount > fundAccountUtil.buyIn7DaysLimit) {
           this.couldBuyMore = false
         }
         for (let i = 0; i < this.cardInfo.length; i++) {
@@ -151,8 +151,8 @@ export default {
     },
     ifWaitSell (item) {
       const multiple = item.standard || 1
-      const standard = constUtil.standard * multiple
-      if (numberUtil.ifAround(item.costSum, constUtil.cutRateLevelTwo * standard)) {
+      const standard = fundAccountUtil.standard * multiple
+      if (numberUtil.ifAround(item.costSum, fundAccountUtil.cutRateLevelTwo * standard)) {
         return true
       }
       return false

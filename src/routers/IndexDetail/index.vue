@@ -35,7 +35,7 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
-import constUtil from '@/util/constUtil.js'
+import fundAccountUtil from '@/util/fundAccountUtil.js'
 import moment from 'moment'
 import Toast from '@/common/toast.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
@@ -197,7 +197,7 @@ export default {
       })
     },
     ifLock (item) {
-      return item.has_days <= constUtil.minHasDay
+      return !fundAccountUtil.ifRelieve(item)
     },
     formatName (name) {
       if (name.length > 12) {
