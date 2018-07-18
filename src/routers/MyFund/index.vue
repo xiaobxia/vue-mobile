@@ -50,10 +50,10 @@ export default {
       name: '其他',
       list: []
     })
-    cardInfo.push({
-      name: '锁仓',
-      list: []
-    })
+    //    cardInfo.push({
+    //      name: '锁仓',
+    //      list: []
+    //    })
     return {
       info: {},
       list: [],
@@ -118,14 +118,13 @@ export default {
           // 锁仓
           if (item.has_days <= constUtil.minHasDay) {
             buyIn7DaysCount += item.costSum
-            dataMap['锁仓'].push(item)
+            // dataMap['锁仓'].push(item)
+          }
+          // 防止基金有主题，但是主题已经被删除的情况
+          if (item.theme && dataMap[item.theme]) {
+            dataMap[item.theme].push(item)
           } else {
-            // 防止基金有主题，但是主题已经被删除的情况
-            if (item.theme && dataMap[item.theme]) {
-              dataMap[item.theme].push(item)
-            } else {
-              dataMap['其他'].push(item)
-            }
+            dataMap['其他'].push(item)
           }
         })
         // 大于49000就说明大于了5000，因为每个标准仓5000

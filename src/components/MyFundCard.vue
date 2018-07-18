@@ -4,8 +4,11 @@
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)"
                    :class="{up:item.isUp, cut: ifCut(item), sell: ifSell(item)}">
       <div slot="title">
-        <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
-                                                          :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
+        <h3 :class="{lowRate: item.lowRate}">
+          {{item.code}}
+          {{formatName(item.name)}}
+          <i class="lock-tag" v-if="ifLock(item)"></i>
+          <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
         </h3>
         <p class="explain">
           <span class="item">一月最低：<span :class="item.monthMin < 0 ? 'green-text' : 'red-text'">{{item.monthMin}}%</span></span>
@@ -76,11 +79,14 @@ export default{
       return qs.stringify(query)
     },
     formatName (name) {
-      if (name.length > 12) {
-        return name.substr(0, 11) + '...'
+      if (name.length > 11) {
+        return name.substr(0, 10) + '...'
       } else {
         return name
       }
+    },
+    ifLock (item) {
+      return item.has_days <= constUtil.minHasDay
     },
     countCutShares (item) {
       const costSum = item.costSum
