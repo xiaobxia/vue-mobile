@@ -57,12 +57,6 @@
           <td>{{halfMonthAll.wulin}}%</td>
           <td>{{monthAll.wulin}}%</td>
         </tr>
-        <tr>
-          <td>中证500</td>
-          <td>{{recentAll.wubai}}%</td>
-          <td>{{halfMonthAll.wubai}}%</td>
-          <td>{{monthAll.wubai}}%</td>
-        </tr>
       </table>
       <ve-histogram :data="monthRateChartData" :grid="monthRateGrid"
                     :yAxis="chartYAxis" :textStyle="chartTextStyle"
@@ -132,7 +126,6 @@ export default {
       chuangye: [],
       hushen: [],
       wulin: [],
-      wubai: [],
       chartSettings: {
         lineStyle: {
           width: 3 * zoom
@@ -158,7 +151,6 @@ export default {
       let listChuangye = this.chuangye
       let listHushen = this.hushen
       let listWulin = this.wulin
-      let listWubai = this.wubai
       let startIndex = 0
       for (let i = 0; i < listShangzheng.length; i++) {
         if (listShangzheng[i].date === 20180312) {
@@ -174,16 +166,13 @@ export default {
       listHushen.reverse()
       listWulin = listWulin.slice(0, startIndex + 1)
       listWulin.reverse()
-      listWubai = listWubai.slice(0, startIndex + 1)
-      listWubai.reverse()
-      if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1 || listWulin.length < 1 || listWubai.length < 1) {
+      if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1 || listWulin.length < 1) {
         return {}
       }
       const baseShangzheng = listShangzheng[0].kline.close
       const baseChuangye = listChuangye[0].kline.close
       const baseHushen = listHushen[0].kline.close
       const baseWulin = listWulin[0].kline.close
-      // const baseWubai = listWubai[0].kline.close
       let row = []
       listMonth.forEach(function (item, index) {
         let data = {}
@@ -193,7 +182,6 @@ export default {
         data['创业'] = numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100)
         data['沪深300'] = numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100)
         data['上证50'] = numberUtil.keepTwoDecimals(((listWulin[index].kline.close - baseWulin) / baseWulin) * 100)
-        // data['中证500'] = numberUtil.keepTwoDecimals(((listWubai[index].kline.close - baseWubai) / baseWubai) * 100)
         row.push(data)
       })
       return {
