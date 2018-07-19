@@ -263,17 +263,6 @@ export default {
           }
         }),
         Http.get('webData/getWebStockdaybarAll', {
-          code: 'sh000906',
-          days
-        }).then((data) => {
-          if (data.success) {
-            this.wubai = data.data.list
-            this.recentAll.wubai = this.countWeek(data.data.list)
-            this.monthAll.wubai = this.countMonth(data.data.list)
-            this.halfMonthAll.wubai = this.countHalfMonth(data.data.list)
-          }
-        }),
-        Http.get('webData/getWebStockdaybarAll', {
           code: 'sz399006',
           days
         }).then((data) => {
