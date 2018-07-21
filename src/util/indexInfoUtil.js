@@ -46,7 +46,7 @@ Util.prototype = {
     const threshold = this.threshold
     return numberUtil.countDifferenceRate(record.low, record.preClose) > threshold
   },
-  //2018-07-12
+  // 2018-07-12
   ifSellChuangye: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -156,7 +156,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-12
+  // 2018-07-12
   ifBuyChuangye: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -219,7 +219,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifSellGangtie: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -330,7 +330,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifBuyGangtie: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -371,7 +371,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-12
+  // 2018-07-12
   ifSellJungong: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -418,7 +418,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-12
+  // 2018-07-12
   ifBuyJungong: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -459,7 +459,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifSellYiyao: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -503,7 +503,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifBuyYiyao: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -564,7 +564,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-16
+  // 2018-07-16
   ifSellMeitan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -626,7 +626,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-16
+  // 2018-07-16
   ifBuyMeitan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -670,7 +670,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifSellYouse: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -745,7 +745,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifBuyYouse: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -790,7 +790,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifSellDichan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -850,7 +850,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifBuyDichan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -887,7 +887,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifSellJisuanji: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -966,7 +966,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-10
+  // 2018-07-10
   ifBuyJisuanji: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1249,7 +1249,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-12
+  // 2018-07-12
   ifSellNengyuan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1337,7 +1337,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-12
+  // 2018-07-12
   ifBuyNengyuan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1525,7 +1525,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifSellZhengquan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1569,7 +1569,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifBuyZhengquan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1726,7 +1726,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifSellBaoxian: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1776,7 +1776,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifBuyBaoxian: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1831,7 +1831,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-16
+  // 2018-07-16
   ifSellWulin: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1891,7 +1891,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-16
+  // 2018-07-16
   ifBuyWulin: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1953,7 +1953,7 @@ Util.prototype = {
     return false
   },
 
-  //2018-07-20
+  // 2018-07-20
   ifSellYinhang: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2022,7 +2022,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-20
+  // 2018-07-20
   ifBuyYinhang: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2086,7 +2086,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-20
+  // 2018-07-20
   ifSellXinnengyuan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2106,7 +2106,6 @@ Util.prototype = {
       }
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-
       if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return true
       }
@@ -2158,7 +2157,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-20
+  // 2018-07-20
   ifBuyXinnengyuan: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2204,7 +2203,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifSellChuanmei: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2268,7 +2267,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifBuyChuanmei: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2334,7 +2333,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifSellHuanjing: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2396,7 +2395,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-11
+  // 2018-07-11
   ifBuyHuanjing: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2444,7 +2443,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-12
+  // 2018-07-12
   ifSellDianzi: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2480,7 +2479,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-12
+  // 2018-07-12
   ifBuyDianzi: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2537,7 +2536,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-16
+  // 2018-07-16
   ifSellYiliao: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2598,7 +2597,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-16
+  // 2018-07-16
   ifBuyYiliao: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2652,7 +2651,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-19
+  // 2018-07-19
   ifSellShengwu: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2704,7 +2703,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-19
+  // 2018-07-19
   ifBuyShengwu: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)

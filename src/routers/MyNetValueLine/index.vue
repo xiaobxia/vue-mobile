@@ -23,36 +23,42 @@
       <table border="1" width="100%" cellspacing="1" cellpadding="4">
         <tr>
           <th>指数\时间</th>
+          <th>本周</th>
           <th>一星期</th>
           <th>半月</th>
           <th>一月</th>
         </tr>
         <tr>
           <td>我的</td>
+          <td>{{nowWeek.my}}%</td>
           <td>{{recentInfo.week}}%</td>
           <td>{{recentInfo.halfMonth}}%</td>
           <td>{{recentInfo.month}}%</td>
         </tr>
         <tr>
           <td>上证</td>
+          <td>{{nowWeek.shangzheng}}%</td>
           <td>{{recentAll.shangzheng}}%</td>
           <td>{{halfMonthAll.shangzheng}}%</td>
           <td>{{monthAll.shangzheng}}%</td>
         </tr>
         <tr>
           <td>创业</td>
+          <td>{{nowWeek.chuangye}}%</td>
           <td>{{recentAll.chuangye}}%</td>
           <td>{{halfMonthAll.chuangye}}%</td>
           <td>{{monthAll.chuangye}}%</td>
         </tr>
         <tr>
           <td>沪深300</td>
+          <td>{{nowWeek.hushen}}%</td>
           <td>{{recentAll.hushen}}%</td>
           <td>{{halfMonthAll.hushen}}%</td>
           <td>{{monthAll.hushen}}%</td>
         </tr>
         <tr>
           <td>上证50</td>
+          <td>{{nowWeek.wulin}}%</td>
           <td>{{recentAll.wulin}}%</td>
           <td>{{halfMonthAll.wulin}}%</td>
           <td>{{monthAll.wulin}}%</td>
@@ -135,6 +141,7 @@ export default {
       recentInfo: {},
       recentAll: {},
       monthAll: {},
+      nowWeek: {},
       halfMonthAll: {},
       myNetValueInfo: {
         nowMonth: 0,
@@ -226,6 +233,7 @@ export default {
               nowMonth: this.countNowMonth(list),
               all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
             }
+            this.nowWeek.my = this.countMyNowWeek(list)
           }
         }),
         Http.get('webData/getWebStockdaybarAll', {
@@ -234,6 +242,7 @@ export default {
         }).then((data) => {
           if (data.success) {
             this.shangzheng = data.data.list
+            this.nowWeek.shangzheng = this.countNowWeek(data.data.list)
             this.recentAll.shangzheng = this.countWeek(data.data.list)
             this.monthAll.shangzheng = this.countMonth(data.data.list)
             this.halfMonthAll.shangzheng = this.countHalfMonth(data.data.list)
@@ -245,6 +254,7 @@ export default {
         }).then((data) => {
           if (data.success) {
             this.wulin = data.data.list
+            this.nowWeek.wulin = this.countNowWeek(data.data.list)
             this.recentAll.wulin = this.countWeek(data.data.list)
             this.monthAll.wulin = this.countMonth(data.data.list)
             this.halfMonthAll.wulin = this.countHalfMonth(data.data.list)
@@ -256,6 +266,7 @@ export default {
         }).then((data) => {
           if (data.success) {
             this.chuangye = data.data.list
+            this.nowWeek.chuangye = this.countNowWeek(data.data.list)
             this.recentAll.chuangye = this.countWeek(data.data.list)
             this.monthAll.chuangye = this.countMonth(data.data.list)
             this.halfMonthAll.chuangye = this.countHalfMonth(data.data.list)
@@ -267,6 +278,7 @@ export default {
         }).then((data) => {
           if (data.success) {
             this.hushen = data.data.list
+            this.nowWeek.hushen = this.countNowWeek(data.data.list)
             this.recentAll.hushen = this.countWeek(data.data.list)
             this.monthAll.hushen = this.countMonth(data.data.list)
             this.halfMonthAll.hushen = this.countHalfMonth(data.data.list)
@@ -288,6 +300,35 @@ export default {
     },
     toPath (path) {
       this.$router.push(path)
+    },
+    countMyNowWeek (list) {
+      const start = list.length - 1
+      const nowDay = list[start].net_value_date
+      const nowValue = list[start].net_value
+      let lastValue = list[start].net_value
+      for (let i = start - 1; i > (start - 6); i--) {
+        const day = list[i].net_value_date
+        if (!(moment(day).isSame(nowDay, 'week'))) {
+          lastValue = list[i].net_value
+          break
+        }
+      }
+      return numberUtil.countDifferenceRate(nowValue, lastValue)
+    },
+    countNowWeek (list) {
+      const nowDate = list[0].date + ''
+      const nowValue = list[0].kline.close
+      let lastValue = list[0].kline.close
+      const nowDay = nowDate.substr(0, 4) + '-' + nowDate.substr(4, 2) + '-' + nowDate.substr(6, 2)
+      for (let i = 1; i < 6; i++) {
+        const date = list[i].date + ''
+        const day = date.substr(0, 4) + '-' + date.substr(4, 2) + '-' + date.substr(6, 2)
+        if (!(moment(day).isSame(nowDay, 'week'))) {
+          lastValue = list[i].kline.close
+          break
+        }
+      }
+      return numberUtil.countDifferenceRate(nowValue, lastValue)
     },
     countWeek (list) {
       const nowNetValue = list[0].kline.close

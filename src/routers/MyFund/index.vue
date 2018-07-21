@@ -14,10 +14,11 @@
         <span class="item">持仓成本：{{info.costTotalSum}}</span>
         <span class="item">估算金额：{{info.valuationTotalSum}}</span>
         <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
-        <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
         <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
-        <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
+        <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
+        <span class="item">仓位信息：{{myPosition}}%</span>
         <span class="item">相对波动：<span :class="relativeRate < 0 ? 'green-text' : 'red-text'">{{relativeRate}}%</span></span>
+        <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
       </div>
       <div class="tag-info">
         <span class="cut">减仓</span>
@@ -71,6 +72,13 @@ export default {
     valuationInfo () {
       if (this.info.valuationTotalSum && this.info.totalSum) {
         return numberUtil.keepTwoDecimals(this.info.valuationTotalSum - this.info.totalSum)
+      } else {
+        return 0
+      }
+    },
+    myPosition () {
+      if (this.info.totalSum) {
+        return numberUtil.countRate(this.info.totalSum, this.myAsset)
       } else {
         return 0
       }
