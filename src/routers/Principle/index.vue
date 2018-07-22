@@ -7,38 +7,29 @@
     </mt-header>
     <div class="main-body">
       <div class="principle-block">
+        <h3>信号</h3>
+        <ol>
+          <li>如果批量出现卖出信号，那就卖出。如果大部分处于买入信号，那么出了卖出信号，是可以考虑继续持有的。</li>
+          <li>对于特别强势的抱团股，出现卖出信号可以减仓。出买入信号那就买，等市场环境一变好，大资金买的还是这些。</li>
+        </ol>
+      </div>
+      <div class="principle-block">
         <h3>图形</h3>
         <ol>
-          <li class="red-text">均线策略里，如果普遍大跌了，那就可以买入。</li>
           <li>支撑是没有用的，大概率破位。</li>
-          <li>没有到情绪崩溃的尾盘上拉，那就减仓，大概率继续跌。</li>
         </ol>
       </div>
       <div class="principle-block">
-        <h3>持仓</h3>
+        <h3>消息面</h3>
         <ol>
-          <li class="red-text">涨出分歧了就降仓位，领涨的第二天大概率下跌，卖掉领涨的，领跌的第二天大概率涨。降1/4的仓位。</li>
-          <li>很多时候你掉不了头，就是因为持仓没有流动。</li>
-          <li>老的亏损仓一发现回本，可以卖掉，那就一定卖掉，不管图在走什么形态。</li>
-        </ol>
-      </div>
-      <div class="principle-block">
-        <h3>态度</h3>
-        <ol>
+          <li>出现巨大利空马上逃，因为至少会影响3天。</li>
           <li>放消息说了不能炒的，那就一定不要炒。</li>
           <li>国家队砸盘那就离场，应该还会砸几天，特别是，砸什么那就卖什么。</li>
         </ol>
       </div>
       <div class="principle-block">
-        <h3>上升</h3>
-        <ol>
-          <li class="red-text">在普涨行情中，还是下跌，并且没出现买入理由的就卖掉。</li>
-        </ol>
-      </div>
-      <div class="principle-block">
         <h3>下跌</h3>
         <ol>
-          <li class="red-text">在普跌行情中，逆势的板块可以买入。</li>
           <li>下跌趋势会以最后的暴跌结束。</li>
           <li>超跌后反弹，还是以表现强势的领涨。</li>
         </ol>
@@ -47,7 +38,6 @@
         <h3>趋势</h3>
         <ol>
           <li>在上升市中做超跌，在下跌市中做强势。</li>
-          <li>历史上没有走出趋势的，不要做趋势。</li>
         </ol>
       </div>
     </div>
