@@ -40,4 +40,31 @@
     font-size: 30px;
     text-align: center;
   }
+  .info-tag{
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -25px;
+    margin: auto;
+    display: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    &.sell{
+      &.has{
+        display: block;
+        background-color: $green-color;
+      }
+    }
+    &.buy{
+      &.no-has{
+        display: block;
+        background-color: $red-color;
+      }
+    }
+  }
+  .mint-cell-wrapper{
+    overflow: visible;
+  }
 }

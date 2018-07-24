@@ -24,6 +24,7 @@
             <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
                   :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
           </p>
+          <div :class="['info-tag', firstInfo[item.key], hasInfo[item.name]?'has':'no-has']"></div>
         </div>
       </mt-cell-swipe>
     </div>
