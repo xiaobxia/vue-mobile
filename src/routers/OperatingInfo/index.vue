@@ -10,6 +10,7 @@
         <span class="red-text">{{buyCount}}</span>
         :
         <span class="green-text">{{sellCount}}</span>
+        <span class="warn">建议{{position}}%持仓</span>
       </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
@@ -86,6 +87,22 @@ export default {
         }
       }
       return count
+    },
+    position () {
+      let buy = 0
+      for (let key in this.firstInfo) {
+        if (this.firstInfo[key] === 'buy') {
+          buy++
+        }
+      }
+      let sell = 0
+      for (let key in this.firstInfo) {
+        if (this.firstInfo[key] === 'sell') {
+          sell++
+        }
+      }
+      let all = sell + buy
+      return numberUtil.countRate(buy, (all / 2))
     }
   },
   mounted () {
