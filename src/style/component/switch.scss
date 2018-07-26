@@ -1,17 +1,18 @@
-.mint-switch-input:checked + .mint-switch-core::after{
+.mint-switch-input:checked + .mint-switch-core::after {
   transform: translateX(32px);
 }
-.mint-switch{
-  .mint-switch-core{
+
+.mint-switch {
+  .mint-switch-core {
     height: 48px;
     width: 80px;
     border-radius: 48px;
-    &::after{
+    &::after {
       width: 46px;
       height: 46px;
       border-radius: 46px;
     }
-    &::before{
+    &::before {
       width: 80px;
       height: 46px;
       border-radius: 46px;

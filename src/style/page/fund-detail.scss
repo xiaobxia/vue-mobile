@@ -1,5 +1,5 @@
-.fund-detail{
-  .info-wrap{
+.fund-detail {
+  .info-wrap {
     color: $light-text-color;
     padding: 30px 0;
     font-size: 34px;
@@ -8,12 +8,12 @@
       font-size: 34px;
     }
   }
-  .item{
+  .item {
     display: inline-block;
     width: 49%;
     box-sizing: border-box;
   }
-  .warn{
+  .warn {
     color: $red-color;
   }
   .theme-wrap {
@@ -22,7 +22,7 @@
     span {
 
     }
-    button{
+    button {
       float: right;
       width: auto;
       height: auto;
@@ -40,7 +40,7 @@
       text-align: center;
     }
   }
-  .mint-popup-bottom{
+  .mint-popup-bottom {
     border-top: 5px solid $border-color;
     width: 100%;
     background-color: #fff;

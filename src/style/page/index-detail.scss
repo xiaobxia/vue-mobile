@@ -1,17 +1,17 @@
-.index-detail{
-  .index-rate{
+.index-detail {
+  .index-rate {
     padding: 20px;
     text-align: center;
     font-size: 30px;
   }
-  .tag-info{
+  .tag-info {
     padding: 20px;
     font-size: 26px;
     text-align: center;
-    span{
+    span {
       margin-right: 40px;
     }
-    i{
+    i {
       margin-right: 10px;
       display: inline-block;
       width: 20px;
@@ -19,20 +19,20 @@
       border-radius: 20px;
     }
     .lock-info {
-      i{
+      i {
         background-color: $red-color;
       }
     }
   }
   .simple {
-    i{
+    i {
       margin: 0;
       display: inline-block;
       width: 20px;
       height: 20px;
       border-radius: 20px;
     }
-    .lock-tag{
+    .lock-tag {
       background-color: $red-color;
     }
   }

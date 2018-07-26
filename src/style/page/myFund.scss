@@ -30,14 +30,14 @@
     .cut {
       background-color: $yellow-color-back-2;
     }
-    i{
+    i {
       margin: 0;
       display: inline-block;
       width: 20px;
       height: 20px;
       border-radius: 20px;
     }
-    .lock-tag{
+    .lock-tag {
       background-color: $red-color;
     }
   }
@@ -46,7 +46,7 @@
     width: 49%;
     box-sizing: border-box;
   }
-  .warn{
+  .warn {
     color: $red-color;
   }
   .sell {
@@ -55,9 +55,9 @@
   .cut {
     background-color: $yellow-color-back-3;
   }
-  .tag-info{
+  .tag-info {
     text-align: center;
-    span{
+    span {
       margin: 0 40px;
       padding: 10px 20px;
       color: #fff;

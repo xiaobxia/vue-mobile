@@ -1,11 +1,11 @@
 .mint-toast {
-  &.success{
-    .mint-toast-text, .icon{
+  &.success {
+    .mint-toast-text, .icon {
       color: $green-color;
     }
   }
-  &.error{
-    .mint-toast-text, .icon{
+  &.error {
+    .mint-toast-text, .icon {
       color: $red-color;
     }
   }
@@ -19,7 +19,7 @@
   .mint-toast-text {
     font-size: 40px;
   }
-  .icon{
+  .icon {
     display: inline-block;
     margin: 60px 0;
     height: 145px;

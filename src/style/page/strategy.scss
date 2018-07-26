@@ -1,27 +1,29 @@
-.mint-navbar{
-  .mint-tab-item{
+.mint-navbar {
+  .mint-tab-item {
     padding: 20px 0;
-    .mint-tab-item-label{
+    .mint-tab-item-label {
       font-size: 34px;
     }
   }
 }
+
 //.mint-tab-container{
 //  z-index: -10;
 //}
-.mint-navbar{
+.mint-navbar {
   margin-bottom: 5px;
 }
-.strategy-list{
-  .item{
+
+.strategy-list {
+  .item {
     display: inline-block;
     width: 49%;
     box-sizing: border-box;
   }
-  .mint-badge{
+  .mint-badge {
     font-size: 30px;
   }
-  .explain{
+  .explain {
     margin: 10px 0;
   }
 }

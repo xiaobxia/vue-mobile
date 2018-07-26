@@ -1,4 +1,4 @@
-.img-card{
+.img-card {
   position: relative;
   display: inline-block;
   width: 340px;
@@ -7,26 +7,26 @@
   border: 4px solid $border-color;
   overflow: hidden;
   color: $lighter-text-color;
-  img{
+  img {
     z-index: -1;
     position: absolute;
     top: -30%;
     width: 100%;
   }
-  .container{
+  .container {
     background-color: #fff;
     &:active {
       background-color: $green-color-back;
     }
   }
-  .content{
+  .content {
     padding: 20px 0 0 0;
     text-align: center;
-    i{
+    i {
       font-size: 160px;
     }
   }
-  .bottom{
+  .bottom {
     padding: 0 0 20px 0;
     text-align: center;
     font-size: 60px;

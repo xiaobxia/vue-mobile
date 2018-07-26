@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 @import "_var";
-
 @import "lib/mint";
-
 @import "component/header";
 @import "component/tabbar";
 @import "component/switch";
@@ -18,9 +16,7 @@
 @import "component/bottom-bar";
 @import "component/search";
 @import "component/indicator";
-
 @import "page/tabView-mine";
-
 @import "page/login";
 @import "page/myFund";
 @import "page/strategy";
@@ -37,7 +33,7 @@
 @import "page/filter-fund";
 @import "page/index-detail";
 
-body{
+body {
   margin: 0;
   background-color: $body-color;
 }
@@ -68,15 +64,15 @@ body{
   color: $main-text-color;
 }
 
-.main-body{
+.main-body {
   margin-top: 90px;
 }
 
-.has-bar{
+.has-bar {
   margin-bottom: 145px;
 }
 
-.net-line{
+.net-line {
   height: 450px;
 }
 
@@ -88,28 +84,28 @@ body{
   color: $green-color !important;
 }
 
-.grey-back{
-  background-color: rgba(180,180,180, 0.2);
+.grey-back {
+  background-color: rgba(180, 180, 180, 0.2);
 }
 
-ul{
+ul {
   margin: 0;
   padding: 0;
 }
 
-.content{
+.content {
   padding: 30px;
   font-size: 30px;
 }
 
-.loading-wrap{
+.loading-wrap {
   margin-top: 400px;
   text-align: center;
   color: $lighter-text-color;
-  i{
+  i {
     font-size: 160px;
   }
-  p{
+  p {
     font-size: 40px;
   }
 }

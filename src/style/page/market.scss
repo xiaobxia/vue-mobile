@@ -1,15 +1,15 @@
-.page-market{
-  .chart-wrap{
+.page-market {
+  .chart-wrap {
     margin-top: 200px;
   }
-  .tag-info{
+  .tag-info {
     padding: 20px;
     font-size: 26px;
     text-align: center;
-    span{
+    span {
       margin-right: 40px;
     }
-    i{
+    i {
       margin-right: 10px;
       display: inline-block;
       width: 20px;
@@ -17,28 +17,28 @@
       border-radius: 20px;
     }
     .sell-info {
-      i{
+      i {
         background-color: $yellow-color;
       }
     }
     .theme-info {
-      i{
+      i {
         background-color: $blue-color;
       }
     }
   }
   .simple {
-    i{
+    i {
       margin: 0;
       display: inline-block;
       width: 20px;
       height: 20px;
       border-radius: 20px;
     }
-    .sell-tag{
+    .sell-tag {
       background-color: $yellow-color;
     }
-    .theme-tag{
+    .theme-tag {
       background-color: $blue-color;
     }
   }

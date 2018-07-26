@@ -1,16 +1,16 @@
-.operating-info{
-  .explain{
-    span{
+.operating-info {
+  .explain {
+    span {
       display: inline-block;
       padding: 5px 10px;
       width: 15%;
       color: #fff;
       background-color: #eee;
       text-align: center;
-      &.buy{
+      &.buy {
         background-color: $red-color;
       }
-      &.sell{
+      &.sell {
         background-color: $green-color;
       }
     }
@@ -18,10 +18,10 @@
   .sell {
     background-color: $green-color-back-3;
   }
-  .buy{
+  .buy {
     background-color: $red-color-back-3;
   }
-  .has-tag{
+  .has-tag {
     margin-left: 1em;
     font-size: 26px;
     padding: 0 0.3em;
@@ -30,17 +30,17 @@
       border: 2px solid $green-color;
       color: $green-color;
     }
-    &.buy{
+    &.buy {
       border: 2px solid $red-color;
       color: $red-color;
     }
   }
-  .count-wrap{
+  .count-wrap {
     padding: 20px;
     font-size: 30px;
     text-align: center;
   }
-  .info-tag{
+  .info-tag {
     z-index: 100;
     position: absolute;
     top: 0;
@@ -51,20 +51,20 @@
     width: 20px;
     height: 20px;
     border-radius: 20px;
-    &.sell{
-      &.has{
+    &.sell {
+      &.has {
         display: block;
         background-color: $green-color;
       }
     }
-    &.buy{
-      &.no-has{
+    &.buy {
+      &.no-has {
         display: block;
         background-color: $red-color;
       }
     }
   }
-  .mint-cell-wrapper{
+  .mint-cell-wrapper {
     overflow: visible;
   }
 }
