@@ -15,10 +15,10 @@
         <span class="item">估算金额：{{info.valuationTotalSum}}</span>
         <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
         <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
-        <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
         <span class="item">仓位信息：{{myPosition}}%</span>
-        <span class="item">相对波动：<span :class="relativeRate < 0 ? 'green-text' : 'red-text'">{{relativeRate}}%</span></span>
         <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
+        <span class="item">相对波动：<span :class="relativeRate < 0 ? 'green-text' : 'red-text'">{{relativeRate}}%</span></span>
+        <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
         <span class="item">上证：<span :class="shangzhengRate < 0 ? 'green-text' : 'red-text'">{{shangzhengRate}}%</span></span>
         <span class="item">创业：<span :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span></span>
         <span class="item">50：<span :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span></span>
