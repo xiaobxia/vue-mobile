@@ -19,6 +19,9 @@
         <span class="item">仓位信息：{{myPosition}}%</span>
         <span class="item">相对波动：<span :class="relativeRate < 0 ? 'green-text' : 'red-text'">{{relativeRate}}%</span></span>
         <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
+        <span class="item">上证：<span :class="shangzhengRate < 0 ? 'green-text' : 'red-text'">{{shangzhengRate}}%</span></span>
+        <span class="item">创业：<span :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span></span>
+        <span class="item">50：<span :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span></span>
       </div>
       <div class="tag-info">
         <span class="cut">减仓</span>
@@ -64,7 +67,10 @@ export default {
       couldBuyMore: true,
       newRate: 0,
       myAsset: fundAccountUtil.asset,
-      cardInfo
+      cardInfo,
+      shangzhengRate: 0,
+      wulinRate: 0,
+      chuangyeRate: 0
     }
   },
   components: {MyFundCard},
@@ -147,6 +153,33 @@ export default {
       })
       Http.get('fund/getMarketInfo').then((data) => {
         this.marketRate = data.data.info.rate
+      })
+      Http.getWithCache('webData/getWebStockdaybarAll', {
+        code: 'sh000001',
+        days: 1
+      }, {interval: 60}).then((data) => {
+        if (data.success) {
+          const list = data.data.list
+          this.shangzhengRate = numberUtil.keepTwoDecimals(list[0].kline.netChangeRatio)
+        }
+      })
+      Http.getWithCache('webData/getWebStockdaybarAll', {
+        code: 'sz399006',
+        days: 1
+      }, {interval: 60}).then((data) => {
+        if (data.success) {
+          const list = data.data.list
+          this.chuangyeRate = numberUtil.keepTwoDecimals(list[0].kline.netChangeRatio)
+        }
+      })
+      Http.getWithCache('webData/getWebStockdaybarAll', {
+        code: 'sh000016',
+        days: 1
+      }, {interval: 60}).then((data) => {
+        if (data.success) {
+          const list = data.data.list
+          this.wulinRate = numberUtil.keepTwoDecimals(list[0].kline.netChangeRatio)
+        }
       })
     },
     queryMyNetValue () {
