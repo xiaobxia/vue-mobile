@@ -15,7 +15,10 @@
         infinite-scroll-distance="10">
         <mt-cell-swipe v-for="(item) in list" :key="item._id" :to="'/page/myNetValueAdd?'+qsStringify(item)">
           <div slot="title">
-            <h3>{{item.net_value_date}}</h3>
+            <h3>
+              {{item.net_value_date}}
+              <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
+            </h3>
             <p class="explain">
               <span class="item">资产：{{item.asset}}</span>
               <span class="item">份额：{{item.shares}}</span>
@@ -30,6 +33,8 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import qs from 'qs'
+import numberUtil from '@/util/numberUtil.js'
+
 export default{
   name: 'MyNetValueRecord',
   data () {
@@ -54,6 +59,14 @@ export default{
           this.loading = true
         } else {
           this.loading = false
+        }
+        let list = [...this.list, ...data.data.list]
+        let listTemp = []
+        for (let i = 0; i < list.length; i++) {
+          let item = list[i]
+          let itemLast = list[i + 1] || {net_value: 1}
+          item.rate = numberUtil.countDifferenceRate(item.net_value, itemLast.net_value)
+          listTemp.push(item)
         }
         this.list = [...this.list, ...data.data.list]
       })
