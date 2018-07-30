@@ -160,7 +160,7 @@ export default {
       let listWulin = this.wulin
       let startIndex = 0
       for (let i = 0; i < listShangzheng.length; i++) {
-        if (listShangzheng[i].date === 20180312) {
+        if (listShangzheng[i].date === '20180312') {
           startIndex = i
           break
         }
