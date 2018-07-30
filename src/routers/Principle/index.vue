@@ -7,6 +7,12 @@
     </mt-header>
     <div class="main-body">
       <div class="principle-block">
+        <h3>指数</h3>
+        <ol>
+          <li>钢铁的买点，并不是很准。</li>
+        </ol>
+      </div>
+      <div class="principle-block">
         <h3>信号</h3>
         <ol>
           <li>在市场环境不错(建议仓位高)的时候，出现卖点还可以拿一拿，等出现首阴了再卖。</li>
