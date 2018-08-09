@@ -185,7 +185,7 @@ export default {
       })
       Http.get('schedule/getScheduleValue', {
         key: 'lastUpdateValuationTime'
-      }, {interval: 60}).then((data) => {
+      }).then((data) => {
         if (data.success) {
           this.lastUpdateValuationTime = data.data.value.value
         }
