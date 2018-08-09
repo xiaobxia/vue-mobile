@@ -23,6 +23,7 @@
         <span class="item">创业：<span :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span></span>
         <span class="item">50：<span :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span></span>
       </div>
+      <div class="lastUpdateValuationTime">{{lastUpdateValuationTime}}</div>
       <div class="tag-info">
         <span class="cut">减仓</span>
         <span class="sell">卖出</span>
@@ -70,7 +71,8 @@ export default {
       cardInfo,
       shangzhengRate: 0,
       wulinRate: 0,
-      chuangyeRate: 0
+      chuangyeRate: 0,
+      lastUpdateValuationTime: ''
     }
   },
   components: {MyFundCard},
@@ -179,6 +181,13 @@ export default {
         if (data.success) {
           const list = data.data.list
           this.wulinRate = numberUtil.keepTwoDecimals(list[0].kline.netChangeRatio)
+        }
+      })
+      Http.get('schedule/getScheduleValue', {
+        key: 'lastUpdateValuationTime'
+      }, {interval: 60}).then((data) => {
+        if (data.success) {
+          this.lastUpdateValuationTime = data.data.value.value
         }
       })
     },
