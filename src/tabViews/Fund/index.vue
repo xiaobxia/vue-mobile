@@ -11,6 +11,15 @@
           <div class="bottom">筛选基金</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/operatingInfo')">
+        <!--<img src="../../assets/timg.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-allergies"></i>
+          </div>
+          <div class="bottom">操作分析</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/strategy')">
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
@@ -61,15 +70,6 @@
             <i class="fas fa-chart-line"></i>
           </div>
           <div class="bottom">指数分析</div>
-        </div>
-      </div>
-      <div class="img-card" @click="toPath('/page/operatingInfo')">
-        <!--<img src="../../assets/timg.jpg" alt="">-->
-        <div class="container">
-          <div class="content">
-            <i class="fas fa-allergies"></i>
-          </div>
-          <div class="bottom">操作分析</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/principle')">
