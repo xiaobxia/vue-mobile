@@ -37,6 +37,14 @@ import Toast from '@/common/toast.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
 import qs from 'qs'
 import numberUtil from '@/util/numberUtil.js'
+import storageUtil from '@/util/storageUtil.js'
+
+const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
+const dataRawList = {
+  '中金': 'getWebStockdaybarAll',
+  '股市通': 'getWebStockdaybarAllOld',
+  '东方': 'getWebStockdaybarDongfang'
+}
 
 const codeMap = indexInfoUtil.codeMap
 const InfoUtil = indexInfoUtil.Util
@@ -131,7 +139,7 @@ export default {
       return qs.stringify(query)
     },
     queryData (item) {
-      Http.getWithCache('webData/getWebStockdaybarAll', {
+      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
         code: item.code,
         days: 20
       }, {interval: 60}).then((data) => {

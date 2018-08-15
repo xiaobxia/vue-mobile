@@ -39,6 +39,14 @@ import numberUtil from '@/util/numberUtil.js'
 import MyFundCard from '@/components/MyFundCard.vue'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
+import storageUtil from '@/util/storageUtil.js'
+
+const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
+const dataRawList = {
+  '中金': 'getWebStockdaybarToday',
+  '股市通': 'getWebStockdaybarToday',
+  '东方': 'getWebStockdaybarTodayDongfang'
+}
 
 const codeMap = indexInfoUtil.codeMap
 export default {
@@ -156,31 +164,25 @@ export default {
       Http.get('fund/getMarketInfo').then((data) => {
         this.marketRate = data.data.info.rate
       })
-      Http.getWithCache('webData/getWebStockdaybarAll', {
-        code: 'sh000001',
-        days: 1
+      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+        code: 'sh000001'
       }, {interval: 60}).then((data) => {
         if (data.success) {
-          const list = data.data.list
-          this.shangzhengRate = numberUtil.keepTwoDecimals(list[0].kline.netChangeRatio)
+          this.shangzhengRate = data.data.netChangeRatio
         }
       })
-      Http.getWithCache('webData/getWebStockdaybarAll', {
-        code: 'sz399006',
-        days: 1
+      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+        code: 'sz399006'
       }, {interval: 60}).then((data) => {
         if (data.success) {
-          const list = data.data.list
-          this.chuangyeRate = numberUtil.keepTwoDecimals(list[0].kline.netChangeRatio)
+          this.chuangyeRate = data.data.netChangeRatio
         }
       })
-      Http.getWithCache('webData/getWebStockdaybarAll', {
-        code: 'sh000016',
-        days: 1
+      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+        code: 'sh000016'
       }, {interval: 60}).then((data) => {
         if (data.success) {
-          const list = data.data.list
-          this.wulinRate = numberUtil.keepTwoDecimals(list[0].kline.netChangeRatio)
+          this.wulinRate = data.data.netChangeRatio
         }
       })
       Http.get('schedule/getScheduleValue', {

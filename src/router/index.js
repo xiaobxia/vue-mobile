@@ -123,6 +123,11 @@ export default new Router({
       name: 'FilterFund',
       path: '/page/filterFund',
       component: lazyLoading('FilterFund')
+    },
+    {
+      name: 'DataConfig',
+      path: '/page/dataConfig',
+      component: lazyLoading('DataConfig')
     }
   ]
 })

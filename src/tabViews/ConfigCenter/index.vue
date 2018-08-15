@@ -19,6 +19,14 @@
           <div class="bottom">分析配置</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/dataConfig')">
+        <div class="container">
+          <div class="content">
+            <i class="fas fa-database"></i>
+          </div>
+          <div class="bottom">数据配置</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
