@@ -79,6 +79,14 @@ import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
 import { Indicator } from 'mint-ui'
+import storageUtil from '@/util/storageUtil.js'
+
+const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
+const dataRawList = {
+  '中金': 'getWebStockdaybarAll',
+  '股市通': 'getWebStockdaybarAllOld',
+  '东方': 'getWebStockdaybarDongfang'
+}
 
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
@@ -236,7 +244,7 @@ export default {
             this.nowWeek.my = this.countMyNowWeek(list)
           }
         }),
-        Http.get('webData/getWebStockdaybarAll', {
+        Http.get(`webData/${dataRawList[dataWay]}`, {
           code: 'sh000001',
           days
         }).then((data) => {
@@ -248,7 +256,7 @@ export default {
             this.halfMonthAll.shangzheng = this.countHalfMonth(data.data.list)
           }
         }),
-        Http.get('webData/getWebStockdaybarAll', {
+        Http.get(`webData/${dataRawList[dataWay]}`, {
           code: 'sh000016',
           days
         }).then((data) => {
@@ -260,7 +268,7 @@ export default {
             this.halfMonthAll.wulin = this.countHalfMonth(data.data.list)
           }
         }),
-        Http.get('webData/getWebStockdaybarAll', {
+        Http.get(`webData/${dataRawList[dataWay]}`, {
           code: 'sz399006',
           days
         }).then((data) => {
@@ -272,7 +280,7 @@ export default {
             this.halfMonthAll.chuangye = this.countHalfMonth(data.data.list)
           }
         }),
-        Http.get('webData/getWebStockdaybarAll', {
+        Http.get(`webData/${dataRawList[dataWay]}`, {
           code: 'sz399300',
           days
         }).then((data) => {
