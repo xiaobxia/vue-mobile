@@ -161,7 +161,7 @@ export default {
 
   computed: {
     chartData () {
-      const listMonth = this.myList
+      let listMonth = this.myList
       let listShangzheng = this.shangzheng
       let listChuangye = this.chuangye
       let listHushen = this.hushen
