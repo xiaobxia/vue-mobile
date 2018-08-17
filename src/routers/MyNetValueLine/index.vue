@@ -9,67 +9,80 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-    <div class="content-body">
-      <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
-               :height="chartHeight" :legend="chartLegend"
-               :data="chartData" :settings="chartSettings"
-               :tooltip="tooltip" :grid="grid"
-      ></ve-line>
-      <div class="my-net-value-info">
-        <span>本月：{{myNetValueInfo.nowMonth}}%</span>
-        <span>总收益：{{myNetValueInfo.all}}%</span>
-        <span>近一年：{{recentInfo.year}}%</span>
+      <div class="time-wrap">
+        <span class="name">{{filterTime}}</span>
+        <mt-button type="primary" @click="timeChangeHandler">改变</mt-button>
       </div>
-      <table border="1" width="100%" cellspacing="1" cellpadding="4">
-        <tr>
-          <th>指数\时间</th>
-          <th>本周</th>
-          <th>一星期</th>
-          <th>半月</th>
-          <th>一月</th>
-        </tr>
-        <tr>
-          <td>我的</td>
-          <td>{{nowWeek.my}}%</td>
-          <td>{{recentInfo.week}}%</td>
-          <td>{{recentInfo.halfMonth}}%</td>
-          <td>{{recentInfo.month}}%</td>
-        </tr>
-        <tr>
-          <td>上证</td>
-          <td>{{nowWeek.shangzheng}}%</td>
-          <td>{{recentAll.shangzheng}}%</td>
-          <td>{{halfMonthAll.shangzheng}}%</td>
-          <td>{{monthAll.shangzheng}}%</td>
-        </tr>
-        <tr>
-          <td>创业</td>
-          <td>{{nowWeek.chuangye}}%</td>
-          <td>{{recentAll.chuangye}}%</td>
-          <td>{{halfMonthAll.chuangye}}%</td>
-          <td>{{monthAll.chuangye}}%</td>
-        </tr>
-        <tr>
-          <td>沪深300</td>
-          <td>{{nowWeek.hushen}}%</td>
-          <td>{{recentAll.hushen}}%</td>
-          <td>{{halfMonthAll.hushen}}%</td>
-          <td>{{monthAll.hushen}}%</td>
-        </tr>
-        <tr>
-          <td>上证50</td>
-          <td>{{nowWeek.wulin}}%</td>
-          <td>{{recentAll.wulin}}%</td>
-          <td>{{halfMonthAll.wulin}}%</td>
-          <td>{{monthAll.wulin}}%</td>
-        </tr>
-      </table>
-      <ve-histogram :data="monthRateChartData" :grid="monthRateGrid"
-                    :yAxis="chartYAxis" :textStyle="chartTextStyle"
-                    :height="chartHeight" :legend="chartLegend"
-                    :settings="chartSettings" :tooltip="tooltip"
-      ></ve-histogram>
-    </div>
+      <mt-popup
+        v-model="popupVisible"
+        position="bottom">
+        <ul class="time-list">
+          <li class="time-item" v-for="(item) in filterList" :key="item.name" @click="onTimeChangeHandler(item.name)">
+            {{item.name}}
+          </li>
+        </ul>
+      </mt-popup>
+      <div class="content-body">
+        <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
+                 :height="chartHeight" :legend="chartLegend"
+                 :data="chartData" :settings="chartSettings"
+                 :tooltip="tooltip" :grid="grid"
+        ></ve-line>
+        <div class="my-net-value-info">
+          <span>本月：{{myNetValueInfo.nowMonth}}%</span>
+          <span>总收益：{{myNetValueInfo.all}}%</span>
+          <span>近一年：{{recentInfo.year}}%</span>
+        </div>
+        <table border="1" width="100%" cellspacing="1" cellpadding="4">
+          <tr>
+            <th>指数\时间</th>
+            <th>本周</th>
+            <th>一星期</th>
+            <th>半月</th>
+            <th>一月</th>
+          </tr>
+          <tr>
+            <td>我的</td>
+            <td>{{nowWeek.my}}%</td>
+            <td>{{recentInfo.week}}%</td>
+            <td>{{recentInfo.halfMonth}}%</td>
+            <td>{{recentInfo.month}}%</td>
+          </tr>
+          <tr>
+            <td>上证</td>
+            <td>{{nowWeek.shangzheng}}%</td>
+            <td>{{recentAll.shangzheng}}%</td>
+            <td>{{halfMonthAll.shangzheng}}%</td>
+            <td>{{monthAll.shangzheng}}%</td>
+          </tr>
+          <tr>
+            <td>创业</td>
+            <td>{{nowWeek.chuangye}}%</td>
+            <td>{{recentAll.chuangye}}%</td>
+            <td>{{halfMonthAll.chuangye}}%</td>
+            <td>{{monthAll.chuangye}}%</td>
+          </tr>
+          <tr>
+            <td>沪深300</td>
+            <td>{{nowWeek.hushen}}%</td>
+            <td>{{recentAll.hushen}}%</td>
+            <td>{{halfMonthAll.hushen}}%</td>
+            <td>{{monthAll.hushen}}%</td>
+          </tr>
+          <tr>
+            <td>上证50</td>
+            <td>{{nowWeek.wulin}}%</td>
+            <td>{{recentAll.wulin}}%</td>
+            <td>{{halfMonthAll.wulin}}%</td>
+            <td>{{monthAll.wulin}}%</td>
+          </tr>
+        </table>
+        <ve-histogram :data="monthRateChartData" :grid="monthRateGrid"
+                      :yAxis="chartYAxis" :textStyle="chartTextStyle"
+                      :height="chartHeight" :legend="chartLegend"
+                      :settings="chartSettings" :tooltip="tooltip"
+        ></ve-histogram>
+      </div>
     </div>
   </div>
 </template>
@@ -78,7 +91,7 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
-import { Indicator } from 'mint-ui'
+import {Indicator} from 'mint-ui'
 import storageUtil from '@/util/storageUtil.js'
 
 const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
@@ -90,6 +103,7 @@ const dataRawList = {
 
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
+
 export default {
   name: 'MyNetValueLine',
   data () {
@@ -155,24 +169,55 @@ export default {
         nowMonth: 0,
         all: 0
       },
-      netValueMonthRate: []
+      popupVisible: false,
+      netValueMonthRate: [],
+      filterList: [
+        {
+          name: '近一月'
+        },
+        {
+          name: '近半年'
+        },
+        {
+          name: '近一年'
+        }
+      ],
+      filterTime: '近一年'
     }
   },
 
   computed: {
     chartData () {
-      let listMonth = this.myList
-      let listShangzheng = this.shangzheng
-      let listChuangye = this.chuangye
-      let listHushen = this.hushen
-      let listWulin = this.wulin
+      // 近的在右
+      let listMonth = this.copy(this.myList)
+      // 近的在左
+      let listShangzheng = this.copy(this.shangzheng)
+      let listChuangye = this.copy(this.chuangye)
+      let listHushen = this.copy(this.hushen)
+      let listWulin = this.copy(this.wulin)
       let startIndex = 0
-      for (let i = 0; i < listShangzheng.length; i++) {
-        if (listShangzheng[i].date === '20180312') {
-          startIndex = i
+      switch (this.filterTime) {
+        case '近一年': {
+          startIndex = listMonth.length >= 260 ? 260 : listMonth.length
+          break
+        }
+        case '近半年': {
+          startIndex = listMonth.length >= 130 ? 130 : listMonth.length
+          break
+        }
+        case '近一月': {
+          startIndex = listMonth.length >= 21 ? 21 : listMonth.length
           break
         }
       }
+      console.log(startIndex)
+      //        for (let i = 0; i < listShangzheng.length; i++) {
+      //          if (listShangzheng[i].date === '20180312') {
+      //            startIndex = i
+      //            break
+      //          }
+      //        }
+      listMonth = listMonth.slice(startIndex === 0 ? 0 : listMonth.length - startIndex)
       listShangzheng = listShangzheng.slice(0, startIndex + 1)
       listShangzheng.reverse()
       listChuangye = listChuangye.slice(0, startIndex + 1)
@@ -184,6 +229,7 @@ export default {
       if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1 || listWulin.length < 1) {
         return {}
       }
+      const baseMy = listMonth[0]['net_value']
       const baseShangzheng = listShangzheng[0].kline.close
       const baseChuangye = listChuangye[0].kline.close
       const baseHushen = listHushen[0].kline.close
@@ -192,7 +238,7 @@ export default {
       listMonth.forEach(function (item, index) {
         let data = {}
         data['日期'] = item['net_value_date']
-        data['我的组合'] = numberUtil.keepTwoDecimals((item['net_value'] - 1) * 100)
+        data['我的组合'] = numberUtil.keepTwoDecimals((item['net_value'] - baseMy) * 100)
         data['上证'] = numberUtil.keepTwoDecimals(((listShangzheng[index].kline.close - baseShangzheng) / baseShangzheng) * 100)
         data['创业'] = numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100)
         data['沪深300'] = numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100)
@@ -371,6 +417,20 @@ export default {
     },
     addHandler () {
       this.$router.push({path: '/page/myNetValueRecord'})
+    },
+    timeChangeHandler () {
+      this.popupVisible = true
+    },
+    onTimeChangeHandler (time) {
+      this.filterTime = time
+      this.popupVisible = false
+    },
+    copy (list) {
+      let temp = []
+      for (let i = 0; i < list.length; i++) {
+        temp[i] = list[i]
+      }
+      return temp
     }
   }
 }

@@ -35,4 +35,35 @@
       text-align: center;
     }
   }
+  .time-wrap {
+    padding: 20px 30px;
+    font-size: 30px;
+    span {
+
+    }
+    button {
+      float: right;
+      width: auto;
+      height: auto;
+    }
+  }
+  .time-list {
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+    .time-item {
+      display: block;
+      margin: 0;
+      padding: 20px 30px;
+      border-bottom: 1px solid $border-color;
+      text-align: center;
+    }
+  }
+  .mint-popup-bottom {
+    border-top: 5px solid $border-color;
+    width: 100%;
+    background-color: #fff;
+    max-height: 500px;
+    overflow-y: scroll;
+  }
 }
