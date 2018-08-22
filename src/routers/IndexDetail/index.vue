@@ -6,11 +6,9 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="content-body">
-        <ve-line :mark-point="chartPoint" :yAxis="chartYAxis" :textStyle="chartTextStyle"
-                 :height="chartHeight" :data="chartDataNetValue"
-                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
-      </div>
+      <ve-line :mark-point="chartPoint" :yAxis="chartYAxis" :textStyle="chartTextStyle"
+               :height="chartHeight" :data="chartDataNetValue"
+               :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
       <div class="index-rate">
         <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
       </div>
@@ -52,7 +50,9 @@ export default {
   data () {
     return {
       grid: {
-        top: '15%'
+        top: '15%',
+        left: '-8%',
+        bottom: '0%'
       },
       chartTooltip: {
         trigger: 'axis',
@@ -88,6 +88,7 @@ export default {
       netValue: [],
       buyList: [],
       sellList: [],
+      sameList: [],
       list: [],
       indexRate: 0
     }
@@ -101,7 +102,7 @@ export default {
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: 'red'
+              color: 'rgb(244, 51, 60)'
             }
           },
           label: {
@@ -114,7 +115,20 @@ export default {
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: 'green'
+              color: 'rgb(62, 179, 121)'
+            }
+          },
+          label: {
+            show: false
+          }
+        })
+      })
+      this.sameList.forEach((item) => {
+        dataList.push({
+          coord: [item['date'], item['close']],
+          itemStyle: {
+            normal: {
+              color: 'black'
             }
           },
           label: {
@@ -162,26 +176,60 @@ export default {
         if (data.success) {
           const list = data.data.list
           const info = formatData(list)
-          const infoUtil = new InfoUtil(info.threshold)
-          const infoList = info.list.slice(0, 80)
+          const infoUtil = new InfoUtil(parseFloat(query.threshold))
+          const infoList = info.list
           this.indexRate = numberUtil.keepTwoDecimals(infoList[0].netChangeRatio) || 0
           const recentNetValue = infoList
           this.netValue = infoList
           // 近的在前
+          let hasOne = false
+          let sameType = ''
           let buyList = []
           let sellList = []
+          let sameList = []
           for (let i = 0; i < (recentNetValue.length - 3); i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
             const twoDayRecord = recentNetValue[i + 2]
-            if (infoUtil[fnMap[query.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)) {
-              buyList.push(nowRecord)
-            } else if (infoUtil[fnMap[query.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)) {
-              sellList.push(nowRecord)
+            let buyFlag = infoUtil[fnMap[query.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)
+            let sellFlag = infoUtil[fnMap[query.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)
+            if ((buyFlag === true) || (buyFlag !== false && buyFlag.flag === true)) {
+              if (!hasOne) {
+                hasOne = true
+                if (buyFlag !== true && buyFlag !== false) {
+                  sameType = buyFlag.text
+                  sameList.push(nowRecord)
+                } else {
+                  buyList.push(nowRecord)
+                }
+              } else {
+                if (buyFlag !== true && buyFlag !== false && buyFlag.text === sameType) {
+                  sameList.push(nowRecord)
+                } else {
+                  buyList.push(nowRecord)
+                }
+              }
+            } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
+              if (!hasOne) {
+                hasOne = true
+                if (sellFlag !== true && sellFlag !== false) {
+                  sameType = sellFlag.text
+                  sameList.push(nowRecord)
+                } else {
+                  sellList.push(nowRecord)
+                }
+              } else {
+                if (sellFlag !== true && sellFlag !== false && sellFlag.text === sameType) {
+                  sameList.push(nowRecord)
+                } else {
+                  sellList.push(nowRecord)
+                }
+              }
             }
           }
           this.sellList = sellList
           this.buyList = buyList
+          this.sameList = sameList
         }
       })
       this.queryRecord()

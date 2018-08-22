@@ -1543,278 +1543,6 @@ Util.prototype = {
     }
     return false
   },
-  // 2018-07-22
-  ifSellHuanbao: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifUpOpenOne && !ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifUpOpenOne && ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifUpOpenOne && !ifUpCloseOne && ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    return false
-  },
-  // 2018-07-22
-  ifBuyHuanbao: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (this.ifHighPreCloseDown(record)) {
-      if (!ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        if (ifUpOpenOne && !ifUpCloseOne) {
-          return true
-        }
-        if (!ifUpOpenOne && ifUpCloseOne) {
-          return true
-        }
-      }
-    }
-    return false
-  },
-  // 2018-07-12
-  ifSellNengyuan: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifUpOpenOne && ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    return false
-  },
-  // 2018-07-12
-  ifBuyNengyuan: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (this.ifHighPreCloseDown(record)) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        if (ifUpOpenOne) {
-          return true
-        }
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        if (ifUpOpenOne) {
-          return true
-        }
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    return false
-  },
   // 2018-07-27
   ifSellXinxi: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
@@ -2736,123 +2464,6 @@ Util.prototype = {
     }
     return false
   },
-  // 2018-07-20
-  ifSellXinnengyuan: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionUpOne && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    return false
-  },
-  // 2018-07-20
-  ifBuyXinnengyuan: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    return false
-  },
   // 2018-07-30
   ifSellChuanmei: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
@@ -3021,133 +2632,7 @@ Util.prototype = {
     }
     return false
   },
-  // 2018-08-02
-  ifSellHuanjing: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionUpOne && !ifSessionDownClose) {
-      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
-      }
-      if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
-      }
-      return true
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
-      }
-      return true
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
-      }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
-      }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
-      }
-      return true
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
-      }
-      return true
-    }
-    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
-      }
-      return true
-    }
-    return false
-  },
-  // 2018-08-02
-  ifBuyHuanjing: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (this.ifHighPreCloseDown(record)) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
-      }
-      return true
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      return true
-    }
-    if (ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    return false
-  },
-  // 2018-07-29
+  // 2018-08-22
   ifSellDianzi: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -3162,62 +2647,71 @@ Util.prototype = {
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
+      return {
+        flag: true,
+        text: 'sell-0-0'
       }
-      return true
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
       }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
       }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
+      return {
+        flag: true,
+        text: 'sell-1-0'
       }
-      return true
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
+      return {
+        flag: true,
+        text: 'sell-2-0'
       }
-      return true
     }
     if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      return {
+        flag: true,
+        text: 'sell-3-0'
       }
     }
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
       }
-      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
       }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
+      return {
+        flag: true,
+        text: 'sell-4-0'
       }
     }
     if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifUpOpenOne && !ifUpCloseOne && ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      return {
+        flag: true,
+        text: 'sell-5-0'
       }
     }
     if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      return true
+      return {
+        flag: true,
+        text: 'sell-6-0'
+      }
     }
     if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      return true
-    }
-    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      return true
+      return {
+        flag: true,
+        text: 'sell-7-0'
+      }
     }
     return false
   },
-  // 2018-07-29
+  // 2018-08-22
   ifBuyDianzi: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -3232,50 +2726,61 @@ Util.prototype = {
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
+      return {
+        flag: true,
+        text: 'buy-0-0'
       }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
-      }
-      return true
     }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifUpOpenOne && ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-0'
+        }
       }
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+        return {
+          flag: true,
+          text: 'buy-1-1'
+        }
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-2'
+        }
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-3'
+        }
+      }
+      if (!ifUpOpenOne && ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-4'
+        }
       }
     }
-    if (ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-2-0'
+        }
       }
     }
     if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true
+      return {
+        flag: true,
+        text: 'buy-3-0'
+      }
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      return true
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
+      return {
+        flag: true,
+        text: 'buy-4-0'
       }
     }
     return false
@@ -3705,16 +3210,6 @@ const codeMap = {
     name: '白酒',
     threshold: 1.45
   },
-  // 'huanbao': {
-  //   code: 'sh000827',
-  //   name: '环保',
-  //   threshold: 0.76
-  // },
-  // 'nengyuan': {
-  //   code: 'sh000986',
-  //   name: '能源',
-  //   threshold: 0.84
-  // },
   'xinxi': {
     code: 'sh000993',
     name: '信息',
@@ -3745,25 +3240,15 @@ const codeMap = {
     name: '银行',
     threshold: 0.76
   },
-  // 'xinnengyuan': {
-  //   code: 'sz399412',
-  //   name: '新能源',
-  //   threshold: 0.91
-  // },
   'chuanmei': {
     code: 'sz399971',
     name: '传媒',
     threshold: 0.86
   },
-  // 'huanjing': {
-  //   code: 'sz399806',
-  //   name: '环境',
-  //   threshold: 0.87
-  // },
   'dianzi': {
     code: 'sz399811',
     name: '电子',
-    threshold: 1.15
+    threshold: 0.98
   },
   'yiliao': {
     code: 'sz399989',
@@ -3802,10 +3287,6 @@ const fnMap = {
   jisuanjiSell: 'ifSellJisuanji',
   baijiuBuy: 'ifBuyBaijiu',
   baijiuSell: 'ifSellBaijiu',
-  huanbaoBuy: 'ifBuyHuanbao',
-  huanbaoSell: 'ifSellHuanbao',
-  nengyuanBuy: 'ifBuyNengyuan',
-  nengyuanSell: 'ifSellNengyuan',
   xinxiBuy: 'ifBuyXinxi',
   xinxiSell: 'ifSellXinxi',
   zhengquanBuy: 'ifBuyZhengquan',
@@ -3818,12 +3299,8 @@ const fnMap = {
   wulinSell: 'ifSellWulin',
   yinhangBuy: 'ifBuyYinhang',
   yinhangSell: 'ifSellYinhang',
-  xinnengyuanBuy: 'ifBuyXinnengyuan',
-  xinnengyuanSell: 'ifSellXinnengyuan',
   chuanmeiBuy: 'ifBuyChuanmei',
   chuanmeiSell: 'ifSellChuanmei',
-  huanjingBuy: 'ifBuyHuanjing',
-  huanjingSell: 'ifSellHuanjing',
   dianziBuy: 'ifBuyDianzi',
   dianziSell: 'ifSellDianzi',
   yiliaoBuy: 'ifBuyYiliao',
@@ -3840,19 +3317,67 @@ const IndexInfoUtil = {
   fnMap,
   formatData: function (list) {
     let listTemp = []
-    let allRate = 0
-    let allRate3 = 0
     for (let i = 0; i < list.length; i++) {
-      allRate += numberUtil.countDifferenceRate(list[i].kline.high, list[i].kline.low)
-      allRate3 += Math.abs(numberUtil.countDifferenceRate(list[i].kline.close, list[i].kline.open))
       listTemp.push({
         date: '' + list[i].date,
         ...list[i].kline
       })
     }
-    let a = (allRate / 2) / list.length
-    let c = (allRate3) / list.length
+    let xData = []
+    for (let j = 0; j < 7; j = j + 0.1) {
+      xData.push({
+        number: j.toFixed(1),
+        count: 0,
+        countList: [],
+        count2: 0,
+        countList2: []
+      })
+    }
+    list.forEach((item, index) => {
+      let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose))
+      let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low))
+      for (let i = 0; i < xData.length; i++) {
+        if (value >= xData[i].number && value < xData[i + 1].number) {
+          xData[i].count++
+          xData[i].countList.push(value)
+          break
+        }
+      }
+      for (let j = 0; j < xData.length; j++) {
+        if (value2 >= xData[j].number && value2 < xData[j + 1].number) {
+          xData[j].count2++
+          xData[j].countList2.push(value2)
+          break
+        }
+      }
+    })
+    let all = 0
+    let count = 0
+    let all2 = 0
+    let count2 = 0
+    for (let k = 0; k < xData.length; k++) {
+      if (xData[k].count >= 5) {
+        count = count + xData[k].count
+        for (let c = 0; c < xData[k].countList.length; c++) {
+          all = all + xData[k].countList[c]
+        }
+      }
+      if (xData[k].count2 >= 5) {
+        count2 = count2 + xData[k].count2
+        for (let b = 0; b < xData[k].countList2.length; b++) {
+          all2 = all2 + xData[k].countList2[b]
+        }
+      }
+    }
+    xData.sort((a, b) => {
+      return b.count2 - a.count2
+    })
+    console.log(xData)
+    let a = (all2 / count2) / 2
+    let c = all / count
     let threshold = numberUtil.keepTwoDecimals((a + c) / 2)
+    console.log(count)
+    console.log(count2)
     console.log(a)
     console.log(c)
     console.log(threshold)
