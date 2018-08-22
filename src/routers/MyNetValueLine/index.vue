@@ -217,7 +217,9 @@ export default {
       //            break
       //          }
       //        }
-      listMonth = listMonth.slice(startIndex === 0 ? 0 : listMonth.length - startIndex)
+      listMonth.reverse()
+      listMonth = listMonth.slice(0, startIndex + 1)
+      listMonth.reverse()
       listShangzheng = listShangzheng.slice(0, startIndex + 1)
       listShangzheng.reverse()
       listChuangye = listChuangye.slice(0, startIndex + 1)
