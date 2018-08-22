@@ -218,15 +218,17 @@ export default {
       //          }
       //        }
       listMonth.reverse()
-      listMonth = listMonth.slice(0, startIndex + 1)
+      listMonth = listMonth.slice(0, startIndex)
       listMonth.reverse()
-      listShangzheng = listShangzheng.slice(0, startIndex + 1)
+      console.log(listMonth)
+      listShangzheng = listShangzheng.slice(0, startIndex)
       listShangzheng.reverse()
-      listChuangye = listChuangye.slice(0, startIndex + 1)
+      listChuangye = listChuangye.slice(0, startIndex)
       listChuangye.reverse()
-      listHushen = listHushen.slice(0, startIndex + 1)
+      listHushen = listHushen.slice(0, startIndex)
       listHushen.reverse()
-      listWulin = listWulin.slice(0, startIndex + 1)
+      console.log(listHushen)
+      listWulin = listWulin.slice(0, startIndex)
       listWulin.reverse()
       if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1 || listWulin.length < 1) {
         return {}
