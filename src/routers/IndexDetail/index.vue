@@ -8,7 +8,7 @@
     <div class="main-body">
       <ve-line :mark-point="chartPoint" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                :height="chartHeight" :data="chartDataNetValue"
-               :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
+               :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :dataZoom="dataZoom"></ve-line>
       <div class="index-rate">
         <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
       </div>
@@ -54,6 +54,11 @@ export default {
         left: '-8%',
         bottom: '0%'
       },
+      dataZoom: [{
+        type: 'inside',
+        start: 60,
+        end: 100
+      }],
       chartTooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -90,7 +95,8 @@ export default {
       sellList: [],
       sameList: [],
       list: [],
-      indexRate: 0
+      indexRate: 0,
+      pointType: ''
     }
   },
 
@@ -128,7 +134,7 @@ export default {
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: 'black'
+              color: this.pointType === 'buy' ? 'purple' : 'blue'
             }
           },
           label: {
@@ -184,6 +190,7 @@ export default {
           // 近的在前
           let hasOne = false
           let sameType = ''
+          let pointType = ''
           let buyList = []
           let sellList = []
           let sameList = []
@@ -196,6 +203,7 @@ export default {
             if ((buyFlag === true) || (buyFlag !== false && buyFlag.flag === true)) {
               if (!hasOne) {
                 hasOne = true
+                pointType = 'buy'
                 if (buyFlag !== true && buyFlag !== false) {
                   sameType = buyFlag.text
                   sameList.push(nowRecord)
@@ -212,6 +220,7 @@ export default {
             } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
               if (!hasOne) {
                 hasOne = true
+                pointType = 'sell'
                 if (sellFlag !== true && sellFlag !== false) {
                   sameType = sellFlag.text
                   sameList.push(nowRecord)
@@ -227,6 +236,7 @@ export default {
               }
             }
           }
+          this.pointType = pointType
           this.sellList = sellList
           this.buyList = buyList
           this.sameList = sameList

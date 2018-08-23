@@ -3337,14 +3337,14 @@ const IndexInfoUtil = {
       let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose))
       let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low))
       for (let i = 0; i < xData.length; i++) {
-        if (value >= xData[i].number && value < xData[i + 1].number) {
+        if (value >= xData[i].number && xData[i + 1] && value < xData[i + 1].number) {
           xData[i].count++
           xData[i].countList.push(value)
           break
         }
       }
       for (let j = 0; j < xData.length; j++) {
-        if (value2 >= xData[j].number && value2 < xData[j + 1].number) {
+        if (value2 >= xData[j].number && xData[j + 1] && value2 < xData[j + 1].number) {
           xData[j].count2++
           xData[j].countList2.push(value2)
           break
