@@ -19,6 +19,7 @@ Util.prototype = {
   // 盘中下跌
   ifSessionDown: function (record) {
     const threshold = this.threshold
+    console.log(threshold)
     return numberUtil.countDifferenceRate(record.low, record.preClose) <= -threshold
   },
   // 收盘拉起

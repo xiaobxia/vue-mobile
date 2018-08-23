@@ -6,9 +6,11 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <ve-line :mark-point="chartPoint" :yAxis="chartYAxis" :textStyle="chartTextStyle"
-               :height="chartHeight" :data="chartDataNetValue"
-               :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :dataZoom="dataZoom"></ve-line>
+      <div class="content-body">
+        <ve-line :mark-point="chartPoint" :yAxis="chartYAxis" :textStyle="chartTextStyle"
+                 :height="chartHeight" :data="chartDataNetValue"
+                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :dataZoom="dataZoom"></ve-line>
+      </div>
       <div class="index-rate">
         <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
       </div>
