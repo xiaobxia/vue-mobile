@@ -111,7 +111,7 @@ export default {
         }
       }
       let all = sell + buy
-      return numberUtil.countRate(buy, (all / 2))
+      return numberUtil.countRate(buy, (all / 1.5))
     }
   },
   mounted () {
