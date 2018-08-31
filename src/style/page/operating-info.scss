@@ -1,5 +1,6 @@
 .operating-info {
   .explain {
+    position: relative;
     span {
       display: inline-block;
       padding: 5px 10px;
@@ -41,7 +42,7 @@
     text-align: center;
   }
   .info-tag {
-    z-index: 100;
+    z-index: 10;
     position: absolute;
     top: 0;
     bottom: 0;
