@@ -2,7 +2,7 @@
   <div class="card">
     <h3 class="title">{{title}} <span :class="totalRate < 0 ? 'green-text' : 'red-text'">{{totalRate}}%</span><span style="float: right">{{totalCount}}</span></h3>
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)"
-                   :class="{up:item.isUp, cut: ifCut(item), sell: ifSell(item)}">
+                   :class="{up:item.isUp}">
       <div slot="title">
         <h3 :class="{lowRate: item.lowRate}">
           {{item.code}}

@@ -63,10 +63,6 @@ export default {
       name: '其他',
       list: []
     })
-    //    cardInfo.push({
-    //      name: '锁仓',
-    //      list: []
-    //    })
     return {
       info: {},
       list: [],
@@ -125,7 +121,6 @@ export default {
         dataMap[codeMap[key].name] = []
       }
       dataMap['其他'] = []
-      dataMap['锁仓'] = []
       Http.get('fund/getUserFunds').then((data) => {
         const info = data.data.info
         this.info = info
@@ -142,7 +137,6 @@ export default {
           // 锁仓
           if (!fundAccountUtil.ifRelieve(item)) {
             buyIn7DaysCount += item.costSum
-            // dataMap['锁仓'].push(item)
           }
           // 防止基金有主题，但是主题已经被删除的情况
           if (item.theme && dataMap[item.theme]) {
