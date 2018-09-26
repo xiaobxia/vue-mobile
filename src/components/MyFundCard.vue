@@ -91,7 +91,7 @@ export default{
     countCutShares (item) {
       const multiple = item.standard || 1
       const standard = fundAccountUtil.standard * multiple
-      return parseInt((standard / item.cost) / 3)
+      return parseInt((standard / item.cost) / 4)
     },
     ifCut (item) {
       const multiple = item.standard || 1
