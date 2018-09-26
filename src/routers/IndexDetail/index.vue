@@ -177,7 +177,7 @@ export default {
       const query = this.$router.history.current.query
       this.queryData = Object.assign({}, query)
       const code = this.$router.history.current.query.code
-      Http.get('webData/getWebStockdaybarAll', {
+      Http.get('webData/getWebStockdaybarAllZhongjin', {
         code: query.code,
         days: 200
       }).then((data) => {

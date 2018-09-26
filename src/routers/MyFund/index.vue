@@ -43,8 +43,8 @@ import storageUtil from '@/util/storageUtil.js'
 
 const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
 const dataRawList = {
-  '中金': 'getWebStockdaybarToday',
-  '股市通': 'getWebStockdaybarToday',
+  '中金': 'getWebStockdaybarTodayZhongjin',
+  '股市通': 'getWebStockdaybarTodayZhongjin',
   '东方': 'getWebStockdaybarTodayDongfang'
 }
 
