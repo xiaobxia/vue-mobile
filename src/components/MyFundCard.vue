@@ -89,20 +89,9 @@ export default{
       return !fundAccountUtil.ifRelieve(item)
     },
     countCutShares (item) {
-      const costSum = item.costSum
       const multiple = item.standard || 1
       const standard = fundAccountUtil.standard * multiple
-      const cutLevelOne = fundAccountUtil.cutRateLevelOne * standard
-      const cutLevelTwo = fundAccountUtil.cutRateLevelTwo * standard
-      if ((costSum > cutLevelOne) && !numberUtil.ifAround(item.costSum, cutLevelOne)) {
-        let newShares = cutLevelOne / item.cost
-        return parseInt(item.shares - newShares)
-      }
-      if ((costSum > cutLevelTwo) && !numberUtil.ifAround(item.costSum, cutLevelTwo)) {
-        let newShares = cutLevelTwo / item.cost
-        return parseInt(item.shares - newShares)
-      }
-      return item.shares
+      return parseInt((standard / item.cost) / 3)
     },
     ifCut (item) {
       const multiple = item.standard || 1
