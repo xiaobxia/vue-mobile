@@ -33,9 +33,9 @@
           <span>总收益：{{myNetValueInfo.all}}%</span>
           <span>近一年：{{recentInfo.year}}%</span>
         </div>
-        <table border="1" width="100%" cellspacing="1" cellpadding="4">
+        <table width="100%" cellspacing="1" cellpadding="20">
           <tr>
-            <th>指数\时间</th>
+            <th>指数</th>
             <th>本周</th>
             <th>一星期</th>
             <th>半月</th>

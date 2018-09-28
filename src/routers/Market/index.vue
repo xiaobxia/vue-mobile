@@ -11,7 +11,7 @@
       <mt-tab-item id="2">分析</mt-tab-item>
       </mt-navbar>
       <mt-tab-container v-model="selected">
-        <mt-tab-container-item id="1" class="simple">
+        <mt-tab-container-item id="1">
           <mt-cell-swipe>
             <div slot="title">
               <h3>费率</h3>

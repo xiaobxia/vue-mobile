@@ -1,32 +1,49 @@
 .operating-info {
+  .mint-cell{
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 10px;
+  }
   .explain {
     position: relative;
+    border-radius: 10px;
     span {
       display: inline-block;
-      padding: 5px 10px;
       width: 15%;
       color: #fff;
+      padding: 0 10px;
       background-color: #eee;
       text-align: center;
+      border-radius: 10px;
+      margin-right: 10px;
       &.buy {
+        padding: 5px 10px;
         background-color: $red-color;
       }
       &.sell {
+        padding: 5px 10px;
         background-color: $green-color;
       }
     }
   }
   .sell {
+    .has-count{
+      color: $green-color;
+    }
     background-color: $green-color-back-3;
   }
   .buy {
+    .has-count{
+      color: $red-color;
+    }
     background-color: $red-color-back-3;
   }
   .has-tag {
-    margin-left: 1em;
+    margin: 0 1em;
     font-size: 26px;
     padding: 0 0.3em;
     border-radius: 4px;
+    vertical-align: top;
     &.sell {
       border: 2px solid $green-color;
       color: $green-color;
