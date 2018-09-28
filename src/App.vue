@@ -13,19 +13,23 @@
         <square v-if="tabSelect === 'square'"></square>
         <mt-tabbar v-model="tabSelect" :fixed="true">
           <mt-tab-item id="fund">
-            <i class="fas fa-donate" slot="icon"></i>
+            <img src="./assets/fund.png" alt="" slot="icon">
+            <!--<i class="fas fa-donate" slot="icon"></i>-->
             <p>基金</p>
           </mt-tab-item>
           <mt-tab-item id="configCenter">
-            <i class="fas fa-cogs" slot="icon"></i>
+            <img src="./assets/config.png" alt="" slot="icon">
+            <!--<i class="fas fa-cogs" slot="icon"></i>-->
             <p>配置</p>
           </mt-tab-item>
           <mt-tab-item id="square">
-            <i class="far fa-compass" slot="icon"></i>
+            <img src="./assets/find.png" alt="" slot="icon">
+            <!--<i class="far fa-compass" slot="icon"></i>-->
             <p>广场</p>
           </mt-tab-item>
           <mt-tab-item id="mine">
-            <i class="far fa-user" slot="icon"></i>
+            <img src="./assets/my.png" alt="" slot="icon">
+            <!--<i class="far fa-user" slot="icon"></i>-->
             <p>我的</p>
           </mt-tab-item>
         </mt-tabbar>

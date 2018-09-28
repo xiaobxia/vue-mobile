@@ -6,7 +6,8 @@
         <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="far fa-calendar-alt"></i>
+            <img src="../../assets/定时.png" alt="">
+            <!--<i class="far fa-calendar-alt"></i>-->
           </div>
           <div class="bottom">定时任务</div>
         </div>
@@ -14,7 +15,8 @@
       <div class="img-card" @click="toPath('/page/analyzeConfig')">
         <div class="container">
           <div class="content">
-            <i class="fas fa-cogs"></i>
+            <img src="../../assets/配置.png" alt="">
+            <!--<i class="fas fa-cogs"></i>-->
           </div>
           <div class="bottom">分析配置</div>
         </div>
@@ -22,7 +24,8 @@
       <div class="img-card" @click="toPath('/page/dataConfig')">
         <div class="container">
           <div class="content">
-            <i class="fas fa-database"></i>
+            <img src="../../assets/数据.png" alt="">
+            <!--<i class="fas fa-database"></i>-->
           </div>
           <div class="bottom">数据配置</div>
         </div>

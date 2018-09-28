@@ -2,20 +2,30 @@
   <div>
     <mt-header title="基金" :fixed="true"/>
     <div class="main-body has-bar">
-      <div class="img-card" @click="toPath('/page/filterFund')">
-        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
+      <div class="img-card" @click="toPath('/page/principle')">
         <div class="container">
           <div class="content">
-            <i class="fas fa-filter"></i>
+            <img src="../../assets/保险条款.png" alt="">
+            <!--<i class="fas fa-book"></i>-->
           </div>
-          <div class="bottom">筛选基金</div>
+          <div class="bottom">买卖原则</div>
         </div>
       </div>
+      <!--<div class="img-card" @click="toPath('/page/filterFund')">-->
+        <!--&lt;!&ndash;<img src="../../assets/800_600_dribbble_icons.jpg" alt="">&ndash;&gt;-->
+        <!--<div class="container">-->
+          <!--<div class="content">-->
+            <!--<i class="fas fa-filter"></i>-->
+          <!--</div>-->
+          <!--<div class="bottom">筛选基金</div>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="img-card" @click="toPath('/page/operatingInfo')">
         <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fas fa-allergies"></i>
+            <img src="../../assets/我的-策略.png" alt="">
+            <!--<i class="fas fa-allergies"></i>-->
           </div>
           <div class="bottom">操作分析</div>
         </div>
@@ -24,7 +34,8 @@
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fab fa-sellsy"></i>
+            <img src="../../assets/策略-选中.png" alt="">
+            <!--<i class="fab fa-sellsy"></i>-->
           </div>
           <div class="bottom">幅度策略</div>
         </div>
@@ -33,7 +44,8 @@
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <i class="fas fa-balance-scale"></i>
+            <img src="../../assets/均线买卖.png" alt="">
+            <!--<i class="fas fa-balance-scale"></i>-->
           </div>
           <div class="bottom">均线策略</div>
         </div>
@@ -41,7 +53,8 @@
       <div class="img-card" @click="toPath('/page/market')">
         <div class="container">
           <div class="content">
-            <i class="fab fa-cloudversify"></i>
+            <img src="../../assets/行情.png" alt="">
+            <!--<i class="fab fa-cloudversify"></i>-->
           </div>
           <div class="bottom">市场行情</div>
         </div>
@@ -49,37 +62,30 @@
       <div class="img-card" @click="toPath('/page/rank')">
         <div class="container">
           <div class="content">
-            <i class="fas fa-sort-amount-up"></i>
+            <img src="../../assets/排行榜.png" alt="">
+            <!--<i class="fas fa-sort-amount-up"></i>-->
           </div>
           <div class="bottom">近期排行</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/plate')">
-        <!--<img src="../../assets/timg.jpg" alt="">-->
-        <div class="container">
-          <div class="content">
-            <i class="fas fa-th"></i>
-          </div>
-          <div class="bottom">板块走势</div>
-        </div>
-      </div>
-      <div class="img-card" @click="toPath('/page/indexInfo')">
-        <!--<img src="../../assets/timg.jpg" alt="">-->
-        <div class="container">
-          <div class="content">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <div class="bottom">指数分析</div>
-        </div>
-      </div>
-      <div class="img-card" @click="toPath('/page/principle')">
-        <div class="container">
-          <div class="content">
-            <i class="fas fa-book"></i>
-          </div>
-          <div class="bottom">买卖原则</div>
-        </div>
-      </div>
+      <!--<div class="img-card" @click="toPath('/page/plate')">-->
+        <!--&lt;!&ndash;<img src="../../assets/timg.jpg" alt="">&ndash;&gt;-->
+        <!--<div class="container">-->
+          <!--<div class="content">-->
+            <!--<i class="fas fa-th"></i>-->
+          <!--</div>-->
+          <!--<div class="bottom">板块走势</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="img-card" @click="toPath('/page/indexInfo')">-->
+        <!--&lt;!&ndash;<img src="../../assets/timg.jpg" alt="">&ndash;&gt;-->
+        <!--<div class="container">-->
+          <!--<div class="content">-->
+            <!--<i class="fas fa-chart-line"></i>-->
+          <!--</div>-->
+          <!--<div class="bottom">指数分析</div>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
   </div>
 </template>
