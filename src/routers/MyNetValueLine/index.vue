@@ -176,6 +176,9 @@ export default {
           name: '近一月'
         },
         {
+          name: '近三月'
+        },
+        {
           name: '近半年'
         },
         {
@@ -203,6 +206,10 @@ export default {
         }
         case '近半年': {
           startIndex = listMonth.length >= 130 ? 130 : listMonth.length
+          break
+        }
+        case '近三月': {
+          startIndex = listMonth.length >= 63 ? 63 : listMonth.length
           break
         }
         case '近一月': {
