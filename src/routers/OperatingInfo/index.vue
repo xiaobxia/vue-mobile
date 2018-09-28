@@ -19,6 +19,7 @@
           <h3>
             {{item.name}}
             <span v-if="hasInfo[item.name]" :class="['has-tag', firstInfo[item.key]]">持有</span>
+            <span v-if="hasCount[item.name]">{{hasCount[item.name]}}</span>
             <span style="float: right" :class="rateInfo[item.key] < 0 ? 'green-text' : 'red-text'">{{rateInfo[item.key]}}%</span>
           </h3>
           <p class="explain">
@@ -59,6 +60,7 @@ export default {
     let firstInfo = {}
     let rateInfo = {}
     let hasInfo = {}
+    let hasCount = {}
     for (let key in codeMap) {
       list.push({
         key: key,
@@ -70,6 +72,7 @@ export default {
       firstInfo[key] = ''
       rateInfo[key] = 0
       hasInfo[codeMap[key].name] = false
+      hasCount[codeMap[key].name] = 0
     }
     return {
       list: list,
@@ -77,6 +80,7 @@ export default {
       firstInfo: firstInfo,
       rateInfo: rateInfo,
       hasInfo,
+      hasCount,
       myAsset: 200000
     }
   },
@@ -133,8 +137,14 @@ export default {
         if (data.success) {
           const list = data.data.list
           for (let i = 0; i < list.length; i++) {
-            if (list[i].theme) {
-              this.hasInfo[list[i].theme] = true
+            const item = list[i]
+            if (item.theme) {
+              this.hasInfo[item.theme] = true
+              if (this.hasCount[item.theme]) {
+                this.hasCount[item.theme] += item.costSum
+              } else {
+                this.hasCount[item.theme] = item.costSum
+              }
             }
           }
         }
