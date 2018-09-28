@@ -16,7 +16,7 @@
       </mt-navbar>
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1" class="simple">
-          <mt-cell-swipe v-for="(item) in list1" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
+          <mt-cell-swipe v-for="(item) in list1" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
             <div slot="title">
               <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
@@ -27,7 +27,7 @@
           </mt-cell-swipe>
         </mt-tab-container-item>
         <mt-tab-container-item id="2" class="simple">
-          <mt-cell-swipe v-for="(item) in list2" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
+          <mt-cell-swipe v-for="(item) in list2" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
             <div slot="title">
               <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>

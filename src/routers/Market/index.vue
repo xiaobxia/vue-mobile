@@ -39,7 +39,7 @@
             v-infinite-scroll="loadMore"
             infinite-scroll-disabled="loading"
             infinite-scroll-distance="10">
-            <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'grey-back':''">
+            <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
               <div slot="title">
                 <h3 :class="{lowRate: item.lowRate}">
                   {{item.code}} {{formatName(item.name)}}
