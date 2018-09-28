@@ -63,6 +63,10 @@ export default {
       name: '其他',
       list: []
     })
+    cardInfo.push({
+      name: '定投',
+      list: []
+    })
     return {
       info: {},
       list: [],
@@ -121,6 +125,7 @@ export default {
         dataMap[codeMap[key].name] = []
       }
       dataMap['其他'] = []
+      dataMap['定投'] = []
       Http.get('fund/getUserFunds').then((data) => {
         const info = data.data.info
         this.info = info
@@ -139,10 +144,14 @@ export default {
             buyIn7DaysCount += item.costSum
           }
           // 防止基金有主题，但是主题已经被删除的情况
-          if (item.theme && dataMap[item.theme]) {
-            dataMap[item.theme].push(item)
+          if (item.strategy !== '1') {
+            dataMap['定投'].push(item)
           } else {
-            dataMap['其他'].push(item)
+            if (item.theme && dataMap[item.theme]) {
+              dataMap[item.theme].push(item)
+            } else {
+              dataMap['其他'].push(item)
+            }
           }
         })
         // 大于49000就说明大于了5000，因为每个标准仓5000

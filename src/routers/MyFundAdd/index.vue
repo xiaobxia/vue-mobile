@@ -10,7 +10,17 @@
     </mt-header>
     <div class="main-body">
       <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>
-      <mt-field label="策略组" placeholder="请输入策略组" v-model="form.strategy"></mt-field>
+      <div class="strategy-wrap">
+        <span class="name">{{form.strategy === '1' ? '波段':'定投'}}</span>
+        <mt-button type="primary" @click="strategyChangeHandler">改变</mt-button>
+      </div>
+      <mt-popup
+        v-model="popupVisible"
+        position="bottom">
+        <ul class="strategy-list">
+          <li class="strategy-item" v-for="(item) in strategyList" :key="item.code" @click="onStrategyChangeHandler(item.name)">{{item.name}}</li>
+        </ul>
+      </mt-popup>
       <mt-field label="持仓成本" placeholder="请输入持仓成本" v-model="form.cost"></mt-field>
       <mt-field label="金额" placeholder="请输入金额" v-if="type === 'add'" v-model="form.asset"></mt-field>
       <mt-field label="份额" placeholder="请输入份额" v-if="type === 'edit'" v-model="form.shares"></mt-field>
@@ -46,6 +56,8 @@ export default {
     return {
       type: 'add',
       ifAdd: false,
+      popupVisible: false,
+      strategyList: [{name: '波段'}, {name: '定投'}],
       form: {},
       addForm: {}
     }
@@ -73,7 +85,8 @@ export default {
         target_net_value: numberUtil.keepFourDecimals(cost * (1 + 0.06)),
         stop_net_value: numberUtil.keepFourDecimals(cost * (1 - 0.02)),
         buy_date: moment().subtract(1, 'days').format('YYYY-MM-DD'),
-        standard: 1
+        standard: 1,
+        strategy: '1'
       }, query)
     },
     toPath (path) {
@@ -95,6 +108,17 @@ export default {
           })
         }
       })
+    },
+    strategyChangeHandler () {
+      this.popupVisible = true
+    },
+    onStrategyChangeHandler (strategy) {
+      const strategyMap = {
+        '波段': '1',
+        '定投': '2'
+      }
+      this.form.strategy = strategyMap[strategy]
+      this.popupVisible = false
     },
     okHandler () {
       if (this.ifAdd) {
