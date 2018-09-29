@@ -23,7 +23,7 @@
         <span class="item">创业：<span :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span></span>
         <span class="item">50：<span :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span></span>
       </div>
-      <div class="lastUpdateValuationTime">{{lastUpdateValuationTime}}</div>
+      <div class="lastUpdateValuationTime">更新于：{{lastUpdateValuationTime}}</div>
       <div class="tag-info">
         <span class="cut">减仓</span>
         <span class="sell">卖出</span>

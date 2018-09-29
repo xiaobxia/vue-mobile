@@ -7,6 +7,7 @@
     </mt-header>
     <div class="main-body has-bar">
       <mt-radio
+        align="right"
         v-model="dataWay"
         :options="['中金', '股市通', '东方']">
       </mt-radio>

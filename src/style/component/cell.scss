@@ -1,8 +1,11 @@
 .mint-cell {
   position: relative;
   padding: 20px 30px;
-  border-bottom: 1px solid $border-color;
+  //border-bottom: 1px solid $border-color;
   min-height: 0;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 20px;
   .mint-cell-wrapper {
     padding: 0;
     min-height: 0;
@@ -43,10 +46,7 @@
 
 .simple {
   .mint-cell {
-    margin-bottom: 15px;
     padding: 30px 30px;
-    border: none;
-    border-radius: 20px;
     h3 {
       margin: 0;
     }

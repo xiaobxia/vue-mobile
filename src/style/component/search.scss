@@ -1,6 +1,6 @@
 .mint-searchbar {
   padding: 13px 20px;
-  background-color: rgb(225, 225, 225);
+  background-color: rgb(255,215,59);
   .mint-searchbar-inner {
     box-sizing: border-box;
     padding: 10px 10px;
@@ -15,6 +15,7 @@
     }
   }
   .mint-searchbar-cancel {
+    color: #fff;
     font-size: 30px;
   }
 }
