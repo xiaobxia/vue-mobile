@@ -361,14 +361,15 @@ export default {
       return moment(date).format('YYYY-MM-DD HH:mm:SS')
     },
     toEditHandler () {
-      this.$router.push({path: '/page/myFundAdd', query: this.queryData})
+      this.$router.push({path: '/page/myFundAdd', query: {...this.queryData, newNetValue: this.currentFund.net_value}})
     },
     toAddHandler () {
       this.$router.push({
         path: '/page/myFundAdd',
         query: {
           code: this.currentFund.code,
-          cost: this.currentFund.net_value
+          cost: this.currentFund.net_value,
+          newNetValue: this.currentFund.net_value
         }
       })
     },

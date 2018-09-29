@@ -4,9 +4,9 @@
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
-      <mt-button slot="right">
-        <i :class="{'fas': true, 'fa-plus': true, 'warn': !couldBuyMore}" @click="addHandler"></i>
-      </mt-button>
+      <!--<mt-button slot="right">-->
+        <!--<i :class="{'fas': true, 'fa-plus': true, 'warn': !couldBuyMore}" @click="addHandler"></i>-->
+      <!--</mt-button>-->
     </mt-header>
     <div class="main-body">
       <div class="info-wrap">
