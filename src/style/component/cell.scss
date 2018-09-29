@@ -3,7 +3,6 @@
   padding: 20px 30px;
   //border-bottom: 1px solid $border-color;
   min-height: 0;
-  margin-bottom: 15px;
   border: none;
   border-radius: 20px;
   .mint-cell-wrapper {
@@ -47,6 +46,7 @@
 .simple {
   .mint-cell {
     padding: 30px 30px;
+    margin-bottom: 15px;
     h3 {
       margin: 0;
     }
