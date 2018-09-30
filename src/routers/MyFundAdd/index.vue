@@ -56,10 +56,7 @@
         <mt-field label="减仓份额" placeholder="减仓份额" v-model="cutForm.shares"></mt-field>
         <div class="position_record_list">
           <div v-for="(item, index) in positionRecord" :key="index + item.buy_date">
-            <p>份额：{{item.shares}}，日期：{{item.buy_date}}<i class="lock-tag" v-if="ifLock(item)"></i></p>
-            <p>{{item.shares}} / 3 = {{count3(item.shares)}}</p>
-            <p>{{item.shares}} / 4 = {{count4(item.shares)}}</p>
-            <p>{{item.shares}} / 2 = {{count2(item.shares)}}</p>
+            <p>份额:{{item.shares}}，市值:{{countAsset(item.shares)}}，{{item.buy_date}}<i class="lock-tag" v-if="ifLock(item)"></i></p>
           </div>
         </div>
       </template>
@@ -183,14 +180,8 @@ export default {
     ifLock (item) {
       return !fundAccountUtil.ifRelieve(item)
     },
-    count4 (value) {
-      return numberUtil.keepTwoDecimals(value / 4)
-    },
-    count3 (value) {
-      return numberUtil.keepTwoDecimals(value / 3)
-    },
-    count2 (value) {
-      return numberUtil.keepTwoDecimals(value / 2)
+    countAsset (shares) {
+      return numberUtil.keepTwoDecimals(shares * this.form.cost)
     },
     okHandler () {
       if (this.type === 'add') {
