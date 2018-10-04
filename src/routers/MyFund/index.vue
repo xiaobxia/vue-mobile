@@ -135,13 +135,12 @@ export default {
         // 7天内购买的金额
         let buyIn7DaysCount = 0
         list.forEach((item) => {
-          if (item.has_days <= 14) {
-            newCost += item.costSum
-            newValuation += item.valuationSum
-          }
-          // 锁仓
+          // 处于锁仓
           if (!fundAccountUtil.ifRelieve(item)) {
             buyIn7DaysCount += item.costSum
+            // 处于锁仓就算是新仓
+            newCost += item.costSum
+            newValuation += item.valuationSum
           }
           // 防止基金有主题，但是主题已经被删除的情况
           if (item.strategy !== '1') {

@@ -16,6 +16,7 @@ const fundAccountUtil = {
   cutRateLevelOne: 0.8,
   cutRateLevelTwo: 0.6,
   minHasDay,
+  // 解除
   ifRelieve: function (item) {
     if (!item.has_days) {
       return true
