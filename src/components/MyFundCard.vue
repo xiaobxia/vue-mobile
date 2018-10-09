@@ -21,7 +21,7 @@
           <span class="item">估算金额：{{item.valuationSum}}</span>
           <span class="item">估算收益：<span
             :class="countValue(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countValue(item.valuationSum, item.sum)}}</span></span>
-          <span class="item">持仓成本：{{item.costSum}}</span>
+          <span class="item">持仓成本：{{parseInt(item.costSum)}}</span>
           <span class="item">收益率：<span
             :class="countRate(item.valuationSum, item.costSum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.costSum)}}%</span></span>
           <span class="item">持有份额：{{item.shares}}</span>
