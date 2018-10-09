@@ -141,9 +141,9 @@ export default {
             if (item.theme) {
               this.hasInfo[item.theme] = true
               if (this.hasCount[item.theme]) {
-                this.hasCount[item.theme] += item.costSum
+                this.hasCount[item.theme] += parseInt(item.costSum)
               } else {
-                this.hasCount[item.theme] = item.costSum
+                this.hasCount[item.theme] = parseInt(item.costSum)
               }
             }
           }
