@@ -8,6 +8,7 @@
           {{item.code}}
           {{formatName(item.name)}}
           <i class="lock-tag" v-if="ifLock(item)"></i>
+          <i class="position-tag" v-if="ifPosition(item)"></i>
           <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
         </h3>
         <p class="explain">
@@ -87,6 +88,14 @@ export default{
     },
     ifLock (item) {
       return !fundAccountUtil.ifRelieve(item)
+    },
+    ifPosition (item) {
+      if (item['position_record']) {
+        if (JSON.parse(item['position_record']).length > 1) {
+          return true
+        }
+      }
+      return false
     },
     countCutShares (item) {
       const multiple = item.standard || 1

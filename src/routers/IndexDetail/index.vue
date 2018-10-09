@@ -23,6 +23,7 @@
             <h3 :class="{lowRate: item.lowRate}">
               {{item.code}} {{formatName(item.name)}}
               <i class="lock-tag" v-if="ifLock(item)"></i>
+              <i class="position-tag" v-if="ifPosition(item)"></i>
               <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
             </h3>
           </div>
@@ -258,6 +259,14 @@ export default {
     },
     ifLock (item) {
       return !fundAccountUtil.ifRelieve(item)
+    },
+    ifPosition (item) {
+      if (item['position_record']) {
+        if (JSON.parse(item['position_record']).length > 1) {
+          return true
+        }
+      }
+      return false
     },
     formatName (name) {
       if (name.length > 12) {
