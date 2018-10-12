@@ -6,13 +6,13 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="count-wrap">
-        <span class="red-text">{{buyCount}}</span>
-        :
-        <span class="green-text">{{sellCount}}</span>
-        <span class="warn">建议{{position}}%持仓</span>
-        <span class="warn">标准{{standardInfo}}</span>
-      </div>
+      <!--<div class="count-wrap">-->
+        <!--<span class="red-text">{{buyCount}}</span>-->
+        <!--:-->
+        <!--<span class="green-text">{{sellCount}}</span>-->
+        <!--<span class="warn">建议{{position}}%持仓</span>-->
+        <!--<span class="warn">标准{{standardInfo}}</span>-->
+      <!--</div>-->
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
         <div slot="title">
@@ -29,6 +29,10 @@
           <div :class="['info-tag', firstInfo[item.key], hasInfo[item.name]?'has':'no-has']"></div>
         </div>
       </mt-cell-swipe>
+    </div>
+    <div class="btn-list-wrap">
+      <mt-button type="primary" @click="sortChangeHandler" class="main-btn">排序包括今日</mt-button>
+      <mt-button type="primary" @click="sortTowChangeHandler" class="main-btn">排序不包括今日</mt-button>
     </div>
   </div>
 </template>
@@ -61,18 +65,23 @@ export default {
     let rateInfo = {}
     let hasInfo = {}
     let hasCount = {}
+    let sortRate = {}
+    let sortRateTwo = {}
     for (let key in codeMap) {
       list.push({
         key: key,
         code: codeMap[key].code,
         name: codeMap[key].name,
-        threshold: codeMap[key].threshold
+        threshold: codeMap[key].threshold,
+        sortRate: 0
       })
       allInfo[key] = []
       firstInfo[key] = ''
       rateInfo[key] = 0
       hasInfo[codeMap[key].name] = false
       hasCount[codeMap[key].name] = 0
+      sortRate[codeMap[key].name] = 0
+      sortRateTwo[codeMap[key].name] = 0
     }
     return {
       list: list,
@@ -81,6 +90,8 @@ export default {
       rateInfo: rateInfo,
       hasInfo,
       hasCount,
+      sortRate,
+      sortRateTwo,
       myAsset: 200000
     }
   },
@@ -166,6 +177,11 @@ export default {
           const recentNetValue = info.list
           let infoList = []
           let classInfo = ''
+          const stepDay = 4
+          let nowClose = recentNetValue[0].close
+          let LastClose = recentNetValue[stepDay].close
+          this.sortRate[item.key] = numberUtil.countDifferenceRate(nowClose, LastClose)
+          this.sortRateTwo[item.key] = numberUtil.countDifferenceRate(recentNetValue[1].close, recentNetValue[1 + stepDay].close)
           // 近的在前
           for (let i = 0; i < 18; i++) {
             const nowRecord = recentNetValue[i]
@@ -215,6 +231,32 @@ export default {
     },
     backHandler () {
       this.$router.history.go(-1)
+    },
+    sortChangeHandler () {
+      for (let key in this.sortRate) {
+        for (let i = 0; i < this.list.length; i++) {
+          if (this.list[i].key === key) {
+            this.list[i].sortRate = this.sortRate[key]
+          }
+        }
+      }
+      this.list.sort((a, b) => {
+        return b.sortRate - a.sortRate
+      })
+      console.log(this.list)
+    },
+    sortTowChangeHandler () {
+      for (let key in this.sortRateTwo) {
+        for (let i = 0; i < this.list.length; i++) {
+          if (this.list[i].key === key) {
+            this.list[i].sortRate = this.sortRateTwo[key]
+          }
+        }
+      }
+      this.list.sort((a, b) => {
+        return b.sortRate - a.sortRate
+      })
+      console.log(this.list)
     }
   }
 }

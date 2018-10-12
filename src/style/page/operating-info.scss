@@ -1,5 +1,5 @@
 .operating-info {
-  .mint-cell{
+  .mint-cell {
     border-radius: 20px;
     border: none;
     margin-bottom: 10px;
@@ -27,13 +27,13 @@
     }
   }
   .sell {
-    .has-count{
+    .has-count {
       color: $green-color;
     }
     background-color: $green-color-back-3;
   }
   .buy {
-    .has-count{
+    .has-count {
       color: $red-color;
     }
     background-color: $red-color-back-3;
@@ -85,4 +85,11 @@
   .mint-cell-wrapper {
     overflow: visible;
   }
+  .btn-list-wrap {
+    .main-btn {
+      display: inline-block;
+      width: 49.5%;
+    }
+  }
 }
+
