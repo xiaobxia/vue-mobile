@@ -128,6 +128,16 @@ export default new Router({
       name: 'DataConfig',
       path: '/page/dataConfig',
       component: lazyLoading('DataConfig')
+    },
+    {
+      name: 'IndexDetailXiong',
+      path: '/page/indexDetailXiong',
+      component: lazyLoading('IndexDetailXiong')
+    },
+    {
+      name: 'OperatingInfoXiong',
+      path: '/page/operatingInfoXiong',
+      component: lazyLoading('OperatingInfoXiong')
     }
   ]
 })

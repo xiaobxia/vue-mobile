@@ -30,6 +30,16 @@
           <div class="bottom">操作分析</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/operatingInfoXiong')">
+        <!--<img src="../../assets/timg.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/熊市.png" alt="">
+            <!--<i class="fas fa-allergies"></i>-->
+          </div>
+          <div class="bottom">操作分析-熊</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/strategy')">
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
