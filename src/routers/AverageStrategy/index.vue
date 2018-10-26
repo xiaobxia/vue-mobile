@@ -16,7 +16,7 @@
       </mt-navbar>
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1" class="simple">
-          <mt-cell-swipe v-for="(item) in list1" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
+          <mt-cell-swipe v-for="(item) in upList" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
             <div slot="title">
               <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
@@ -27,7 +27,7 @@
           </mt-cell-swipe>
         </mt-tab-container-item>
         <mt-tab-container-item id="2" class="simple">
-          <mt-cell-swipe v-for="(item) in list2" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
+          <mt-cell-swipe v-for="(item) in reverseList" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
             <div slot="title">
               <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
                                                                 :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span></h3>
@@ -51,8 +51,8 @@ export default {
   data () {
     const selected = storageUtil.getAppConfig('averageStrategySelected') || '1'
     return {
-      list1: [],
-      list2: [],
+      upList: [],
+      reverseList: [],
       selected: selected,
       average: 0
     }
@@ -75,25 +75,25 @@ export default {
       Http.get('strategy/getAverageStrategy').then((data) => {
         Indicator.close()
         const list = data.data.result
-        let list1 = []
-        let list2 = []
-        let list3 = []
+        let upList = []
+        let reverseList = []
+        let toUpList = []
         let average = 0
         list.forEach((item) => {
           if (item.toUp) {
-            list3.push(item)
+            toUpList.push(item)
             average += item.valuationRate
           } else if (item.isUp) {
-            list1.push(item)
+            upList.push(item)
             average += item.valuationRate
           }
           if (item.isReverse) {
-            list2.push(item)
+            reverseList.push(item)
           }
         })
-        this.list1 = list3.concat(list1)
-        this.list2 = list2
-        this.average = numberUtil.keepTwoDecimals(average / this.list1.length)
+        this.upList = toUpList.concat(upList)
+        this.reverseList = reverseList
+        this.average = numberUtil.keepTwoDecimals(average / this.upList.length)
       })
     },
     backHandler () {

@@ -66,6 +66,8 @@ export default {
         code: codeMap[key].code,
         name: codeMap[key].name,
         threshold: codeMap[key].threshold,
+        wave: codeMap[key].wave,
+        rate: codeMap[key].rate,
         sortRate: 0
       })
       allInfo[key] = []
