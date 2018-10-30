@@ -63,7 +63,7 @@
       <div class="img-card" @click="toPath('/page/todayIndex')">
         <div class="container">
           <div class="content">
-            <img src="../../assets/行情.png" alt="">
+            <img src="../../assets/今日.png" alt="">
             <!--<i class="fab fa-cloudversify"></i>-->
           </div>
           <div class="bottom">今日指数</div>
