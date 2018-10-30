@@ -243,7 +243,6 @@ export default {
       this.list.sort((a, b) => {
         return b.sortRate - a.sortRate
       })
-      console.log(this.list)
     },
     sortTowChangeHandler () {
       for (let key in this.sortRateTwo) {
@@ -256,7 +255,6 @@ export default {
       this.list.sort((a, b) => {
         return b.sortRate - a.sortRate
       })
-      console.log(this.list)
     }
   }
 }
