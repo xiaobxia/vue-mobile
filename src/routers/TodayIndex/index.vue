@@ -122,6 +122,10 @@ const codeMap = {
   'shangzheng': {
     code: 'sh000001',
     name: '上证'
+  },
+  'zhengquan': {
+    code: 'sz399437',
+    name: '证券'
   }
 }
 export default {
