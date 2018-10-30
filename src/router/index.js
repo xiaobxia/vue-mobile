@@ -138,6 +138,11 @@ export default new Router({
       name: 'OperatingInfoXiong',
       path: '/page/operatingInfoXiong',
       component: lazyLoading('OperatingInfoXiong')
+    },
+    {
+      name: 'TodayIndex',
+      path: '/page/todayIndex',
+      component: lazyLoading('TodayIndex')
     }
   ]
 })

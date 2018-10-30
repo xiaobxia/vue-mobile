@@ -60,6 +60,15 @@
           <div class="bottom">均线策略</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/todayIndex')">
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/行情.png" alt="">
+            <!--<i class="fab fa-cloudversify"></i>-->
+          </div>
+          <div class="bottom">今日指数</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/market')">
         <div class="container">
           <div class="content">
