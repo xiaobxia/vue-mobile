@@ -126,6 +126,10 @@ const codeMap = {
   'zhengquan': {
     code: 'sz399437',
     name: '证券'
+  },
+  'jijian': {
+    code: 'sz399359',
+    name: '基建'
   }
 }
 export default {
