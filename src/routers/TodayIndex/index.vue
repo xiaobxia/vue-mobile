@@ -128,7 +128,7 @@ const codeMap = {
     name: '证券'
   },
   'jijian': {
-    code: 'sz399359',
+    code: 'sz399995',
     name: '基建'
   }
 }
