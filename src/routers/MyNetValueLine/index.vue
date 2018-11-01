@@ -75,6 +75,7 @@
                       :yAxis="chartYAxis" :textStyle="chartTextStyle"
                       :height="chartHeight" :legend="chartLegend"
                       :settings="chartSettings" :tooltip="tooltip"
+                      :series="monthRateChartSeries" :xAxis="chartXAxis"
         ></ve-histogram>
       </div>
     </div>
@@ -276,6 +277,42 @@ export default {
         columns: ['日期', '收益率'],
         rows: row
       }
+    },
+    monthRateChartSeries () {
+      if (!this.netValueMonthRate.length > 0) {
+        return {}
+      }
+      const listMonth = this.netValueMonthRate
+      let row = []
+      listMonth.forEach(function (item) {
+        row.push({
+          value: item['rate'],
+          itemStyle: {
+            color: item['rate'] > 0 ? 'rgb(244, 51, 60)' : 'rgb(62, 179, 121)'
+          }
+        })
+      })
+      return [{
+        name: '收益率',
+        type: 'bar',
+        data: row
+      }]
+    },
+    chartXAxis () {
+      if (!this.netValueMonthRate.length > 0) {
+        return {}
+      }
+      const listMonth = this.netValueMonthRate
+      let row = []
+      listMonth.forEach(function (item) {
+        row.push(item['yearMonth'])
+      })
+      return [
+        {
+          type: 'category',
+          data: row
+        }
+      ]
     }
   },
   mounted () {
