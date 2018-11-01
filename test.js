@@ -1,0 +1,5 @@
+const moment = require('moment')
+const a = moment().subtract(1, 'years')
+console.log(a)
+console.log(a.isBefore('2018-01-02'))
+console.log(a.isBefore('2018-01-06'))

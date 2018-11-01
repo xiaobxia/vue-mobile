@@ -9,19 +9,19 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="time-wrap">
-        <span class="name">{{filterTime}}</span>
-        <mt-button type="primary" @click="timeChangeHandler">改变</mt-button>
-      </div>
-      <mt-popup
-        v-model="popupVisible"
-        position="bottom">
-        <ul class="time-list">
-          <li class="time-item" v-for="(item) in filterList" :key="item.name" @click="onTimeChangeHandler(item.name)">
-            {{item.name}}
-          </li>
-        </ul>
-      </mt-popup>
+      <!--<div class="time-wrap">-->
+        <!--<span class="name">{{filterTime}}</span>-->
+        <!--<mt-button type="primary" @click="timeChangeHandler">改变</mt-button>-->
+      <!--</div>-->
+      <!--<mt-popup-->
+        <!--v-model="popupVisible"-->
+        <!--position="bottom">-->
+        <!--<ul class="time-list">-->
+          <!--<li class="time-item" v-for="(item) in filterList" :key="item.name" @click="onTimeChangeHandler(item.name)">-->
+            <!--{{item.name}}-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</mt-popup>-->
       <div class="content-body">
         <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegend"
@@ -29,52 +29,46 @@
                  :tooltip="tooltip" :grid="grid"
         ></ve-line>
         <div class="my-net-value-info">
-          <span>本月：{{myNetValueInfo.nowMonth}}%</span>
-          <span>总收益：{{myNetValueInfo.all}}%</span>
-          <span>近一年：{{recentInfo.year}}%</span>
+          <span>本月：{{myIncomeRateInfo.nowMonth}}%</span>
+          <span>总收益：{{myIncomeRateInfo.all}}%</span>
+          <span>本年：{{myIncomeRateInfo.nowYear}}%</span>
         </div>
         <table width="100%" cellspacing="1" cellpadding="20">
           <tr>
             <th>指数</th>
             <th>本周</th>
-            <th>一星期</th>
-            <th>半月</th>
-            <th>一月</th>
+            <th>本月</th>
+            <th>本年</th>
           </tr>
           <tr>
             <td>我的</td>
-            <td>{{nowWeek.my}}%</td>
-            <td>{{recentInfo.week}}%</td>
-            <td>{{recentInfo.halfMonth}}%</td>
-            <td>{{recentInfo.month}}%</td>
+            <td>{{nowWeekRate.my}}%</td>
+            <td>{{nowMonthRate.my}}%</td>
+            <td>{{nowYearRate.my}}%</td>
           </tr>
           <tr>
             <td>上证</td>
-            <td>{{nowWeek.shangzheng}}%</td>
-            <td>{{recentAll.shangzheng}}%</td>
-            <td>{{halfMonthAll.shangzheng}}%</td>
-            <td>{{monthAll.shangzheng}}%</td>
+            <td>{{nowWeekRate.shangzheng}}%</td>
+            <td>{{nowMonthRate.shangzheng}}%</td>
+            <td>{{nowYearRate.shangzheng}}%</td>
           </tr>
           <tr>
             <td>创业</td>
-            <td>{{nowWeek.chuangye}}%</td>
-            <td>{{recentAll.chuangye}}%</td>
-            <td>{{halfMonthAll.chuangye}}%</td>
-            <td>{{monthAll.chuangye}}%</td>
+            <td>{{nowWeekRate.chuangye}}%</td>
+            <td>{{nowMonthRate.chuangye}}%</td>
+            <td>{{nowYearRate.chuangye}}%</td>
           </tr>
           <tr>
             <td>沪深300</td>
-            <td>{{nowWeek.hushen}}%</td>
-            <td>{{recentAll.hushen}}%</td>
-            <td>{{halfMonthAll.hushen}}%</td>
-            <td>{{monthAll.hushen}}%</td>
+            <td>{{nowWeekRate.hushen}}%</td>
+            <td>{{nowMonthRate.hushen}}%</td>
+            <td>{{nowYearRate.hushen}}%</td>
           </tr>
           <tr>
             <td>上证50</td>
-            <td>{{nowWeek.wulin}}%</td>
-            <td>{{recentAll.wulin}}%</td>
-            <td>{{halfMonthAll.wulin}}%</td>
-            <td>{{monthAll.wulin}}%</td>
+            <td>{{nowWeekRate.wulin}}%</td>
+            <td>{{nowMonthRate.wulin}}%</td>
+            <td>{{nowYearRate.wulin}}%</td>
           </tr>
         </table>
         <ve-histogram :data="monthRateChartData" :grid="monthRateGrid"
@@ -91,8 +85,13 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
+import dateUtil from '@/util/dateUtil.js'
+import arrayUtil from '@/util/arrayUtil.js'
 import {Indicator} from 'mint-ui'
 import storageUtil from '@/util/storageUtil.js'
+
+const zoom = window.adaptive.zoom
+const baseFontSize = 22
 
 const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
 const dataRawList = {
@@ -101,13 +100,45 @@ const dataRawList = {
   '东方': 'getWebStockdaybarDongfang'
 }
 
-const zoom = window.adaptive.zoom
-const baseFontSize = 22
+let webDataMap = {
+  shangzheng: {
+    code: 'sh000001',
+    name: '上证',
+    selected: false
+  },
+  chuangye: {
+    code: 'sz399006',
+    name: '创业',
+    selected: false
+  },
+  hushen: {
+    code: 'sz399300',
+    name: '沪深300',
+    selected: true
+  },
+  wulin: {
+    code: 'sh000016',
+    name: '上证50',
+    selected: false
+  }
+}
+
+let rateChartSelected = {}
+let webDataNames = []
+let webDataKeyRateMap = {}
+let webDataListMap = {}
+for (let key in webDataMap) {
+  rateChartSelected[webDataMap[key].name] = webDataMap[key].selected
+  webDataNames.push(webDataMap[key].name)
+  webDataKeyRateMap[key] = 0
+  webDataListMap[key + 'DataList'] = []
+}
 
 export default {
   name: 'MyNetValueLine',
   data () {
-    return {
+    // 图表部分
+    const chartPart = {
       grid: {
         top: '18%'
       },
@@ -131,45 +162,43 @@ export default {
         },
         scale: [true, true]
       },
-      //      chartXAxis: {
-      //        nameTextStyle: {
-      //          fontSize: baseFontSize * zoom
-      //        }
-      //      },
       chartLegend: {
         itemGap: 20 * zoom,
         itemWidth: 50 * zoom,
         itemHeight: 30 * zoom,
         selected: {
           '我的组合': true,
-          '上证': false,
-          '创业': false,
-          '沪深300': true,
-          '上证50': false
-          // '中证500': false
+          ...rateChartSelected
         }
       },
-      myList: [],
-      shangzheng: [],
-      chuangye: [],
-      hushen: [],
-      wulin: [],
       chartSettings: {
         lineStyle: {
           width: 3 * zoom
         },
         offsetY: 350 * zoom
+      }
+    }
+    return {
+      ...chartPart,
+      popupVisible: false,
+      myList: [],
+      ...webDataListMap,
+      nowWeekRate: {
+        my: 0,
+        ...webDataKeyRateMap
       },
-      recentInfo: {},
-      recentAll: {},
-      monthAll: {},
-      nowWeek: {},
-      halfMonthAll: {},
-      myNetValueInfo: {
+      nowMonthRate: {
+        my: 0,
+        ...webDataKeyRateMap
+      },
+      nowYearRate: {
+        my: 0,
+        ...webDataKeyRateMap
+      },
+      myIncomeRateInfo: {
         nowMonth: 0,
         all: 0
       },
-      popupVisible: false,
       netValueMonthRate: [],
       filterList: [
         {
@@ -191,76 +220,42 @@ export default {
 
   computed: {
     chartData () {
-      // 近的在右
-      let listMonth = this.copy(this.myList)
-      // 近的在左
-      let listShangzheng = this.copy(this.shangzheng)
-      let listChuangye = this.copy(this.chuangye)
-      let listHushen = this.copy(this.hushen)
-      let listWulin = this.copy(this.wulin)
-      let startIndex = 0
-      switch (this.filterTime) {
-        case '近一年': {
-          startIndex = listMonth.length >= 260 ? 260 : listMonth.length
-          break
-        }
-        case '近半年': {
-          startIndex = listMonth.length >= 130 ? 130 : listMonth.length
-          break
-        }
-        case '近三月': {
-          startIndex = listMonth.length >= 63 ? 63 : listMonth.length
-          break
-        }
-        case '近一月': {
-          startIndex = listMonth.length >= 21 ? 21 : listMonth.length
-          break
-        }
-      }
-      console.log(startIndex)
-      //        for (let i = 0; i < listShangzheng.length; i++) {
-      //          if (listShangzheng[i].date === '20180312') {
-      //            startIndex = i
-      //            break
-      //          }
-      //        }
-      listMonth.reverse()
-      listMonth = listMonth.slice(0, startIndex)
-      listMonth.reverse()
-      console.log(listMonth)
-      listShangzheng = listShangzheng.slice(0, startIndex)
-      listShangzheng.reverse()
-      listChuangye = listChuangye.slice(0, startIndex)
-      listChuangye.reverse()
-      listHushen = listHushen.slice(0, startIndex)
-      listHushen.reverse()
-      console.log(listHushen)
-      listWulin = listWulin.slice(0, startIndex)
-      listWulin.reverse()
-      if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1 || listWulin.length < 1) {
+      if (!(this.myList.length > 0)) {
         return {}
       }
-      const baseMy = listMonth[0]['net_value']
-      const baseShangzheng = listShangzheng[0].kline.close
-      const baseChuangye = listChuangye[0].kline.close
-      const baseHushen = listHushen[0].kline.close
-      const baseWulin = listWulin[0].kline.close
+      let myList = this.copy(this.myList)
+      // 近一年数据
+      const startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'year')
+      myList = myList.slice(startIndex)
+      const baseMy = myList[0]['net_value']
+      const baseDate = myList[0]['net_value_date']
+      let webDataList = {}
+      let webDataDay = 0
+      for (let key in webDataListMap) {
+        if (!(this[key].length > 0)) {
+          return {}
+        }
+        let temp = this.copy(this[key])
+        webDataList[key] = temp.slice(arrayUtil.findIndex(temp, 'net_value_date', baseDate))
+        webDataDay = webDataList[key].length
+      }
       let row = []
-      listMonth.forEach(function (item, index) {
+      myList.forEach(function (item, index) {
         let data = {}
         data['日期'] = item['net_value_date']
         data['我的组合'] = numberUtil.keepTwoDecimals((item['net_value'] - baseMy) * 100)
-        data['上证'] = numberUtil.keepTwoDecimals(((listShangzheng[index].kline.close - baseShangzheng) / baseShangzheng) * 100)
-        data['创业'] = numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100)
-        data['沪深300'] = numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100)
-        data['上证50'] = numberUtil.keepTwoDecimals(((listWulin[index].kline.close - baseWulin) / baseWulin) * 100)
+        for (let key in webDataMap) {
+          const base = webDataList[key + 'DataList'][0].close
+          data[webDataMap[key].name] = numberUtil.keepTwoDecimals(((webDataList[key + 'DataList'][index].close - base) / base) * 100)
+        }
         row.push(data)
       })
       return {
-        columns: ['日期', '我的组合', '上证', '创业', '沪深300', '上证50'],
+        columns: ['日期', '我的组合', ...webDataNames],
         rows: row
       }
     },
+    // 月收益率图表
     monthRateChartData () {
       if (!this.netValueMonthRate.length > 0) {
         return {}
@@ -285,78 +280,47 @@ export default {
 
   methods: {
     initPage () {
-      const days = Math.ceil((moment().diff(moment('2018-03-12'), 'days') / 7) + 2) * 5
+      // 近一年的最大
+      const days = 270
       Indicator.open({
         spinnerType: 'fading-circle'
       })
-      Promise.all([
-        Http.get('fund/getUserNetValuesAll').then((data) => {
-          if (data.success) {
-            let list = data.data.list
-            this.myList = list
-            this.myNetValueInfo = {
-              nowMonth: this.countNowMonth(list),
-              all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
-            }
-            this.nowWeek.my = this.countMyNowWeek(list)
+      // 获取我的净值数据
+      Http.get('fund/getUserNetValuesAll').then((data) => {
+        if (data.success) {
+          let list = data.data.list
+          this.myList = list
+          this.myIncomeRateInfo = {
+            // 当月收益率
+            nowMonth: this.countSameRangeRate(list, 'month'),
+            nowYear: this.countSameRangeRate(list, 'year'),
+            // 总收益率
+            all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
           }
-        }),
-        Http.get(`webData/${dataRawList[dataWay]}`, {
-          code: 'sh000001',
+          this.nowWeekRate.my = this.countSameRangeRate(list, 'week')
+          this.nowMonthRate.my = this.countSameRangeRate(list, 'month')
+          this.nowYearRate.my = this.countSameRangeRate(list, 'year')
+        }
+      })
+      let queryList = []
+      for (let key in webDataMap) {
+        queryList.push(Http.get(`webData/${dataRawList[dataWay]}`, {
+          code: webDataMap[key].code,
           days
         }).then((data) => {
           if (data.success) {
-            this.shangzheng = data.data.list
-            this.nowWeek.shangzheng = this.countNowWeek(data.data.list)
-            this.recentAll.shangzheng = this.countWeek(data.data.list)
-            this.monthAll.shangzheng = this.countMonth(data.data.list)
-            this.halfMonthAll.shangzheng = this.countHalfMonth(data.data.list)
+            const list = this.formatWebDataList(data.data.list)
+            this[key + 'DataList'] = list
+            this.nowWeekRate[key] = this.countSameRangeRate(list, 'week')
+            this.nowMonthRate[key] = this.countSameRangeRate(list, 'month')
+            this.nowYearRate[key] = this.countSameRangeRate(list, 'year')
           }
-        }),
-        Http.get(`webData/${dataRawList[dataWay]}`, {
-          code: 'sh000016',
-          days
-        }).then((data) => {
-          if (data.success) {
-            this.wulin = data.data.list
-            this.nowWeek.wulin = this.countNowWeek(data.data.list)
-            this.recentAll.wulin = this.countWeek(data.data.list)
-            this.monthAll.wulin = this.countMonth(data.data.list)
-            this.halfMonthAll.wulin = this.countHalfMonth(data.data.list)
-          }
-        }),
-        Http.get(`webData/${dataRawList[dataWay]}`, {
-          code: 'sz399006',
-          days
-        }).then((data) => {
-          if (data.success) {
-            this.chuangye = data.data.list
-            this.nowWeek.chuangye = this.countNowWeek(data.data.list)
-            this.recentAll.chuangye = this.countWeek(data.data.list)
-            this.monthAll.chuangye = this.countMonth(data.data.list)
-            this.halfMonthAll.chuangye = this.countHalfMonth(data.data.list)
-          }
-        }),
-        Http.get(`webData/${dataRawList[dataWay]}`, {
-          code: 'sz399300',
-          days
-        }).then((data) => {
-          if (data.success) {
-            this.hushen = data.data.list
-            this.nowWeek.hushen = this.countNowWeek(data.data.list)
-            this.recentAll.hushen = this.countWeek(data.data.list)
-            this.monthAll.hushen = this.countMonth(data.data.list)
-            this.halfMonthAll.hushen = this.countHalfMonth(data.data.list)
-          }
-        }),
-        Http.get('fund/getUserNetValuesRecent').then((data) => {
-          if (data.success) {
-            this.recentInfo = data.data
-          }
-        })
-      ]).then(() => {
+        }))
+      }
+      Promise.all(queryList).then(() => {
         Indicator.close()
       })
+      // 每月收益数据
       Http.get('fund/getUserNetValueMonthRate').then((data) => {
         if (data.success) {
           this.netValueMonthRate = data.data.list
@@ -366,62 +330,13 @@ export default {
     toPath (path) {
       this.$router.push(path)
     },
-    countMyNowWeek (list) {
-      const start = list.length - 1
-      const nowDay = list[start].net_value_date
-      const nowValue = list[start].net_value
-      let lastValue = list[start].net_value
-      for (let i = start - 1; i > (start - 6); i--) {
-        const day = list[i].net_value_date
-        if (!(moment(day).isSame(nowDay, 'week'))) {
-          lastValue = list[i].net_value
-          break
-        }
-      }
-      return numberUtil.countDifferenceRate(nowValue, lastValue)
-    },
-    countNowWeek (list) {
-      const nowDate = list[0].date + ''
-      const nowValue = list[0].kline.close
-      let lastValue = list[0].kline.close
-      const nowDay = nowDate.substr(0, 4) + '-' + nowDate.substr(4, 2) + '-' + nowDate.substr(6, 2)
-      for (let i = 1; i < 6; i++) {
-        const date = list[i].date + ''
-        const day = date.substr(0, 4) + '-' + date.substr(4, 2) + '-' + date.substr(6, 2)
-        if (!(moment(day).isSame(nowDay, 'week'))) {
-          lastValue = list[i].kline.close
-          break
-        }
-      }
-      return numberUtil.countDifferenceRate(nowValue, lastValue)
-    },
-    countWeek (list) {
-      const nowNetValue = list[0].kline.close
-      const weekNetValue = list[5].kline.close
-      return numberUtil.countDifferenceRate(nowNetValue, weekNetValue)
-    },
-    countHalfMonth (list) {
-      const nowNetValue = list[0].kline.close
-      const halfMonthNetValue = list[10].kline.close
-      return numberUtil.countDifferenceRate(nowNetValue, halfMonthNetValue)
-    },
-    countMonth (list) {
-      const nowNetValue = list[0].kline.close
-      const monthNetValue = list[21].kline.close
-      return numberUtil.countDifferenceRate(nowNetValue, monthNetValue)
-    },
-    countNowMonth (list) {
+    // 当前区间涨幅
+    countSameRangeRate (list, type) {
       const last = list[list.length - 1]
-      const today = last['net_value_date']
+      let startIndex = dateUtil.findSameRangeStartNetValueIndex(list, type)
       const todayNetValue = last['net_value']
-      let lastMonthNetValue = 0
-      for (let i = list.length - 2; i >= 0; i--) {
-        if (!moment(today).isSame(list[i]['net_value_date'], 'month')) {
-          lastMonthNetValue = list[i]['net_value']
-          break
-        }
-      }
-      return numberUtil.countDifferenceRate(todayNetValue, lastMonthNetValue)
+      let lastNetValue = list[startIndex]['net_value']
+      return numberUtil.countDifferenceRate(todayNetValue, lastNetValue)
     },
     backHandler () {
       this.$router.history.go(-1)
@@ -435,6 +350,18 @@ export default {
     onTimeChangeHandler (time) {
       this.filterTime = time
       this.popupVisible = false
+    },
+    formatWebDataList (list) {
+      let newList = []
+      for (let i = 0; i < list.length; i++) {
+        const item = list[i]
+        newList.push({
+          net_value_date: moment(item.date).format('YYYY-MM-DD'),
+          ...item.kline,
+          net_value: item.kline.close
+        })
+      }
+      return newList.reverse()
     },
     copy (list) {
       let temp = []
