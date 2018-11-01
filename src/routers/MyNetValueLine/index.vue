@@ -9,19 +9,19 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <!--<div class="time-wrap">-->
-        <!--<span class="name">{{filterTime}}</span>-->
-        <!--<mt-button type="primary" @click="timeChangeHandler">改变</mt-button>-->
-      <!--</div>-->
-      <!--<mt-popup-->
-        <!--v-model="popupVisible"-->
-        <!--position="bottom">-->
-        <!--<ul class="time-list">-->
-          <!--<li class="time-item" v-for="(item) in filterList" :key="item.name" @click="onTimeChangeHandler(item.name)">-->
-            <!--{{item.name}}-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</mt-popup>-->
+      <div class="time-wrap">
+        <span class="name">{{filterTime}}</span>
+        <mt-button type="primary" @click="timeChangeHandler">改变</mt-button>
+      </div>
+      <mt-popup
+        v-model="popupVisible"
+        position="bottom">
+        <ul class="time-list">
+          <li class="time-item" v-for="(item) in filterList" :key="item.name" @click="onTimeChangeHandler(item.name)">
+            {{item.name}}
+          </li>
+        </ul>
+      </mt-popup>
       <div class="content-body">
         <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegend"
@@ -92,6 +92,8 @@ import storageUtil from '@/util/storageUtil.js'
 
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
+
+const netValueFilterTime = storageUtil.getAppConfig('netValueFilterTime') || '近一年'
 
 const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
 const dataRawList = {
@@ -202,19 +204,16 @@ export default {
       netValueMonthRate: [],
       filterList: [
         {
-          name: '近一月'
+          name: '本月'
         },
         {
-          name: '近三月'
-        },
-        {
-          name: '近半年'
+          name: '本年'
         },
         {
           name: '近一年'
         }
       ],
-      filterTime: '近一年'
+      filterTime: netValueFilterTime
     }
   },
 
@@ -225,7 +224,12 @@ export default {
       }
       let myList = this.copy(this.myList)
       // 近一年数据
-      const startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'year')
+      let startIndex = myList.length > 260 ? (myList.length) - 260 : 0
+      if (this.filterTime === '本月') {
+        startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'month')
+      } else if (this.filterTime === '本年') {
+        startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'year')
+      }
       myList = myList.slice(startIndex)
       const baseMy = myList[0]['net_value']
       const baseDate = myList[0]['net_value_date']
@@ -243,7 +247,7 @@ export default {
       myList.forEach(function (item, index) {
         let data = {}
         data['日期'] = item['net_value_date']
-        data['我的组合'] = numberUtil.keepTwoDecimals((item['net_value'] - baseMy) * 100)
+        data['我的组合'] = numberUtil.keepTwoDecimals(((item['net_value'] - baseMy) / baseMy) * 100)
         for (let key in webDataMap) {
           const base = webDataList[key + 'DataList'][0].close
           data[webDataMap[key].name] = numberUtil.keepTwoDecimals(((webDataList[key + 'DataList'][index].close - base) / base) * 100)
@@ -350,6 +354,7 @@ export default {
     onTimeChangeHandler (time) {
       this.filterTime = time
       this.popupVisible = false
+      storageUtil.setAppConfig('netValueFilterTime', time)
     },
     formatWebDataList (list) {
       let newList = []
