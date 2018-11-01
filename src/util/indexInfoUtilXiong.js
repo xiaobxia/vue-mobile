@@ -3,7 +3,7 @@
  */
 import numberUtil from './numberUtil'
 
-function ifMatch (raw, target) {
+function ifMatch(raw, target) {
   let match = true
   for (let key in target) {
     if (target[key] !== raw[key]) {
@@ -15,7 +15,7 @@ function ifMatch (raw, target) {
 }
 
 const buyModel = {
-  // 全绿,最有可能翻转的模型
+  //全绿,最有可能翻转的模型
   one: {
     ifSessionDown: true,
     ifSessionDownHigh: true,
@@ -43,7 +43,7 @@ const baseModel = {
   ifSessionDownCloseHigh: false
 }
 
-function extend (raw, target) {
+function extend(raw, target) {
   let obj = {}
   for (let key in raw) {
     obj[key] = raw[key]
@@ -54,7 +54,7 @@ function extend (raw, target) {
   return obj
 }
 
-function Util (config) {
+function Util(config) {
   this.threshold = config.threshold
   this.rate = config.rate
   this.wave = config.wave
@@ -79,20 +79,20 @@ Util.prototype = {
     flag.ifHighPreCloseDownHigh = this.ifHighPreCloseDownHigh(record)
     return flag
   },
-  // 是否高开
+  //是否高开
   ifUpOpen: function (record) {
     const preClose = record.preClose
     const open = record.open
     return open >= preClose
   },
-  // 是否开盘高幅度
+  //是否开盘高幅度
   ifOpenHigh: function (record) {
     const rate = this.rate
     const preClose = record.preClose
     const open = record.open
     return Math.abs(numberUtil.countDifferenceRate(open, preClose)) >= rate
   },
-  // 是否上涨
+  //是否上涨
   ifUpClose: function (record) {
     return record.netChangeRatio > 0
   },
@@ -2544,7 +2544,7 @@ Util.prototype = {
       }
     }
     if (ifMatch(today,
-      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
+    {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
     )) {
       if (ifMatch(lastDay,
         {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
@@ -3402,13 +3402,38 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'buy-1-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
+    )) {
+      return {
+        flag: true,
+        text: 'buy-2-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': true, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'buy-2-0'
       }
     }
     return false
   },
   ifSellDichan: function (record, oneDayRecord) {
+    const today = this.getFlag(record)
+    const lastDay = this.getFlag(oneDayRecord)
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-0-0'
+      }
+    }
     return false
   },
   ifBuyZhengquan: function (record, oneDayRecord) {
@@ -3563,11 +3588,29 @@ Util.prototype = {
       }
     }
     return false
+  },
+  ifBuyJijian: function (record, oneDayRecord) {
+    const today = this.getFlag(record)
+    const lastDay = this.getFlag(oneDayRecord)
+    if (ifMatch(today,
+      {ifHighPreCloseDown: true, ifHighPreCloseDownHigh: true}
+    )) {
+      return {
+        flag: true,
+        new: true,
+        text: 'buy-0-0'
+      }
+    }
+    return false
+  },
+  ifSellJijian: function (record, oneDayRecord) {
+    const today = this.getFlag(record)
+    const lastDay = this.getFlag(oneDayRecord)
+    return false
   }
 }
 
 const codeMap = {
-  // 2018-10-22
   'chuangye': {
     code: 'sz399006',
     name: '创业',
@@ -3575,7 +3618,6 @@ const codeMap = {
     wave: 0.9277112676056345,
     rate: 0.9621341463414633
   },
-  // 2018-08-23
   'gangtie': {
     code: 'sz399440',
     name: '钢铁',
@@ -3583,7 +3625,6 @@ const codeMap = {
     wave: 0.8545666666666663,
     rate: 0.8308843537414968
   },
-  // 2018-08-27
   'jungong': {
     code: 'sz399959',
     name: '军工',
@@ -3591,7 +3632,6 @@ const codeMap = {
     wave: 0.9716906474820142,
     rate: 0.8817687074829932
   },
-  // 2018-08-24
   'yiyao': {
     code: 'sh000037',
     name: '医药',
@@ -3599,7 +3639,6 @@ const codeMap = {
     rate: 0.9339416058394158,
     wave: 0.9391726618705037
   },
-  // 2018-08-23
   'meitan': {
     code: 'sz399998',
     name: '煤炭',
@@ -3607,7 +3646,6 @@ const codeMap = {
     wave: 0.8600671140939595,
     rate: 0.8154166666666665
   },
-  // 2018-08-28
   'youse': {
     code: 'sh000823',
     name: '有色',
@@ -3615,7 +3653,6 @@ const codeMap = {
     wave: 0.8558865248226952,
     rate: 0.9762650602409638
   },
-  // 2018-08-24
   'jisuanji': {
     code: 'sz399363',
     name: '计算机',
@@ -3623,7 +3660,6 @@ const codeMap = {
     rate: 1.0100719424460431,
     wave: 1.06308
   },
-  // 2018-08-24
   'baijiu': {
     code: 'sz399997',
     name: '白酒',
@@ -3631,25 +3667,21 @@ const codeMap = {
     rate: 1.07016,
     wave: 1.3559459459459462
   },
-  // 2018-08-27
   'xinxi': {
     code: 'sh000993',
     name: '信息',
     threshold: 0.99
   },
-  // 2018-08-24
   'xiaofei': {
     code: 'sh000990',
     name: '消费',
     threshold: 0.95
   },
-  // 2018-08-24
   'baoxian': {
     code: 'sz399809',
     name: '保险',
     threshold: 1.03
   },
-  // 2018-08-23
   'wulin': {
     code: 'sh000016',
     name: '50',
@@ -3657,13 +3689,11 @@ const codeMap = {
     rate: 0.7160122699386505,
     wave: 0.7482424242424242
   },
-  // 2018-08-27
   'chuanmei': {
     code: 'sz399971',
     name: '传媒',
     threshold: 0.77
   },
-  // 2018-08-22
   'dianzi': {
     code: 'sz399811',
     name: '电子',
@@ -3671,7 +3701,6 @@ const codeMap = {
     rate: 0.8832450331125826,
     wave: 0.9248263888888891
   },
-  // 2018-08-27
   'yiliao': {
     code: 'sz399989',
     name: '医疗',
@@ -3679,7 +3708,6 @@ const codeMap = {
     wave: 1.0519615384615388,
     rate: 0.8889999999999998
   },
-  // 2018-08-27
   'shengwu': {
     code: 'sz399441',
     name: '生物',
@@ -3719,6 +3747,11 @@ const codeMap = {
     threshold: 0.94,
     rate: 0.9072847682119207,
     wave: 0.9646258503401361
+  },
+  'jijian': {
+    code: 'sz399995',
+    name: '基建',
+    threshold: 0.66
   }
 }
 const fnMap = {
@@ -3763,7 +3796,9 @@ const fnMap = {
   yinhangBuy: 'ifBuyYinhang',
   yinhangSell: 'ifSellYinhang',
   zhengquanBuy: 'ifBuyZhengquan',
-  zhengquanSell: 'ifSellZhengquan'
+  zhengquanSell: 'ifSellZhengquan',
+  jijianBuy: 'ifBuyJijian',
+  jijianSell: 'ifSellJijian'
 }
 
 const IndexInfoUtil = {
@@ -3786,11 +3821,11 @@ const IndexInfoUtil = {
         countList: [],
         count2: 0,
         countList2: []
-      })
+      });
     }
     list.forEach((item, index) => {
-      let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose))
-      let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low))
+      let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose));
+      let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low));
       for (let i = 0; i < xData.length; i++) {
         if (value >= xData[i].number && xData[i + 1] && value < xData[i + 1].number) {
           xData[i].count++
@@ -3805,20 +3840,20 @@ const IndexInfoUtil = {
           break
         }
       }
-    })
+    });
     let all = 0
     let count = 0
     let all2 = 0
     let count2 = 0
     for (let k = 0; k < xData.length; k++) {
       if (xData[k].count >= 5) {
-        count = count + xData[k].count
+        count = count + xData[k].count;
         for (let c = 0; c < xData[k].countList.length; c++) {
           all = all + xData[k].countList[c]
         }
       }
       if (xData[k].count2 >= 5) {
-        count2 = count2 + xData[k].count2
+        count2 = count2 + xData[k].count2;
         for (let b = 0; b < xData[k].countList2.length; b++) {
           all2 = all2 + xData[k].countList2[b]
         }
