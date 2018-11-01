@@ -71,7 +71,7 @@
             <td>{{nowYearRate.wulin}}%</td>
           </tr>
         </table>
-        <ve-histogram :data="monthRateChartData" :grid="monthRateGrid"
+        <ve-histogram :grid="monthRateGrid"
                       :yAxis="chartYAxis" :textStyle="chartTextStyle"
                       :height="chartHeight" :legend="chartLegend"
                       :settings="chartSettings" :tooltip="tooltip"
@@ -163,7 +163,8 @@ export default {
           fontSize: baseFontSize * zoom,
           formatter: '{value} %'
         },
-        scale: [true, true]
+        scale: [true, true],
+        type: 'value'
       },
       chartLegend: {
         itemGap: 20 * zoom,
@@ -280,7 +281,11 @@ export default {
     },
     monthRateChartSeries () {
       if (!this.netValueMonthRate.length > 0) {
-        return {}
+        return [{
+          name: '收益率',
+          type: 'bar',
+          data: []
+        }]
       }
       const listMonth = this.netValueMonthRate
       let row = []
