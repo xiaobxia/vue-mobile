@@ -12,6 +12,10 @@
             {{item.name}}
             <span style="float: right" :class="rateInfo[item.key] < 0 ? 'green-text' : 'red-text'">{{rateInfo[item.key]}}%</span>
           </h3>
+          <div class="rate-info-icon">
+            <i v-if="indexRateInfo[item.key] === 'up'" class="fas fa-long-arrow-alt-up up"></i>
+            <i v-if="indexRateInfo[item.key] === 'down'" class="fas fa-long-arrow-alt-up down"></i>
+          </div>
         </div>
       </mt-cell-swipe>
     </div>
@@ -24,6 +28,7 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import qs from 'qs'
+import moment from 'moment'
 import numberUtil from '@/util/numberUtil.js'
 import storageUtil from '@/util/storageUtil.js'
 
@@ -138,6 +143,7 @@ export default {
     let list = []
     let rateInfo = {}
     let sortRate = {}
+    let indexRateInfo = {}
     for (let key in codeMap) {
       list.push({
         key: key,
@@ -147,17 +153,25 @@ export default {
       })
       rateInfo[key] = 0
       sortRate[codeMap[key].name] = 0
+      indexRateInfo[key] = 0
     }
     return {
       list: list,
       rateInfo: rateInfo,
       sortRate,
-      myAsset: 200000
+      timer: null,
+      indexRateInfo
     }
   },
   computed: {
   },
+  beforeDestroy () {
+    clearInterval(this.timer)
+  },
   mounted () {
+    this.timer = setInterval(() => {
+      this.initPage()
+    }, 1000 * 60)
     this.initPage()
   },
   methods: {
@@ -179,9 +193,33 @@ export default {
         code: item.code
       }, {interval: 30}).then((data) => {
         if (data.success) {
-          const netChangeRatio = data.data.netChangeRatio
-          this.sortRate[item.key] = parseFloat(netChangeRatio)
+          const netChangeRatio = parseFloat(data.data.netChangeRatio)
+          this.sortRate[item.key] = netChangeRatio
           this.rateInfo[item.key] = numberUtil.keepTwoDecimals(netChangeRatio)
+          let lastRateJson = storageUtil.getIndexRate(item.key)
+          // 上次的数据
+          let indexRateInfo = 'up'
+          if (lastRateJson) {
+            let lastRate = JSON.parse(lastRateJson)
+            if (moment().isSame(lastRate.date, 'day')) {
+              if (netChangeRatio < lastRate.rate) {
+                indexRateInfo = 'down'
+              }
+            } else {
+              if (netChangeRatio < 0) {
+                indexRateInfo = 'down'
+              }
+            }
+          } else {
+            if (netChangeRatio < 0) {
+              indexRateInfo = 'down'
+            }
+          }
+          this.indexRateInfo[item.key] = indexRateInfo
+          storageUtil.setIndexRate(item.key, JSON.stringify({
+            date: moment().format('YYYY-MM-DD'),
+            rate: netChangeRatio
+          }))
         }
       })
     },

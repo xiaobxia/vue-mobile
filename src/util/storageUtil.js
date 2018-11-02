@@ -75,6 +75,29 @@ const storageUtil = {
     window._searchHistory = searchHistory
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory))
     return searchHistory
+  },
+  getIndexRate: function (key) {
+    let config = {}
+    if (window._indexRate) {
+      config = window._indexRate
+    } else {
+      const indexRateString = localStorage.getItem('indexRate')
+      if (indexRateString) {
+        config = JSON.parse(indexRateString)
+      }
+      window._indexRate = config
+    }
+    if (key) {
+      return config[key]
+    }
+    return config
+  },
+  setIndexRate: function (key, value) {
+    let config = this.getIndexRate()
+    config[key] = value
+    window._indexRate = config
+    localStorage.setItem('indexRate', JSON.stringify(config))
+    return config
   }
 }
 

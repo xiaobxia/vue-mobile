@@ -12,4 +12,17 @@
       display: inline-block;
     }
   }
+  .rate-info-icon {
+    position: absolute;
+    left: -25px;
+    top: 0;
+    height: 100%;
+    width: 30px;
+    .up{
+      color: $red-color;
+    }
+    .down{
+      color: $green-color;
+    }
+  }
 }
