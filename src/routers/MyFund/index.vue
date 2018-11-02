@@ -19,9 +19,9 @@
         <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
         <span class="item">相对波动：<span :class="relativeRate < 0 ? 'green-text' : 'red-text'">{{relativeRate}}%</span></span>
         <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
-        <span class="item">上证：<span :class="shangzhengRate < 0 ? 'green-text' : 'red-text'">{{shangzhengRate}}%</span></span>
-        <span class="item">创业：<span :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span></span>
-        <span class="item">50：<span :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span></span>
+        <span class="item">沪深300：<span :class="hushenRate < 0 ? 'green-text' : 'red-text'">{{hushenRate}}%</span></span>
+        <span class="item">创业板：<span :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span></span>
+        <span class="item">上证50：<span :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span></span>
       </div>
       <div class="lastUpdateValuationTime">更新于：{{lastUpdateValuationTime}}</div>
       <div class="tag-info">
@@ -77,7 +77,7 @@ export default {
       newRate: 0,
       myAsset: fundAccountUtil.asset,
       cardInfo,
-      shangzhengRate: 0,
+      hushenRate: 0,
       wulinRate: 0,
       chuangyeRate: 0,
       lastUpdateValuationTime: ''
@@ -85,6 +85,7 @@ export default {
   },
   components: {MyFundCard},
   computed: {
+    // 持仓当日收益率
     valuationInfo () {
       if (this.info.valuationTotalSum && this.info.totalSum) {
         return numberUtil.keepTwoDecimals(this.info.valuationTotalSum - this.info.totalSum)
@@ -92,6 +93,7 @@ export default {
         return 0
       }
     },
+    // 仓位信息
     myPosition () {
       if (this.info.totalSum) {
         return numberUtil.countRate(this.info.totalSum, this.myAsset)
@@ -163,16 +165,19 @@ export default {
         this.newRate = numberUtil.countDifferenceRate(newValuation || 1, newCost || 1)
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
+      // 获取市场平均涨幅
       Http.get('fund/getMarketInfo').then((data) => {
         this.marketRate = data.data.info.rate
       })
+      // 沪深300
       Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
-        code: 'sh000001'
+        code: 'sz399300'
       }, {interval: 60}).then((data) => {
         if (data.success) {
-          this.shangzhengRate = data.data.netChangeRatio
+          this.hushenRate = data.data.netChangeRatio
         }
       })
+      // 创业板
       Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
         code: 'sz399006'
       }, {interval: 60}).then((data) => {
@@ -180,6 +185,7 @@ export default {
           this.chuangyeRate = data.data.netChangeRatio
         }
       })
+      // 上证50
       Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
         code: 'sh000016'
       }, {interval: 60}).then((data) => {
@@ -187,6 +193,7 @@ export default {
           this.wulinRate = data.data.netChangeRatio
         }
       })
+      // 获取更新估值的最新时间
       Http.get('schedule/getScheduleValue', {
         key: 'lastUpdateValuationTime'
       }).then((data) => {
