@@ -3,10 +3,10 @@
     <mt-header title="我的" :fixed="true"/>
     <div class="main-body">
       <div class="info-wrap">
-        <img class="b-g" src="../../assets/Desert-miniplanet.jpg" alt="">
+        <img class="b-g" src="../../assets/wallhaven-683638.jpg" alt="">
         <div class="mask"></div>
         <div class="user-img-wrap">
-          <img src="../../assets/3ac79f3df8dcd1003f9df38f728b4710b9122f1e.jpg" alt="">
+          <img src="../../assets/头像.png" alt="">
         </div>
         <h3 class="user-name">{{userName}}</h3>
       </div>
