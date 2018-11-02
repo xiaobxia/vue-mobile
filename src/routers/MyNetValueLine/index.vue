@@ -226,7 +226,7 @@ export default {
       }
       let myList = this.copy(this.myList)
       // 近一年数据
-      let startIndex = myList.length > 260 ? (myList.length) - 260 : 0
+      let startIndex = myList.length > 250 ? (myList.length) - 250 : 0
       if (this.filterTime === '本月') {
         startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'month')
       } else if (this.filterTime === '本年') {
