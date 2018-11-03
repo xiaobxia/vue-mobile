@@ -206,10 +206,22 @@ export default {
       netValueMonthRate: [],
       filterList: [
         {
+          name: '本周'
+        },
+        {
           name: '本月'
         },
         {
           name: '本年'
+        },
+        {
+          name: '近一月'
+        },
+        {
+          name: '近三月'
+        },
+        {
+          name: '近半年'
         },
         {
           name: '近一年'
@@ -231,6 +243,14 @@ export default {
         startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'month')
       } else if (this.filterTime === '本年') {
         startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'year')
+      } else if (this.filterTime === '本周') {
+        startIndex = dateUtil.findSameRangeStartNetValueIndex(myList, 'week')
+      } else if (this.filterTime === '近一月') {
+        startIndex = myList.length > 21 ? (myList.length) - 21 : 0
+      } else if (this.filterTime === '近三月') {
+        startIndex = myList.length > 42 ? (myList.length) - 42 : 0
+      } else if (this.filterTime === '近半年') {
+        startIndex = myList.length > 126 ? (myList.length) - 126 : 0
       }
       myList = myList.slice(startIndex)
       const baseMy = myList[0]['net_value']
