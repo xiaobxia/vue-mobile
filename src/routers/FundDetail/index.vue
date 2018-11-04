@@ -32,16 +32,16 @@
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValueMonth"
-                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
+                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :theme="lineTheme"></ve-line>
       </div>
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValue"
-                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid"></ve-line>
+                 :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :theme="lineTheme"></ve-line>
       </div>
       <div class="content-body">
         <ve-line :yAxis="chartYAxisPercent" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
-                 :data="chartDataRecent" :settings="chartSettingsPercent"  :tooltip="chartTooltip" :grid="grid"></ve-line>
+                 :data="chartDataRecent" :settings="chartSettingsPercent"  :tooltip="chartTooltip" :grid="grid" :theme="lineTheme"></ve-line>
       </div>
       <mt-button type="primary" @click="focusChangeHandler" class="main-btn">{{ifFocus==='true'?'取消关注':'关注'}}</mt-button>
     </div>
@@ -79,6 +79,11 @@ export default {
     return {
       grid: {
         top: '15%'
+      },
+      lineTheme: {
+        line: {
+          smooth: false
+        }
       },
       chartTooltip: {
         trigger: 'axis',

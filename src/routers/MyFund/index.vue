@@ -10,10 +10,10 @@
     </mt-header>
     <div class="main-body">
       <div class="info-wrap">
-        <span class="item">持仓金额：{{info.totalSum}}</span>
-        <span class="item">持仓成本：{{info.costTotalSum}}</span>
-        <span class="item">估算金额：{{info.valuationTotalSum}}</span>
-        <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{valuationInfo}}</span></span>
+        <span class="item">持仓金额：{{parseInt(info.totalSum)}}</span>
+        <span class="item">持仓成本：{{parseInt(info.costTotalSum)}}</span>
+        <span class="item">估算金额：{{parseInt(info.valuationTotalSum)}}</span>
+        <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{parseInt(valuationInfo)}}</span></span>
         <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
         <span class="item">仓位信息：{{myPosition}}%</span>
         <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>

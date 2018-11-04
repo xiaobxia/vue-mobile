@@ -8,7 +8,7 @@
     <div class="main-body">
       <div class="content-body">
         <ve-line :mark-point="chartPoint" :yAxis="chartYAxis" :textStyle="chartTextStyle"
-                 :height="chartHeight" :data="chartDataNetValue"
+                 :height="chartHeight" :data="chartDataNetValue" :theme="lineTheme"
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :dataZoom="dataZoom"></ve-line>
       </div>
       <div class="index-rate">
@@ -90,6 +90,11 @@ export default {
       chartSettings: {
         lineStyle: {
           width: 3 * zoom
+        }
+      },
+      lineTheme: {
+        line: {
+          smooth: false
         }
       },
       queryData: {},
