@@ -131,7 +131,12 @@ export default {
         itemWidth: 50 * zoom,
         itemHeight: 30 * zoom
       },
-      currentFund: {},
+      currentFund: {
+        code: '',
+        net_value: 1,
+        valuation: 1,
+        valuation_date: ''
+      },
       currentFundAnalyzeRecent: {},
       chartSettings: {
         lineStyle: {

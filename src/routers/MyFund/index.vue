@@ -68,7 +68,11 @@ export default {
       list: []
     })
     return {
-      info: {},
+      info: {
+        valuationTotalSum: 0,
+        totalSum: 0,
+        costTotalSum: 0
+      },
       list: [],
       timer: null,
       marketRate: 0,
