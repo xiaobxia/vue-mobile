@@ -14,7 +14,7 @@
           </h3>
           <div class="rate-info-icon">
             <i v-if="indexRateInfo[item.key] === 'up'" class="fas fa-long-arrow-alt-up up"></i>
-            <i v-if="indexRateInfo[item.key] === 'down'" class="fas fa-long-arrow-alt-up down"></i>
+            <i v-if="indexRateInfo[item.key] === 'down'" class="fas fa-long-arrow-alt-down down"></i>
           </div>
         </div>
       </mt-cell-swipe>
