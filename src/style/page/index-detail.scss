@@ -39,4 +39,12 @@
       background-color: rgb(57, 40, 79);
     }
   }
+  .today-info-wrap{
+    padding: 30px;
+    .item{
+      font-size: 30px;
+      display: inline-block;
+      width: 48%;
+    }
+  }
 }

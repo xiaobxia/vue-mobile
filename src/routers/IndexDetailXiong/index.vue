@@ -11,6 +11,22 @@
                  :height="chartHeight" :data="chartDataNetValue" :theme="lineTheme"
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :dataZoom="dataZoom"></ve-line>
       </div>
+      <div class="today-info-wrap">
+        <span class="item">高开: <span :class="todayIndexInfo.ifUpOpen > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifUpOpen? '高开' : '低开'}}</span></span>
+        <span class="item">开盘大幅: <span :class="todayIndexInfo.ifOpenHigh > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifOpenHigh? '大幅' : '低幅'}}</span></span>
+        <span class="item">收涨: <span :class="todayIndexInfo.ifUpClose > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifUpClose? '收高' : '收跌'}}</span></span>
+        <span class="item">收盘大幅: <span :class="todayIndexInfo.ifCloseHigh > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifCloseHigh? '大幅' : '低幅'}}</span></span>
+        <span class="item">盘中下跌: <span :class="todayIndexInfo.ifSessionDown > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionDown? '是' : '否'}}</span></span>
+        <span class="item">盘中大幅下跌: <span :class="todayIndexInfo.ifSessionDownHigh > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionDownHigh? '大幅' : '低幅'}}</span></span>
+        <span class="item">收盘拉起: <span :class="todayIndexInfo.ifSessionUpClose > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionUpClose? '是' : '否'}}</span></span>
+        <span class="item">收盘大幅拉起: <span :class="todayIndexInfo.ifSessionUpCloseHigh > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionUpCloseHigh? '大幅' : '低幅'}}</span></span>
+        <span class="item">盘中上升: <span :class="todayIndexInfo.ifSessionUp > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionUp? '是' : '否'}}</span></span>
+        <span class="item">盘中大幅上升: <span :class="todayIndexInfo.ifSessionUpHigh > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionUpHigh? '大幅' : '低幅'}}</span></span>
+        <span class="item">收盘回落: <span :class="todayIndexInfo.ifSessionDownClose > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionDownClose? '是' : '否'}}</span></span>
+        <span class="item">收盘大幅回落: <span :class="todayIndexInfo.ifSessionDownCloseHigh > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionDownCloseHigh? '大幅' : '低幅'}}</span></span>
+        <span class="item">无抵抗: <span :class="todayIndexInfo.ifHighPreCloseDown > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifHighPreCloseDown? '是' : '否'}}</span></span>
+        <span class="item">大幅无抵抗: <span :class="todayIndexInfo.ifHighPreCloseDownHigh > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifHighPreCloseDownHigh? '大幅' : '低幅'}}</span></span>
+      </div>
       <div class="index-rate">
         <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
       </div>
@@ -104,7 +120,23 @@ export default {
       sameList: [],
       list: [],
       indexRate: 0,
-      pointType: ''
+      pointType: '',
+      todayIndexInfo: {
+        ifUpOpen: false,
+        ifOpenHigh: false,
+        ifUpClose: false,
+        ifCloseHigh: false,
+        ifSessionDown: false,
+        ifSessionDownHigh: false,
+        ifSessionUpClose: false,
+        ifSessionUpCloseHigh: false,
+        ifSessionUp: false,
+        ifSessionUpHigh: false,
+        ifSessionDownClose: false,
+        ifSessionDownCloseHigh: false,
+        ifHighPreCloseDown: false,
+        ifHighPreCloseDownHigh: false
+      }
     }
   },
 
@@ -206,6 +238,8 @@ export default {
           let buyList = []
           let sellList = []
           let sameList = []
+          this.todayIndexInfo = infoUtil.getFlag(recentNetValue[0])
+          console.log(infoUtil.getFlag(recentNetValue[0]))
           for (let i = 0; i < (recentNetValue.length - 3); i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
