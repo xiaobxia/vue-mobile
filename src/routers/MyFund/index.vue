@@ -38,7 +38,7 @@ import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import MyFundCard from '@/components/MyFundCard.vue'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
-import indexInfoUtil from '@/util/indexInfoUtil.js'
+import indexInfoUtil from '@/util/indexInfoUtilXiong.js'
 import storageUtil from '@/util/storageUtil.js'
 
 const dataWay = storageUtil.getAppConfig('dataWay') || '中金'

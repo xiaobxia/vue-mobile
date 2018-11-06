@@ -54,7 +54,7 @@ import numberUtil from '@/util/numberUtil.js'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
 import moment from 'moment'
 import Toast from '@/common/toast.js'
-import indexInfoUtil from '@/util/indexInfoUtil.js'
+import indexInfoUtil from '@/util/indexInfoUtilXiong.js'
 
 const codeMap = indexInfoUtil.codeMap
 
