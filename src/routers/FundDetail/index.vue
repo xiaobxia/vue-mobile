@@ -285,7 +285,10 @@ export default {
         return {}
       }
       const listMonth = this.currentFundAnalyzeRecent.listMonth
-      let row = []
+      let row = [{
+        '天数': 0,
+        '涨幅': 0
+      }]
       listMonth.forEach(function (item, index) {
         let data = {}
         data['天数'] = index + 1
