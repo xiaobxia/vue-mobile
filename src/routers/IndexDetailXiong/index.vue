@@ -75,7 +75,7 @@ export default {
       },
       dataZoom: [{
         type: 'inside',
-        start: 60,
+        start: 70,
         end: 100
       }],
       chartTooltip: {
