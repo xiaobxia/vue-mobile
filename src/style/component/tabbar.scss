@@ -8,7 +8,7 @@
     &.is-selected {
       background-color: $body-color;
       .mint-tab-item-icon, .mint-tab-item-label {
-        color: $green-color;
+        color: $active-color;
       }
     }
   }
