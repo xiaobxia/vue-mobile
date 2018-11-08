@@ -171,8 +171,8 @@ export default {
   mounted () {
     this.timer = setInterval(() => {
       this.initPage()
-      // 5分钟一刷
-    }, 1000 * 60 * 5)
+      // 1分钟一刷
+    }, 1000 * 60)
     this.initPage()
   },
   methods: {
