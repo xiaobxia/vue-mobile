@@ -6,7 +6,7 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetailXiong?'+qsStringify(item)"
+      <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetailJian?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
         <div slot="title">
           <h3>
