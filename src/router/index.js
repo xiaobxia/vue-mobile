@@ -143,6 +143,16 @@ export default new Router({
       name: 'TodayIndex',
       path: '/page/todayIndex',
       component: lazyLoading('TodayIndex')
-    }
+    },
+    {
+      name: 'IndexDetailJian',
+      path: '/page/indexDetailJian',
+      component: lazyLoading('IndexDetailJian')
+    },
+    {
+      name: 'OperatingInfoJian',
+      path: '/page/operatingInfoJian',
+      component: lazyLoading('OperatingInfoJian')
+    },
   ]
 })

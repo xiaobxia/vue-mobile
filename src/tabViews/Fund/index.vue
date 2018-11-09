@@ -30,6 +30,16 @@
           <div class="bottom">操作分析</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/operatingInfoJian')">
+        <!--<img src="../../assets/timg.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/我的-策略.png" alt="">
+            <!--<i class="fas fa-allergies"></i>-->
+          </div>
+          <div class="bottom">操作分析-简</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/operatingInfoXiong')">
         <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">
