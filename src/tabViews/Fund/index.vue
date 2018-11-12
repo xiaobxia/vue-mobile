@@ -34,7 +34,7 @@
         <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <img src="../../assets/我的-策略.png" alt="">
+            <img src="../../assets/卖出记录.png" alt="">
             <!--<i class="fas fa-allergies"></i>-->
           </div>
           <div class="bottom">操作分析-简</div>
@@ -48,6 +48,16 @@
             <!--<i class="fas fa-allergies"></i>-->
           </div>
           <div class="bottom">操作分析-熊</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/indexDifference')">
+        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/相对标准偏差.png" alt="">
+            <!--<i class="fab fa-sellsy"></i>-->
+          </div>
+          <div class="bottom">差价策略</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/strategy')">

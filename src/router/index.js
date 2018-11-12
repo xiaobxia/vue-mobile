@@ -153,6 +153,11 @@ export default new Router({
       name: 'OperatingInfoJian',
       path: '/page/operatingInfoJian',
       component: lazyLoading('OperatingInfoJian')
+    },
+    {
+      name: 'IndexDifference',
+      path: '/page/indexDifference',
+      component: lazyLoading('IndexDifference')
     }
   ]
 })
