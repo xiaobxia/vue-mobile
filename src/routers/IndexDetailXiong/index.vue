@@ -65,7 +65,7 @@ const formatData = indexInfoUtilXiong.formatData
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
 export default {
-  name: 'IndexDetail',
+  name: 'IndexDetailXiong',
   data () {
     return {
       grid: {

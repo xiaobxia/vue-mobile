@@ -58,7 +58,7 @@ const formatData = indexInfoUtilJian.formatData
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
 export default {
-  name: 'IndexDetail',
+  name: 'IndexDetailJian',
   data () {
     return {
       grid: {

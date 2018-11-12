@@ -50,7 +50,7 @@ const InfoUtil = indexInfoUtilJian.Util
 const fnMap = indexInfoUtilJian.fnMap
 const formatData = indexInfoUtilJian.formatData
 export default {
-  name: 'OperatingInfo',
+  name: 'OperatingInfoJain',
   data () {
     let allInfo = {}
     let list = []

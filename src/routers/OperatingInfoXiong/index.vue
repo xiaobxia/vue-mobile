@@ -50,7 +50,7 @@ const InfoUtil = indexInfoUtilXiong.Util
 const fnMap = indexInfoUtilXiong.fnMap
 const formatData = indexInfoUtilXiong.formatData
 export default {
-  name: 'OperatingInfo',
+  name: 'OperatingInfoXiong',
   data () {
     let allInfo = {}
     let list = []
