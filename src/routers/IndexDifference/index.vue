@@ -106,10 +106,11 @@ export default {
         const wulinRate = wulin[i].kline['netChangeRatio']
         let bigRateChuangye = Math.abs(chuangyeRate - wulinRate) > rateChuangye * 2
         let bigRateWulin = Math.abs(chuangyeRate - wulinRate) > rateWulin * 2
+        let tempFlag = Math.abs(chuangyeRate - wulinRate) > rateChuangye
         let chuangyeFlag = ''
         let wulinFlag = ''
         if (i < 5) {
-          if (bigRateChuangye && chuangyeRate > 0 && chuangyeRate > wulinRate && chuangyeRate > rateChuangye) {
+          if (tempFlag && chuangyeRate > 0 && chuangyeRate > wulinRate && chuangyeRate > rateChuangye) {
             chuangyeFlag = '卖'
           } else if (bigRateChuangye && chuangyeRate < 0 && chuangyeRate < wulinRate && chuangyeRate < -rateChuangye) {
             chuangyeFlag = '买'
