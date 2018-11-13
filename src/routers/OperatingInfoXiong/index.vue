@@ -1,6 +1,6 @@
 <template>
   <div class="operating-info">
-    <mt-header title="操作分析" :fixed="true">
+    <mt-header title="操作分析-熊" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
