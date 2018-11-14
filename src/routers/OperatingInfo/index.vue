@@ -5,14 +5,6 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
-    <div class="main-body">
-      <!--<div class="count-wrap">-->
-        <!--<span class="red-text">{{buyCount}}</span>-->
-        <!--:-->
-        <!--<span class="green-text">{{sellCount}}</span>-->
-        <!--<span class="warn">建议{{position}}%持仓</span>-->
-        <!--<span class="warn">标准{{standardInfo}}</span>-->
-      <!--</div>-->
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
         <div slot="title">
@@ -91,8 +83,7 @@ export default {
       hasInfo,
       hasCount,
       sortRate,
-      sortRateTwo,
-      myAsset: 200000
+      sortRateTwo
     }
   },
   computed: {
@@ -129,9 +120,6 @@ export default {
       }
       let all = sell + buy
       return numberUtil.countRate(buy, (all / 1.5))
-    },
-    standardInfo () {
-      return Math.ceil((this.myAsset / 20) / 100) * 100
     }
   },
   mounted () {
@@ -143,7 +131,6 @@ export default {
       for (let i = 0; i < list.length; i++) {
         this.queryData(list[i])
       }
-      this.queryMyNetValue()
       Http.get('fund/getUserFundsNormal').then((data) => {
         if (data.success) {
           const list = data.data.list
@@ -221,14 +208,6 @@ export default {
           this.allInfo[item.key] = infoList
           this.firstInfo[item.key] = classInfo
           this.rateInfo[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
-        }
-      })
-    },
-    queryMyNetValue () {
-      Http.get('fund/getUserNetValues', {current: 1, pageSize: 1}).then((data) => {
-        const nowNetValue = data.data.list[0]
-        if (nowNetValue) {
-          this.myAsset = nowNetValue.asset
         }
       })
     },
