@@ -135,6 +135,10 @@ const codeMap = {
   'jijian': {
     code: 'sz399995',
     name: '基建'
+  },
+  'qiche': {
+    code: 'sz399432',
+    name: '汽车'
   }
 }
 export default {
