@@ -145,11 +145,14 @@ export default {
           for (let i = 0; i < list.length; i++) {
             const item = list[i]
             if (item.theme) {
-              this.hasInfo[item.theme] = true
-              if (this.hasCount[item.theme]) {
-                this.hasCount[item.theme] += parseInt(item.costSum)
-              } else {
-                this.hasCount[item.theme] = parseInt(item.costSum)
+              // 定投不计入
+              if (item.strategy === '1') {
+                this.hasInfo[item.theme] = true
+                if (this.hasCount[item.theme]) {
+                  this.hasCount[item.theme] += parseInt(item.costSum)
+                } else {
+                  this.hasCount[item.theme] = parseInt(item.costSum)
+                }
               }
             }
           }
