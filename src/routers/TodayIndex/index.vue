@@ -203,21 +203,30 @@ export default {
           this.rateInfo[item.key] = numberUtil.keepTwoDecimals(netChangeRatio)
           let lastRateJson = storageUtil.getIndexRate(item.key)
           // 上次的数据
-          let indexRateInfo = 'up'
+          let indexRateInfo = ''
           if (lastRateJson) {
             let lastRate = JSON.parse(lastRateJson)
             if (moment().isSame(lastRate.date, 'day')) {
               if (netChangeRatio < lastRate.rate) {
                 indexRateInfo = 'down'
               }
+              if (netChangeRatio > lastRate.rate) {
+                indexRateInfo = 'up'
+              }
             } else {
               if (netChangeRatio < 0) {
                 indexRateInfo = 'down'
+              }
+              if (netChangeRatio > 0) {
+                indexRateInfo = 'up'
               }
             }
           } else {
             if (netChangeRatio < 0) {
               indexRateInfo = 'down'
+            }
+            if (netChangeRatio > 0) {
+              indexRateInfo = 'up'
             }
           }
           this.indexRateInfo[item.key] = indexRateInfo
