@@ -5,6 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
     </mt-header>
+    <div class="main-body">
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
                      :class="firstInfo[item.key]">
         <div slot="title">
