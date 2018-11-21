@@ -4,9 +4,6 @@
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
-      <!--<mt-button slot="right">-->
-        <!--<i :class="{'fas': true, 'fa-plus': true, 'warn': !couldBuyMore}" @click="addHandler"></i>-->
-      <!--</mt-button>-->
     </mt-header>
     <div class="main-body">
       <div class="info-wrap">
@@ -77,9 +74,8 @@ export default {
       timer: null,
       marketRate: 0,
       myRate: 0,
-      couldBuyMore: true,
       newRate: 0,
-      myAsset: fundAccountUtil.asset,
+      myAsset: 10000,
       cardInfo,
       hushenRate: 0,
       wulinRate: 0,
@@ -138,12 +134,9 @@ export default {
         const list = data.data.list
         let newCost = 0
         let newValuation = 0
-        // 7天内购买的金额
-        let buyIn7DaysCount = 0
         list.forEach((item) => {
           // 处于锁仓
           if (!fundAccountUtil.ifRelieve(item)) {
-            buyIn7DaysCount += item.costSum
             // 处于锁仓就算是新仓
             newCost += item.costSum
             newValuation += item.valuationSum
@@ -159,10 +152,6 @@ export default {
             }
           }
         })
-        // 大于49000就说明大于了5000，因为每个标准仓5000
-        if (buyIn7DaysCount > fundAccountUtil.buyIn7DaysLimit) {
-          this.couldBuyMore = false
-        }
         for (let i = 0; i < this.cardInfo.length; i++) {
           this.cardInfo[i].list = dataMap[this.cardInfo[i].name]
         }
@@ -213,14 +202,6 @@ export default {
           this.myAsset = nowNetValue.asset
         }
       })
-    },
-    ifWaitSell (item) {
-      const multiple = item.standard || 1
-      const standard = fundAccountUtil.standard * multiple
-      if (numberUtil.ifAround(item.costSum, fundAccountUtil.cutRateLevelTwo * standard)) {
-        return true
-      }
-      return false
     },
     backHandler () {
       this.$router.history.go(-1)

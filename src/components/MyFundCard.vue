@@ -25,7 +25,6 @@
           <span class="item">收益率：<span
             :class="countRate(item.valuationSum, item.costSum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.costSum)}}%</span></span>
           <span class="item">持有份额：{{item.shares}}</span>
-          <span class="item">调仓份额：{{countCutShares(item)}}</span>
         </p>
       </div>
       <div class="right-wrap">
@@ -94,67 +93,6 @@ export default{
         if (JSON.parse(item['position_record']).length > 1) {
           return true
         }
-      }
-      return false
-    },
-    countCutShares (item) {
-      const multiple = item.standard || 1
-      const standard = fundAccountUtil.standard * multiple
-      return parseInt((standard / item.cost) / 4)
-    },
-    ifCut (item) {
-      const multiple = item.standard || 1
-      const allRate = this.countRate(item.valuationSum, item.costSum)
-      const standard = fundAccountUtil.standard * multiple
-      const cutRateLevelOne = fundAccountUtil.cutRateLevelOne
-
-      if (!fundAccountUtil.ifRelieve(item)) {
-        return false
-      }
-      // 盈利2.5点，减一次
-      if (allRate >= 2.5) {
-        if (numberUtil.ifAround(item.costSum, standard)) {
-          return true
-        }
-      }
-      // 盈利5点，减一次
-      if (allRate >= 5) {
-        if (numberUtil.ifAround(item.costSum, cutRateLevelOne * standard)) {
-          return true
-        }
-      }
-      // 亏损1.5点，减一次
-      if (allRate <= -1.5) {
-        if (numberUtil.ifAround(item.costSum, standard)) {
-          return true
-        }
-      }
-      // 亏损3点，减一次
-      if (allRate <= -3) {
-        if (numberUtil.ifAround(item.costSum, cutRateLevelOne * standard)) {
-          return true
-        }
-      }
-      return false
-    },
-    ifSell (item) {
-      const allRate = this.countRate(item.valuationSum, item.costSum)
-      if (!fundAccountUtil.ifRelieve(item)) {
-        return false
-      }
-      // 待卖状态，亏损超过3个点的
-      if (this.title === '待卖' && (allRate <= -3)) {
-        return true
-      }
-      // 老的仓位，一接近成本线就卖
-      if (item.has_days > 30) {
-        if (allRate < 1 && allRate > -1) {
-          return true
-        }
-      }
-      // 利润大于5个点，并且并不是机构趋势的，卖掉
-      if (allRate >= 5 && item.strategy !== '3') {
-        return true
       }
       return false
     }
