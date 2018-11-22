@@ -60,6 +60,16 @@
           <div class="bottom">差价策略</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/changeMarket')">
+        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/变脸.png" alt="">
+            <!--<i class="fab fa-sellsy"></i>-->
+          </div>
+          <div class="bottom">变盘策略</div>
+        </div>
+      </div>
       <div class="img-card" @click="toPath('/page/strategy')">
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">

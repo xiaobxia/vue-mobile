@@ -163,6 +163,16 @@ export default new Router({
       name: 'MyAsset',
       path: '/page/myAsset',
       component: lazyLoading('MyAsset')
+    },
+    {
+      name: 'ChangeMarket',
+      path: '/page/changeMarket',
+      component: lazyLoading('ChangeMarket')
+    },
+    {
+      name: 'ChangeMarketDetail',
+      path: '/page/changeMarketDetail',
+      component: lazyLoading('ChangeMarketDetail')
     }
   ]
 })
