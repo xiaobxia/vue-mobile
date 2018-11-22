@@ -86,9 +86,15 @@ export default{
       }
     },
     ifLock (item) {
+      if (item.strategy !== '1') {
+        return false
+      }
       return !fundAccountUtil.ifRelieve(item)
     },
     ifPosition (item) {
+      if (item.strategy !== '1') {
+        return false
+      }
       if (item['position_record']) {
         if (JSON.parse(item['position_record']).length > 1) {
           return true

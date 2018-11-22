@@ -33,6 +33,7 @@
               {{item.code}} {{formatName(item.name)}}
               <i class="lock-tag" v-if="ifLock(item)"></i>
               <i class="position-tag" v-if="ifPosition(item)"></i>
+              <i class="dingtou-tag" v-if="ifDingtou(item)"></i>
               <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
             </h3>
           </div>
@@ -294,15 +295,26 @@ export default {
       })
     },
     ifLock (item) {
+      // 不计入定投
+      if (this.ifDingtou(item)) {
+        return false
+      }
       return !fundAccountUtil.ifRelieve(item)
     },
     ifPosition (item) {
+      // 不计入定投
+      if (this.ifDingtou(item)) {
+        return false
+      }
       if (item['position_record']) {
         if (JSON.parse(item['position_record']).length > 1) {
           return true
         }
       }
       return false
+    },
+    ifDingtou (item) {
+      return item.strategy && item.strategy !== '1'
     },
     formatName (name) {
       if (name.length > 12) {
