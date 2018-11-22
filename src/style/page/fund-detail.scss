@@ -7,6 +7,14 @@
       padding-left: 30px;
       font-size: 34px;
     }
+    &.green {
+      background-color: $green-color;
+      color: #fff;
+    }
+    &.red {
+      background-color: $red-color;
+      color: #fff;
+    }
   }
   .item {
     display: inline-block;

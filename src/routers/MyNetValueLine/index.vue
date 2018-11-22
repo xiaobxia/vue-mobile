@@ -146,7 +146,7 @@ export default {
       grid: {
         top: '18%',
         left: '8%',
-        right: '1%'
+        right: '2%'
       },
       monthRateGrid: {
         top: '10%'

@@ -5,7 +5,7 @@
         <i class="fas fa-chevron-left"></i>
       </mt-button>
       <mt-button slot="right" v-if="type==='edit'">
-        <i class="far fa-trash-alt" @click="deleteHandler"></i>
+        <i class="far fa-trash-alt red-text" @click="deleteHandler"></i>
       </mt-button>
     </mt-header>
     <div class="main-body">

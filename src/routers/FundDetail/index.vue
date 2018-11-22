@@ -10,29 +10,28 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="info-wrap">
+      <div :class="['info-wrap',infoColor]">
         <span class="item">基金代码：{{currentFund.code}}</span>
         <span class="item">基金净值：{{currentFund.net_value}}</span>
         <span class="item">估算净值：{{currentFund.valuation}}</span>
-        <span class="item">估算涨幅：<span
-          :class="countRate(currentFund.valuation,currentFund.net_value) < 0 ? 'green-text' : 'red-text'">{{countRate(currentFund.valuation, currentFund.net_value)}}%</span></span>
+        <span class="item">估算涨幅：{{countRate(currentFund.valuation, currentFund.net_value)}}%</span>
         <span>估值时间：{{formatDate(currentFund.valuation_date)}}</span>
       </div>
       <div class="theme-wrap">
         <span class="name">{{filterTheme}}</span>
         <mt-button type="primary" @click="themeChangeHandler">改变</mt-button>
       </div>
-      <div class="content-body">
+      <div class="">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValueMonth"
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :theme="lineTheme"></ve-line>
       </div>
-      <div class="content-body">
+      <div class="">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValue"
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :theme="lineTheme"></ve-line>
       </div>
-      <div class="content-body">
+      <div class="">
         <ve-line :yAxis="chartYAxisPercent" :textStyle="chartTextStyle" :height="chartHeight" :legend="chartLegend"
                  :data="chartDataRecent" :settings="chartSettingsPercent"  :tooltip="chartTooltip" :grid="grid" :theme="lineTheme"></ve-line>
       </div>
@@ -78,7 +77,9 @@ export default {
     })
     return {
       grid: {
-        top: '15%'
+        top: '15%',
+        left: '8%',
+        right: '8%'
       },
       lineTheme: {
         line: {
@@ -106,13 +107,13 @@ export default {
       },
       chartYAxis: {
         axisLabel: {
-          fontSize: baseFontSize * zoom
+          fontSize: baseFontSize * zoom * 0.8
         },
         scale: [true, true]
       },
       chartYAxisPercent: {
         axisLabel: {
-          fontSize: baseFontSize * zoom,
+          fontSize: baseFontSize * zoom * 0.8,
           formatter: '{value} %'
         },
         scale: [true, true]
@@ -160,6 +161,17 @@ export default {
   },
 
   computed: {
+    infoColor () {
+      if (this.currentFund.valuation && this.currentFund.net_value) {
+        let rate = this.countRate(this.currentFund.valuation, this.currentFund.net_value)
+        if (rate === 0) {
+          return ''
+        }
+        return rate < 0 ? 'green' : 'red'
+      } else {
+        return ''
+      }
+    },
     chartMakeLineNetValue () {
       const result = this.currentFundAnalyzeRecent.result
       if (!result) {
