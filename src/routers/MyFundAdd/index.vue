@@ -116,7 +116,8 @@ export default {
       console.log(query)
       this.type = query.type || 'add'
       const cost = parseFloat(query.cost || 0)
-      const lastDay = moment().subtract(1, 'days').format('YYYY-MM-DD')
+      const todayDate = new Date()
+      const lastDay = todayDate.getDay() === 1 ? moment().subtract(3, 'days').format('YYYY-MM-DD') : moment().subtract(1, 'days').format('YYYY-MM-DD')
       this.form = Object.assign({
         target_net_value: numberUtil.keepFourDecimals(cost * (1 + 0.06)),
         stop_net_value: numberUtil.keepFourDecimals(cost * (1 - 0.02)),
