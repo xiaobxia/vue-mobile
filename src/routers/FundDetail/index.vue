@@ -362,7 +362,11 @@ export default {
       this.$router.history.go(-1)
     },
     formatDate (date) {
-      return moment(date).format('YYYY-MM-DD HH:mm:SS')
+      if (date) {
+        return moment(date).format('YYYY-MM-DD HH:mm:SS')
+      } else {
+        return moment().format('YYYY-MM-DD HH:mm:SS')
+      }
     },
     toEditHandler () {
       this.$router.push({path: '/page/myFundAdd', query: {...this.queryData, newNetValue: this.currentFund.net_value}})

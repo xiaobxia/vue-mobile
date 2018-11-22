@@ -75,6 +75,9 @@ import numberUtil from '@/util/numberUtil.js'
 import moment from 'moment'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
 
+const todayDate = new Date()
+const lastTradingDay = todayDate.getDay() === 1 ? moment().subtract(3, 'days').format('YYYY-MM-DD') : moment().subtract(1, 'days').format('YYYY-MM-DD')
+
 export default {
   name: 'MyFundAdd',
   data () {
@@ -93,7 +96,8 @@ export default {
         shares: ''
       },
       positionRecord: [],
-      editType: '修改'
+      editType: '修改',
+      lastTradingDay: lastTradingDay
     }
   },
   computed: {},
@@ -105,7 +109,10 @@ export default {
     }
   },
   mounted () {
-    this.initPage()
+    Http.get('webData/getLastTradingDay').then((res) => {
+      this.lastTradingDay = res.data.lastTradingDay
+      this.initPage()
+    })
   },
   methods: {
     initPage () {
@@ -116,17 +123,15 @@ export default {
       console.log(query)
       this.type = query.type || 'add'
       const cost = parseFloat(query.cost || 0)
-      const todayDate = new Date()
-      const lastDay = todayDate.getDay() === 1 ? moment().subtract(3, 'days').format('YYYY-MM-DD') : moment().subtract(1, 'days').format('YYYY-MM-DD')
       this.form = Object.assign({
         target_net_value: numberUtil.keepFourDecimals(cost * (1 + 0.06)),
         stop_net_value: numberUtil.keepFourDecimals(cost * (1 - 0.02)),
-        buy_date: lastDay,
+        buy_date: this.lastTradingDay,
         standard: 1,
         strategy: '1'
       }, query)
       if (query.type === 'edit') {
-        this.addForm.buy_date = lastDay
+        this.addForm.buy_date = this.lastTradingDay
       }
       if (query.position_record) {
         this.positionRecord = JSON.parse(query.position_record)

@@ -158,6 +158,11 @@ export default new Router({
       name: 'IndexDifference',
       path: '/page/indexDifference',
       component: lazyLoading('IndexDifference')
+    },
+    {
+      name: 'MyAsset',
+      path: '/page/myAsset',
+      component: lazyLoading('MyAsset')
     }
   ]
 })

@@ -24,14 +24,14 @@ import Http from '@/util/httpUtil.js'
 import {MessageBox} from 'mint-ui'
 import Toast from '@/common/toast.js'
 import moment from 'moment'
-import fundAccountUtil from '@/util/fundAccountUtil.js'
 
 export default {
   name: 'MyNetValueAdd',
   data () {
     return {
       type: 'add',
-      form: {}
+      form: {},
+      fundShares: 0
     }
   },
   computed: {},
@@ -40,13 +40,16 @@ export default {
   },
   methods: {
     initPage () {
-      this.initQuery()
+      Http.get('fund/getUserFundAssetInfo').then((res) => {
+        this.fundShares = res.data.fundShares
+        this.initQuery()
+      })
     },
     initQuery () {
       const query = this.$router.history.current.query
       this.type = query.type
       this.form = Object.assign({
-        shares: fundAccountUtil.myShares,
+        shares: this.fundShares,
         net_value_date: moment().format('YYYY-MM-DD')
       }, query)
     },
