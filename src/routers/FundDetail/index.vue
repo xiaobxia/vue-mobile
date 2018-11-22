@@ -22,13 +22,6 @@
         <span class="name">{{filterTheme}}</span>
         <mt-button type="primary" @click="themeChangeHandler">改变</mt-button>
       </div>
-      <mt-popup
-        v-model="popupVisible"
-        position="bottom">
-        <ul class="theme-list">
-          <li class="theme-item" v-for="(item) in filterList" :key="item.code" @click="onThemeChangeHandler(item.name)">{{item.name || '置空'}}</li>
-        </ul>
-      </mt-popup>
       <div class="content-body">
         <ve-line :mark-line="chartMakeLineNetValue" :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegendNetValue" :data="chartDataNetValueMonth"
@@ -45,6 +38,13 @@
       </div>
       <mt-button type="primary" @click="focusChangeHandler" class="main-btn">{{ifFocus==='true'?'取消关注':'关注'}}</mt-button>
     </div>
+    <mt-popup
+      v-model="popupVisible"
+      position="bottom">
+      <ul class="theme-list">
+        <li class="theme-item" v-for="(item) in filterList" :key="item.code" @click="onThemeChangeHandler(item.name)">{{item.name || '置空'}}</li>
+      </ul>
+    </mt-popup>
   </div>
 </template>
 

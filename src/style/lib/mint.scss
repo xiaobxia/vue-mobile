@@ -1418,6 +1418,11 @@
   left: 50%;
   -webkit-transform: translate3d(-50%, 0, 0);
   transform: translate3d(-50%, 0, 0);
+  border-top: 5px solid $active-color;
+  width: 100%;
+  background-color: #fff;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 
 .mint-popup-left {

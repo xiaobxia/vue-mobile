@@ -61,6 +61,7 @@ body {
 }
 
 #app {
+  position: relative;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -68,7 +69,9 @@ body {
 }
 
 .main-body {
+  position: relative;
   margin-top: 90px;
+  z-index: 0;
 }
 
 .has-bar {

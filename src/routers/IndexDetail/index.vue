@@ -14,9 +14,9 @@
       <div class="index-rate">
         <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
       </div>
-      <div class="tag-info">
-        <span class="lock-info"><i></i>锁仓</span>
-      </div>
+      <!--<div class="tag-info">-->
+        <!--<span class="lock-info"><i></i>锁仓</span>-->
+      <!--</div>-->
       <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
           <div slot="title">
@@ -60,7 +60,7 @@ export default {
       },
       dataZoom: [{
         type: 'inside',
-        start: 70,
+        start: 80,
         end: 100
       }],
       chartTooltip: {

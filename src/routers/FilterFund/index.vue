@@ -10,13 +10,6 @@
         <span class="name">{{filterTheme}}</span>
         <mt-button type="primary" @click="themeChangeHandler">改变</mt-button>
       </div>
-      <mt-popup
-        v-model="popupVisible"
-        position="bottom">
-        <ul class="theme-list">
-          <li class="theme-item" v-for="(item) in filterList" :key="item.code" @click="onThemeChangeHandler(item.name)">{{item.name}}</li>
-        </ul>
-      </mt-popup>
       <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
           <div slot="title">
@@ -26,6 +19,13 @@
         </mt-cell-swipe>
       </div>
     </div>
+    <mt-popup
+      v-model="popupVisible"
+      position="bottom">
+      <ul class="theme-list">
+        <li class="theme-item" v-for="(item) in filterList" :key="item.code" @click="onThemeChangeHandler(item.name)">{{item.name}}</li>
+      </ul>
+    </mt-popup>
   </div>
 </template>
 <script>

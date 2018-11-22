@@ -14,15 +14,6 @@
           <span class="name">{{editType}}</span>
           <mt-button type="primary" @click="editTypeChangeHandler">改变</mt-button>
         </div>
-        <mt-popup
-          v-model="editTypePopupVisible"
-          position="bottom">
-          <ul class="strategy-list">
-            <li class="strategy-item" v-for="(item) in editTypeList" :key="item.code"
-                @click="onEditTypeChangeHandler(item.name)">{{item.name}}
-            </li>
-          </ul>
-        </mt-popup>
       </template>
       <template v-if="type === 'add' || (type === 'edit' && editType === '修改')">
         <mt-field label="代码" placeholder="请输入代码" v-model="form.code"></mt-field>
@@ -30,15 +21,6 @@
           <span class="name">{{form.strategy === '1' ? '波段':'定投'}}</span>
           <mt-button type="primary" @click="strategyChangeHandler">改变</mt-button>
         </div>
-        <mt-popup
-          v-model="popupVisible"
-          position="bottom">
-          <ul class="strategy-list">
-            <li class="strategy-item" v-for="(item) in strategyList" :key="item.code"
-                @click="onStrategyChangeHandler(item.name)">{{item.name}}
-            </li>
-          </ul>
-        </mt-popup>
         <mt-field label="持仓成本" placeholder="请输入持仓成本" v-model="form.cost"></mt-field>
         <mt-field label="金额" placeholder="请输入金额" v-if="type === 'add'" v-model="form.asset"></mt-field>
         <mt-field label="份额" placeholder="请输入份额" v-if="type === 'edit'" v-model="form.shares"></mt-field>
@@ -64,6 +46,24 @@
     <div class="bottom-bar">
       <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
+    <mt-popup
+      v-model="editTypePopupVisible"
+      position="bottom">
+      <ul class="strategy-list">
+        <li class="strategy-item" v-for="(item) in editTypeList" :key="item.code"
+            @click="onEditTypeChangeHandler(item.name)">{{item.name}}
+        </li>
+      </ul>
+    </mt-popup>
+    <mt-popup
+      v-model="popupVisible"
+      position="bottom">
+      <ul class="strategy-list">
+        <li class="strategy-item" v-for="(item) in strategyList" :key="item.code"
+            @click="onStrategyChangeHandler(item.name)">{{item.name}}
+        </li>
+      </ul>
+    </mt-popup>
   </div>
 </template>
 

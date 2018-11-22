@@ -13,15 +13,6 @@
         <span class="name">{{filterTime}}</span>
         <mt-button type="primary" @click="timeChangeHandler">改变</mt-button>
       </div>
-      <mt-popup
-        v-model="popupVisible"
-        position="bottom">
-        <ul class="time-list">
-          <li class="time-item" v-for="(item) in filterList" :key="item.name" @click="onTimeChangeHandler(item.name)">
-            {{item.name}}
-          </li>
-        </ul>
-      </mt-popup>
       <div class="content-body">
         <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegend"
@@ -80,6 +71,15 @@
         ></ve-histogram>
       </div>
     </div>
+    <mt-popup
+      v-model="popupVisible"
+      position="bottom">
+      <ul class="time-list">
+        <li class="time-item" v-for="(item) in filterList" :key="item.name" @click="onTimeChangeHandler(item.name)">
+          {{item.name}}
+        </li>
+      </ul>
+    </mt-popup>
   </div>
 </template>
 

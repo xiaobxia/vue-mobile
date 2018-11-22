@@ -10,15 +10,6 @@
         <span class="name">{{editType}}</span>
         <mt-button type="primary" @click="editTypeChangeHandler">改变</mt-button>
       </div>
-      <mt-popup
-        v-model="editTypePopupVisible"
-        position="bottom">
-        <ul class="strategy-list">
-          <li class="strategy-item" v-for="(item) in editTypeList" :key="item.code"
-              @click="onEditTypeChangeHandler(item.name)">{{item.name}}
-          </li>
-        </ul>
-      </mt-popup>
       <template v-if="editType === '修改'">
         <mt-field label="基金资产成本" placeholder="请输入" v-model="form.fundAssetCost"></mt-field>
         <mt-field label="基金份额" placeholder="请输入" v-model="form.fundShares"></mt-field>
@@ -35,6 +26,15 @@
     <div class="bottom-bar">
       <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
     </div>
+    <mt-popup
+      v-model="editTypePopupVisible"
+      position="bottom">
+      <ul class="strategy-list">
+        <li class="strategy-item" v-for="(item) in editTypeList" :key="item.code"
+            @click="onEditTypeChangeHandler(item.name)">{{item.name}}
+        </li>
+      </ul>
+    </mt-popup>
   </div>
 </template>
 
@@ -75,10 +75,10 @@ export default {
         this.form.fundAssetCost = res.data.fundAssetCost
         this.form.fundShares = res.data.fundShares
       })
-      Http.get('fund/getUserNetValue').then((res) => {
+      Http.get('fund/getUserLastNetValue').then((res) => {
         const record = res.data.record
-        this.netValueInfo.net_value = record.net_value
-        this.netValueInfo.net_value_date = record.net_value_date
+        this.netValueInfo.net_value = record.net_value || 1
+        this.netValueInfo.net_value_date = record.net_value_date || '暂无'
       })
     },
     toPath (path) {

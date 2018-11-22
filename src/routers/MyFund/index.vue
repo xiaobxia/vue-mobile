@@ -1,6 +1,6 @@
 <template>
   <div class="my-fund">
-    <mt-header :title="'我的持仓' + " :fixed="true">
+    <mt-header :title="'我的持仓 - ' + fundNumber" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
@@ -198,8 +198,8 @@ export default {
       })
     },
     queryMyNetValue () {
-      Http.get('fund/getUserNetValues', {current: 1, pageSize: 1}).then((data) => {
-        const nowNetValue = data.data.list[0]
+      Http.get('fund/getUserLastNetValue', {current: 1, pageSize: 1}).then((res) => {
+        const nowNetValue = res.data.record
         if (nowNetValue) {
           this.myAsset = nowNetValue.asset
         }
