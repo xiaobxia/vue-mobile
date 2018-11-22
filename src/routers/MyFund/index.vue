@@ -1,6 +1,6 @@
 <template>
   <div class="my-fund">
-    <mt-header title="我的持仓" :fixed="true">
+    <mt-header :title="'我的持仓' + " :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
@@ -80,7 +80,8 @@ export default {
       hushenRate: 0,
       wulinRate: 0,
       chuangyeRate: 0,
-      lastUpdateValuationTime: ''
+      lastUpdateValuationTime: '',
+      fundNumber: 0
     }
   },
   components: {MyFundCard},
@@ -134,6 +135,7 @@ export default {
         const list = data.data.list
         let newCost = 0
         let newValuation = 0
+        this.fundNumber = list.length
         list.forEach((item) => {
           // 处于锁仓
           if (!fundAccountUtil.ifRelieve(item)) {
