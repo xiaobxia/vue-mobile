@@ -13,7 +13,7 @@
         <span class="name">{{filterTime}}</span>
         <mt-button type="primary" @click="timeChangeHandler">改变</mt-button>
       </div>
-      <div class="content-body">
+      <div class="">
         <ve-line :yAxis="chartYAxis" :textStyle="chartTextStyle"
                  :height="chartHeight" :legend="chartLegend"
                  :data="chartData" :settings="chartSettings"
@@ -144,7 +144,9 @@ export default {
     // 图表部分
     const chartPart = {
       grid: {
-        top: '18%'
+        top: '18%',
+        left: '8%',
+        right: '1%'
       },
       monthRateGrid: {
         top: '10%'
@@ -161,7 +163,7 @@ export default {
       },
       chartYAxis: {
         axisLabel: {
-          fontSize: baseFontSize * zoom,
+          fontSize: baseFontSize * zoom * 0.8,
           formatter: '{value} %'
         },
         scale: [true, true],
@@ -178,7 +180,7 @@ export default {
       },
       chartSettings: {
         lineStyle: {
-          width: 3 * zoom
+          width: 4 * zoom
         },
         offsetY: 350 * zoom
       },
