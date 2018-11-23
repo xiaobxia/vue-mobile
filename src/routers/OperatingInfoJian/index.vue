@@ -19,7 +19,7 @@
             <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
                   :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
           </p>
-          <div :class="['info-tag', firstInfo[item.key], hasInfo[item.name]?'has':'no-has']"></div>
+          <div :class="['info-tag', 'buy', lockInfo[item.name] === true?'no-has':'has']"></div>
         </div>
       </mt-cell-swipe>
     </div>
@@ -37,6 +37,7 @@ import indexInfoUtilJian from '@/util/indexInfoUtilJian.js'
 import qs from 'qs'
 import numberUtil from '@/util/numberUtil.js'
 import storageUtil from '@/util/storageUtil.js'
+import fundAccountUtil from '@/util/fundAccountUtil.js'
 
 const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
 const dataRawList = {
@@ -57,6 +58,7 @@ export default {
     let firstInfo = {}
     let rateInfo = {}
     let hasInfo = {}
+    let lockInfo = {}
     let hasCount = {}
     let sortRate = {}
     let sortRateTwo = {}
@@ -74,6 +76,7 @@ export default {
       firstInfo[key] = ''
       rateInfo[key] = 0
       hasInfo[codeMap[key].name] = false
+      lockInfo[codeMap[key].name] = false
       hasCount[codeMap[key].name] = 0
       sortRate[codeMap[key].name] = 0
       sortRateTwo[codeMap[key].name] = 0
@@ -85,6 +88,7 @@ export default {
       rateInfo: rateInfo,
       hasInfo,
       hasCount,
+      lockInfo,
       sortRate,
       sortRateTwo
     }
@@ -129,6 +133,16 @@ export default {
     this.initPage()
   },
   methods: {
+    ifLock (item) {
+      // 不计入定投
+      if (this.ifDingtou(item)) {
+        return false
+      }
+      return !fundAccountUtil.ifRelieve(item)
+    },
+    ifDingtou (item) {
+      return item.strategy && item.strategy !== '1'
+    },
     initPage () {
       let list = this.list
       for (let i = 0; i < list.length; i++) {
@@ -143,6 +157,13 @@ export default {
               // 定投不计入
               if (item.strategy === '1') {
                 this.hasInfo[item.theme] = true
+                if (this.ifLock(item)) {
+                  if (this.lockInfo[item.theme] !== '') {
+                    this.lockInfo[item.theme] = true
+                  }
+                } else {
+                  this.lockInfo[item.theme] = ''
+                }
                 if (this.hasCount[item.theme]) {
                   this.hasCount[item.theme] += parseInt(item.costSum)
                 } else {
