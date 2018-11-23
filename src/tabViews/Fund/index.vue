@@ -2,13 +2,14 @@
   <div>
     <mt-header title="基金" :fixed="true"/>
     <div class="main-body has-bar">
-      <div class="img-card" @click="toPath('/page/principle')">
+      <div class="img-card" @click="toPath('/page/indexDifference')">
+        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <img src="../../assets/保险条款.png" alt="">
-            <!--<i class="fas fa-book"></i>-->
+            <img src="../../assets/相对标准偏差.png" alt="">
+            <!--<i class="fab fa-sellsy"></i>-->
           </div>
-          <div class="bottom">买卖原则</div>
+          <div class="bottom">差价策略</div>
         </div>
       </div>
       <!--<div class="img-card" @click="toPath('/page/filterFund')">-->
@@ -50,16 +51,6 @@
           <div class="bottom">操作分析-熊</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/indexDifference')">
-        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
-        <div class="container">
-          <div class="content">
-            <img src="../../assets/相对标准偏差.png" alt="">
-            <!--<i class="fab fa-sellsy"></i>-->
-          </div>
-          <div class="bottom">差价策略</div>
-        </div>
-      </div>
       <div class="img-card" @click="toPath('/page/changeMarket')">
         <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
@@ -68,6 +59,15 @@
             <!--<i class="fab fa-sellsy"></i>-->
           </div>
           <div class="bottom">变盘策略</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/todayIndex')">
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/今日.png" alt="">
+            <!--<i class="fab fa-cloudversify"></i>-->
+          </div>
+          <div class="bottom">今日指数</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/strategy')">
@@ -90,15 +90,6 @@
           <div class="bottom">均线策略</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/todayIndex')">
-        <div class="container">
-          <div class="content">
-            <img src="../../assets/今日.png" alt="">
-            <!--<i class="fab fa-cloudversify"></i>-->
-          </div>
-          <div class="bottom">今日指数</div>
-        </div>
-      </div>
       <div class="img-card" @click="toPath('/page/market')">
         <div class="container">
           <div class="content">
@@ -115,6 +106,15 @@
             <!--<i class="fas fa-sort-amount-up"></i>-->
           </div>
           <div class="bottom">近期排行</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/principle')">
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/保险条款.png" alt="">
+            <!--<i class="fas fa-book"></i>-->
+          </div>
+          <div class="bottom">买卖原则</div>
         </div>
       </div>
       <!--<div class="img-card" @click="toPath('/page/plate')">-->
