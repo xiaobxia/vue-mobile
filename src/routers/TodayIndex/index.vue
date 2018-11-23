@@ -6,6 +6,9 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
+      <div class="income-info">
+        <span :class="income < 0 ? 'green-text' : 'red-text'">{{income}}</span>
+      </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code">
         <div slot="title">
           <h3>
@@ -172,6 +175,15 @@ export default {
     }
   },
   computed: {
+    income () {
+      let income = 0
+      for (let key in this.rateInfo) {
+        console.log(this.rateInfo[key])
+        console.log(this.hasCount[codeMap[key].name])
+        income += this.rateInfo[key] * (this.hasCount[codeMap[key].name] || 0)
+      }
+      return parseInt(income / 100)
+    }
   },
   beforeDestroy () {
     clearInterval(this.timer)
@@ -188,13 +200,11 @@ export default {
         for (let i = 0; i < list.length; i++) {
           const item = list[i]
           if (item.theme) {
-            // 定投不计入
-            if (item.strategy === '1') {
-              if (this.hasCount[item.theme]) {
-                this.hasCount[item.theme] += parseInt(item.costSum)
-              } else {
-                this.hasCount[item.theme] = parseInt(item.costSum)
-              }
+            // 计入定投
+            if (this.hasCount[item.theme]) {
+              this.hasCount[item.theme] += parseInt(item.costSum)
+            } else {
+              this.hasCount[item.theme] = parseInt(item.costSum)
             }
           }
         }
