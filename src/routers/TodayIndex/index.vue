@@ -9,7 +9,7 @@
       <div class="income-info">
         <span :class="income < 0 ? 'green-text' : 'red-text'">{{income}}</span>
       </div>
-      <mt-cell-swipe v-for="(item) in list" :key="item.code">
+      <mt-cell-swipe v-for="(item) in list" :key="item.code"  :class="['50','500','300','创业'].indexOf(item.name) !== -1?'has-back':''">
         <div slot="title">
           <h3>
             <span class="name">{{item.name}}</span>
@@ -178,8 +178,6 @@ export default {
     income () {
       let income = 0
       for (let key in this.rateInfo) {
-        console.log(this.rateInfo[key])
-        console.log(this.hasCount[codeMap[key].name])
         income += this.rateInfo[key] * (this.hasCount[codeMap[key].name] || 0)
       }
       return parseInt((income / 100) * 0.95)
