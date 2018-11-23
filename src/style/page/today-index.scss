@@ -12,6 +12,13 @@
       display: inline-block;
     }
   }
+  .mint-cell h3 {
+    position: relative;
+  }
+  .has-count {
+    position: absolute;
+    left: 45%;
+  }
   .rate-info-icon {
     position: absolute;
     left: -25px;

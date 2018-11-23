@@ -9,7 +9,8 @@
       <mt-cell-swipe v-for="(item) in list" :key="item.code">
         <div slot="title">
           <h3>
-            {{item.name}}
+            <span class="name">{{item.name}}</span>
+            <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
             <span style="float: right" :class="rateInfo[item.key] < 0 ? 'green-text' : 'red-text'">{{rateInfo[item.key]}}%</span>
           </h3>
           <div class="rate-info-icon">
@@ -146,6 +147,7 @@ export default {
   data () {
     let list = []
     let rateInfo = {}
+    let hasCount = {}
     let sortRate = {}
     let indexRateInfo = {}
     for (let key in codeMap) {
@@ -158,12 +160,14 @@ export default {
       rateInfo[key] = 0
       sortRate[codeMap[key].name] = 0
       indexRateInfo[key] = 0
+      hasCount[codeMap[key].name] = 0
     }
     return {
       list: list,
       rateInfo: rateInfo,
       sortRate,
       timer: null,
+      hasCount,
       indexRateInfo
     }
   },
@@ -178,6 +182,24 @@ export default {
       // 1分钟一刷
     }, 1000 * 60)
     this.initPage()
+    Http.get('fund/getUserFundsNormal').then((data) => {
+      if (data.success) {
+        const list = data.data.list
+        for (let i = 0; i < list.length; i++) {
+          const item = list[i]
+          if (item.theme) {
+            // 定投不计入
+            if (item.strategy === '1') {
+              if (this.hasCount[item.theme]) {
+                this.hasCount[item.theme] += parseInt(item.costSum)
+              } else {
+                this.hasCount[item.theme] = parseInt(item.costSum)
+              }
+            }
+          }
+        }
+      }
+    })
   },
   methods: {
     initPage () {
