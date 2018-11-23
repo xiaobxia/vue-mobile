@@ -182,7 +182,7 @@ export default {
         console.log(this.hasCount[codeMap[key].name])
         income += this.rateInfo[key] * (this.hasCount[codeMap[key].name] || 0)
       }
-      return parseInt(income / 100)
+      return parseInt((income / 100) * 0.95)
     }
   },
   beforeDestroy () {
