@@ -349,20 +349,32 @@ export default {
         this.netValue = netValue
       })
       // 判断是否有持仓
-      Http.get('fund/getUserFunds').then((data) => {
-        const list = data.data.list
-        list.forEach((item) => {
-          if (item.code === code) {
-            delete item.listMonth
-            delete item.result
-            this.type = 'edit'
-            this.queryData = {
-              type: 'edit',
-              ...item
-            }
+      Http.get('fund/getUserFund', {
+        code: code
+      }).then((res) => {
+        if (res.success === true && res.data.code) {
+          let item = res.data
+          this.type = 'edit'
+          this.queryData = {
+            type: 'edit',
+            ...item
           }
-        })
+        }
       })
+      // Http.get('fund/getUserFunds').then((data) => {
+      //   const list = data.data.list
+      //   list.forEach((item) => {
+      //     if (item.code === code) {
+      //       delete item.listMonth
+      //       delete item.result
+      //       this.type = 'edit'
+      //       this.queryData = {
+      //         type: 'edit',
+      //         ...item
+      //       }
+      //     }
+      //   })
+      // })
     },
     countRate (a, b) {
       return numberUtil.countDifferenceRate(a || 1, b || 1)
