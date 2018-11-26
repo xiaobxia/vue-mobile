@@ -7,7 +7,7 @@
     </mt-header>
     <div class="main-body">
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetail?'+qsStringify(item)"
-                     >
+                     :class="firstClass[item.key]">
         <div slot="title">
           <h3>
             {{item.name}}
@@ -56,6 +56,7 @@ export default {
     let allInfo = {}
     let list = []
     let firstInfo = {}
+    let firstClass = {}
     let rateInfo = {}
     let lockInfo = {}
     let hasInfo = {}
@@ -72,6 +73,7 @@ export default {
       })
       allInfo[key] = []
       firstInfo[key] = ''
+      firstClass[key] = ''
       rateInfo[key] = 0
       hasInfo[codeMap[key].name] = false
       lockInfo[codeMap[key].name] = false
@@ -83,6 +85,7 @@ export default {
       list: list,
       allInfo: allInfo,
       firstInfo: firstInfo,
+      firstClass,
       rateInfo: rateInfo,
       hasInfo,
       lockInfo,
@@ -229,6 +232,14 @@ export default {
           }
           this.allInfo[item.key] = infoList
           this.firstInfo[item.key] = classInfo
+          let firstClass = ''
+          if (infoList[0] === '买') {
+            firstClass = 'buy'
+          }
+          if (infoList[0] === '卖') {
+            firstClass = 'sell'
+          }
+          this.firstClass[item.key] = firstClass
           this.rateInfo[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
         }
       })
