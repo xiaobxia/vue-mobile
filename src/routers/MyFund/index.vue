@@ -198,7 +198,7 @@ export default {
       })
     },
     queryMyNetValue () {
-      Http.get('fund/getUserLastNetValue', {current: 1, pageSize: 1}).then((res) => {
+      Http.get('fund/getUserLastNetValue').then((res) => {
         const nowNetValue = res.data.record
         if (nowNetValue) {
           this.myAsset = nowNetValue.asset

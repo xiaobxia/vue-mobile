@@ -7,7 +7,7 @@
     </mt-header>
     <div class="main-body">
       <div class="income-info">
-        <span :class="income < 0 ? 'green-text' : 'red-text'">{{income}}</span>
+        <span :class="income < 0 ? 'green-text' : 'red-text'">{{income}} --- {{incomeRate}}%</span>
       </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code"  :class="['50','500','300','创业'].indexOf(item.name) !== -1?'has-back':''">
         <div slot="title">
@@ -171,7 +171,8 @@ export default {
       sortRate,
       timer: null,
       hasCount,
-      indexRateInfo
+      indexRateInfo,
+      myAsset: 0
     }
   },
   computed: {
@@ -181,6 +182,17 @@ export default {
         income += this.rateInfo[key] * (this.hasCount[codeMap[key].name] || 0)
       }
       return parseInt((income / 100) * 0.95)
+    },
+    incomeRate () {
+      if (this.myAsset === 0) {
+        return 0
+      }
+      let income = 0
+      for (let key in this.rateInfo) {
+        income += this.rateInfo[key] * (this.hasCount[codeMap[key].name] || 0)
+      }
+      income = parseInt((income / 100) * 0.95)
+      return numberUtil.countRate(income, this.myAsset)
     }
   },
   beforeDestroy () {
@@ -192,6 +204,12 @@ export default {
       // 1分钟一刷
     }, 1000 * 60)
     this.initPage()
+    Http.get('fund/getUserLastNetValue').then((res) => {
+      const nowNetValue = res.data.record
+      if (nowNetValue) {
+        this.myAsset = nowNetValue.asset
+      }
+    })
     Http.get('fund/getUserFundsNormal').then((data) => {
       if (data.success) {
         const list = data.data.list
