@@ -74,6 +74,15 @@ Vue.prototype.numberClass = function (number) {
   return number < 0 ? 'green-text' : 'red-text'
 }
 
+Vue.prototype.formatFundName = function (name, len) {
+  len = len || 12
+  if (name.length > len) {
+    return name.substr(0, (len - 1)) + '...'
+  } else {
+    return name
+  }
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

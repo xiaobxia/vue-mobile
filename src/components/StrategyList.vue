@@ -2,7 +2,7 @@
   <div class="strategy-list">
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
       <div slot="title">
-        <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
+        <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatFundName(item.name)}} <span style="float: right"
                                               :class="numberClass(item.valuationRate)">{{item.valuationRate}}%</span>
         </h3>
         <p class="explain">
@@ -41,13 +41,6 @@ export default{
   mounted () {
   },
   methods: {
-    formatName (name) {
-      if (name.length > 12) {
-        return name.substr(0, 11) + '...'
-      } else {
-        return name
-      }
-    }
   }
 }
 </script>

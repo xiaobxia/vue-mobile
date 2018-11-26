@@ -18,7 +18,7 @@
         <mt-tab-container-item id="1" class="simple">
           <mt-cell-swipe v-for="(item) in upList" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
             <div slot="title">
-              <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
+              <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatFundName(item.name)}} <span style="float: right"
                                                                 :class="numberClass(item.valuationRate)">{{item.valuationRate}}%</span></h3>
               <p class="explain">
                 <mt-badge v-if="item.toUp" color="rgb(255, 147, 22)">突破</mt-badge>
@@ -29,7 +29,7 @@
         <mt-tab-container-item id="2" class="simple">
           <mt-cell-swipe v-for="(item) in reverseList" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
             <div slot="title">
-              <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
+              <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatFundName(item.name)}} <span style="float: right"
                                                                 :class="numberClass(item.valuationRate)">{{item.valuationRate}}%</span></h3>
             </div>
           </mt-cell-swipe>
@@ -98,13 +98,6 @@ export default {
     },
     backHandler () {
       this.$router.history.go(-1)
-    },
-    formatName (name) {
-      if (name.length > 12) {
-        return name.substr(0, 11) + '...'
-      } else {
-        return name
-      }
     },
     countValue (a, b) {
       return numberUtil.keepTwoDecimals(a - b)

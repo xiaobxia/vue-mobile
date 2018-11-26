@@ -7,7 +7,7 @@
       <div class="simple">
         <mt-cell-swipe v-for="(item) in showList" :key="item.code" :to="'/page/fundDetail?code='+item.code">
           <div slot="title">
-            <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
+            <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatFundName(item.name)}} <span style="float: right"
                                                               :class="numberClass(item.rate)">{{item.rate}}%</span></h3>
           </div>
         </mt-cell-swipe>
@@ -52,13 +52,6 @@ export default {
           this.showList = data.data.list
         })
       }, 1000)
-    },
-    formatName (name) {
-      if (name.length > 12) {
-        return name.substr(0, 11) + '...'
-      } else {
-        return name
-      }
     },
     okHandler () {
     }

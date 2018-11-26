@@ -21,7 +21,7 @@
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
           <div slot="title">
             <h3 :class="{lowRate: item.lowRate}">
-              {{item.code}} {{formatName(item.name)}}
+              {{item.code}} {{formatFundName(item.name)}}
               <i class="lock-tag" v-if="ifLock(item)"></i>
               <i class="position-tag" v-if="ifPosition(item)"></i>
               <i class="dingtou-tag" v-if="ifDingtou(item)"></i>
@@ -284,13 +284,6 @@ export default {
     },
     ifDingtou (item) {
       return item.strategy && item.strategy !== '1'
-    },
-    formatName (name) {
-      if (name.length > 12) {
-        return name.substr(0, 11) + '...'
-      } else {
-        return name
-      }
     },
     backHandler () {
       this.$router.history.go(-1)

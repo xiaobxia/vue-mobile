@@ -6,7 +6,7 @@
       <div slot="title">
         <h3 :class="{lowRate: item.lowRate}">
           {{item.code}}
-          {{formatName(item.name)}}
+          {{formatFundName(item.name, 11)}}
           <i class="lock-tag" v-if="ifLock(item)"></i>
           <i class="position-tag" v-if="ifPosition(item)"></i>
           <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
@@ -77,13 +77,6 @@ export default{
     qsStringify (query) {
       query.type = 'edit'
       return qs.stringify(query)
-    },
-    formatName (name) {
-      if (name.length > 11) {
-        return name.substr(0, 10) + '...'
-      } else {
-        return name
-      }
     },
     ifLock (item) {
       if (item.strategy !== '1') {

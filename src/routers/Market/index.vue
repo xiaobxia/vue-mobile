@@ -42,7 +42,7 @@
             <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
               <div slot="title">
                 <h3 :class="{lowRate: item.lowRate}">
-                  {{item.code}} {{formatName(item.name)}}
+                  {{item.code}} {{formatFundName(item.name, 11)}}
                   <i class="sell-tag" v-if="!item.sell"></i>
                   <i class="theme-tag" v-if="!item.theme"></i>
                   <span style="float: right" :class="numberClass(item.rate)">{{item.rate}}%</span>
@@ -104,13 +104,6 @@ export default{
         }
         this.list = [...this.list, ...data.data.list]
       })
-    },
-    formatName (name) {
-      if (name.length > 11) {
-        return name.substr(0, 10) + '...'
-      } else {
-        return name
-      }
     },
     loadMore () {
       this.queryData.current++
