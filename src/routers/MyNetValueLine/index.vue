@@ -359,18 +359,24 @@ export default {
       Indicator.open({
         spinnerType: 'fading-circle'
       })
+      Http.get('fund/getUserNetValue').then((res) => {
+        const data = res.data
+        this.myIncomeRateInfo.all = numberUtil.countDifferenceRate(data.record.asset, data.fundAssetInfo.fundAssetCost)
+      })
       // 获取我的净值数据
-      Http.get('fund/getUserNetValuesAll').then((data) => {
+      Http.get('fund/getUserNetValues', {
+        current: 1,
+        pageSize: days
+      }).then((data) => {
         if (data.success) {
-          let list = data.data.list
+          let list = data.data.list.reverse()
           this.myList = list
-          this.myIncomeRateInfo = {
-            // 当月收益率
-            nowMonth: this.countSameRangeRate(list, 'month'),
-            nowYear: this.countSameRangeRate(list, 'year'),
-            // 总收益率
-            all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
-          }
+          console.log(this.myList)
+          this.myIncomeRateInfo.nowMonth = this.countSameRangeRate(list, 'month')
+          this.myIncomeRateInfo.nowYear = this.countSameRangeRate(list, 'year')
+          // 当月收益率
+          // 总收益率
+          // all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
           this.nowWeekRate.my = this.countSameRangeRate(list, 'week')
           this.nowMonthRate.my = this.countSameRangeRate(list, 'month')
           this.nowYearRate.my = this.countSameRangeRate(list, 'year')
