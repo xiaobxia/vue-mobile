@@ -24,13 +24,13 @@
         <span>:</span>
         <span class="green-text">{{downCount}}</span>
         <span> 幅度 </span>
-        <span :class="allRate < 0 ? 'green-text' : 'red-text'">{{allRate}}%</span>
+        <span :class="numberClass(allRate)">{{allRate}}%</span>
       </div>
       <div class="fund-list simple">
         <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/fundDetail?code='+item.code">
           <div slot="title">
             <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
-                                                              :class="item.recentRate < 0 ? 'green-text' : 'red-text'">{{item.recentRate}}%</span></h3>
+                                                              :class="numberClass(item.recentRate)">{{item.recentRate}}%</span></h3>
           </div>
         </mt-cell-swipe>
       </div>

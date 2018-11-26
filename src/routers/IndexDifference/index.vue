@@ -10,7 +10,7 @@
         <div slot="title">
           <h3>
             创业
-            <span style="float: right" :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span>
+            <span style="float: right" :class="numberClass(chuangyeRate)">{{chuangyeRate}}%</span>
           </h3>
           <p class="explain">
             <span v-for="(subItem, index) in chuangyeBuySell" :key="subItem + index"
@@ -22,7 +22,7 @@
         <div slot="title">
           <h3>
             50
-            <span style="float: right" :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span>
+            <span style="float: right" :class="numberClass(wulinRate)">{{wulinRate}}%</span>
           </h3>
           <p class="explain">
             <span v-for="(subItem, index) in wulinBuySell" :key="subItem + index"

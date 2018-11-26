@@ -3,7 +3,7 @@
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?code='+item.code" :class="item.has?'has-back':''">
       <div slot="title">
         <h3 :class="{lowRate: item.lowRate}">{{item.code}} {{formatName(item.name)}} <span style="float: right"
-                                              :class="item.valuationRate < 0 ? 'green-text' : 'red-text'">{{item.valuationRate}}%</span>
+                                              :class="numberClass(item.valuationRate)">{{item.valuationRate}}%</span>
         </h3>
         <p class="explain">
             <mt-badge v-if="item.result.isMonthSlump" color="#52c41a">一月暴跌</mt-badge>

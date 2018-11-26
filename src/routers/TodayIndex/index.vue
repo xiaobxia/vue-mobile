@@ -7,14 +7,14 @@
     </mt-header>
     <div class="main-body">
       <div class="income-info">
-        <span :class="income < 0 ? 'green-text' : 'red-text'">{{income}} --- {{incomeRate}}%</span>
+        <span :class="numberClass(income)">{{income}} --- {{incomeRate}}%</span>
       </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code"  :class="['50','500','300','创业'].indexOf(item.name) !== -1?'has-back':''">
         <div slot="title">
           <h3>
             <span class="name">{{item.name}}</span>
             <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
-            <span style="float: right" :class="rateInfo[item.key] < 0 ? 'green-text' : 'red-text'">{{rateInfo[item.key]}}%</span>
+            <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
           </h3>
           <div class="rate-info-icon">
             <i v-if="indexRateInfo[item.key] === 'up'" class="fas fa-long-arrow-alt-up up"></i>

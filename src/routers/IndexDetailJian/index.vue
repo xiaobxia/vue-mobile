@@ -12,16 +12,16 @@
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :dataZoom="dataZoom"></ve-line>
       </div>
       <div class="today-info-wrap">
-        <span class="item">高开: <span :class="todayIndexInfo.ifUpOpen > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifUpOpen? '高开' : '低开'}}</span></span>
-        <span class="item">收涨: <span :class="todayIndexInfo.ifUpClose > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifUpClose? '收高' : '收跌'}}</span></span>
-        <span class="item">盘中下跌: <span :class="todayIndexInfo.ifSessionDown > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionDown? '是' : '否'}}</span></span>
-        <span class="item">收盘拉起: <span :class="todayIndexInfo.ifSessionUpClose > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionUpClose? '是' : '否'}}</span></span>
-        <span class="item">盘中上升: <span :class="todayIndexInfo.ifSessionUp > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionUp? '是' : '否'}}</span></span>
-        <span class="item">收盘回落: <span :class="todayIndexInfo.ifSessionDownClose > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifSessionDownClose? '是' : '否'}}</span></span>
-        <span class="item">无抵抗: <span :class="todayIndexInfo.ifHighPreCloseDown > 0 ? 'red-text' : 'green-text'">{{todayIndexInfo.ifHighPreCloseDown? '是' : '否'}}</span></span>
+        <span class="item">高开: <span :class="numberClass(todayIndexInfo.ifUpOpen)">{{todayIndexInfo.ifUpOpen? '高开' : '低开'}}</span></span>
+        <span class="item">收涨: <span :class="numberClass(todayIndexInfo.ifUpClose)">{{todayIndexInfo.ifUpClose? '收高' : '收跌'}}</span></span>
+        <span class="item">盘中下跌: <span :class="numberClass(todayIndexInfo.ifSessionDown)">{{todayIndexInfo.ifSessionDown? '是' : '否'}}</span></span>
+        <span class="item">收盘拉起: <span :class="numberClass(todayIndexInfo.ifSessionUpClose)">{{todayIndexInfo.ifSessionUpClose? '是' : '否'}}</span></span>
+        <span class="item">盘中上升: <span :class="numberClass(todayIndexInfo.ifSessionUp)">{{todayIndexInfo.ifSessionUp? '是' : '否'}}</span></span>
+        <span class="item">收盘回落: <span :class="numberClass(todayIndexInfo.ifSessionDownClose)">{{todayIndexInfo.ifSessionDownClose? '是' : '否'}}</span></span>
+        <span class="item">无抵抗: <span :class="numberClass(todayIndexInfo.ifHighPreCloseDown)">{{todayIndexInfo.ifHighPreCloseDown? '是' : '否'}}</span></span>
       </div>
       <div class="index-rate">
-        <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
+        <span :class="numberClass(indexRate)">{{indexRate}}%</span>
       </div>
       <!--<div class="tag-info">-->
         <!--<span class="lock-info"><i></i>锁仓</span>-->
@@ -34,7 +34,7 @@
               <i class="lock-tag" v-if="ifLock(item)"></i>
               <i class="position-tag" v-if="ifPosition(item)"></i>
               <i class="dingtou-tag" v-if="ifDingtou(item)"></i>
-              <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
+              <span style="float: right" :class="numberClass(item.rate)">{{item.rate}}%</span>
             </h3>
           </div>
         </mt-cell-swipe>

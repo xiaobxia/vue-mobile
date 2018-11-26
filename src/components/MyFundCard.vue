@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3 class="title">{{title}} <span :class="totalRate < 0 ? 'green-text' : 'red-text'">{{totalRate}}%</span><span style="float: right">{{totalCount}}</span></h3>
+    <h3 class="title">{{title}} <span :class="numberClass(totalRate)">{{totalRate}}%</span><span style="float: right">{{totalCount}}</span></h3>
     <mt-cell-swipe v-for="(item) in listData" :key="item.code" :to="'/page/fundDetail?'+qsStringify(item)"
                    :class="{up:item.isUp}">
       <div slot="title">
@@ -12,10 +12,10 @@
           <span style="float: right" :class="countRate(item.valuationSum, item.sum) < 0 ? 'green-text' : 'red-text'">{{countRate(item.valuationSum, item.sum)}}%</span>
         </h3>
         <p class="explain">
-          <span class="item">一月最低：<span :class="item.monthMin < 0 ? 'green-text' : 'red-text'">{{item.monthMin}}%</span></span>
-          <span class="item">一月最高：<span :class="item.monthMax < 0 ? 'green-text' : 'red-text'">{{item.monthMax}}%</span></span>
-          <span class="item">半月最低：<span :class="item.halfMonthMin < 0 ? 'green-text' : 'red-text'">{{item.halfMonthMin}}%</span></span>
-          <span class="item">半月最高：<span :class="item.halfMonthMax < 0 ? 'green-text' : 'red-text'">{{item.halfMonthMax}}%</span></span>
+          <span class="item">一月最低：<span :class="numberClass(item.monthMin)">{{item.monthMin}}%</span></span>
+          <span class="item">一月最高：<span :class="numberClass(item.monthMax)">{{item.monthMax}}%</span></span>
+          <span class="item">半月最低：<span :class="numberClass(item.halfMonthMin)">{{item.halfMonthMin}}%</span></span>
+          <span class="item">半月最高：<span :class="numberClass(item.halfMonthMax)">{{item.halfMonthMax}}%</span></span>
           <span class="item">持有天数：{{item.has_days}}天</span>
           <span class="item">持仓金额：{{item.sum}}</span>
           <span class="item">估算金额：{{item.valuationSum}}</span>

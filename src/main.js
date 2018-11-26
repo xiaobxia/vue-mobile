@@ -67,6 +67,13 @@ Vue.use(VCharts)
 
 Vue.config.productionTip = false
 
+Vue.prototype.numberClass = function (number) {
+  if (!number) {
+    return ''
+  }
+  return number < 0 ? 'green-text' : 'red-text'
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

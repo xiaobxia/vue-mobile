@@ -12,7 +12,7 @@
                  :settings="chartSettings" :tooltip="chartTooltip" :grid="grid" :dataZoom="dataZoom"></ve-line>
       </div>
       <div class="index-rate">
-        <span :class="indexRate < 0 ? 'green-text' : 'red-text'">{{indexRate}}%</span>
+        <span :class="numberClass(indexRate)">{{indexRate}}%</span>
       </div>
       <!--<div class="tag-info">-->
         <!--<span class="lock-info"><i></i>锁仓</span>-->
@@ -25,7 +25,7 @@
               <i class="lock-tag" v-if="ifLock(item)"></i>
               <i class="position-tag" v-if="ifPosition(item)"></i>
               <i class="dingtou-tag" v-if="ifDingtou(item)"></i>
-              <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
+              <span style="float: right" :class="numberClass(item.rate)">{{item.rate}}%</span>
             </h3>
           </div>
         </mt-cell-swipe>

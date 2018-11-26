@@ -45,7 +45,7 @@
                   {{item.code}} {{formatName(item.name)}}
                   <i class="sell-tag" v-if="!item.sell"></i>
                   <i class="theme-tag" v-if="!item.theme"></i>
-                  <span style="float: right" :class="item.rate < 0 ? 'green-text' : 'red-text'">{{item.rate}}%</span>
+                  <span style="float: right" :class="numberClass(item.rate)">{{item.rate}}%</span>
                 </h3>
               </div>
             </mt-cell-swipe>

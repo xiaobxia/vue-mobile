@@ -10,15 +10,15 @@
         <span class="item">持仓金额：{{parseInt(info.totalSum)}}</span>
         <span class="item">持仓成本：{{parseInt(info.costTotalSum)}}</span>
         <span class="item">估算金额：{{parseInt(info.valuationTotalSum)}}</span>
-        <span class="item">估算收益：<span :class="valuationInfo < 0 ? 'green-text' : 'red-text'">{{parseInt(valuationInfo)}}</span></span>
-        <span class="item">估算比率：<span :class="myRate < 0 ? 'green-text' : 'red-text'">{{myRate}}%</span></span>
+        <span class="item">估算收益：<span :class="numberClass(valuationInfo)">{{parseInt(valuationInfo)}}</span></span>
+        <span class="item">估算比率：<span :class="numberClass(myRate)">{{myRate}}%</span></span>
         <span class="item">仓位信息：{{myPosition}}%</span>
-        <span class="item">新仓收益：<span :class="newRate < 0 ? 'green-text' : 'red-text'">{{newRate}}%</span></span>
-        <span class="item">相对波动：<span :class="relativeRate < 0 ? 'green-text' : 'red-text'">{{relativeRate}}%</span></span>
-        <span class="item">市场平均：<span :class="marketRate < 0 ? 'green-text' : 'red-text'">{{marketRate}}%</span></span>
-        <span class="item">沪深300：<span :class="hushenRate < 0 ? 'green-text' : 'red-text'">{{hushenRate}}%</span></span>
-        <span class="item">创业板：<span :class="chuangyeRate < 0 ? 'green-text' : 'red-text'">{{chuangyeRate}}%</span></span>
-        <span class="item">上证50：<span :class="wulinRate < 0 ? 'green-text' : 'red-text'">{{wulinRate}}%</span></span>
+        <span class="item">新仓收益：<span :class="numberClass(newRate)">{{newRate}}%</span></span>
+        <span class="item">相对波动：<span :class="numberClass(relativeRate)">{{relativeRate}}%</span></span>
+        <span class="item">市场平均：<span :class="numberClass(marketRate)">{{marketRate}}%</span></span>
+        <span class="item">沪深300：<span :class="numberClass(hushenRate)">{{hushenRate}}%</span></span>
+        <span class="item">创业板：<span :class="numberClass(chuangyeRate)">{{chuangyeRate}}%</span></span>
+        <span class="item">上证50：<span :class="numberClass(wulinRate)">{{wulinRate}}%</span></span>
       </div>
       <div class="lastUpdateValuationTime">更新于：{{lastUpdateValuationTime}}</div>
       <div class="tag-info">
