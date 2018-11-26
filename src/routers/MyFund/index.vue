@@ -193,7 +193,7 @@ export default {
         key: 'lastUpdateValuationTime'
       }).then((data) => {
         if (data.success) {
-          this.lastUpdateValuationTime = data.data.value.value
+          this.lastUpdateValuationTime = data.data.value
         }
       })
     },
