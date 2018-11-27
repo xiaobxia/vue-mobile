@@ -7,7 +7,7 @@
     </mt-header>
     <div class="main-body">
       <div class="income-info">
-        <span :class="numberClass(income)">{{income}} --- {{incomeRate}}%</span>
+        <span :class="numberClass(income)">{{income}} --- {{incomeRate}}% --- {{incomeRelativeRate}}%</span>
       </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code"  :class="['50','500','300','创业'].indexOf(item.name) !== -1?'has-back':''">
         <div slot="title">
@@ -184,6 +184,17 @@ export default {
       return parseInt((income / 100) * 0.95)
     },
     incomeRate () {
+      let income = 0
+      let asset = 0
+      for (let key in this.rateInfo) {
+        let hasCount = (this.hasCount[codeMap[key].name] || 0)
+        income += this.rateInfo[key] * hasCount
+        asset += hasCount
+      }
+      income = parseInt((income / 100) * 0.95)
+      return numberUtil.countRate(income, asset)
+    },
+    incomeRelativeRate () {
       if (this.myAsset === 0) {
         return 0
       }

@@ -4,7 +4,6 @@
 const minHasDay = 5
 
 const fundAccountUtil = {
-  myShares: 200000,
   minHasDay,
   // 解除
   ifRelieve: function (item) {
