@@ -31,6 +31,9 @@
       color: $green-color;
     }
     background-color: $green-color-back-3;
+    &.no-has {
+      background-color: #fff;
+    }
   }
   .buy {
     .has-count {

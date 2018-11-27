@@ -7,7 +7,7 @@
     </mt-header>
     <div class="main-body">
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetailXiong?'+qsStringify(item)"
-                     :class="firstClass[item.key]">
+                     :class="[firstClass[item.key], hasInfo[item.name] ? 'has':'no-has']">
         <div slot="title">
           <h3>
             {{item.name}}
