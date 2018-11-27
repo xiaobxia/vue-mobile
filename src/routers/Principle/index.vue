@@ -27,7 +27,7 @@
         </mt-radio>
       </div>
       <div class="question">
-        3消息面情况？
+        3.消息面情况？
       </div>
       <div class="answer">
         <mt-radio
