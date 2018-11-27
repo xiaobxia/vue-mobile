@@ -7,7 +7,7 @@
     </mt-header>
     <div class="main-body">
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetailXiong?'+qsStringify(item)"
-                     :class="[firstClass[item.key], hasInfo[item.name] ? 'has':'no-has']">
+                     :class="[firstClass[item.key], hasInfo[item.name] ? 'has':'no-has', warnClass[item.key]?'warn':'', lockInfo[item.name] === true ?'':'no-lock']">
         <div slot="title">
           <h3>
             {{item.name}}
@@ -57,6 +57,7 @@ export default {
     let list = []
     let firstInfo = {}
     let firstClass = {}
+    let warnClass = {}
     let rateInfo = {}
     let hasInfo = {}
     let lockInfo = {}
@@ -76,6 +77,7 @@ export default {
       allInfo[key] = []
       firstInfo[key] = ''
       firstClass[key] = ''
+      warnClass[key] = false
       rateInfo[key] = 0
       hasInfo[codeMap[key].name] = false
       lockInfo[codeMap[key].name] = false
@@ -92,6 +94,7 @@ export default {
       hasInfo,
       lockInfo,
       hasCount,
+      warnClass,
       sortRate,
       sortRateTwo
     }
@@ -240,6 +243,23 @@ export default {
           }
           if (infoList[0] === '卖') {
             firstClass = 'sell'
+          }
+          if (infoList[0] === '') {
+            let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
+            for (let i = 1; i < infoList.length; i++) {
+              if (infoList[i] === '买') {
+                if (['略强', '强'].indexOf(marketStatus) !== -1 && recentNetValue[0].netChangeRatio < 0) {
+                  this.warnClass[item.key] = true
+                }
+                break
+              }
+              if (infoList[i] === '卖') {
+                if (['略弱', '弱'].indexOf(marketStatus) !== -1 && recentNetValue[0].netChangeRatio < 0) {
+                  this.warnClass[item.key] = true
+                }
+                break
+              }
+            }
           }
           this.firstClass[item.key] = firstClass
           this.rateInfo[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)

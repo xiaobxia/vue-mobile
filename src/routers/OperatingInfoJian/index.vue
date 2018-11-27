@@ -7,7 +7,7 @@
     </mt-header>
     <div class="main-body">
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetailJian?'+qsStringify(item)"
-                     :class="[firstClass[item.key], hasInfo[item.name] ? 'has':'no-has']">
+                     :class="[firstClass[item.key], hasInfo[item.name] ? 'has':'no-has', warnClass[item.key]?'warn':'', lockInfo[item.name] === true ?'':'no-lock']">
         <div slot="title">
           <h3>
             {{item.name}}
@@ -58,6 +58,7 @@ export default {
     let firstInfo = {}
     let firstClass = {}
     let rateInfo = {}
+    let warnClass = {}
     let hasInfo = {}
     let lockInfo = {}
     let hasCount = {}
@@ -78,6 +79,7 @@ export default {
       firstInfo[key] = ''
       rateInfo[key] = 0
       hasInfo[codeMap[key].name] = false
+      warnClass[key] = false
       lockInfo[codeMap[key].name] = false
       hasCount[codeMap[key].name] = 0
       sortRate[codeMap[key].name] = 0
@@ -92,6 +94,7 @@ export default {
       hasInfo,
       hasCount,
       lockInfo,
+      warnClass,
       sortRate,
       sortRateTwo
     }
@@ -239,6 +242,23 @@ export default {
           }
           if (infoList[0] === '卖') {
             firstClass = 'sell'
+          }
+          if (infoList[0] === '') {
+            let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
+            for (let i = 1; i < infoList.length; i++) {
+              if (infoList[i] === '买') {
+                if (['略强', '强'].indexOf(marketStatus) !== -1 && recentNetValue[0].netChangeRatio < 0) {
+                  this.warnClass[item.key] = true
+                }
+                break
+              }
+              if (infoList[i] === '卖') {
+                if (['略弱', '弱'].indexOf(marketStatus) !== -1 && recentNetValue[0].netChangeRatio < 0) {
+                  this.warnClass[item.key] = true
+                }
+                break
+              }
+            }
           }
           this.firstClass[item.key] = firstClass
           this.firstInfo[item.key] = classInfo

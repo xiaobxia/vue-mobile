@@ -26,6 +26,11 @@
       }
     }
   }
+  .mint-cell.has.no-lock {
+    &.warn {
+      background-color: $yellow-color-back;
+    }
+  }
   .sell {
     .has-count {
       color: $green-color;
