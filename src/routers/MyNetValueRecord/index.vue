@@ -12,7 +12,7 @@
       <ul
         v-infinite-scroll="loadMore"
         infinite-scroll-disabled="loading"
-        infinite-scroll-distance="10">
+        infinite-scroll-distance="size">
         <mt-cell-swipe v-for="(item) in list" :key="item._id" :to="'/page/myNetValueAdd?'+qsStringify(item)">
           <div slot="title">
             <h3>
@@ -41,8 +41,9 @@ export default{
     return {
       queryData: {
         current: 1,
-        pageSize: 10
+        pageSize: 20
       },
+      size: 20,
       list: [],
       loading: true
     }
@@ -55,7 +56,7 @@ export default{
   methods: {
     queryRecord () {
       Http.get('fund/getUserNetValues', this.queryData).then((data) => {
-        if (data.data.list.length < 10) {
+        if (data.data.list.length < this.size) {
           this.loading = true
         } else {
           this.loading = false
