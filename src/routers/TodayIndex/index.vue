@@ -201,8 +201,8 @@ export default {
   mounted () {
     this.timer = setInterval(() => {
       this.initPage()
-      // 1分钟一刷
-    }, 1000 * 60)
+      // 半分钟一刷
+    }, 1000 * 30)
     this.initPage()
     Http.get('fund/getUserLastNetValue').then((res) => {
       const nowNetValue = res.data.record

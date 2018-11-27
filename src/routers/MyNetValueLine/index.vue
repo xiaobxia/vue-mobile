@@ -361,7 +361,7 @@ export default {
       })
       Http.get('fund/getUserNetValue').then((res) => {
         const data = res.data
-        this.myIncomeRateInfo.all = numberUtil.countDifferenceRate(data.record.asset, data.fundAssetInfo.fundAssetCost)
+        this.myIncomeRateInfo.all = numberUtil.countDifferenceRate((data.record && data.record.asset) || 0, data.fundAssetInfo.fundAssetCost)
       })
       // 获取我的净值数据
       Http.get('fund/getUserNetValues', {
@@ -412,6 +412,9 @@ export default {
     },
     // 当前区间涨幅
     countSameRangeRate (list, type) {
+      if (list.length === 0) {
+        return 0
+      }
       const last = list[list.length - 1]
       let startIndex = dateUtil.findSameRangeStartNetValueIndex(list, type)
       const todayNetValue = last['net_value']
