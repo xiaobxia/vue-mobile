@@ -98,6 +98,29 @@ const storageUtil = {
     window._indexRate = config
     localStorage.setItem('indexRate', JSON.stringify(config))
     return config
+  },
+  getMarketStatus: function (key) {
+    let config = {}
+    if (window._marketStatus) {
+      config = window._marketStatus
+    } else {
+      const marketStatusString = localStorage.getItem('marketStatus')
+      if (marketStatusString) {
+        config = JSON.parse(marketStatusString)
+      }
+      window._marketStatus = config
+    }
+    if (key) {
+      return config[key]
+    }
+    return config
+  },
+  setMarketStatus: function (key, value) {
+    let config = this.getMarketStatus()
+    config[key] = value
+    window._marketStatus = config
+    localStorage.setItem('marketStatus', JSON.stringify(config))
+    return config
   }
 }
 

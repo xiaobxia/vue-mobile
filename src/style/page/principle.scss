@@ -1,16 +1,17 @@
 .principle-wrap {
-  padding: 30px;
-  .principle-block {
-    h3 {
-      font-size: 30px;
-    }
-    ol {
-      margin: 0;
-      li {
-        margin: 0;
-        padding: 5px 0;
-        font-size: 26px;
-      }
+  padding: 0 30px;
+  .question {
+    font-size: 30px;
+  }
+  .answer {
+    margin-bottom: 20px;
+  }
+  .suggest {
+    margin: 40px 0;
+    p {
+      margin: 0 0 20px 0;
+      display: inline-block;
+      font-size: 26px;
     }
   }
 }
