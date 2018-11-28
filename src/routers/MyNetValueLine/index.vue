@@ -18,7 +18,7 @@
                  :height="chartHeight" :legend="chartLegend"
                  :data="chartData" :settings="chartSettings"
                  :tooltip="tooltip" :grid="grid"
-                 :theme="lineTheme"
+                 :theme="lineTheme" :xAxis="chartLineXAxis"
         ></ve-line>
         <div class="my-net-value-info">
           <span>本月：{{myIncomeRateInfo.nowMonth}}%</span>
@@ -167,7 +167,15 @@ export default {
           formatter: '{value} %'
         },
         scale: [true, true],
-        type: 'value'
+        type: 'value',
+        splitLine: {
+          lineStyle: {
+            type: 'dotted'
+          }
+        },
+        axisLine: {
+          show: false
+        }
       },
       chartLegend: {
         itemGap: 20 * zoom,

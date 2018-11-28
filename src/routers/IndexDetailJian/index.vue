@@ -95,7 +95,12 @@ export default {
         axisLabel: {
           fontSize: baseFontSize * zoom
         },
-        scale: [true, true]
+        scale: [true, true],
+        splitLine: {
+          lineStyle: {
+            type: 'dotted'
+          }
+        }
       },
       chartSettings: {
         lineStyle: {

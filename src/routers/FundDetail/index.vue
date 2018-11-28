@@ -109,14 +109,30 @@ export default {
         axisLabel: {
           fontSize: baseFontSize * zoom * 0.8
         },
-        scale: [true, true]
+        scale: [true, true],
+        splitLine: {
+          lineStyle: {
+            type: 'dotted'
+          }
+        },
+        axisLine: {
+          show: false
+        }
       },
       chartYAxisPercent: {
         axisLabel: {
           fontSize: baseFontSize * zoom * 0.8,
           formatter: '{value} %'
         },
-        scale: [true, true]
+        scale: [true, true],
+        splitLine: {
+          lineStyle: {
+            type: 'dotted'
+          }
+        },
+        axisLine: {
+          show: false
+        }
       },
       chartLegendNetValue: {
         itemWidth: 50 * zoom,
