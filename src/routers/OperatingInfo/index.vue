@@ -13,6 +13,7 @@
             {{item.name}}
             <span v-if="hasInfo[item.name]" :class="['has-tag', firstInfo[item.key]]">持有</span>
             <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
+            <span v-if="hasCount[item.name] >= (myAsset/15)" class="warn-tag"></span>
             <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
           </h3>
           <p class="explain">
@@ -94,7 +95,8 @@ export default {
       hasCount,
       warnClass,
       sortRate,
-      sortRateTwo
+      sortRateTwo,
+      myAsset: 10000
     }
   },
   computed: {
@@ -152,6 +154,12 @@ export default {
       for (let i = 0; i < list.length; i++) {
         this.queryData(list[i])
       }
+      Http.get('fund/getUserLastNetValue').then((res) => {
+        const nowNetValue = res.data.record
+        if (nowNetValue) {
+          this.myAsset = nowNetValue.asset
+        }
+      })
       Http.get('fund/getUserFundsNormal').then((data) => {
         if (data.success) {
           const list = data.data.list
