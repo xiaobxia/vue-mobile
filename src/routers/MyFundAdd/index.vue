@@ -38,8 +38,15 @@
         <mt-field label="减仓份额" placeholder="减仓份额" v-model="cutForm.shares"></mt-field>
         <div class="position_record_list">
           <div v-for="(item, index) in positionRecord" :key="index + item.buy_date">
-            <p>份额:{{item.shares}}，市值:{{countAsset(item.shares)}}，成本:{{countCost(item.shares, item.cost)}}，{{item.buy_date}}<i class="lock-tag" v-if="ifLock(item)"></i></p>
+            <p>份额:{{item.shares}}，市值:{{countAsset(item.shares)}}，{{item.buy_date}}<i class="lock-tag" v-if="ifLock(item)"></i></p>
           </div>
+        </div>
+        <div class="shares-info-list">
+          <p>1000<span>{{countShares(1000)}} 份</span></p>
+          <p>2000<span>{{countShares(2000)}} 份</span></p>
+          <p>3000<span>{{countShares(3000)}} 份</span></p>
+          <p>4000<span>{{countShares(4000)}} 份</span></p>
+          <p>5000<span>{{countShares(5000)}} 份</span></p>
         </div>
       </template>
     </div>
@@ -191,6 +198,9 @@ export default {
     },
     countAsset (shares) {
       return numberUtil.keepTwoDecimals(shares * parseFloat(this.form.valuation))
+    },
+    countShares (number) {
+      return parseInt(number / parseFloat(this.form.valuation))
     },
     okHandler () {
       if (this.type === 'add') {
