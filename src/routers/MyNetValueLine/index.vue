@@ -18,7 +18,7 @@
                  :height="chartHeight" :legend="chartLegend"
                  :data="chartData" :settings="chartSettings"
                  :tooltip="tooltip" :grid="grid"
-                 :theme="lineTheme" :xAxis="chartLineXAxis"
+                 :theme="lineTheme"
         ></ve-line>
         <div class="my-net-value-info">
           <span>本月：{{myIncomeRateInfo.nowMonth}}%</span>
@@ -188,7 +188,7 @@ export default {
       },
       chartSettings: {
         lineStyle: {
-          width: 4 * zoom
+          width: 3.5 * zoom
         },
         offsetY: 350 * zoom
       },
