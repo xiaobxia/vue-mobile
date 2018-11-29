@@ -37,6 +37,11 @@ export default {
       Indicator.open({
         spinnerType: 'fading-circle'
       })
+      Http.get('webData/getWebStockdaybarRate', {
+        code: 'sz399006',
+        start: '2018-03-13'
+      }).then((data) => {
+      })
       Http.get('schedule/getSchedules').then((data) => {
         Indicator.close()
         let list = data.data.list
