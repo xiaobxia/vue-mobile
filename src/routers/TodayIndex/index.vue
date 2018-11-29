@@ -14,7 +14,7 @@
           <h3>
             <span class="name">{{item.name}}</span>
             <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
-            <span :class="['income', numberClass(rateInfo[item.key])]">{{parseInt(rateInfo[item.key]*hasCount[item.name] / 100)}}</span>
+            <span v-if="hasCount[item.name]" :class="['income', numberClass(rateInfo[item.key])]">{{parseInt(rateInfo[item.key]*hasCount[item.name] / 100)}}</span>
             <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
           </h3>
           <div class="rate-info-icon">
