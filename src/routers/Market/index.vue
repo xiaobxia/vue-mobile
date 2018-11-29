@@ -8,7 +8,7 @@
     <div class="main-body">
       <mt-navbar v-model="selected">
         <mt-tab-item id="1">排行</mt-tab-item>
-      <mt-tab-item id="2">分析</mt-tab-item>
+        <mt-tab-item id="2">分析</mt-tab-item>
       </mt-navbar>
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">

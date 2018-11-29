@@ -9,9 +9,16 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-    <mt-field label="资产" placeholder="请输入资产" v-model="form.asset"></mt-field>
-    <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
-    <mt-field label="净值日期" placeholder="请输入净值日期" v-model="form.net_value_date"></mt-field>
+      <template v-if="type==='edit'">
+          <mt-field label="资产" placeholder="请输入资产" v-model="form.asset"></mt-field>
+          <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
+          <mt-field label="净值日期" placeholder="请输入净值日期" v-model="form.net_value_date"></mt-field>
+      </template>
+      <template v-if="type==='add'">
+          <mt-field label="盈亏" placeholder="请输入盈亏" v-model="income"></mt-field>
+          <mt-field label="份额" placeholder="请输入份额" v-model="form.shares"></mt-field>
+          <mt-field label="净值日期" placeholder="请输入净值日期" v-model="form.net_value_date"></mt-field>
+      </template>
     </div>
     <div class="bottom-bar">
       <mt-button type="primary" @click="okHandler" class="main-btn">完成</mt-button>
@@ -24,6 +31,7 @@ import Http from '@/util/httpUtil.js'
 import {MessageBox} from 'mint-ui'
 import Toast from '@/common/toast.js'
 import moment from 'moment'
+import storageUtil from '@/util/storageUtil.js'
 
 export default {
   name: 'MyNetValueAdd',
@@ -31,7 +39,15 @@ export default {
     return {
       type: 'add',
       form: {},
-      fundShares: 0
+      myAsset: 10000,
+      income: 0,
+      fundShares: 0,
+      selected: storageUtil.getAppConfig('netValueAddSelected') || '1'
+    }
+  },
+  watch: {
+    selected (val) {
+      storageUtil.setAppConfig('netValueAddSelected', val)
     }
   },
   computed: {},
@@ -40,8 +56,12 @@ export default {
   },
   methods: {
     initPage () {
-      Http.get('fund/getUserFundAssetInfo').then((res) => {
-        this.fundShares = res.data.fundShares
+      Http.get('fund/getUserLastNetValue').then((res) => {
+        const nowNetValue = res.data.record
+        this.fundShares = res.data.fundAssetInfo.fundShares
+        if (nowNetValue) {
+          this.myAsset = nowNetValue.asset || res.data.fundAssetInfo.fundAssetCost
+        }
         this.initQuery()
       })
     },
@@ -71,6 +91,9 @@ export default {
       })
     },
     okHandler () {
+      if (this.type === 'add') {
+        this.form.asset = this.myAsset + parseFloat(this.income)
+      }
       Http.post(this.type === 'add' ? 'fund/addUserNetValue' : 'fund/updateUserNetValue', this.form).then((data) => {
         if (data.success) {
           Toast.success('操作成功')
