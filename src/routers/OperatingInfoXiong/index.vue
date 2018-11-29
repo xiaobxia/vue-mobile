@@ -1,6 +1,6 @@
 <template>
   <div class="operating-info">
-    <mt-header title="操作分析-熊" :fixed="true">
+    <mt-header :title="'操作分析-熊-'+buyInfo" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
@@ -111,6 +111,10 @@ export default {
         }
       }
       return count
+    },
+    buyInfo () {
+      let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
+      return 100 * parseInt(this.myAsset * 1.5 * (['略强', '强'].indexOf(marketStatus) !== -1 ? 1.5 : 1) / 16000)
     },
     sellCount () {
       let count = 0

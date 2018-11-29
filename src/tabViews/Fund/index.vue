@@ -21,14 +21,23 @@
           <!--<div class="bottom">筛选基金</div>-->
         <!--</div>-->
       <!--</div>-->
-      <div class="img-card" @click="toPath('/page/operatingInfo')">
-        <!--<img src="../../assets/timg.jpg" alt="">-->
+      <!--<div class="img-card" @click="toPath('/page/operatingInfo')">-->
+        <!--&lt;!&ndash;<img src="../../assets/timg.jpg" alt="">&ndash;&gt;-->
+        <!--<div class="container">-->
+          <!--<div class="content">-->
+            <!--<img src="../../assets/我的-策略.png" alt="">-->
+            <!--&lt;!&ndash;<i class="fas fa-allergies"></i>&ndash;&gt;-->
+          <!--</div>-->
+          <!--<div class="bottom">操作分析</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="img-card" @click="toPath('/page/market')">
         <div class="container">
           <div class="content">
-            <img src="../../assets/我的-策略.png" alt="">
-            <!--<i class="fas fa-allergies"></i>-->
+            <img src="../../assets/行情.png" alt="">
+            <!--<i class="fab fa-cloudversify"></i>-->
           </div>
-          <div class="bottom">操作分析</div>
+          <div class="bottom">市场行情</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/operatingInfoJian')">
@@ -88,15 +97,6 @@
             <!--<i class="fas fa-balance-scale"></i>-->
           </div>
           <div class="bottom">均线策略</div>
-        </div>
-      </div>
-      <div class="img-card" @click="toPath('/page/market')">
-        <div class="container">
-          <div class="content">
-            <img src="../../assets/行情.png" alt="">
-            <!--<i class="fab fa-cloudversify"></i>-->
-          </div>
-          <div class="bottom">市场行情</div>
         </div>
       </div>
       <div class="img-card" @click="toPath('/page/rank')">
