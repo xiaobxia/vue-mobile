@@ -114,7 +114,7 @@ export default {
     },
     buyInfo () {
       let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
-      return 100 * parseInt(this.myAsset * 1.5 * (['略强', '强'].indexOf(marketStatus) !== -1 ? 1.5 : 1) / 16000)
+      return 100 * Math.round(this.myAsset * 1.5 * (['略强', '强'].indexOf(marketStatus) !== -1 ? 1.5 : 1) / 16000)
     },
     sellCount () {
       let count = 0
