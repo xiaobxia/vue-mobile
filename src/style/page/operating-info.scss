@@ -41,9 +41,17 @@
     }
   }
   .warn-tag {
-    mmargin-left: 10px;
+    margin-left: 10px;
     display: inline-block;
     background-color: $yellow-color;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+  }
+  .danger-tag {
+    margin-left: 10px;
+    display: inline-block;
+    background-color: yellow;
     width: 20px;
     height: 20px;
     border-radius: 20px;

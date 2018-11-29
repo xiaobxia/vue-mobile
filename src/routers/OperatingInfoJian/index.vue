@@ -13,7 +13,8 @@
             {{item.name}}
             <span v-if="hasInfo[item.name]" :class="['has-tag', firstInfo[item.key]]">持有</span>
             <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
-            <span v-if="hasCount[item.name] >= (myAsset/15)" class="warn-tag"></span>
+            <span v-if="hasCount[item.name] >= (myAsset/15)" class="danger-tag"></span>
+            <span v-if="!(hasCount[item.name] >= (myAsset/15)) && (hasCount[item.name] >= (myAsset/25))" class="warn-tag"></span>
             <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
           </h3>
           <p class="explain">
