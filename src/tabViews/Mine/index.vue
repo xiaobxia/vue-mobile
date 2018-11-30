@@ -37,6 +37,11 @@
           <h3><i class="fas fa-money-check-alt"></i>资产管理</h3>
         </div>
       </mt-cell-swipe>
+      <mt-cell-swipe :to="'/page/incomeAll'" is-link>
+        <div slot="title">
+          <h3><i class="fas fa-hand-holding-usd"></i>总收益</h3>
+        </div>
+      </mt-cell-swipe>
     </div>
     <div class="btn-wrap">
       <mt-button type="primary" @click="okHandler" class="main-btn">退出登录</mt-button>

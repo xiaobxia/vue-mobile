@@ -173,6 +173,11 @@ export default new Router({
       name: 'ChangeMarketDetail',
       path: '/page/changeMarketDetail',
       component: lazyLoading('ChangeMarketDetail')
+    },
+    {
+      name: 'IncomeAll',
+      path: '/page/incomeAll',
+      component: lazyLoading('IncomeAll')
     }
   ]
 })

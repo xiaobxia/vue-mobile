@@ -369,7 +369,7 @@ export default {
       })
       Http.get('fund/getUserNetValue').then((res) => {
         const data = res.data
-        this.myIncomeRateInfo.all = numberUtil.countDifferenceRate((data.record && data.record.asset) || 0, data.fundAssetInfo.fundAssetCost)
+        this.myIncomeRateInfo.all = numberUtil.countDifferenceRate((data.record && data.record.asset) || data.fundAssetInfo.fundAssetCost, data.fundAssetInfo.fundAssetCost)
       })
       // 获取我的净值数据
       Http.get('fund/getUserNetValues', {
