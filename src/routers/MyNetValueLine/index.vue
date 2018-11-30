@@ -40,27 +40,27 @@
           </tr>
           <tr>
             <td>上证</td>
-            <td>{{nowWeekRate.shangzheng}}%</td>
-            <td>{{nowMonthRate.shangzheng}}%</td>
-            <td>{{nowYearRate.shangzheng}}%</td>
+            <td>{{nowWeekRate.shangzheng}}%<span :class="numberClass(nowWeekRate.my - nowWeekRate.shangzheng)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.shangzheng)}})</span></td>
+            <td>{{nowMonthRate.shangzheng}}%<span :class="numberClass(nowMonthRate.my - nowMonthRate.shangzheng)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.shangzheng)}})</span></td>
+            <td>{{nowYearRate.shangzheng}}%<span :class="numberClass(nowYearRate.my - nowYearRate.shangzheng)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.shangzheng)}})</span></td>
           </tr>
           <tr>
             <td>创业</td>
-            <td>{{nowWeekRate.chuangye}}%</td>
-            <td>{{nowMonthRate.chuangye}}%</td>
-            <td>{{nowYearRate.chuangye}}%</td>
+            <td>{{nowWeekRate.chuangye}}%<span :class="numberClass(nowWeekRate.my - nowWeekRate.chuangye)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.chuangye)}})</span></td>
+            <td>{{nowMonthRate.chuangye}}%<span :class="numberClass(nowMonthRate.my - nowMonthRate.chuangye)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.chuangye)}})</span></td>
+            <td>{{nowYearRate.chuangye}}%<span :class="numberClass(nowYearRate.my - nowYearRate.chuangye)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.chuangye)}})</span></td>
           </tr>
           <tr>
             <td>沪深300</td>
-            <td>{{nowWeekRate.hushen}}%</td>
-            <td>{{nowMonthRate.hushen}}%</td>
-            <td>{{nowYearRate.hushen}}%</td>
+            <td>{{nowWeekRate.hushen}}%<span :class="numberClass(nowWeekRate.my - nowWeekRate.hushen)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.hushen)}})</span></td>
+            <td>{{nowMonthRate.hushen}}%<span :class="numberClass(nowMonthRate.my - nowMonthRate.hushen)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.hushen)}})</span></td>
+            <td>{{nowYearRate.hushen}}%<span :class="numberClass(nowYearRate.my - nowYearRate.hushen)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.hushen)}})</span></td>
           </tr>
           <tr>
             <td>上证50</td>
-            <td>{{nowWeekRate.wulin}}%</td>
-            <td>{{nowMonthRate.wulin}}%</td>
-            <td>{{nowYearRate.wulin}}%</td>
+            <td>{{nowWeekRate.wulin}}%<span :class="numberClass(nowWeekRate.my - nowWeekRate.wulin)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.wulin)}})</span></td>
+            <td>{{nowMonthRate.wulin}}%<span :class="numberClass(nowMonthRate.my - nowMonthRate.wulin)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.wulin)}})</span></td>
+            <td>{{nowYearRate.wulin}}%<span :class="numberClass(nowYearRate.my - nowYearRate.wulin)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.wulin)}})</span></td>
           </tr>
         </table>
         <ve-histogram :grid="monthRateGrid"
