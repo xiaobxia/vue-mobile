@@ -32,6 +32,7 @@ const fundAccountUtil = {
     }
     return false
   },
+  // 获取锁仓的仓位信息
   getUnLockInfo (item) {
     let data = {
       totalCost: 0,
