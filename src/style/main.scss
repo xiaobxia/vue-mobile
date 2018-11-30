@@ -2,6 +2,7 @@
 
 @import "_var";
 @import "lib/mint";
+
 @import "component/header";
 @import "component/tabbar";
 @import "component/switch";
@@ -17,6 +18,8 @@
 @import "component/search";
 @import "component/indicator";
 @import "component/table";
+@import "component/operating-info-item";
+
 @import "page/tabView-mine";
 @import "page/login";
 @import "page/myFund";

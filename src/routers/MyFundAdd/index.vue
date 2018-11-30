@@ -42,11 +42,7 @@
           </div>
         </div>
         <div class="shares-info-list">
-          <p>1000<span>{{countShares(1000)}} 份</span></p>
-          <p>2000<span>{{countShares(2000)}} 份</span></p>
-          <p>3000<span>{{countShares(3000)}} 份</span></p>
-          <p>4000<span>{{countShares(4000)}} 份</span></p>
-          <p>5000<span>{{countShares(5000)}} 份</span></p>
+          <p v-for="(item) in sharesInfoList" :key="item">{{item}}<span>{{countShares(item)}} 份</span></p>
         </div>
       </template>
     </div>
@@ -104,7 +100,9 @@ export default {
       },
       positionRecord: [],
       editType: '修改',
-      lastTradingDay: lastTradingDay
+      lastTradingDay: lastTradingDay,
+      myAsset: 10000,
+      sharesInfoList: []
     }
   },
   computed: {},
@@ -124,6 +122,19 @@ export default {
   methods: {
     initPage () {
       this.initQuery()
+      Http.get('fund/getUserLastNetValue').then((res) => {
+        const nowNetValue = res.data.record
+        if (nowNetValue) {
+          this.myAsset = nowNetValue.asset
+        }
+        let myAsset = this.myAsset
+        let factor = [0.6, 0.9, 1, 1.5, 2.25]
+        let sharesInfoList = []
+        for (let i = 0; i < factor.length; i++) {
+          sharesInfoList.push(100 * Math.round(myAsset * factor[i] / 16000))
+        }
+        this.sharesInfoList = sharesInfoList
+      })
     },
     initQuery () {
       const query = this.$router.history.current.query
