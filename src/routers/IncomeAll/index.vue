@@ -25,12 +25,16 @@
             <td>{{allRate.chuangye}}%</td>
           </tr>
           <tr>
+            <td>上证50</td>
+            <td>{{allRate.wulin}}%</td>
+          </tr>
+          <tr>
             <td>沪深300</td>
             <td>{{allRate.hushen}}%</td>
           </tr>
           <tr>
-            <td>上证50</td>
-            <td>{{allRate.wulin}}%</td>
+            <td>沪深500</td>
+            <td>{{allRate.wubai}}%</td>
           </tr>
         </table>
       </div>
@@ -53,13 +57,17 @@ let webDataMap = {
     code: 'sz399006',
     name: '创业'
   },
+  wulin: {
+    code: 'sh000016',
+    name: '上证50'
+  },
   hushen: {
     code: 'sz399300',
     name: '沪深300'
   },
-  wulin: {
-    code: 'sh000016',
-    name: '上证50'
+  'wubai': {
+    code: 'sh000905',
+    name: '500'
   }
 }
 
