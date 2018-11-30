@@ -51,13 +51,13 @@
             <td>{{nowYearRate.chuangye}}%<span :class="numberClass(nowYearRate.my - nowYearRate.chuangye)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.chuangye)}})</span></td>
           </tr>
           <tr>
-            <td>沪深300</td>
+            <td>300</td>
             <td>{{nowWeekRate.hushen}}%<span :class="numberClass(nowWeekRate.my - nowWeekRate.hushen)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.hushen)}})</span></td>
             <td>{{nowMonthRate.hushen}}%<span :class="numberClass(nowMonthRate.my - nowMonthRate.hushen)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.hushen)}})</span></td>
             <td>{{nowYearRate.hushen}}%<span :class="numberClass(nowYearRate.my - nowYearRate.hushen)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.hushen)}})</span></td>
           </tr>
           <tr>
-            <td>上证50</td>
+            <td>50</td>
             <td>{{nowWeekRate.wulin}}%<span :class="numberClass(nowWeekRate.my - nowWeekRate.wulin)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.wulin)}})</span></td>
             <td>{{nowMonthRate.wulin}}%<span :class="numberClass(nowMonthRate.my - nowMonthRate.wulin)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.wulin)}})</span></td>
             <td>{{nowYearRate.wulin}}%<span :class="numberClass(nowYearRate.my - nowYearRate.wulin)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.wulin)}})</span></td>
