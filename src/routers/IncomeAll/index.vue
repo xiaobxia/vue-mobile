@@ -1,5 +1,5 @@
 <template>
-  <div class="my-net-value-line">
+  <div class="income-all">
     <mt-header title="总收益" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
