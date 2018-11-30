@@ -262,7 +262,7 @@ export default {
       } else if (this.filterTime === '近一月') {
         startIndex = myList.length > 21 ? (myList.length) - 21 : 0
       } else if (this.filterTime === '近三月') {
-        startIndex = myList.length > 42 ? (myList.length) - 42 : 0
+        startIndex = myList.length > 62 ? (myList.length) - 62 : 0
       } else if (this.filterTime === '近半年') {
         startIndex = myList.length > 126 ? (myList.length) - 126 : 0
       }
