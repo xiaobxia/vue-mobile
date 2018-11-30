@@ -95,8 +95,6 @@ import storageUtil from '@/util/storageUtil.js'
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
 
-const netValueFilterTime = storageUtil.getAppConfig('netValueFilterTime') || '近一年'
-
 const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
 const dataRawList = {
   '中金': 'getWebStockdaybarAllZhongjin',
@@ -243,7 +241,7 @@ export default {
           name: '近一年'
         }
       ],
-      filterTime: netValueFilterTime
+      filterTime: '本月'
     }
   },
 
