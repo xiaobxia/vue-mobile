@@ -8,6 +8,7 @@ import './style/main.scss'
 import VCharts from 'v-charts'
 import '../static/web-fonts-with-css/css/fontawesome-all.css'
 import numberUtil from '@/util/numberUtil.js'
+import fundAccountUtil from '@/util/fundAccountUtil.js'
 
 function setAdaptive () {
   let _baseFontSize = 20
@@ -99,6 +100,22 @@ Vue.prototype.countDifferenceRate = function (numerator, denominator) {
 
 Vue.prototype.keepTwoDecimals = function (number) {
   return numberUtil.keepTwoDecimals(number)
+}
+
+Vue.prototype.ifLock = function (item) {
+  if (fundAccountUtil.ifFixedInvestment(item)) {
+    return false
+  }
+  return !fundAccountUtil.ifUnLock(item)
+}
+Vue.prototype.ifPosition = function (item) {
+  if (fundAccountUtil.ifFixedInvestment(item)) {
+    return false
+  }
+  return fundAccountUtil.ifPosition(item)
+}
+Vue.prototype.ifFixedInvestment = function (item) {
+  return fundAccountUtil.ifFixedInvestment(item)
 }
 
 /* eslint-disable no-new */

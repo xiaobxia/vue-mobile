@@ -33,9 +33,7 @@
   </div>
 </template>
 <script>
-import numberUtil from '@/util/numberUtil.js'
 import qs from 'qs'
-import fundAccountUtil from '@/util/fundAccountUtil.js'
 
 export default{
   name: 'MyFundCard',
@@ -71,18 +69,6 @@ export default{
     qsStringify (query) {
       query.type = 'edit'
       return qs.stringify(query)
-    },
-    ifLock (item) {
-      if (fundAccountUtil.ifFixedInvestment(item)) {
-        return false
-      }
-      return !fundAccountUtil.ifUnLock(item)
-    },
-    ifPosition (item) {
-      if (fundAccountUtil.ifFixedInvestment(item)) {
-        return false
-      }
-      return fundAccountUtil.ifPosition(item)
     }
   }
 }
