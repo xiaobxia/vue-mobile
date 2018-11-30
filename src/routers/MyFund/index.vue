@@ -9,11 +9,12 @@
       <div class="info-wrap">
         <span class="item">持仓金额：{{parseInt(info.totalSum)}}</span>
         <span class="item">持仓成本：{{parseInt(info.costTotalSum)}}</span>
+        <span class="item">仓位信息：{{myPosition}}%</span>
         <span class="item">估算金额：{{parseInt(info.valuationTotalSum)}}</span>
+        <span class="item">新仓金额：{{parseInt(newCost)}}</span>
+        <span class="item">新仓收益：<span :class="numberClass(newRate)">{{newRate}}%</span></span>
         <span class="item">估算收益：<span :class="numberClass(valuationInfo)">{{parseInt(valuationInfo)}}</span></span>
         <span class="item">估算比率：<span :class="numberClass(myRate)">{{myRate}}%</span></span>
-        <span class="item">仓位信息：{{myPosition}}%</span>
-        <span class="item">新仓收益：<span :class="numberClass(newRate)">{{newRate}}%</span></span>
         <span class="item">相对波动：<span :class="numberClass(relativeRate)">{{relativeRate}}%</span></span>
         <span class="item">市场平均：<span :class="numberClass(marketRate)">{{marketRate}}%</span></span>
         <span class="item">沪深300：<span :class="numberClass(hushenRate)">{{hushenRate}}%</span></span>
@@ -77,7 +78,8 @@ export default {
       wulinRate: 0,
       chuangyeRate: 0,
       lastUpdateValuationTime: '',
-      fundNumber: 0
+      fundNumber: 0,
+      newCost: 0
     }
   },
   components: {MyFundCard},
@@ -152,6 +154,7 @@ export default {
         for (let i = 0; i < this.cardInfo.length; i++) {
           this.cardInfo[i].list = dataMap[this.cardInfo[i].name]
         }
+        this.newCost = newCost
         this.newRate = numberUtil.countDifferenceRate(newValuation, newCost)
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
