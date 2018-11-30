@@ -62,20 +62,10 @@
   .cut {
     background-color: $yellow-color-back-3;
   }
-  .tag-info {
-    display: none;
+  .lastUpdateValuationTime{
+    padding: 20px 0 0 0;
+    font-size: 14px;
     text-align: center;
-    span {
-      margin: 0 40px;
-      padding: 10px 20px;
-      color: #fff;
-      font-size: 28px;
-      border-radius: 10px;
-    }
   }
-}
-.lastUpdateValuationTime{
-  padding: 20px 0 0 0;
-  font-size: 14px;
-  text-align: center;
+
 }

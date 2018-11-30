@@ -202,7 +202,7 @@ export default {
       }
     },
     ifLock (item) {
-      return !fundAccountUtil.ifRelieve(item)
+      return !fundAccountUtil.ifUnLock(item)
     },
     countCost (shares, cost) {
       return numberUtil.keepTwoDecimals(shares * parseFloat(cost))

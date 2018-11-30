@@ -311,7 +311,7 @@ export default {
       if (this.ifDingtou(item)) {
         return false
       }
-      return !fundAccountUtil.ifRelieve(item)
+      return !fundAccountUtil.ifUnLock(item)
     },
     ifPosition (item) {
       // 不计入定投

@@ -82,7 +82,7 @@ export default{
       if (item.strategy !== '1') {
         return false
       }
-      return !fundAccountUtil.ifRelieve(item)
+      return !fundAccountUtil.ifUnLock(item)
     },
     ifPosition (item) {
       if (item.strategy !== '1') {

@@ -5,8 +5,8 @@ const minHasDay = 5
 
 const fundAccountUtil = {
   minHasDay,
-  // 解除
-  ifRelieve: function (item) {
+  // 是否解锁
+  ifUnLock: function (item) {
     if (!item.has_days) {
       return true
     }
@@ -18,6 +18,37 @@ const fundAccountUtil = {
       return n !== 5
     }
     return false
+  },
+  // 是否定投
+  ifFixedInvestment: function (item) {
+    return item.strategy && item.strategy !== '1'
+  },
+  // 是否是阶梯仓位
+  ifPosition (item) {
+    if (item['position_record']) {
+      if (JSON.parse(item['position_record']).length > 1) {
+        return true
+      }
+    }
+    return false
+  },
+  getUnLockInfo (item) {
+    let data = {
+      totalCost: 0,
+      shares: 0
+    }
+    if (item['position_record']) {
+      const list = JSON.parse(item['position_record'])
+      for (let i = 0; i < list.length; i++) {
+        const item = list[i]
+        // 没有解锁
+        if (!this.ifUnLock(item)) {
+          data.shares += item.shares
+          data.totalCost += item.shares * item.cost
+        }
+      }
+    }
+    return data
   }
 }
 

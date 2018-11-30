@@ -7,12 +7,13 @@ import App from './App'
 import './style/main.scss'
 import VCharts from 'v-charts'
 import '../static/web-fonts-with-css/css/fontawesome-all.css'
+import numberUtil from '@/util/numberUtil.js'
 
 function setAdaptive () {
-  var _baseFontSize = 20
+  let _baseFontSize = 20
   // 和width有关
-  var winWidth = 0
-  var winHeight = 0
+  let winWidth = 0
+  let winHeight = 0
   if (window.innerWidth) {
     winWidth = window.innerWidth
   } else if ((document.body) && (document.body.clientWidth)) {
@@ -28,19 +29,19 @@ function setAdaptive () {
     winWidth = document.documentElement.clientWidth
     winHeight = document.documentElement.clientHeight
   }
-  var _fontscale = winWidth / 375
-  var ua = navigator.userAgent
-  var matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i)
-  var UCversion = ua.match(/U3\/((\d+|\.){5,})/i)
-  var isUCHd = UCversion && parseInt(UCversion[1].split('.').join(''), 10) >= 80
-  var isIos = navigator.appVersion.match(/(iphone|ipad|ipod)/gi)
-  var dpr = parseInt((window.devicePixelRatio || 1), 10)
+  let _fontscale = winWidth / 375
+  let ua = navigator.userAgent
+  let matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i)
+  let UCversion = ua.match(/U3\/((\d+|\.){5,})/i)
+  let isUCHd = UCversion && parseInt(UCversion[1].split('.').join(''), 10) >= 80
+  let isIos = navigator.appVersion.match(/(iphone|ipad|ipod)/gi)
+  let dpr = parseInt((window.devicePixelRatio || 1), 10)
   if (!isIos && !(matches && matches[1] > 534) && !isUCHd) {
     // 如果非iOS, 非Android4.3以上, 非UC内核, 就不执行高清, dpr设为1;
     dpr = 1
   }
-  var scale = 1 / dpr
-  var metaEl = document.querySelector('meta[name="viewport"]')
+  let scale = 1 / dpr
+  let metaEl = document.querySelector('meta[name="viewport"]')
   if (!metaEl) {
     metaEl = document.createElement('meta')
     metaEl.setAttribute('name', 'viewport')
@@ -49,7 +50,7 @@ function setAdaptive () {
   metaEl.setAttribute('content', 'width=device-width,user-scalable=no,initial-scale=' + scale + ',maximum-scale=' + scale + ',minimum-scale=' + scale)
   document.documentElement.style.fontSize = (_baseFontSize / 2 * dpr * _fontscale) + 'px'
   document.documentElement.setAttribute('data-dpr', dpr)
-  var fontSize = _baseFontSize / 2 * dpr * _fontscale
+  let fontSize = _baseFontSize / 2 * dpr * _fontscale
   window.adaptive = {
     winHeight: winHeight,
     winWidth: winWidth,
@@ -77,10 +78,27 @@ Vue.prototype.numberClass = function (number) {
 Vue.prototype.formatFundName = function (name, len) {
   len = len || 12
   if (name.length > len) {
+    const lastChart = name.substr(name.length - 1)
+    console.log(lastChart)
+    if (lastChart === 'A' || lastChart === 'C') {
+      return name.substr(0, (len - 2)) + '...' + lastChart
+    }
     return name.substr(0, (len - 1)) + '...'
   } else {
     return name
   }
+}
+
+Vue.prototype.countDifferenceRate = function (numerator, denominator) {
+  return numberUtil.countDifferenceRate(numerator, denominator)
+}
+
+Vue.prototype.countDifferenceRate = function (numerator, denominator) {
+  return numberUtil.countDifferenceRate(numerator, denominator)
+}
+
+Vue.prototype.keepTwoDecimals = function (number) {
+  return numberUtil.keepTwoDecimals(number)
 }
 
 /* eslint-disable no-new */

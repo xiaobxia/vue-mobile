@@ -145,7 +145,7 @@ export default {
       if (this.ifDingtou(item)) {
         return false
       }
-      return !fundAccountUtil.ifRelieve(item)
+      return !fundAccountUtil.ifUnLock(item)
     },
     ifDingtou (item) {
       return item.strategy && item.strategy !== '1'

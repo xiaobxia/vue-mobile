@@ -21,10 +21,6 @@
         <span class="item">上证50：<span :class="numberClass(wulinRate)">{{wulinRate}}%</span></span>
       </div>
       <div class="lastUpdateValuationTime">更新于：{{lastUpdateValuationTime}}</div>
-      <div class="tag-info">
-        <span class="cut">减仓</span>
-        <span class="sell">卖出</span>
-      </div>
       <my-fund-card  v-for="(item) in cardInfo" :key="item.name"  :listData="item.list" :title="item.name"/>
     </div>
   </div>
@@ -102,6 +98,7 @@ export default {
         return 0
       }
     },
+    // 相对收益
     relativeRate () {
       if (this.info.valuationTotalSum && this.info.totalSum) {
         const income = numberUtil.keepTwoDecimals(this.info.valuationTotalSum - this.info.totalSum)
@@ -138,11 +135,9 @@ export default {
         this.fundNumber = list.length
         list.forEach((item) => {
           // 处于锁仓
-          if (!fundAccountUtil.ifRelieve(item)) {
-            // 处于锁仓就算是新仓
-            newCost += item.costSum
-            newValuation += item.valuationSum
-          }
+          const unLockInfo = fundAccountUtil.getUnLockInfo(item)
+          newCost += unLockInfo.totalCost
+          newValuation += unLockInfo.shares * item.valuation
           // 防止基金有主题，但是主题已经被删除的情况
           if (item.strategy !== '1') {
             dataMap['定投'].push(item)
@@ -157,7 +152,7 @@ export default {
         for (let i = 0; i < this.cardInfo.length; i++) {
           this.cardInfo[i].list = dataMap[this.cardInfo[i].name]
         }
-        this.newRate = numberUtil.countDifferenceRate(newValuation || 1, newCost || 1)
+        this.newRate = numberUtil.countDifferenceRate(newValuation, newCost)
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
       })
       // 获取市场平均涨幅
