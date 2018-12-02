@@ -128,38 +128,12 @@ export default {
   computed: {
     chartPoint () {
       let dataList = []
-      this.buyList.forEach((item) => {
-        dataList.push({
-          coord: [item['date'], item['close']],
-          itemStyle: {
-            normal: {
-              color: 'rgb(244, 51, 60)'
-            }
-          },
-          label: {
-            show: false
-          }
-        })
-      })
-      this.sellList.forEach((item) => {
-        dataList.push({
-          coord: [item['date'], item['close']],
-          itemStyle: {
-            normal: {
-              color: 'rgb(62, 179, 121)'
-            }
-          },
-          label: {
-            show: false
-          }
-        })
-      })
       this.sameList.forEach((item) => {
         dataList.push({
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: this.pointType === 'buy' ? 'purple' : 'blue'
+              color: 'black'
             }
           },
           label: {
@@ -199,7 +173,6 @@ export default {
     initPage () {
       const query = this.$router.history.current.query
       this.queryData = Object.assign({}, query)
-      const code = this.$router.history.current.query.code
       Http.get('webData/getWebStockdaybarAllZhongjin', {
         code: query.code,
         days: 200
@@ -219,57 +192,27 @@ export default {
           // 近的在前
           let hasOne = false
           let sameType = ''
-          let pointType = ''
-          let buyList = []
-          let sellList = []
           let sameList = []
           this.todayIndexInfo = infoUtil.getFlag(recentNetValue[0])
-          console.log(infoUtil.getFlag(recentNetValue[0]))
           for (let i = 0; i < (recentNetValue.length - 3); i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
             const twoDayRecord = recentNetValue[i + 2]
-            let buyFlag = infoUtil[fnMap[query.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)
-            let sellFlag = infoUtil[fnMap[query.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)
-            if ((buyFlag === true) || (buyFlag !== false && buyFlag.flag === true)) {
+            let flag = infoUtil[fnMap[query.key]](nowRecord, oneDayRecord, twoDayRecord)
+            if ((flag === true) || (flag !== false && flag.flag === true)) {
               if (!hasOne) {
                 hasOne = true
-                pointType = 'buy'
-                if (buyFlag !== true && buyFlag !== false) {
-                  sameType = buyFlag.text
+                if (flag !== true && flag !== false) {
+                  sameType = flag.text
                   sameList.push(nowRecord)
-                } else {
-                  buyList.push(nowRecord)
                 }
               } else {
-                if (buyFlag !== true && buyFlag !== false && buyFlag.text === sameType) {
+                if (flag !== true && flag !== false && flag.text === sameType) {
                   sameList.push(nowRecord)
-                } else {
-                  buyList.push(nowRecord)
-                }
-              }
-            } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
-              if (!hasOne) {
-                hasOne = true
-                pointType = 'sell'
-                if (sellFlag !== true && sellFlag !== false) {
-                  sameType = sellFlag.text
-                  sameList.push(nowRecord)
-                } else {
-                  sellList.push(nowRecord)
-                }
-              } else {
-                if (sellFlag !== true && sellFlag !== false && sellFlag.text === sameType) {
-                  sameList.push(nowRecord)
-                } else {
-                  sellList.push(nowRecord)
                 }
               }
             }
           }
-          this.pointType = pointType
-          this.sellList = sellList
-          this.buyList = buyList
           this.sameList = sameList
         }
       })

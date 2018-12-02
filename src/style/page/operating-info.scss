@@ -12,7 +12,7 @@
       width: 15%;
       color: #fff;
       padding: 0 10px;
-      background-color: #eee;
+      background-color: #fff;
       text-align: center;
       border-radius: 10px;
       margin-right: 10px;
@@ -23,6 +23,11 @@
       &.sell {
         padding: 5px 10px;
         background-color: $green-color;
+      }
+      &.active {
+        padding: 5px 10px;
+        background-color: #ccc;
+        color:  #ccc;
       }
     }
   }

@@ -38,11 +38,8 @@
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
-import moment from 'moment'
-import Toast from '@/common/toast.js'
 import indexInfoUtil from '@/util/indexInfoUtil.js'
 
-const codeMap = indexInfoUtil.codeMap
 const InfoUtil = indexInfoUtil.Util
 const fnMap = indexInfoUtil.fnMap
 const formatData = indexInfoUtil.formatData
