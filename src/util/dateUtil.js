@@ -39,5 +39,31 @@ export default {
       }
     }
     return index
+  },
+  /**
+   * 某月开始和结束的日子的索引
+   * @param netValueList
+   * @param monthTime
+   * @returns {{start: number, end: number}}
+   */
+  findSameMonthStartEndIndex (netValueList, monthTime) {
+    let data = {
+      start: 0,
+      end: 0
+    }
+    for (let i = netValueList.length - 1; i >= 0; i--) {
+      const item = netValueList[i]
+      if (moment(monthTime).isSame(item.net_value_date, 'month')) {
+        if (data.end === 0) {
+          data.end = i
+        }
+        data.start = i
+      } else {
+        if (data.start !== 0) {
+          break
+        }
+      }
+    }
+    return data
   }
 }

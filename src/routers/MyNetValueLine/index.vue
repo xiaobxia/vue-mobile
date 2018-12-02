@@ -30,36 +30,42 @@
             <th>指数</th>
             <th>本周</th>
             <th>本月</th>
+            <th>上月</th>
             <th>本年</th>
           </tr>
           <tr>
             <td>我的</td>
             <td>{{nowWeekRate.my}}%</td>
             <td>{{nowMonthRate.my}}%</td>
+            <td>{{lastMonthRate.my}}%</td>
             <td>{{nowYearRate.my}}%</td>
           </tr>
           <tr>
             <td>上证</td>
             <td>{{nowWeekRate.shangzheng}}%<div :class="numberClass(nowWeekRate.my - nowWeekRate.shangzheng)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.shangzheng)}}%)</div></td>
             <td>{{nowMonthRate.shangzheng}}%<div :class="numberClass(nowMonthRate.my - nowMonthRate.shangzheng)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.shangzheng)}}%)</div></td>
+            <td>{{lastMonthRate.shangzheng}}%<div :class="numberClass(lastMonthRate.my - lastMonthRate.shangzheng)">({{keepTwoDecimals(lastMonthRate.my - lastMonthRate.shangzheng)}}%)</div></td>
             <td>{{nowYearRate.shangzheng}}%<div :class="numberClass(nowYearRate.my - nowYearRate.shangzheng)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.shangzheng)}}%)</div></td>
           </tr>
           <tr>
             <td>创业</td>
             <td>{{nowWeekRate.chuangye}}%<div :class="numberClass(nowWeekRate.my - nowWeekRate.chuangye)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.chuangye)}}%)</div></td>
             <td>{{nowMonthRate.chuangye}}%<div :class="numberClass(nowMonthRate.my - nowMonthRate.chuangye)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.chuangye)}}%)</div></td>
+            <td>{{lastMonthRate.chuangye}}%<div :class="numberClass(lastMonthRate.my - lastMonthRate.chuangye)">({{keepTwoDecimals(lastMonthRate.my - lastMonthRate.chuangye)}}%)</div></td>
             <td>{{nowYearRate.chuangye}}%<div :class="numberClass(nowYearRate.my - nowYearRate.chuangye)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.chuangye)}}%)</div></td>
           </tr>
           <tr>
             <td>300</td>
             <td>{{nowWeekRate.hushen}}%<div :class="numberClass(nowWeekRate.my - nowWeekRate.hushen)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.hushen)}}%)</div></td>
             <td>{{nowMonthRate.hushen}}%<div :class="numberClass(nowMonthRate.my - nowMonthRate.hushen)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.hushen)}}%)</div></td>
+            <td>{{lastMonthRate.hushen}}%<div :class="numberClass(lastMonthRate.my - lastMonthRate.hushen)">({{keepTwoDecimals(lastMonthRate.my - lastMonthRate.hushen)}}%)</div></td>
             <td>{{nowYearRate.hushen}}%<div :class="numberClass(nowYearRate.my - nowYearRate.hushen)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.hushen)}}%)</div></td>
           </tr>
           <tr>
             <td>50</td>
             <td>{{nowWeekRate.wulin}}%<div :class="numberClass(nowWeekRate.my - nowWeekRate.wulin)">({{keepTwoDecimals(nowWeekRate.my - nowWeekRate.wulin)}}%)</div></td>
             <td>{{nowMonthRate.wulin}}%<div :class="numberClass(nowMonthRate.my - nowMonthRate.wulin)">({{keepTwoDecimals(nowMonthRate.my - nowMonthRate.wulin)}}%)</div></td>
+            <td>{{lastMonthRate.wulin}}%<div :class="numberClass(lastMonthRate.my - lastMonthRate.wulin)">({{keepTwoDecimals(lastMonthRate.my - lastMonthRate.wulin)}}%)</div></td>
             <td>{{nowYearRate.wulin}}%<div :class="numberClass(nowYearRate.my - nowYearRate.wulin)">({{keepTwoDecimals(nowYearRate.my - nowYearRate.wulin)}}%)</div></td>
           </tr>
         </table>
@@ -206,6 +212,10 @@ export default {
         ...webDataKeyRateMap
       },
       nowMonthRate: {
+        my: 0,
+        ...webDataKeyRateMap
+      },
+      lastMonthRate: {
         my: 0,
         ...webDataKeyRateMap
       },
@@ -377,7 +387,6 @@ export default {
         if (data.success) {
           let list = data.data.list.reverse()
           this.myList = list
-          console.log(this.myList)
           this.myIncomeRateInfo.nowMonth = this.countSameRangeRate(list, 'month')
           this.myIncomeRateInfo.nowYear = this.countSameRangeRate(list, 'year')
           // 当月收益率
@@ -386,6 +395,7 @@ export default {
           this.nowWeekRate.my = this.countSameRangeRate(list, 'week')
           this.nowMonthRate.my = this.countSameRangeRate(list, 'month')
           this.nowYearRate.my = this.countSameRangeRate(list, 'year')
+          this.lastMonthRate.my = this.countMonthRate(list, moment().subtract(1, 'month'))
         }
       })
       let queryList = []
@@ -400,6 +410,7 @@ export default {
             this.nowWeekRate[key] = this.countSameRangeRate(list, 'week')
             this.nowMonthRate[key] = this.countSameRangeRate(list, 'month')
             this.nowYearRate[key] = this.countSameRangeRate(list, 'year')
+            this.lastMonthRate[key] = this.countMonthRate(list, moment().subtract(1, 'month'))
           }
         }))
       }
@@ -426,6 +437,12 @@ export default {
       const todayNetValue = last['net_value']
       let lastNetValue = list[startIndex]['net_value']
       return numberUtil.countDifferenceRate(todayNetValue, lastNetValue)
+    },
+    countMonthRate (list, monthTime) {
+      let index = dateUtil.findSameMonthStartEndIndex(list, monthTime)
+      let startNetValue = list[index.start === 0 ? 0 : index.start - 1]['net_value']
+      let endNetValue = list[index.end]['net_value']
+      return numberUtil.countDifferenceRate(endNetValue, startNetValue)
     },
     backHandler () {
       this.$router.history.go(-1)
