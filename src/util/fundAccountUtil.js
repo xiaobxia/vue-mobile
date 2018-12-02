@@ -15,7 +15,7 @@ const fundAccountUtil = {
     } else if (item.has_days === minHasDay) {
       const d = new Date()
       const n = d.getDay()
-      return n !== 5
+      return [1, 2, 3, 4].indexOf(n) !== -1
     }
     return false
   },
