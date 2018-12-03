@@ -173,7 +173,10 @@ export default {
       timer: null,
       hasCount,
       indexRateInfo,
-      myAsset: 0
+      myAsset: 0,
+      tradeTime: '',
+      fundShares: 0,
+      lastNetValue: {}
     }
   },
   computed: {
@@ -211,15 +214,18 @@ export default {
     clearInterval(this.timer)
   },
   mounted () {
-    this.timer = setInterval(() => {
-      this.initPage()
-      // 半分钟一刷
-    }, 1000 * 30)
-    this.initPage()
     Http.get('fund/getUserLastNetValue').then((res) => {
       const nowNetValue = res.data.record
       if (nowNetValue) {
         this.myAsset = nowNetValue.asset
+        this.fundShares = res.data.fundAssetInfo.fundShares
+      }
+    })
+    // 最新的
+    Http.get('fund/getUserNetValue').then((res) => {
+      const nowNetValue = res.data.record
+      if (nowNetValue) {
+        this.lastNetValue = nowNetValue
       }
     })
     Http.get('fund/getUserFundsNormal').then((data) => {
@@ -238,6 +244,11 @@ export default {
         }
       }
     })
+    this.timer = setInterval(() => {
+      this.initPage()
+      // 半分钟一刷
+    }, 1000 * 30)
+    this.initPage()
   },
   methods: {
     initPage () {
@@ -248,7 +259,34 @@ export default {
       }
       Promise.all(queryList).then(() => {
         this.sortChangeHandler()
+        this.updateMyNetValue()
       })
+    },
+    updateMyNetValue () {
+      const d = new Date()
+      const hour = d.getHours()
+      // 10点开始，15点结束
+      if (hour >= 10 && hour < 15) {
+        // 和交易日是同一天
+        if (moment().isSame(this.tradeTime, 'day')) {
+          const netValueDate = this.lastNetValue.net_value_date
+          if (netValueDate) {
+            let income = 0
+            for (let key in this.rateInfo) {
+              income += this.rateInfo[key] * (this.hasCount[codeMap[key].name] || 0)
+            }
+            income = parseInt((income / 100) * 0.95)
+            let form = {
+              asset: this.myAsset + income,
+              shares: this.fundShares,
+              net_value_date: moment().format('YYYY-MM-DD')
+            }
+            let url = moment(netValueDate).isSame(this.tradeTime, 'day') ? 'fund/updateUserNetValue' : 'fund/addUserNetValue'
+            Http.post(url, form).then((data) => {
+            })
+          }
+        }
+      }
     },
     qsStringify (query) {
       return qs.stringify(query)
@@ -258,6 +296,9 @@ export default {
         code: item.code
       }, {interval: 30}).then((data) => {
         if (data.success) {
+          if (this.tradeTime === '') {
+            this.tradeTime = data.data.tradeTime
+          }
           const netChangeRatio = parseFloat(data.data.netChangeRatio)
           this.sortRate[item.key] = netChangeRatio
           this.rateInfo[item.key] = numberUtil.keepTwoDecimals(netChangeRatio)
@@ -311,7 +352,6 @@ export default {
       this.list.sort((a, b) => {
         return b.sortRate - a.sortRate
       })
-      console.log(this.list)
     }
   }
 }
