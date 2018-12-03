@@ -24,7 +24,7 @@ export default {
   name: 'PositionCount',
   data () {
     return {
-      position: 0,
+      position: 50,
       info: {},
       myAsset: 10000
     }
