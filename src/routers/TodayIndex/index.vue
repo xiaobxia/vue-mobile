@@ -265,8 +265,9 @@ export default {
     updateMyNetValue () {
       const d = new Date()
       const hour = d.getHours()
+      const minute = d.getMinutes
       // 10点开始，15点结束
-      if (hour >= 10 && hour < 15) {
+      if ((hour >= 10 && hour < 15) || (hour === 15 && minute < 10)) {
         // 和交易日是同一天
         if (moment().isSame(this.tradeTime, 'day')) {
           const netValueDate = this.lastNetValue.net_value_date
