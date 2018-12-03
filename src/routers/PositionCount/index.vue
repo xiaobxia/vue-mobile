@@ -39,7 +39,7 @@ export default {
     },
     operate () {
       let asset = this.myAsset - (this.info.totalSum || 0) + (this.info.valuationTotalSum || 0)
-      return parseInt((asset * this.position / 100) - (this.info.valuationTotalSum || 0))
+      return parseInt((asset * (this.position || 50) / 100) - (this.info.valuationTotalSum || 0))
     }
   },
   watch: {
