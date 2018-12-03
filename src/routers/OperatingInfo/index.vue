@@ -255,7 +255,10 @@ export default {
             let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
             for (let i = 1; i < infoList.length; i++) {
               if (infoList[i] === '买') {
-                if (['略强', '强'].indexOf(marketStatus) !== -1 && recentNetValue[0].netChangeRatio < 0) {
+                if (marketStatus === '略强' && recentNetValue[0].netChangeRatio < 0) {
+                  this.warnClass[item.key] = true
+                }
+                if (marketStatus === '强') {
                   this.warnClass[item.key] = true
                 }
                 break
