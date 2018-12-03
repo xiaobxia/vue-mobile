@@ -178,6 +178,11 @@ export default new Router({
       name: 'IncomeAll',
       path: '/page/incomeAll',
       component: lazyLoading('IncomeAll')
+    },
+    {
+      name: 'PositionCount',
+      path: '/page/positionCount',
+      component: lazyLoading('PositionCount')
     }
   ]
 })

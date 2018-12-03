@@ -30,6 +30,33 @@
           <div class="bottom">数据配置</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/principle')">
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/保险条款.png" alt="">
+            <!--<i class="fas fa-book"></i>-->
+          </div>
+          <div class="bottom">买卖原则</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/myAsset')">
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/资产管理.png" alt="">
+            <!--<i class="fas fa-book"></i>-->
+          </div>
+          <div class="bottom">资产管理</div>
+        </div>
+      </div>
+      <div class="img-card" @click="toPath('/page/positionCount')">
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/仓位.png" alt="">
+            <!--<i class="fas fa-book"></i>-->
+          </div>
+          <div class="bottom">仓位推算</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

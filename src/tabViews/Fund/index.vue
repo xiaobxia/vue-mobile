@@ -98,15 +98,6 @@
           <div class="bottom">近期排行</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/principle')">
-        <div class="container">
-          <div class="content">
-            <img src="../../assets/保险条款.png" alt="">
-            <!--<i class="fas fa-book"></i>-->
-          </div>
-          <div class="bottom">买卖原则</div>
-        </div>
-      </div>
       <div class="img-card" @click="toPath('/page/operatingInfo')">
         <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">

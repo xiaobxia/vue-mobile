@@ -32,11 +32,6 @@
           <h3><i class="fas fa-chart-area"></i>净值管理</h3>
         </div>
       </mt-cell-swipe>
-      <mt-cell-swipe :to="'/page/myAsset'" is-link>
-        <div slot="title">
-          <h3><i class="fas fa-money-check-alt"></i>资产管理</h3>
-        </div>
-      </mt-cell-swipe>
       <mt-cell-swipe :to="'/page/incomeAll'" is-link>
         <div slot="title">
           <h3><i class="fas fa-hand-holding-usd"></i>总收益</h3>
