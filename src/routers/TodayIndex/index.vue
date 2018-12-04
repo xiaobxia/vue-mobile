@@ -9,7 +9,7 @@
       <div class="income-info">
         <span :class="numberClass(income)">{{income}} --- {{incomeRate}}% --- {{incomeRelativeRate}}%</span>
       </div>
-      <mt-cell-swipe v-for="(item) in list" :key="item.code"  :class="['50','500','300','创业'].indexOf(item.name) !== -1?'has-back':''">
+      <mt-cell-swipe v-for="(item) in list" :key="item.code"  :class="item.mix ? 'has-back':''">
         <div slot="title">
           <h3>
             <span class="name">{{item.name}}</span>
@@ -47,7 +47,8 @@ const dataRawList = {
 const codeMap = {
   'chuangye': {
     code: 'sz399006',
-    name: '创业'
+    name: '创业',
+    mix: true
   },
   'gangtie': {
     code: 'sz399440',
@@ -91,7 +92,8 @@ const codeMap = {
   },
   'wulin': {
     code: 'sh000016',
-    name: '50'
+    name: '50',
+    mix: true
   },
   'chuanmei': {
     code: 'sz399971',
@@ -111,11 +113,13 @@ const codeMap = {
   },
   'sanbai': {
     code: 'sh000300',
-    name: '300'
+    name: '300',
+    mix: true
   },
   'wubai': {
     code: 'sh000905',
-    name: '500'
+    name: '500',
+    mix: true
   },
   'yinhang': {
     code: 'sz399986',
