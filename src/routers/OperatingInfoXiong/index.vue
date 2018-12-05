@@ -71,6 +71,7 @@ export default {
         key: key,
         code: codeMap[key].code,
         name: codeMap[key].name,
+        mix: codeMap[key].mix,
         threshold: codeMap[key].threshold,
         wave: codeMap[key].wave,
         rate: codeMap[key].rate,

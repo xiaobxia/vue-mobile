@@ -163,6 +163,7 @@ export default {
         key: key,
         code: codeMap[key].code,
         name: codeMap[key].name,
+        mix: codeMap[key].mix,
         sortRate: 0
       })
       rateInfo[key] = 0
