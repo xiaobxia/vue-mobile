@@ -3,7 +3,7 @@
  */
 import numberUtil from './numberUtil'
 
-function ifMatch (raw, target) {
+function ifMatch(raw, target) {
   let match = true
   for (let key in target) {
     if (target[key] !== raw[key]) {
@@ -15,7 +15,7 @@ function ifMatch (raw, target) {
 }
 
 const buyModel = {
-  // 全绿,最有可能翻转的模型
+  //全绿,最有可能翻转的模型
   one: {
     ifSessionDown: true,
     ifSessionDownHigh: true,
@@ -43,7 +43,7 @@ const baseModel = {
   ifSessionDownCloseHigh: false
 }
 
-function extend (raw, target) {
+function extend(raw, target) {
   let obj = {}
   for (let key in raw) {
     obj[key] = raw[key]
@@ -54,7 +54,7 @@ function extend (raw, target) {
   return obj
 }
 
-function Util (config) {
+function Util(config) {
   this.threshold = config.threshold
   this.rate = config.rate
   this.wave = config.wave
@@ -79,20 +79,20 @@ Util.prototype = {
     flag.ifHighPreCloseDownHigh = this.ifHighPreCloseDownHigh(record)
     return flag
   },
-  // 是否高开
+  //是否高开
   ifUpOpen: function (record) {
     const preClose = record.preClose
     const open = record.open
     return open >= preClose
   },
-  // 是否开盘高幅度
+  //是否开盘高幅度
   ifOpenHigh: function (record) {
     const rate = this.rate
     const preClose = record.preClose
     const open = record.open
     return Math.abs(numberUtil.countDifferenceRate(open, preClose)) >= rate
   },
-  // 是否上涨
+  //是否上涨
   ifUpClose: function (record) {
     return record.netChangeRatio > 0
   },
@@ -326,6 +326,22 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-18-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': true, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-19-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': true, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-20-0'
       }
     }
     return false
@@ -755,6 +771,14 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-15-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-16-0'
       }
     }
     return false
@@ -1733,6 +1757,40 @@ Util.prototype = {
         text: 'sell-16-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
+      )) {
+        return false
+      }
+      return {
+        flag: true,
+        text: 'sell-17-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': true, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-18-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      if (ifMatch(lastDay,
+        {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+      )) {
+        return false
+      }
+      return {
+        flag: true,
+        text: 'sell-19-0'
+      }
+    }
     return false
   },
   ifBuyYouse: function (record, oneDayRecord) {
@@ -2331,6 +2389,14 @@ Util.prototype = {
         text: 'sell-17-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-18-0'
+      }
+    }
     return false
   },
   ifBuyBaijiu: function (record, oneDayRecord) {
@@ -2515,6 +2581,14 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-9-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-10-0'
       }
     }
     return false
@@ -3291,6 +3365,14 @@ Util.prototype = {
         text: 'sell-12-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-13-0'
+      }
+    }
     return false
   },
   ifBuyWulin: function (record, oneDayRecord) {
@@ -3481,6 +3563,14 @@ Util.prototype = {
         text: 'sell-11-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-12-0'
+      }
+    }
     return false
   },
   ifBuyChuanmei: function (record, oneDayRecord) {
@@ -3644,6 +3734,22 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-9-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-10-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-11-0'
       }
     }
     return false
@@ -3926,7 +4032,7 @@ Util.prototype = {
       }
     }
     if (ifMatch(today,
-      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
+    {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
     )) {
       if (ifMatch(lastDay,
         {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
@@ -4162,6 +4268,14 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-13-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-14-0'
       }
     }
     return false
@@ -4438,6 +4552,14 @@ Util.prototype = {
         text: 'sell-14-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-15-0'
+      }
+    }
     return false
   },
   ifBuySanbai: function (record, oneDayRecord) {
@@ -4635,6 +4757,30 @@ Util.prototype = {
         text: 'sell-11-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': true, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-12-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-13-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-14-0'
+      }
+    }
     return false
   },
   ifBuyWubai: function (record, oneDayRecord) {
@@ -4830,6 +4976,22 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-10-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-11-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-12-0'
       }
     }
     return false
@@ -5038,6 +5200,22 @@ Util.prototype = {
         text: 'sell-11-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-12-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-13-0'
+      }
+    }
     return false
   },
   ifBuyDichan: function (record, oneDayRecord) {
@@ -5200,6 +5378,22 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-11-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': true, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-12-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-13-0'
       }
     }
     return false
@@ -5379,6 +5573,14 @@ Util.prototype = {
         text: 'sell-10-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-11-0'
+      }
+    }
     return false
   },
   ifBuyJijian: function (record, oneDayRecord) {
@@ -5543,6 +5745,14 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-9-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': true, 'ifSessionUp': true, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-10-0'
       }
     }
     return false
@@ -5711,11 +5921,10 @@ Util.prototype = {
       }
     }
     if (ifMatch(today,
-      {'ifUpOpen': false, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': true, 'ifSessionUp': true, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-12-0'
       }
     }
@@ -5918,6 +6127,14 @@ Util.prototype = {
       return {
         flag: true,
         text: 'sell-9-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': true, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': true, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-10-0'
       }
     }
     return false
@@ -6169,11 +6386,11 @@ const IndexInfoUtilXiong = {
         countList: [],
         count2: 0,
         countList2: []
-      })
+      });
     }
     list.forEach((item, index) => {
-      let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose))
-      let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low))
+      let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose));
+      let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low));
       for (let i = 0; i < xData.length; i++) {
         if (value >= xData[i].number && xData[i + 1] && value < xData[i + 1].number) {
           xData[i].count++
@@ -6188,20 +6405,20 @@ const IndexInfoUtilXiong = {
           break
         }
       }
-    })
+    });
     let all = 0
     let count = 0
     let all2 = 0
     let count2 = 0
     for (let k = 0; k < xData.length; k++) {
       if (xData[k].count >= 5) {
-        count = count + xData[k].count
+        count = count + xData[k].count;
         for (let c = 0; c < xData[k].countList.length; c++) {
           all = all + xData[k].countList[c]
         }
       }
       if (xData[k].count2 >= 5) {
-        count2 = count2 + xData[k].count2
+        count2 = count2 + xData[k].count2;
         for (let b = 0; b < xData[k].countList2.length; b++) {
           all2 = all2 + xData[k].countList2[b]
         }
