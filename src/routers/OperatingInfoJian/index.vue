@@ -6,6 +6,11 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
+      <div class="count-wrap">
+        <span class="red-text">{{buyCount}}</span>
+        <span>:</span>
+        <span class="green-text">{{sellCount}}</span>
+      </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetailJian?'+qsStringify(item)"
                      :class="[firstClass[item.key], hasInfo[item.name] ? 'has':'no-has', warnClass[item.key]?'warn':'', lockInfo[item.name] === true ?'':'no-lock']">
         <div slot="title">
@@ -106,8 +111,8 @@ export default {
   computed: {
     buyCount () {
       let count = 0
-      for (let key in this.firstInfo) {
-        if (this.firstInfo[key] === 'buy') {
+      for (let key in this.firstClass) {
+        if (this.firstClass[key] === 'buy') {
           count++
         }
       }
@@ -126,8 +131,8 @@ export default {
     },
     sellCount () {
       let count = 0
-      for (let key in this.firstInfo) {
-        if (this.firstInfo[key] === 'sell') {
+      for (let key in this.firstClass) {
+        if (this.firstClass[key] === 'sell') {
           count++
         }
       }
