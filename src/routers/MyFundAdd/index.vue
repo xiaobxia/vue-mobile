@@ -41,6 +41,9 @@
             <p>份额:{{item.shares}}，市值:{{countAsset(item.shares)}}，{{item.buy_date}}<i class="lock-tag" v-if="ifLock(item)"></i></p>
           </div>
         </div>
+        <div class="sell-list">
+          <p>可卖份额：{{couldSellShares}}，市值：{{couldSellAsset}}</p>
+        </div>
         <div class="shares-info-list">
           <p v-for="(item) in sharesInfoList" :key="item">{{item}}<span>{{countShares(item)}} 份</span></p>
         </div>
@@ -102,7 +105,9 @@ export default {
       editType: '修改',
       lastTradingDay: lastTradingDay,
       myAsset: 10000,
-      sharesInfoList: []
+      sharesInfoList: [],
+      couldSellShares: 0,
+      couldSellAsset: 0
     }
   },
   computed: {},
@@ -152,7 +157,18 @@ export default {
         this.addForm.buy_date = this.lastTradingDay
       }
       if (query.position_record) {
-        this.positionRecord = JSON.parse(query.position_record)
+        let positionRecord = JSON.parse(query.position_record)
+        let couldSellShares = 0
+        let couldSellAsset = 0
+        for (let i = 0; i < positionRecord.length; i++) {
+          if (!this.ifLock(positionRecord[i])) {
+            couldSellShares += positionRecord[i].shares
+            couldSellAsset += this.countAsset(positionRecord[i].shares)
+          }
+        }
+        this.couldSellShares = this.keepTwoDecimals(couldSellShares)
+        this.couldSellAsset = this.keepTwoDecimals(couldSellAsset)
+        this.positionRecord = positionRecord
       }
     },
     toPath (path) {
