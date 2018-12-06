@@ -18,8 +18,8 @@
             {{item.name}}
             <span v-if="hasInfo[item.name]" :class="['has-tag', firstInfo[item.key]]">持有</span>
             <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
-            <span v-if="hasCount[item.name] >= (myAsset/15 * (item.mix?1.5:1))" class="danger-tag"></span>
-            <span v-if="!(hasCount[item.name] >= (myAsset/15 * (item.mix?1.5:1))) && (hasCount[item.name] >= (myAsset/25 * (item.mix?1.5:1)))" class="warn-tag"></span>
+            <span v-if="ifDanger(item)" class="danger-tag"></span>
+            <span v-if="ifWarn(item)" class="warn-tag"></span>
             <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
           </h3>
           <p class="explain">
@@ -105,7 +105,8 @@ export default {
       warnClass,
       sortRate,
       sortRateTwo,
-      myAsset: 10000
+      myAsset: 10000,
+      totalSum: 10000
     }
   },
   computed: {
@@ -183,8 +184,10 @@ export default {
       Http.get('fund/getUserFundsNormal').then((data) => {
         if (data.success) {
           const list = data.data.list
+          let totalSum = 0
           for (let i = 0; i < list.length; i++) {
             const item = list[i]
+            totalSum += item.sum
             if (item.theme) {
               // 定投不计入
               if (item.strategy === '1') {
@@ -204,6 +207,7 @@ export default {
               }
             }
           }
+          this.totalSum = totalSum
         }
       })
       // this.queryData(list[0])
@@ -323,6 +327,23 @@ export default {
         return b.sortRate - a.sortRate
       })
       console.log(this.list)
+    },
+    ifDanger (item) {
+      let mix = (item.mix ? 1.5 : 1) * 0.9
+      let assetLevelOne = (this.myAsset / 15) * mix
+      let totalLevelOne = (this.totalSum / 6) * mix
+      let hasCount = this.hasCount[item.name]
+      return (hasCount >= assetLevelOne) || (hasCount >= totalLevelOne)
+    },
+    ifWarn (item) {
+      let mix = (item.mix ? 1.5 : 1) * 0.9
+      let assetLevelOne = (this.myAsset / 15) * mix
+      let totalLevelOne = (this.totalSum / 6) * mix
+      let assetLevelTwo = (this.myAsset / 25) * mix
+      let totalLevelTwo = (this.totalSum / 10) * mix
+      console.log(this.totalSum)
+      let hasCount = this.hasCount[item.name]
+      return (!(hasCount >= assetLevelOne) && (hasCount >= assetLevelTwo)) || (!(hasCount >= totalLevelOne) && (hasCount >= totalLevelTwo))
     }
   }
 }
