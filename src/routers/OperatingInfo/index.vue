@@ -195,7 +195,7 @@ export default {
     queryData (item) {
       Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
         code: item.code,
-        days: 20
+        days: 8
       }, {interval: 60}).then((data) => {
         if (data.success) {
           const list = data.data.list

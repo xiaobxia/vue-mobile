@@ -177,6 +177,11 @@ const routers = [
     name: 'PositionCount',
     path: '/page/positionCount',
     component: lazyLoading('PositionCount')
+  },
+  {
+    name: 'MyProportion',
+    path: '/page/myProportion',
+    component: lazyLoading('MyProportion')
   }
 ]
 
