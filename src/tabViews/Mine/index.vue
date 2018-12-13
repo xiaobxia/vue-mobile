@@ -67,6 +67,7 @@ export default {
     okHandler () {
       Http.get('auth/logout', {token: window._token, platform: 'mobile'}).then((data) => {
         if (data.success) {
+          localStorage.removeItem('token')
           storageUtil.initUserInfo({
             isLogin: false
           })
