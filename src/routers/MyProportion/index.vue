@@ -1,8 +1,17 @@
 <template>
-  <div class="content page-my-proportion">
-    <div v-for="(item, index) in list" :key="index" class="proportion-item">
-      <div class="title">{{item.name}}<span>{{item.proportion}}%</span></div>
-      <mt-progress :value="item.proportion" :bar-height="barHeight"></mt-progress>
+  <div class="page-my-proportion">
+    <mt-header title="持仓占比" :fixed="true">
+      <mt-button slot="left" @click="backHandler">
+        <i class="fas fa-chevron-left"></i>
+      </mt-button>
+    </mt-header>
+    <div class="main-body">
+      <div class="content">
+        <div v-for="(item, index) in list" :key="index" class="proportion-item">
+          <div class="title">{{item.name}}<span>{{item.proportion}}%</span></div>
+          <mt-progress :value="item.proportion" :bar-height="barHeight"></mt-progress>
+        </div>
+      </div>
     </div>
   </div>
 </template>

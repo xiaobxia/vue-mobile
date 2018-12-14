@@ -195,7 +195,7 @@ export default {
     queryData (item) {
       Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
         code: item.code,
-        days: 8
+        days: 10
       }, {interval: 60}).then((data) => {
         if (data.success) {
           const list = data.data.list
@@ -210,7 +210,7 @@ export default {
           this.sortRate[item.key] = numberUtil.countDifferenceRate(nowClose, LastClose)
           this.sortRateTwo[item.key] = numberUtil.countDifferenceRate(recentNetValue[1].close, recentNetValue[1 + stepDay].close)
           // 近的在前
-          for (let i = 0; i < 18; i++) {
+          for (let i = 0; i < 8; i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
             const twoDayRecord = recentNetValue[i + 2]
