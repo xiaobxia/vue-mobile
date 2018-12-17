@@ -20,7 +20,7 @@
         <span class="item">沪深300：<span :class="numberClass(hushenRate)">{{hushenRate}}%</span></span>
         <span class="item">创业板：<span :class="numberClass(chuangyeRate)">{{chuangyeRate}}%</span></span>
         <span class="item">上证50：<span :class="numberClass(wulinRate)">{{wulinRate}}%</span></span>
-        <span class="item">上次购买：{{parseInt(lastTradingDayBuy)}}</span>
+        <span class="item">最新购买：{{parseInt(lastTradingDayBuy)}}</span>
       </div>
       <div class="lastUpdateValuationTime">更新于：{{lastUpdateValuationTime}}</div>
       <my-fund-card  v-for="(item) in cardInfo" :key="item.name"  :listData="item.list" :title="item.name"/>
