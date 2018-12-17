@@ -11,8 +11,8 @@
         <span class="item">持仓成本：{{parseInt(info.costTotalSum)}}</span>
         <span class="item">仓位信息：{{myPosition}}%</span>
         <span class="item">估算金额：{{parseInt(info.valuationTotalSum)}}</span>
-        <span class="item">新仓金额：{{parseInt(newCost)}}</span>
-        <span class="item">新仓收益：<span :class="numberClass(newRate)">{{newRate}}%</span></span>
+        <span class="item">锁仓金额：{{parseInt(newCost)}}</span>
+        <span class="item">锁仓收益：<span :class="numberClass(newRate)">{{newRate}}%</span></span>
         <span class="item">估算收益：<span :class="numberClass(valuationInfo)">{{parseInt(valuationInfo)}}</span></span>
         <span class="item">估算比率：<span :class="numberClass(myRate)">{{myRate}}%</span></span>
         <span class="item">相对波动：<span :class="numberClass(relativeRate)">{{relativeRate}}%</span></span>
@@ -20,6 +20,7 @@
         <span class="item">沪深300：<span :class="numberClass(hushenRate)">{{hushenRate}}%</span></span>
         <span class="item">创业板：<span :class="numberClass(chuangyeRate)">{{chuangyeRate}}%</span></span>
         <span class="item">上证50：<span :class="numberClass(wulinRate)">{{wulinRate}}%</span></span>
+        <span class="item">上次购买：{{parseInt(lastTradingDayBuy)}}</span>
       </div>
       <div class="lastUpdateValuationTime">更新于：{{lastUpdateValuationTime}}</div>
       <my-fund-card  v-for="(item) in cardInfo" :key="item.name"  :listData="item.list" :title="item.name"/>
@@ -79,7 +80,9 @@ export default {
       chuangyeRate: 0,
       lastUpdateValuationTime: '',
       fundNumber: 0,
-      newCost: 0
+      newCost: 0,
+      lastTradingDay: '',
+      lastTradingDayBuy: 0
     }
   },
   components: {MyFundCard},
@@ -117,8 +120,9 @@ export default {
     this.timer = setInterval(() => {
       this.initPage()
     }, 1000 * 60)
-    this.initPage()
-    this.queryMyNetValue()
+    this.queryMyNetValue().then(() => {
+      this.initPage()
+    })
   },
   methods: {
     initPage () {
@@ -134,9 +138,11 @@ export default {
         const list = data.data.list
         let newCost = 0
         let newValuation = 0
+        let lastTradingDayBuy = 0
         this.fundNumber = list.length
         list.forEach((item) => {
           // 处于锁仓
+          lastTradingDayBuy += fundAccountUtil.getLastTradingDayBuy(item, this.lastTradingDay).totalCost
           const unLockInfo = fundAccountUtil.getUnLockInfo(item)
           newCost += unLockInfo.totalCost
           newValuation += unLockInfo.shares * item.valuation
@@ -154,6 +160,7 @@ export default {
         for (let i = 0; i < this.cardInfo.length; i++) {
           this.cardInfo[i].list = dataMap[this.cardInfo[i].name]
         }
+        this.lastTradingDayBuy = lastTradingDayBuy
         this.newCost = newCost
         this.newRate = numberUtil.countDifferenceRate(newValuation, newCost)
         this.myRate = numberUtil.countDifferenceRate(info.valuationTotalSum, info.totalSum)
@@ -196,10 +203,11 @@ export default {
       })
     },
     queryMyNetValue () {
-      Http.get('fund/getUserLastNetValue').then((res) => {
+      return Http.get('fund/getUserLastNetValue').then((res) => {
         const nowNetValue = res.data.record
         if (nowNetValue) {
           this.myAsset = nowNetValue.asset
+          this.lastTradingDay = nowNetValue.net_value_date
         }
       })
     },

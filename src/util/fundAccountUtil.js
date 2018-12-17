@@ -50,6 +50,24 @@ const fundAccountUtil = {
       }
     }
     return data
+  },
+  getLastTradingDayBuy (item, day) {
+    let data = {
+      totalCost: 0,
+      shares: 0
+    }
+    if (item['position_record']) {
+      const list = JSON.parse(item['position_record'])
+      for (let i = 0; i < list.length; i++) {
+        const item = list[i]
+        // 没有解锁
+        if (item.buy_date === day) {
+          data.shares += item.shares
+          data.totalCost += item.shares * item.cost
+        }
+      }
+    }
+    return data
   }
 }
 
