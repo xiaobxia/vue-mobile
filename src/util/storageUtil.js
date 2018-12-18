@@ -121,6 +121,29 @@ const storageUtil = {
     window._marketStatus = config
     localStorage.setItem('marketStatus', JSON.stringify(config))
     return config
+  },
+  getGoodBad: function (key) {
+    let config = {}
+    if (window._goodBad) {
+      config = window._goodBad
+    } else {
+      const goodBadString = localStorage.getItem('goodBad')
+      if (goodBadString) {
+        config = JSON.parse(goodBadString)
+      }
+      window._goodBad = config
+    }
+    if (key) {
+      return config[key]
+    }
+    return config
+  },
+  setGoodBad: function (key, value) {
+    let config = this.getGoodBad()
+    config[key] = value
+    window._goodBad = config
+    localStorage.setItem('goodBad', JSON.stringify(config))
+    return config
   }
 }
 

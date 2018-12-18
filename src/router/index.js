@@ -182,6 +182,11 @@ const routers = [
     name: 'MyProportion',
     path: '/page/myProportion',
     component: lazyLoading('MyProportion')
+  },
+  {
+    name: 'GoodBad',
+    path: '/page/goodBad',
+    component: lazyLoading('GoodBad')
   }
 ]
 
