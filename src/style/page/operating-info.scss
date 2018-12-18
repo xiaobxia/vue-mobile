@@ -82,6 +82,34 @@
       color: $red-color;
     }
   }
+  .incomeHighRate-tag {
+    margin: 0 .25em;
+    font-size: 26px;
+    padding: 0 0.3em;
+    border-radius: 4px;
+    vertical-align: top;
+    border: 2px solid $purple-color;
+    color: $purple-color;
+  }
+  .stable-tag {
+    margin: 0 .25em;
+    font-size: 26px;
+    padding: 0 0.3em;
+    border-radius: 4px;
+    vertical-align: top;
+    border: 2px solid $blue-color;
+    color: $blue-color;
+  }
+  .no-long-tag {
+    margin: 0 .25em;
+    font-size: 26px;
+    padding: 0 0.3em;
+    border-radius: 4px;
+    vertical-align: top;
+    border: 2px solid  $red-color;
+    color:  $red-color;
+  }
+
   .count-wrap {
     padding: 20px;
     font-size: 30px;

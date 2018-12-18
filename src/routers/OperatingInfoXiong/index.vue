@@ -21,6 +21,9 @@
             <span v-if="ifDanger(item)" class="danger-tag"></span>
             <span v-if="ifWarn(item)" class="warn-tag"></span>
             <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
+            <span style="float: right" v-if="item.stable" class="stable-tag">稳定</span>
+            <span style="float: right" v-if="item.noLong" class="no-long-tag">短期</span>
+            <span style="float: right" v-if="item.incomeHighRate" class="incomeHighRate-tag">高增</span>
           </h3>
           <p class="explain">
             <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
@@ -80,7 +83,10 @@ export default {
         threshold: codeMap[key].threshold,
         wave: codeMap[key].wave,
         rate: codeMap[key].rate,
-        sortRate: 0
+        sortRate: 0,
+        noLong: codeMap[key].noLong,
+        incomeHighRate: codeMap[key].incomeHighRate,
+        stable: codeMap[key].stable
       })
       allInfo[key] = []
       firstInfo[key] = ''
