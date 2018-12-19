@@ -6,11 +6,11 @@
       </mt-button>
     </mt-header>
     <div class="main-body has-bar">
-      <template v-for="(item) in list" :key="item.name">
+      <div v-for="(item) in list" :key="item.name">
         <div class="question">
          {{item.name}}
         </div>
-        <div class="">
+        <div>
           <mt-radio
             align="right"
             v-model="item.goodBad"
@@ -18,7 +18,7 @@
             :options="['利好', '无', '利空']">
           </mt-radio>
         </div>
-      </template>
+      </div>
     </div>
   </div>
 </template>

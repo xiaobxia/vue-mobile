@@ -226,36 +226,36 @@ export default {
           },
           yAxis: this.queryData.cost
         })
-        dataList.push({
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          type: 'max',
-          name: '止盈点',
-          lineStyle: {
-            color: 'red',
-            width: 2 * zoom
-          },
-          yAxis: this.queryData.target_net_value || this.queryData.cost
-        })
-        dataList.push({
-          label: {
-            normal: {
-              position: 'end',
-              formatter: '{c}'
-            }
-          },
-          type: 'max',
-          name: '止损点',
-          lineStyle: {
-            color: 'green',
-            width: 2 * zoom
-          },
-          yAxis: this.queryData.stop_net_value || this.queryData.cost
-        })
+        // dataList.push({
+        //   label: {
+        //     normal: {
+        //       position: 'end',
+        //       formatter: '{c}'
+        //     }
+        //   },
+        //   type: 'max',
+        //   name: '止盈点',
+        //   lineStyle: {
+        //     color: 'red',
+        //     width: 2 * zoom
+        //   },
+        //   yAxis: this.queryData.target_net_value || this.queryData.cost
+        // })
+        // dataList.push({
+        //   label: {
+        //     normal: {
+        //       position: 'end',
+        //       formatter: '{c}'
+        //     }
+        //   },
+        //   type: 'max',
+        //   name: '止损点',
+        //   lineStyle: {
+        //     color: 'green',
+        //     width: 2 * zoom
+        //   },
+        //   yAxis: this.queryData.stop_net_value || this.queryData.cost
+        // })
       }
       return {
         data: dataList
@@ -265,7 +265,7 @@ export default {
       if (!(this.netValue.length > 1)) {
         return {}
       }
-      let netValue = this.netValue.slice(-60)
+      let netValue = this.netValue.slice(-30)
       let row = []
       const averageMonth = this.getAverageList(netValue, 20)
       const averageHalfMonth = this.getAverageList(netValue, 10)
