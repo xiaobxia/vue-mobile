@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="good-bad-wrap">
     <mt-header title="利好利空" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
@@ -40,7 +40,7 @@ export default {
       })
     }
     return {
-      list: []
+      list
     }
   },
   mounted () {
@@ -49,11 +49,13 @@ export default {
   methods: {
     initPage () {
     },
-    stateChangeHandler (key) {
-      const item = this.scheduleList.find((item) => {
-        return item.key === key
+    stateChangeHandler (name) {
+      const item = this.list.find((item) => {
+        return item.name === name
       })
-      console.log(item)
+      setTimeout(() => {
+        storageUtil.setGoodBad(item.name, item.goodBad)
+      }, 100)
     },
     backHandler () {
       this.$router.history.go(-1)

@@ -57,6 +57,15 @@
           <div class="bottom">仓位推算</div>
         </div>
       </div>
+      <div class="img-card" @click="toPath('/page/goodBad')">
+        <div class="container">
+          <div class="content">
+            <img src="../../assets/雷暴.png" alt="">
+            <!--<i class="fas fa-book"></i>-->
+          </div>
+          <div class="bottom">利好利空</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

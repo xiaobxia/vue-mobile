@@ -1,0 +1,19 @@
+.good-bad-wrap {
+  padding: 0 30px;
+  .question {
+    color: $active-color;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  .answer {
+    margin-bottom: 20px;
+  }
+  .suggest {
+    margin: 40px 0;
+    p {
+      margin: 0 0 20px 0;
+      display: inline-block;
+      font-size: 26px;
+    }
+  }
+}

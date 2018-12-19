@@ -16,6 +16,7 @@
         <div slot="title">
           <h3>
             {{item.name}}
+            <i v-if="item.goodBad === '利空'" class="good-bad-tag fas fa-ban"></i>
             <span v-if="hasInfo[item.name]" :class="['has-tag', firstInfo[item.key]]">持有</span>
             <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
             <span v-if="ifDanger(item)" class="danger-tag"></span>
@@ -86,7 +87,8 @@ export default {
         sortRate: 0,
         noLong: codeMap[key].noLong,
         incomeHighRate: codeMap[key].incomeHighRate,
-        stable: codeMap[key].stable
+        stable: codeMap[key].stable,
+        goodBad: storageUtil.getGoodBad(codeMap[key].name) || '无'
       })
       allInfo[key] = []
       firstClass[key] = ''
