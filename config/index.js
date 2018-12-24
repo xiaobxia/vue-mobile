@@ -62,7 +62,7 @@ module.exports = {
     // assetsPublicPath: './',
     assetsPublicPath: './',
     cdnPublicPath: 'http://pjnxf8l25.bkt.clouddn.com/',
-    ifCdn: false,
+    ifCdn: true,
     /**
      * Source Maps
      */
