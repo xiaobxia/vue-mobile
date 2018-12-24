@@ -9,6 +9,8 @@ import VCharts from 'v-charts'
 import '../static/web-fonts-with-css/css/fontawesome-all.css'
 import numberUtil from '@/util/numberUtil.js'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
+// import VConsole from 'vconsole/dist/vconsole.min.js'
+// let vConsole = new VConsole()
 
 function setAdaptive () {
   let _baseFontSize = 20

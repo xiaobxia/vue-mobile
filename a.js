@@ -242,25 +242,25 @@ console.log(list)
 // let down = 0
 // let upDay = 0
 // let downDay = 0
-// axios.get(
-//   'http://47.98.140.76:3002/myService/webData/getWebStockdaybarAllZhongjin?code=sz399432&days=265'
-// ).then((data) => {
-//   const list = data.data.data.list
-//   for (let i = 0; i < list.length; i++) {
-//     const item = list[i].kline
-//     let diff = item.close - item.preClose
-//     if (diff > 0) {
-//       up += diff
-//       upDay++
-//     } else {
-//       down += diff
-//       downDay++
-//     }
-//   }
-//   const base = list[list.length - 1].kline.preClose / 100
-//   console.log('up:' + (up / base).toFixed(2) + ',')
-//   console.log('upDay:' + upDay + ',')
-//   console.log('down:' + (down / base).toFixed(2) + ',')
-//   console.log('downDay:' + downDay)
-// });
+axios.get(
+  'http://47.98.140.76:3002/myService/webData/getWebStockdaybarAllZhongjin?code=sz399432&days=265'
+).then((data) => {
+  const list = data.data.data.list
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i].kline
+    let diff = item.close - item.preClose
+    if (diff > 0) {
+      up += diff
+      upDay++
+    } else {
+      down += diff
+      downDay++
+    }
+  }
+  const base = list[list.length - 1].kline.preClose / 100
+  console.log('up:' + (up / base).toFixed(2) + ',')
+  console.log('upDay:' + upDay + ',')
+  console.log('down:' + (down / base).toFixed(2) + ',')
+  console.log('downDay:' + downDay)
+});
 console.log(265*0.53)
