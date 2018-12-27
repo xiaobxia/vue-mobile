@@ -135,7 +135,8 @@ const codeMap = {
   },
   'shangzheng': {
     code: 'sh000001',
-    name: '上证'
+    name: '上证',
+    mix: true
   },
   'zhengquan': {
     code: 'sz399437',

@@ -11,7 +11,7 @@ import numberUtil from '@/util/numberUtil.js'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
 // import VConsole from 'vconsole/dist/vconsole.min.js'
 // let vConsole = new VConsole()
-
+// localStorage.clear()
 function setAdaptive () {
   let _baseFontSize = 20
   // 和width有关
@@ -50,6 +50,7 @@ function setAdaptive () {
     metaEl.setAttribute('name', 'viewport')
     document.head.appendChild(metaEl)
   }
+  // metaEl.setAttribute('content', 'width=device-width,initial-scale=1.0')
   metaEl.setAttribute('content', 'width=device-width,user-scalable=no,initial-scale=' + scale + ',maximum-scale=' + scale + ',minimum-scale=' + scale)
   document.documentElement.style.fontSize = (_baseFontSize / 2 * dpr * _fontscale) + 'px'
   document.documentElement.setAttribute('data-dpr', dpr)
