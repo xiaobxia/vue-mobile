@@ -50,6 +50,14 @@ import fundAccountUtil from '@/util/fundAccountUtil.js'
 import moment from 'moment'
 import Toast from '@/common/toast.js'
 import indexInfoUtilJian from '@/util/indexInfoUtilJian.js'
+import storageUtil from '@/util/storageUtil.js'
+
+const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
+const dataRawList = {
+  '中金': 'getWebStockdaybarAllZhongjin',
+  '股市通': 'getWebStockdaybarAllGushitong',
+  '东方': 'getWebStockdaybarDongfang'
+}
 
 const codeMap = indexInfoUtilJian.codeMap
 const InfoUtil = indexInfoUtilJian.Util
@@ -214,7 +222,7 @@ export default {
       const query = this.$router.history.current.query
       this.queryData = Object.assign({}, query)
       const code = this.$router.history.current.query.code
-      Http.get('webData/getWebStockdaybarAllZhongjin', {
+      Http.get(`webData/${dataRawList[dataWay]}`, {
         code: query.code,
         days: 200
       }).then((data) => {
