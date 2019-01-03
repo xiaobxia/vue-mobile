@@ -9,11 +9,6 @@ Vue.use(Router)
 
 const routers = [
   {
-    name: 'HelloWorld',
-    path: '/',
-    component: lazyLoading('HelloWorld')
-  },
-  {
     name: 'Login',
     path: '/page/login',
     component: lazyLoading('Login')
