@@ -1,6 +1,6 @@
 <template>
   <div class="operating-info">
-    <mt-header :title="'操作分析-简-'+buyInfo" :fixed="true">
+    <mt-header :title="'操作分析-简-'+buyNumber" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
@@ -11,32 +11,18 @@
         <span>:</span>
         <span class="green-text">{{sellCount}}</span>
       </div>
-      <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/indexDetailJian?'+qsStringify(item)"
-                     :class="[firstClass[item.key], hasInfo[item.name] ? 'has':'no-has', warnClass[item.key]?'warn':'', lockInfo[item.name] === true ?'':'no-lock']">
-        <div slot="title">
-          <h3>
-            {{item.name}}
-            <i v-if="item.goodBad === '利空'" class="good-bad-tag fas fa-ban"></i>
-            <span v-if="hasInfo[item.name]" :class="['has-tag', firstInfo[item.key]]">持有</span>
-            <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
-            <span v-if="ifDanger(item)" class="danger-tag"></span>
-            <span v-if="ifWarn(item)" class="warn-tag"></span>
-            <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
-            <span style="float: right" v-if="item.stable" class="stable-tag">稳定</span>
-            <span style="float: right" v-if="item.noLong" class="no-long-tag">短期</span>
-            <span style="float: right" v-if="item.incomeHighRate" class="incomeHighRate-tag">高增</span>
-          </h3>
-          <p class="explain">
-            <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
-                  :class="subItem === '买'?'buy':subItem === '卖'?'sell':''">{{subItem}}</span>
-          </p>
-          <div :class="['info-tag', 'buy', lockInfo[item.name] === true?'no-has':'has']"></div>
-        </div>
-      </mt-cell-swipe>
-    </div>
-    <div class="btn-list-wrap">
-      <mt-button type="primary" @click="sortChangeHandler" class="main-btn">排序包括今日</mt-button>
-      <mt-button type="primary" @click="sortTowChangeHandler" class="main-btn">排序不包括今日</mt-button>
+      <operating-info-item
+        v-for="(item) in list"
+        :key="item.code"
+        :indexInfo="item"
+        :toUrl="'/page/indexDetailJian?'+qsStringify(item)"
+        :hasCount="hasCount[item.name]"
+        :rate="rateMap[item.key]"
+        :buySellList="buySellMap[item.key]"
+        :lock="lockMap[item.name]"
+        :marketWarn="marketWarnMap[item.key]"
+        :positionWarn="positionWarnMap[item.key]"
+      />
     </div>
   </div>
 </template>
@@ -47,70 +33,57 @@ import indexInfoUtilJian from '@/util/indexInfoUtilJian.js'
 import qs from 'qs'
 import numberUtil from '@/util/numberUtil.js'
 import storageUtil from '@/util/storageUtil.js'
-import fundAccountUtil from '@/util/fundAccountUtil.js'
 import stockDataUtil from '@/util/stockDataUtil.js'
+import operatingTooltip from '@/util/operatingTooltip.js'
+import OperatingInfoItem from '@/components/OperatingInfoItem.vue'
 
 const codeMap = indexInfoUtilJian.codeMap
 const InfoUtil = indexInfoUtilJian.Util
 const fnMap = indexInfoUtilJian.fnMap
 const formatData = indexInfoUtilJian.formatData
 export default {
-  name: 'OperatingInfoJain',
+  name: 'OperatingInfoJian',
   data () {
-    let allInfo = {}
+    let buySellMap = {}
     let list = []
-    let firstInfo = {}
     let firstClass = {}
-    let rateInfo = {}
-    let warnClass = {}
-    let hasInfo = {}
-    let lockInfo = {}
+    let marketWarnMap = {}
+    let positionWarnMap = {}
+    let rateMap = {}
+    let lockMap = {}
     let hasCount = {}
-    let sortRate = {}
-    let sortRateTwo = {}
     for (let key in codeMap) {
       list.push({
+        ...codeMap[key],
         key: key,
-        code: codeMap[key].code,
-        name: codeMap[key].name,
-        mix: codeMap[key].mix,
-        threshold: codeMap[key].threshold,
-        wave: codeMap[key].wave,
-        rate: codeMap[key].rate,
-        sortRate: 0,
-        noLong: codeMap[key].noLong,
-        incomeHighRate: codeMap[key].incomeHighRate,
-        stable: codeMap[key].stable,
         goodBad: storageUtil.getGoodBad(codeMap[key].name) || '无'
       })
-      allInfo[key] = []
+      buySellMap[key] = []
       firstClass[key] = ''
-      firstInfo[key] = ''
-      rateInfo[key] = 0
-      hasInfo[codeMap[key].name] = false
-      warnClass[key] = false
-      lockInfo[codeMap[key].name] = false
+      marketWarnMap[key] = ''
+      positionWarnMap[key] = ''
+      rateMap[key] = 0
+      lockMap[codeMap[key].name] = false
       hasCount[codeMap[key].name] = 0
-      sortRate[codeMap[key].name] = 0
-      sortRateTwo[codeMap[key].name] = 0
     }
     return {
       list: list,
-      allInfo: allInfo,
-      firstInfo: firstInfo,
+      buySellMap,
       firstClass,
-      rateInfo: rateInfo,
-      hasInfo,
+      rateMap,
+      lockMap,
       hasCount,
-      lockInfo,
-      warnClass,
-      sortRate,
-      sortRateTwo,
+      marketWarnMap,
+      positionWarnMap,
       myAsset: 10000,
       totalSum: 10000
     }
   },
+  components: {OperatingInfoItem},
   computed: {
+    buyNumber () {
+      return operatingTooltip.getBuyNumber(1, this.myAsset)
+    },
     buyCount () {
       let count = 0
       for (let key in this.firstClass) {
@@ -120,17 +93,6 @@ export default {
       }
       return count
     },
-    buyInfo () {
-      let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
-      let factor = 1
-      if (marketStatus === '强') {
-        factor = 1.5
-      }
-      if (marketStatus === '弱') {
-        factor = 0.6
-      }
-      return 100 * Math.round(this.myAsset * factor / 16000)
-    },
     sellCount () {
       let count = 0
       for (let key in this.firstClass) {
@@ -139,38 +101,12 @@ export default {
         }
       }
       return count
-    },
-    position () {
-      let buy = 0
-      for (let key in this.firstInfo) {
-        if (this.firstInfo[key] === 'buy') {
-          buy++
-        }
-      }
-      let sell = 0
-      for (let key in this.firstInfo) {
-        if (this.firstInfo[key] === 'sell') {
-          sell++
-        }
-      }
-      let all = sell + buy
-      return numberUtil.countRate(buy, (all / 1.5))
     }
   },
   mounted () {
     this.initPage()
   },
   methods: {
-    ifLock (item) {
-      // 不计入定投
-      if (this.ifDingtou(item)) {
-        return false
-      }
-      return !fundAccountUtil.ifUnLock(item)
-    },
-    ifDingtou (item) {
-      return item.strategy && item.strategy !== '1'
-    },
     initPage () {
       let list = this.list
       for (let i = 0; i < list.length; i++) {
@@ -188,22 +124,23 @@ export default {
           let totalSum = 0
           for (let i = 0; i < list.length; i++) {
             const item = list[i]
-            totalSum += item.sum
             if (item.theme) {
               // 定投不计入
               if (item.strategy === '1') {
-                this.hasInfo[item.theme] = true
+                totalSum += item.sum
                 if (this.ifLock(item)) {
-                  if (this.lockInfo[item.theme] !== '') {
-                    this.lockInfo[item.theme] = true
+                  if (this.lockMap[item.theme] !== '') {
+                    this.lockMap[item.theme] = true
                   }
                 } else {
-                  this.lockInfo[item.theme] = ''
+                  this.lockMap[item.theme] = false
                 }
+                // 拥有应该是现在的价值之和而不是成本
+                const sum = parseInt(item.sum)
                 if (this.hasCount[item.theme]) {
-                  this.hasCount[item.theme] += parseInt(item.costSum)
+                  this.hasCount[item.theme] += sum
                 } else {
-                  this.hasCount[item.theme] = parseInt(item.costSum)
+                  this.hasCount[item.theme] = sum
                 }
               }
             }
@@ -211,7 +148,6 @@ export default {
           this.totalSum = totalSum
         }
       })
-      // this.queryData(list[0])
     },
     qsStringify (query) {
       return qs.stringify(query)
@@ -223,17 +159,13 @@ export default {
       }, {interval: 60}).then((data) => {
         if (data.success) {
           const list = data.data.list
-          const info = formatData(list)
+          const recentNetValue = formatData(list).list
           const infoUtil = new InfoUtil(item)
-          const recentNetValue = info.list
-          let infoList = []
-          let classInfo = ''
-          const stepDay = 4
-          let nowClose = recentNetValue[0].close
-          let LastClose = recentNetValue[stepDay].close
-          this.sortRate[item.key] = numberUtil.countDifferenceRate(nowClose, LastClose)
-          this.sortRateTwo[item.key] = numberUtil.countDifferenceRate(recentNetValue[1].close, recentNetValue[1 + stepDay].close)
-          // 近的在前
+          /**
+             * 生成近几日的买卖信号
+             * 近的在前
+             */
+          let buySellList = []
           for (let i = 0; i < 8; i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
@@ -242,109 +174,28 @@ export default {
             let sellFlag = infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)
             if (i < 5) {
               if ((buyFlag === true) || (buyFlag !== false && buyFlag.flag === true)) {
-                infoList[i] = '买'
-                if (classInfo === '') {
-                  classInfo = 'buy'
-                }
+                buySellList[i] = 'buy'
               } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
-                infoList[i] = '卖'
-                if (classInfo === '') {
-                  classInfo = 'sell'
-                }
+                buySellList[i] = 'sell'
               } else {
-                infoList[i] = ''
-              }
-            } else {
-              if ((buyFlag === true) || (buyFlag !== false && buyFlag.flag === true)) {
-                if (classInfo === '') {
-                  classInfo = 'buy'
-                }
-              } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
-                if (classInfo === '') {
-                  classInfo = 'sell'
-                }
+                buySellList[i] = ''
               }
             }
           }
-          this.allInfo[item.key] = infoList
-          let firstClass = ''
-          if (infoList[0] === '买') {
-            firstClass = 'buy'
-          }
-          if (infoList[0] === '卖') {
-            firstClass = 'sell'
-          }
-          if (infoList[0] === '') {
-            let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
-            for (let i = 1; i < infoList.length; i++) {
-              if (infoList[i] === '买') {
-                if (marketStatus === '略强' && recentNetValue[0].netChangeRatio < 0) {
-                  this.warnClass[item.key] = true
-                }
-                if (marketStatus === '强') {
-                  this.warnClass[item.key] = true
-                }
-                break
-              }
-              if (infoList[i] === '卖') {
-                if (['略弱', '弱'].indexOf(marketStatus) !== -1 && recentNetValue[0].netChangeRatio < 0) {
-                  this.warnClass[item.key] = true
-                }
-                break
-              }
-            }
-          }
-          this.firstClass[item.key] = firstClass
-          this.firstInfo[item.key] = classInfo
-          this.rateInfo[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
+          /**
+             * 生成市场风险提示
+             */
+          const netChangeRatio = recentNetValue[0].netChangeRatio
+          this.marketWarnMap[item.key] = operatingTooltip.getMarketWarn(netChangeRatio, buySellList)
+          this.positionWarnMap[item.key] = operatingTooltip.getPositionWarn(item, this.myAsset, this.totalSum, this.hasCount[item.name])
+          this.buySellMap[item.key] = buySellList
+          this.firstClass[item.key] = buySellList[0]
+          this.rateMap[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
         }
       })
     },
     backHandler () {
       this.$router.history.go(-1)
-    },
-    sortChangeHandler () {
-      for (let key in this.sortRate) {
-        for (let i = 0; i < this.list.length; i++) {
-          if (this.list[i].key === key) {
-            this.list[i].sortRate = this.sortRate[key]
-          }
-        }
-      }
-      this.list.sort((a, b) => {
-        return b.sortRate - a.sortRate
-      })
-      console.log(this.list)
-    },
-    sortTowChangeHandler () {
-      for (let key in this.sortRateTwo) {
-        for (let i = 0; i < this.list.length; i++) {
-          if (this.list[i].key === key) {
-            this.list[i].sortRate = this.sortRateTwo[key]
-          }
-        }
-      }
-      this.list.sort((a, b) => {
-        return b.sortRate - a.sortRate
-      })
-      console.log(this.list)
-    },
-    ifDanger (item) {
-      let mix = (item.mix ? 1.5 : 1) * 0.9
-      let assetLevelOne = (this.myAsset / 15) * mix
-      let totalLevelOne = (this.totalSum / 6) * mix
-      let hasCount = this.hasCount[item.name]
-      return (hasCount >= assetLevelOne) || (hasCount >= totalLevelOne)
-    },
-    ifWarn (item) {
-      let mix = (item.mix ? 1.5 : 1) * 0.9
-      let assetLevelOne = (this.myAsset / 15) * mix
-      let totalLevelOne = (this.totalSum / 6) * mix
-      let assetLevelTwo = (this.myAsset / 25) * mix
-      let totalLevelTwo = (this.totalSum / 10) * mix
-      console.log(this.totalSum)
-      let hasCount = this.hasCount[item.name]
-      return (!(hasCount >= assetLevelOne) && (hasCount >= assetLevelTwo)) || (!(hasCount >= totalLevelOne) && (hasCount >= totalLevelTwo))
     }
   }
 }

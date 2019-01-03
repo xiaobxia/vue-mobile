@@ -31,11 +31,16 @@
       }
     }
   }
+  // 本该买卖出，而未操作的提示
   .mint-cell.has.no-lock {
-    &.warn {
-      background-color: $yellow-color-back;
+    &.should-sell {
+      background-color: $green-color-back;
+    }
+    &.should-buy {
+      background-color: $red-color-back;
     }
   }
+  // 当天卖出信号
   .sell {
     .has-count {
       color: $green-color;
@@ -45,28 +50,31 @@
       background-color: #fff;
     }
   }
-  .warn-tag {
-    margin-left: 10px;
-    display: inline-block;
-    background-color: $yellow-color;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-  }
-  .danger-tag {
-    margin-left: 10px;
-    display: inline-block;
-    background-color: yellow;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-  }
   .buy {
     .has-count {
       color: $red-color;
     }
     background-color: $red-color-back-3;
   }
+  .warn-tag {
+    margin: 0 .25em;
+    font-size: 26px;
+    padding: 0 0.3em;
+    border-radius: 4px;
+    vertical-align: top;
+    border: 2px solid $yellow-color;
+    color: $yellow-color;
+  }
+  .danger-tag {
+    margin: 0 .25em;
+    font-size: 26px;
+    padding: 0 0.3em;
+    border-radius: 4px;
+    vertical-align: top;
+    border: 2px solid yellow;
+    color: yellow;
+  }
+  // 持有标签
   .has-tag {
     margin: 0 .25em;
     font-size: 26px;
@@ -120,6 +128,8 @@
     font-size: 30px;
     text-align: center;
   }
+
+
   .info-tag {
     z-index: 10;
     position: absolute;

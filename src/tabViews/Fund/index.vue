@@ -108,16 +108,16 @@
           <div class="bottom">定投策略</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/operatingInfo')">
-        <!--<img src="../../assets/timg.jpg" alt="">-->
-        <div class="container">
-          <div class="content">
-            <img src="../../assets/我的-策略.png" alt="">
-            <!--<i class="fas fa-allergies"></i>-->
-          </div>
-          <div class="bottom">操作分析</div>
-        </div>
-      </div>
+      <!--<div class="img-card" @click="toPath('/page/operatingInfo')">-->
+        <!--&lt;!&ndash;<img src="../../assets/timg.jpg" alt="">&ndash;&gt;-->
+        <!--<div class="container">-->
+          <!--<div class="content">-->
+            <!--<img src="../../assets/我的-策略.png" alt="">-->
+            <!--&lt;!&ndash;<i class="fas fa-allergies"></i>&ndash;&gt;-->
+          <!--</div>-->
+          <!--<div class="bottom">操作分析</div>-->
+        <!--</div>-->
+      <!--</div>-->
       <!--<div class="img-card" @click="toPath('/page/plate')">-->
         <!--&lt;!&ndash;<img src="../../assets/timg.jpg" alt="">&ndash;&gt;-->
         <!--<div class="container">-->

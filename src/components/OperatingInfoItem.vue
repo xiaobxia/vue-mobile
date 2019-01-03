@@ -1,14 +1,18 @@
 <template>
   <mt-cell-swipe :to="toUrl"
-                 :class="['operating-info-item',buySellList[0], hasCount > 0 ? 'has':'no-has', warn?'warn':'no-warn', lock ?'lock':'no-lock']">
+                 :class="['operating-info-item',buySellList[0], hasCount > 0 ? 'has':'no-has', 'should-' + marketWarn, lock ?'lock':'no-lock']">
     <div slot="title">
       <h3>
         {{indexInfo.name}}
+        <i v-if="indexInfo.goodBad === '利空'" class="good-bad-tag fas fa-ban"></i>
         <span v-if="hasCount > 0" :class="['has-tag', buySellList[0]]">持有</span>
         <span v-if="hasCount" class="has-count">{{hasCount}}</span>
-        <span v-if="hasCount >= (totalAsset/15)" class="danger-tag"></span>
-        <span v-if="!(hasCount >= (totalAsset/15)) && (hasCount >= (totalAsset/25))" class="warn-tag"></span>
+        <span v-if="positionWarn === 'danger'" class="danger-tag">危仓</span>
+        <span v-if="positionWarn === 'warn'" class="warn-tag">高仓</span>
         <span style="float: right" :class="numberClass(rate)">{{rate}}%</span>
+        <span style="float: right" v-if="indexInfo.stable" class="stable-tag">稳定</span>
+        <span style="float: right" v-if="indexInfo.noLong" class="no-long-tag">短期</span>
+        <span style="float: right" v-if="indexInfo.incomeHighRate" class="incomeHighRate-tag">高增</span>
       </h3>
       <p class="explain">
             <span v-for="(subItem, index) in buySellList" :key="subItem + index"
@@ -31,15 +35,10 @@ export default {
       type: Object,
       default: function () {
         return {
-          name: '未知'
         }
       }
     },
     toUrl: String,
-    totalAsset: {
-      type: Number,
-      default: 10000
-    },
     hasCount: {
       type: Number,
       default: 0
@@ -51,16 +50,18 @@ export default {
     buySellList: {
       type: Array,
       default: function () {
-        return ['','','','','']
+        return ['', '', '', '', '']
       }
     },
     lock: {
       type: Boolean,
       default: false
     },
-    warn: {
-      type: Boolean,
-      default: false
+    marketWarn: {
+      type: String
+    },
+    positionWarn: {
+      type: String
     }
   },
   computed: {

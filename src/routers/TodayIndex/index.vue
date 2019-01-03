@@ -236,9 +236,9 @@ export default {
           if (item.theme) {
             // 计入定投
             if (this.hasCount[item.theme]) {
-              this.hasCount[item.theme] += parseInt(item.costSum)
+              this.hasCount[item.theme] += parseInt(item.sum)
             } else {
-              this.hasCount[item.theme] = parseInt(item.costSum)
+              this.hasCount[item.theme] = parseInt(item.sum)
             }
           }
         }
