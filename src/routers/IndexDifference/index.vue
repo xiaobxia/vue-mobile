@@ -36,17 +36,8 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import Toast from '@/common/toast.js'
 import qs from 'qs'
-import numberUtil from '@/util/numberUtil.js'
-import storageUtil from '@/util/storageUtil.js'
-
-const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
-const dataRawList = {
-  '中金': 'getWebStockdaybarAllZhongjin',
-  '股市通': 'getWebStockdaybarAllGushitong',
-  '东方': 'getWebStockdaybarDongfang'
-}
+import stockDataUtil from '@/util/stockDataUtil.js'
 
 export default {
   name: 'IndexDifference',
@@ -68,7 +59,7 @@ export default {
   methods: {
     initPage () {
       Promise.all([
-        Http.get(`webData/${dataRawList[dataWay]}`, {
+        Http.get(`webData/${stockDataUtil.getAllUrl()}`, {
           code: 'sz399006',
           days: 200
         }).then((data) => {
@@ -77,7 +68,7 @@ export default {
             this.chuangye = list
           }
         }),
-        Http.get(`webData/${dataRawList[dataWay]}`, {
+        Http.get(`webData/${stockDataUtil.getAllUrl()}`, {
           code: 'sh000016',
           days: 200
         }).then((data) => {

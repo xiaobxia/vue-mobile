@@ -11,19 +11,19 @@
         v-model="dataWay"
         :options="['中金', '股市通', '东方']">
       </mt-radio>
+      <mt-button style="margin-top: 10rem" type="primary" @click="clearHandler" class="main-btn">清除数据缓存</mt-button>
     </div>
   </div>
 </template>
 
 <script>
-import Http from '@/util/httpUtil.js'
-import { Indicator } from 'mint-ui'
+import Toast from '@/common/toast.js'
 import storageUtil from '@/util/storageUtil.js'
 
 export default {
   name: 'DataConfig',
   data () {
-    const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
+    const dataWay = storageUtil.getAppConfig('dataWay') || '东方'
     return {
       dataWay: dataWay
     }
@@ -38,6 +38,14 @@ export default {
   methods: {
     backHandler () {
       this.$router.history.go(-1)
+    },
+    clearHandler () {
+      for (let key in localStorage) {
+        if (key.startsWith('webData')) {
+          localStorage.removeItem(key)
+        }
+      }
+      Toast.success('操作成功')
     }
   }
 }

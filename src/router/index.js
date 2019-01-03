@@ -187,6 +187,11 @@ const routers = [
     name: 'GoodBad',
     path: '/page/goodBad',
     component: lazyLoading('GoodBad')
+  },
+  {
+    name: 'FixedInvestment',
+    path: '/page/fixedInvestment',
+    component: lazyLoading('FixedInvestment')
   }
 ]
 

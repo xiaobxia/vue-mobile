@@ -36,13 +36,7 @@ import qs from 'qs'
 import moment from 'moment'
 import numberUtil from '@/util/numberUtil.js'
 import storageUtil from '@/util/storageUtil.js'
-
-const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
-const dataRawList = {
-  '中金': 'getWebStockdaybarTodayZhongjin',
-  '股市通': 'getWebStockdaybarTodayDongfang',
-  '东方': 'getWebStockdaybarTodayDongfang'
-}
+import stockDataUtil from '@/util/stockDataUtil.js'
 
 const codeMap = {
   'chuangye': {
@@ -299,7 +293,7 @@ export default {
       return qs.stringify(query)
     },
     queryData (item) {
-      return Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+      return Http.getWithCache(`webData/${stockDataUtil.getTodayUrl()}`, {
         code: item.code
       }, {interval: 30}).then((data) => {
         if (data.success) {

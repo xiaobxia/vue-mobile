@@ -34,14 +34,7 @@ import numberUtil from '@/util/numberUtil.js'
 import MyFundCard from '@/components/MyFundCard.vue'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
 import indexInfoUtil from '@/util/indexInfoUtilXiong.js'
-import storageUtil from '@/util/storageUtil.js'
-
-const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
-const dataRawList = {
-  '中金': 'getWebStockdaybarTodayZhongjin',
-  '股市通': 'getWebStockdaybarTodayZhongjin',
-  '东方': 'getWebStockdaybarTodayDongfang'
-}
+import stockDataUtil from '@/util/stockDataUtil.js'
 
 const codeMap = indexInfoUtil.codeMap
 export default {
@@ -170,7 +163,7 @@ export default {
         this.marketRate = data.data.info.rate
       })
       // 沪深300
-      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+      Http.getWithCache(`webData/${stockDataUtil.getTodayUrl()}`, {
         code: 'sz399300'
       }, {interval: 60}).then((data) => {
         if (data.success) {
@@ -178,7 +171,7 @@ export default {
         }
       })
       // 创业板
-      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+      Http.getWithCache(`webData/${stockDataUtil.getTodayUrl()}`, {
         code: 'sz399006'
       }, {interval: 60}).then((data) => {
         if (data.success) {
@@ -186,7 +179,7 @@ export default {
         }
       })
       // 上证50
-      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+      Http.getWithCache(`webData/${stockDataUtil.getTodayUrl()}`, {
         code: 'sh000016'
       }, {interval: 60}).then((data) => {
         if (data.success) {

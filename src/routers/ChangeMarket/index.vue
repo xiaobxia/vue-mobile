@@ -28,14 +28,7 @@ import Http from '@/util/httpUtil.js'
 import changeMarket from '@/util/changeMarket.js'
 import qs from 'qs'
 import numberUtil from '@/util/numberUtil.js'
-import storageUtil from '@/util/storageUtil.js'
-
-const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
-const dataRawList = {
-  '中金': 'getWebStockdaybarAllZhongjin',
-  '股市通': 'getWebStockdaybarAllGushitong',
-  '东方': 'getWebStockdaybarDongfang'
-}
+import stockDataUtil from '@/util/stockDataUtil.js'
 
 const codeMap = changeMarket.codeMap
 const InfoUtil = changeMarket.Util
@@ -82,7 +75,7 @@ export default {
       return qs.stringify(query)
     },
     queryData (item) {
-      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+      Http.getWithCache(`webData/${stockDataUtil.getAllUrl()}`, {
         code: item.code,
         days: 20
       }, {interval: 60}).then((data) => {

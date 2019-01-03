@@ -43,19 +43,12 @@
 
 <script>
 import Http from '@/util/httpUtil.js'
-import Toast from '@/common/toast.js'
 import indexInfoUtilXiong from '@/util/indexInfoUtilXiong.js'
 import qs from 'qs'
 import numberUtil from '@/util/numberUtil.js'
 import storageUtil from '@/util/storageUtil.js'
 import fundAccountUtil from '@/util/fundAccountUtil.js'
-
-const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
-const dataRawList = {
-  '中金': 'getWebStockdaybarAllZhongjin',
-  '股市通': 'getWebStockdaybarAllGushitong',
-  '东方': 'getWebStockdaybarDongfang'
-}
+import stockDataUtil from '@/util/stockDataUtil.js'
 
 const codeMap = indexInfoUtilXiong.codeMap
 const InfoUtil = indexInfoUtilXiong.Util
@@ -224,7 +217,7 @@ export default {
       return qs.stringify(query)
     },
     queryData (item) {
-      Http.getWithCache(`webData/${dataRawList[dataWay]}`, {
+      Http.getWithCache(`webData/${stockDataUtil.getAllUrl()}`, {
         code: item.code,
         days: 10
       }, {interval: 60}).then((data) => {

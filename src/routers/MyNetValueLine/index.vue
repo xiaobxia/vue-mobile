@@ -97,16 +97,10 @@ import dateUtil from '@/util/dateUtil.js'
 import arrayUtil from '@/util/arrayUtil.js'
 import {Indicator} from 'mint-ui'
 import storageUtil from '@/util/storageUtil.js'
+import stockDataUtil from '@/util/stockDataUtil.js'
 
 const zoom = window.adaptive.zoom
 const baseFontSize = 22
-
-const dataWay = storageUtil.getAppConfig('dataWay') || '中金'
-const dataRawList = {
-  '中金': 'getWebStockdaybarAllZhongjin',
-  '股市通': 'getWebStockdaybarAllGushitong',
-  '东方': 'getWebStockdaybarDongfang'
-}
 
 let webDataMap = {
   shangzheng: {
@@ -400,7 +394,7 @@ export default {
       })
       let queryList = []
       for (let key in webDataMap) {
-        queryList.push(Http.get(`webData/${dataRawList[dataWay]}`, {
+        queryList.push(Http.get(`webData/${stockDataUtil.getAllUrl()}`, {
           code: webDataMap[key].code,
           days
         }).then((data) => {
