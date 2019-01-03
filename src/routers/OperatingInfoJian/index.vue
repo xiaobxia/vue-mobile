@@ -7,9 +7,18 @@
     </mt-header>
     <div class="main-body">
       <div class="count-wrap">
-        <span class="red-text">{{buyCount}}</span>
-        <span>:</span>
-        <span class="green-text">{{sellCount}}</span>
+        <div class="item">
+          <span class="label">信号比：</span>
+          <span class="red-text">{{buyCount}}</span>
+          <span>:</span>
+          <span class="green-text">{{sellCount}}</span>
+        </div>
+        <div class="item">
+          <span class="label">涨跌比：</span>
+          <span class="red-text">{{countUpNumber}}</span>
+          <span>:</span>
+          <span class="green-text">{{countDownNumber}}</span>
+        </div>
       </div>
       <operating-info-item
         v-for="(item) in list"
@@ -76,6 +85,7 @@ export default {
       marketWarnMap,
       positionWarnMap,
       myAsset: 10000,
+      // 持有金额，不计入定投
       totalSum: 10000
     }
   },
@@ -85,18 +95,30 @@ export default {
       return operatingTooltip.getBuyNumber(1, this.myAsset)
     },
     buyCount () {
+      return this.countFlag(this.buySellMap, 0, 'buy')
+    },
+    sellCount () {
+      return this.countFlag(this.buySellMap, 0, 'sell')
+    },
+    buyCountLastDay () {
+      return this.countFlag(this.buySellMap, 1, 'buy')
+    },
+    sellCountLastDay () {
+      return this.countFlag(this.buySellMap, 1, 'sell')
+    },
+    countUpNumber () {
       let count = 0
-      for (let key in this.firstClass) {
-        if (this.firstClass[key] === 'buy') {
+      for (let key in this.rateMap) {
+        if (this.rateMap[key] > 0) {
           count++
         }
       }
       return count
     },
-    sellCount () {
+    countDownNumber () {
       let count = 0
-      for (let key in this.firstClass) {
-        if (this.firstClass[key] === 'sell') {
+      for (let key in this.rateMap) {
+        if (this.rateMap[key] < 0) {
           count++
         }
       }
@@ -109,9 +131,6 @@ export default {
   methods: {
     initPage () {
       let list = this.list
-      for (let i = 0; i < list.length; i++) {
-        this.queryData(list[i])
-      }
       Http.get('fund/getUserLastNetValue').then((res) => {
         const nowNetValue = res.data.record
         if (nowNetValue) {
@@ -146,6 +165,9 @@ export default {
             }
           }
           this.totalSum = totalSum
+        }
+        for (let i = 0; i < list.length; i++) {
+          this.queryData(list[i])
         }
       })
     },
@@ -196,6 +218,15 @@ export default {
     },
     backHandler () {
       this.$router.history.go(-1)
+    },
+    countFlag (buySellListMap, index, type) {
+      let count = 0
+      for (let key in buySellListMap) {
+        if (buySellListMap[key][index] === type) {
+          count++
+        }
+      }
+      return count
     }
   }
 }

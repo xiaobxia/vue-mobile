@@ -126,9 +126,11 @@
   .count-wrap {
     padding: 20px;
     font-size: 30px;
-    text-align: center;
+    .item {
+      display: inline-block;
+      width: 49%;
+    }
   }
-
 
   .info-tag {
     z-index: 10;
