@@ -19,6 +19,10 @@
           <span>:</span>
           <span class="green-text">{{countDownNumber}}</span>
         </div>
+        <div class="warn-wrap">
+          <p v-if="buyCountLastDay > 10">该涨不涨那市场就定为弱，一次可以忍，两次不行</p>
+          <p v-if="marketStatus === '弱'">买入只看熊，熊里的卖出一定卖</p>
+        </div>
       </div>
       <operating-info-item
         v-for="(item) in list"
@@ -45,6 +49,8 @@ import storageUtil from '@/util/storageUtil.js'
 import stockDataUtil from '@/util/stockDataUtil.js'
 import operatingTooltip from '@/util/operatingTooltip.js'
 import OperatingInfoItem from '@/components/OperatingInfoItem.vue'
+
+const marketStatus = storageUtil.getMarketStatus('question_1') || '强'
 
 const codeMap = indexInfoUtilJian.codeMap
 const InfoUtil = indexInfoUtilJian.Util
@@ -86,7 +92,8 @@ export default {
       positionWarnMap,
       myAsset: 10000,
       // 持有金额，不计入定投
-      totalSum: 10000
+      totalSum: 10000,
+      marketStatus
     }
   },
   components: {OperatingInfoItem},
