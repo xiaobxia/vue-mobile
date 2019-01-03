@@ -5,7 +5,7 @@
       <h3>
         {{indexInfo.name}}
         <i v-if="indexInfo.goodBad === '利空'" class="good-bad-tag fas fa-ban"></i>
-        <span v-if="hasCount > 0" :class="['has-tag', buySellList[0]]">持有</span>
+        <span v-if="hasCount > 0" :class="['has-icon', buySellList[0]]"><i class="fas fa-hand-holding-usd"></i></span>
         <span v-if="hasCount" class="has-count">{{hasCount}}</span>
         <span v-if="positionWarn === 'danger'" class="danger-tag">危仓</span>
         <span v-if="positionWarn === 'warn'" class="warn-tag">高仓</span>

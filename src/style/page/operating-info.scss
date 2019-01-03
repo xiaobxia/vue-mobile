@@ -41,7 +41,7 @@
     }
   }
   // 当天卖出信号
-  .sell {
+  .mint-cell.sell {
     .has-count {
       color: $green-color;
     }
@@ -50,7 +50,7 @@
       background-color: #fff;
     }
   }
-  .buy {
+  .mint-cell.buy {
     .has-count {
       color: $red-color;
     }
@@ -90,6 +90,17 @@
       color: $red-color;
     }
   }
+
+  .has-icon {
+    font-size: 26px;
+    &.sell {
+      color: $green-color;
+    }
+    &.buy {
+      color: $red-color;
+    }
+  }
+
   .incomeHighRate-tag {
     margin: 0 .25em;
     font-size: 26px;
