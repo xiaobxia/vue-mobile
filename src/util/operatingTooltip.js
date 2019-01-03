@@ -14,6 +14,7 @@ const operatingTooltip = {
     if (marketStatus === '弱') {
       factor = 0.6
     }
+    // 1/160
     return 100 * Math.round(myAsset * multiple * factor / 16000)
   },
   // 根据市场强弱提示那些本该买卖，而没有进行的

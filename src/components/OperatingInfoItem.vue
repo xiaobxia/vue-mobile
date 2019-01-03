@@ -18,6 +18,9 @@
             <span v-for="(subItem, index) in buySellList" :key="subItem + index"
                   :class="subItem">{{subItem === 'buy'?'买':subItem === 'sell'?'卖':''}}</span>
       </p>
+      <div class="other-text">
+        <p v-if="rate <= -3">是否有利空？是就先不接，标记利空，不是也不要接太多</p>
+      </div>
       <div v-if="lock" class="lock-tag"></div>
     </div>
   </mt-cell-swipe>

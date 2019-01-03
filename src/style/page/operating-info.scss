@@ -165,5 +165,16 @@
       width: 49.5%;
     }
   }
+  .other-text {
+    margin-top: 15px;
+    color: #888;
+    p {
+      font-size: 24px;
+      margin: 0 0 10px 0;
+      &:last-child{
+        margin: 0;
+      }
+    }
+  }
 }
 
