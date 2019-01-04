@@ -9,7 +9,7 @@ const todayDataList = {
   '中金': 'getWebStockdaybarTodayZhongjin',
   '股市通': 'getWebStockdaybarTodayZhongjin',
   '东方': 'getWebStockdaybarTodayDongfang',
-  '腾讯': 'getWebStockdaybarTenxun'
+  '腾讯': 'getWebStockdaybarTodayTenxun'
 }
 
 function getWay () {
