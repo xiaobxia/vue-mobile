@@ -13,7 +13,6 @@
         :countDownNumber="countDownNumber"
         :sellCountLastDay="sellCountLastDay"
         :buyCountLastDay="buyCountLastDay"
-        :marketStatus="marketStatus"
         :nowMonthRate="nowMonthRate"
       />
       <div class="warn-wrap">

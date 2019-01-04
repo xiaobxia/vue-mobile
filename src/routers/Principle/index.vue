@@ -36,6 +36,36 @@
           :options="['利好', '无', '利空']">
         </mt-radio>
       </div>
+      <div class="question">
+        4.明天是否是特殊的时间点（事件，周五，假期）？
+      </div>
+      <div class="answer">
+        <mt-radio
+          align="right"
+          v-model="question_4"
+          :options="['是', '否']">
+        </mt-radio>
+      </div>
+      <div class="question">
+        5.是否有上涨的意愿（从高开冲高看出）？
+      </div>
+      <div class="answer">
+        <mt-radio
+          align="right"
+          v-model="question_5"
+          :options="['是', '否']">
+        </mt-radio>
+      </div>
+      <div class="question">
+        6.是否长期悲观？
+      </div>
+      <div class="answer">
+        <mt-radio
+          align="right"
+          v-model="question_6"
+          :options="['是', '否']">
+        </mt-radio>
+      </div>
       <div class="suggest">
         <template v-if="['是'].indexOf(question_3) !== -1">
           <p>在需要护盘的下跌期，就不要再看创业板了，看50。</p>
@@ -67,7 +97,10 @@ export default {
     return {
       question_1: storageUtil.getMarketStatus('question_1') || '强',
       question_2: storageUtil.getMarketStatus('question_2') || '无',
-      question_3: storageUtil.getMarketStatus('question_3') || '否'
+      question_3: storageUtil.getMarketStatus('question_3') || '否',
+      question_4: storageUtil.getMarketStatus('question_4') || '否',
+      question_5: storageUtil.getMarketStatus('question_5') || '否',
+      question_6: storageUtil.getMarketStatus('question_6') || '否'
     }
   },
   watch: {
@@ -79,6 +112,15 @@ export default {
     },
     question_3 (val) {
       storageUtil.setMarketStatus('question_3', val)
+    },
+    question_4 (val) {
+      storageUtil.setMarketStatus('question_4', val)
+    },
+    question_5 (val) {
+      storageUtil.setMarketStatus('question_5', val)
+    },
+    question_6 (val) {
+      storageUtil.setMarketStatus('question_6', val)
     }
   },
   computed: {},

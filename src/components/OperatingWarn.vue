@@ -13,6 +13,10 @@
         <span>:</span>
         <span class="green-text">{{countDownNumber}}</span>
       </div>
+      <div class="item">
+        <span class="label">概率：</span>
+        <span class="green-text">{{upRate + (buyCount > 10? 10: 0)}}%</span>
+      </div>
     </div>
     <div class="warn-wrap">
       <p v-if="ifOperatingTime" class="red-text">操作前应该去标记市场状况</p>
@@ -25,6 +29,14 @@
 </template>
 
 <script>
+import storageUtil from '@/util/storageUtil.js'
+const question1 = storageUtil.getMarketStatus('question_1')
+const question2 = storageUtil.getMarketStatus('question_2')
+const question3 = storageUtil.getMarketStatus('question_3')
+const question4 = storageUtil.getMarketStatus('question_4')
+const question5 = storageUtil.getMarketStatus('question_5')
+const question6 = storageUtil.getMarketStatus('question_6')
+
 let ifOperatingTime = false
 const hour = new Date().getHours()
 if (hour === 14) {
@@ -36,8 +48,33 @@ if (hour === 14) {
 export default {
   name: 'OperatingWarn',
   data () {
+    let upRate = 50
+    if (question3 === '是') {
+      upRate += 10
+    }
+    if (question1 === '强') {
+      upRate += 10
+    }
+    if (question1 === '弱') {
+      upRate -= 10
+    }
+    if (question2 === '利好') {
+      upRate += 10
+    }
+    if (question2 === '利空') {
+      upRate -= 10
+    }
+    if (question5 === '是') {
+      upRate += 10
+    }
+    if (question4 === '是') {
+      if (question6 === '是') {
+        upRate += 10
+      }
+    }
     return {
-      ifOperatingTime
+      ifOperatingTime,
+      upRate
     }
   },
   props: {
@@ -68,9 +105,6 @@ export default {
     nowMonthRate: {
       type: Number,
       default: 0
-    },
-    marketStatus: {
-      type: String
     }
   },
   computed: {
