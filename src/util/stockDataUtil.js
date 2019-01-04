@@ -2,12 +2,14 @@ import storageUtil from '@/util/storageUtil.js'
 const allDataList = {
   '中金': 'getWebStockdaybarAllZhongjin',
   '股市通': 'getWebStockdaybarAllGushitong',
-  '东方': 'getWebStockdaybarDongfang'
+  '东方': 'getWebStockdaybarDongfang',
+  '腾讯': 'getWebStockdaybarTenxun'
 }
 const todayDataList = {
   '中金': 'getWebStockdaybarTodayZhongjin',
   '股市通': 'getWebStockdaybarTodayZhongjin',
-  '东方': 'getWebStockdaybarTodayDongfang'
+  '东方': 'getWebStockdaybarTodayDongfang',
+  '腾讯': 'getWebStockdaybarTenxun'
 }
 
 function getWay () {

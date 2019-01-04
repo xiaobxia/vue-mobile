@@ -9,7 +9,7 @@
       <mt-radio
         align="right"
         v-model="dataWay"
-        :options="['中金', '股市通', '东方']">
+        :options="['中金', '东方', '腾讯']">
       </mt-radio>
       <mt-button style="margin-top: 10rem" type="primary" @click="clearHandler" class="main-btn">清除数据缓存</mt-button>
     </div>
