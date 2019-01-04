@@ -11,7 +11,7 @@
         <div slot="title">
           <h3>
             {{item.name}}
-            <span v-if="hasInfo[item.name]" :class="['has-tag', firstInfo[item.key]]">持有</span>
+            <span v-if="hasInfo[item.name]" :class="['has-icon', firstInfo[item.key]]"><i class="fas fa-hand-holding-usd"></i></span>
             <span v-if="hasCount[item.name]" class="has-count">{{hasCount[item.name]}}</span>
             <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
           </h3>
