@@ -6,26 +6,16 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="count-wrap">
-        <div class="item">
-          <span class="label">信号比：</span>
-          <span class="red-text">{{buyCount}}</span>
-          <span>:</span>
-          <span class="green-text">{{sellCount}}</span>
-        </div>
-        <div class="item">
-          <span class="label">涨跌比：</span>
-          <span class="red-text">{{countUpNumber}}</span>
-          <span>:</span>
-          <span class="green-text">{{countDownNumber}}</span>
-        </div>
-      </div>
-      <div class="warn-wrap">
-        <p v-if="sellCountLastDay > 10">市场大量卖出却没有跌，可以认为市场强</p>
-        <p v-if="buyCountLastDay > 10">该涨不涨那市场就定为弱，一次可以忍，两次不行</p>
-        <p v-if="marketStatus === '弱'">买入只看熊，熊里的卖出一定卖</p>
-        <p v-if="nowMonthRate < -2">月线进入-2，减仓到半仓</p>
-      </div>
+      <operating-warn
+        :buyCount="buyCount"
+        :sellCount="sellCount"
+        :countUpNumber="countUpNumber"
+        :countDownNumber="countDownNumber"
+        :sellCountLastDay="sellCountLastDay"
+        :buyCountLastDay="buyCountLastDay"
+        :marketStatus="marketStatus"
+        :nowMonthRate="nowMonthRate"
+      />
       <operating-info-item
         v-for="(item) in list"
         :key="item.code"
@@ -51,6 +41,7 @@ import storageUtil from '@/util/storageUtil.js'
 import stockDataUtil from '@/util/stockDataUtil.js'
 import operatingTooltip from '@/util/operatingTooltip.js'
 import OperatingInfoItem from '@/components/OperatingInfoItem.vue'
+import OperatingWarn from '@/components/OperatingWarn.vue'
 
 const codeMap = indexInfoUtilXiong.codeMap
 const InfoUtil = indexInfoUtilXiong.Util
@@ -100,7 +91,7 @@ export default {
       nowMonthRate: 0
     }
   },
-  components: {OperatingInfoItem},
+  components: {OperatingInfoItem, OperatingWarn},
   computed: {
     buyNumber () {
       return operatingTooltip.getBuyNumber(1.5, this.myAsset)

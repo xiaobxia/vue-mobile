@@ -6,20 +6,16 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
-      <div class="count-wrap">
-        <div class="item">
-          <span class="label">信号比：</span>
-          <span class="red-text">{{buyCount}}</span>
-          <span>:</span>
-          <span class="green-text">{{sellCount}}</span>
-        </div>
-        <div class="item">
-          <span class="label">涨跌比：</span>
-          <span class="red-text">{{countUpNumber}}</span>
-          <span>:</span>
-          <span class="green-text">{{countDownNumber}}</span>
-        </div>
-      </div>
+      <operating-warn
+        :buyCount="buyCount"
+        :sellCount="sellCount"
+        :countUpNumber="countUpNumber"
+        :countDownNumber="countDownNumber"
+        :sellCountLastDay="sellCountLastDay"
+        :buyCountLastDay="buyCountLastDay"
+        :marketStatus="marketStatus"
+        :nowMonthRate="nowMonthRate"
+      />
       <div class="warn-wrap">
         <p v-if="sellCountLastDay > 10">市场大量卖出却没有跌，可以认为市场强</p>
         <p v-if="buyCountLastDay > 10">该涨不涨那市场就定为弱，一次可以忍，两次不行</p>
