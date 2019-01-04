@@ -23,6 +23,7 @@
       <div class="warn-wrap">
         <p v-if="buyCountLastDay > 10">该涨不涨那市场就定为弱，一次可以忍，两次不行</p>
         <p v-if="marketStatus === '弱'">买入只看熊，熊里的卖出一定卖</p>
+        <p v-if="nowMonthRate < -2">月线进入-2，减仓到半仓</p>
       </div>
       <operating-info-item
         v-for="(item) in list"
@@ -94,7 +95,8 @@ export default {
       myAsset: 10000,
       // 持有金额，不计入定投
       totalSum: 10000,
-      marketStatus
+      marketStatus,
+      nowMonthRate: 0
     }
   },
   components: {OperatingInfoItem},
@@ -139,6 +141,9 @@ export default {
   methods: {
     initPage () {
       let list = this.list
+      Http.get('fund/getUserNetValueNowMonthRate').then((res) => {
+        this.nowMonthRate = res.data.rate
+      })
       Http.get('fund/getUserLastNetValue').then((res) => {
         const nowNetValue = res.data.record
         if (nowNetValue) {
