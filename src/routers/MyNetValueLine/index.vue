@@ -114,7 +114,7 @@ let webDataMap = {
     selected: false
   },
   hushen: {
-    code: 'sz399300',
+    code: 'sh000300',
     name: '沪深300',
     selected: true
   },

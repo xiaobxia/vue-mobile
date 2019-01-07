@@ -62,7 +62,7 @@ let webDataMap = {
     name: '上证50'
   },
   hushen: {
-    code: 'sz399300',
+    code: 'sh000300',
     name: '沪深300'
   },
   'wubai': {

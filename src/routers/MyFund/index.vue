@@ -164,7 +164,7 @@ export default {
       })
       // 沪深300
       Http.getWithCache(`webData/${stockDataUtil.getTodayUrl()}`, {
-        code: 'sz399300'
+        code: 'sh000300'
       }, {interval: 60}).then((data) => {
         if (data.success) {
           this.hushenRate = data.data.netChangeRatio
