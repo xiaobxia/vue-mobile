@@ -221,13 +221,6 @@ export default {
         this.fundShares = res.data.fundAssetInfo.fundShares
       }
     })
-    // 最新的
-    Http.get('fund/getUserNetValue').then((res) => {
-      const nowNetValue = res.data.record
-      if (nowNetValue) {
-        this.lastNetValue = nowNetValue
-      }
-    })
     Http.get('fund/getUserFundsNormal').then((data) => {
       if (data.success) {
         const list = data.data.list
@@ -252,6 +245,13 @@ export default {
   },
   methods: {
     initPage () {
+      // 最新的
+      Http.get('fund/getUserNetValue').then((res) => {
+        const nowNetValue = res.data.record
+        if (nowNetValue) {
+          this.lastNetValue = nowNetValue
+        }
+      })
       let queryList = []
       let list = this.list
       for (let i = 0; i < list.length; i++) {
