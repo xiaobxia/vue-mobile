@@ -14,8 +14,8 @@
         <span class="green-text">{{countDownNumber}}</span>
       </div>
       <div class="item">
-        <span class="label">概率：</span>
-        <span class="green-text">{{upRate + (buyCount > 10? 10: 0)}}%</span>
+        <span class="label">涨概率：</span>
+        <span class="green-text">{{upRate + (buyCount > 10? 10: 0) + (sellCount > 10? -10: 0)}}%</span>
       </div>
     </div>
     <div class="warn-wrap">
