@@ -17,7 +17,7 @@
         </mt-radio>
       </div>
       <div class="question">
-        2.市场强弱情况？
+        2.市场强弱情况？(该跌不跌，该涨不涨)
       </div>
       <div class="answer">
         <mt-radio
