@@ -105,7 +105,7 @@ export default {
           const startDate = data.firstUserNetValue.net_value_date
           this.allRate.my = numberUtil.countDifferenceRate((data.userNetValue && data.userNetValue.asset) || data.fundAssetInfo.fundAssetCost, data.fundAssetInfo.fundAssetCost)
           for (let key in webDataMap) {
-            queryList.push(Http.get(`webData/getWebStockdaybarRate`, {
+            queryList.push(Http.get(`webData/getWebStockdaybarRateByLocal`, {
               code: webDataMap[key].code,
               start: startDate
             }).then((res) => {
