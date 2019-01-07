@@ -15,12 +15,6 @@
         :buyCountLastDay="buyCountLastDay"
         :nowMonthRate="nowMonthRate"
       />
-      <div class="warn-wrap">
-        <p v-if="sellCountLastDay > 10">市场大量卖出却没有跌，可以认为市场强</p>
-        <p v-if="buyCountLastDay > 10">该涨不涨那市场就定为弱，一次可以忍，两次不行</p>
-        <p v-if="marketStatus === '弱'">买入只看熊，熊里的卖出一定卖</p>
-        <p v-if="nowMonthRate < -2">月线进入-2，减仓到半仓</p>
-      </div>
       <operating-info-item
         v-for="(item) in list"
         :key="item.code"
@@ -46,6 +40,7 @@ import storageUtil from '@/util/storageUtil.js'
 import stockDataUtil from '@/util/stockDataUtil.js'
 import operatingTooltip from '@/util/operatingTooltip.js'
 import OperatingInfoItem from '@/components/OperatingInfoItem.vue'
+import OperatingWarn from '@/components/OperatingWarn.vue'
 
 const marketStatus = storageUtil.getMarketStatus('question_1') || '强'
 
@@ -94,7 +89,7 @@ export default {
       nowMonthRate: 0
     }
   },
-  components: {OperatingInfoItem},
+  components: {OperatingInfoItem, OperatingWarn},
   computed: {
     buyNumber () {
       return operatingTooltip.getBuyNumber(1, this.myAsset)
