@@ -49,24 +49,32 @@ export default {
   name: 'OperatingWarn',
   data () {
     let upRate = 50
+    // 是否要护盘
     if (question3 === '是') {
       upRate += 10
     }
+    // 市场强弱
     if (question1 === '强') {
       upRate += 10
     }
     if (question1 === '弱') {
       upRate -= 10
     }
+    // 市场是否有利好
     if (question2 === '利好') {
       upRate += 10
     }
     if (question2 === '利空') {
       upRate -= 10
     }
+    // 是否有上涨意愿
     if (question5 === '是') {
       upRate += 10
     }
+    if (question5 === '否') {
+      upRate -= 10
+    }
+    // 有外部事件，且长期悲观
     if (question4 === '是') {
       if (question6 === '是') {
         upRate += 10
