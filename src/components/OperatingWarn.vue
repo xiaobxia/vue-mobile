@@ -20,9 +20,9 @@
     </div>
     <div class="warn-wrap">
       <p v-if="ifOperatingTime" class="red-text">操作前应该去标记市场状况</p>
-      <p v-if="sellCountLastDay > 10">市场大量卖出却没有跌，可以认为市场强</p>
-      <p v-if="buyCountLastDay > 10">该涨不涨那市场就定为弱，一次可以忍，两次不行</p>
-      <p v-if="marketStatus === '弱'">买入只看熊，熊里的卖出一定卖</p>
+      <p v-if="sellCountLastDay >= 10">市场大量卖出却没有跌，可以认为市场强</p>
+      <p v-if="buyCountLastDay >= 10">该涨不涨那市场就定为弱，一次可以忍，两次不行</p>
+      <p v-if="question1 === '弱'">买入只看熊，熊里的卖出一定卖</p>
       <p v-if="nowMonthRate < -2">月线进入-2，减仓到半仓</p>
     </div>
   </div>
@@ -74,7 +74,8 @@ export default {
     }
     return {
       ifOperatingTime,
-      upRate
+      upRate,
+      question1
     }
   },
   props: {
