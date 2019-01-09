@@ -15,11 +15,11 @@
       </div>
       <div class="item">
         <span class="label">涨概率：</span>
-        <span class="green-text">{{upRate + (buyCount > 10? 10: 0) + (sellCount > 10? -10: 0)}}%</span>
+        <span class="green-text">{{upFinalRate}}%</span>
       </div>
       <div class="item">
         <span class="label">跌概率：</span>
-        <span class="green-text">{{downRate + (buyCount > 10? -10: 0) + (sellCount > 10? 10: 0)}}%</span>
+        <span class="green-text">{{downFinalRate}}%</span>
       </div>
     </div>
     <div class="warn-wrap">
@@ -34,25 +34,27 @@
 
 <script>
 import storageUtil from '@/util/storageUtil.js'
-const question1 = storageUtil.getMarketStatus('question_1')
-const question2 = storageUtil.getMarketStatus('question_2')
-const question3 = storageUtil.getMarketStatus('question_3')
-const question4 = storageUtil.getMarketStatus('question_4')
-const question5 = storageUtil.getMarketStatus('question_5')
-const question6 = storageUtil.getMarketStatus('question_6')
-const question7 = storageUtil.getMarketStatus('question_7')
 
-let ifOperatingTime = false
-const hour = new Date().getHours()
-if (hour === 14) {
-  const Minute = new Date().getMinutes()
-  if (Minute >= 40) {
-    ifOperatingTime = true
-  }
-}
 export default {
   name: 'OperatingWarn',
   data () {
+    const question1 = storageUtil.getMarketStatus('question_1')
+    const question2 = storageUtil.getMarketStatus('question_2')
+    const question3 = storageUtil.getMarketStatus('question_3')
+    const question4 = storageUtil.getMarketStatus('question_4')
+    const question5 = storageUtil.getMarketStatus('question_5')
+    const question6 = storageUtil.getMarketStatus('question_6')
+    const question7 = storageUtil.getMarketStatus('question_7')
+
+    let ifOperatingTime = false
+    const hour = new Date().getHours()
+    if (hour === 14) {
+      const Minute = new Date().getMinutes()
+      if (Minute >= 40) {
+        ifOperatingTime = true
+      }
+    }
+
     let upRate = 50
     let downRate = 50
     // 是否要护盘
@@ -112,8 +114,14 @@ export default {
     return {
       ifOperatingTime,
       upRate,
+      downRate,
       question1,
-      downRate
+      question2,
+      question3,
+      question4,
+      question5,
+      question6,
+      question7
     }
   },
   props: {
@@ -147,6 +155,30 @@ export default {
     }
   },
   computed: {
+    upFinalRate () {
+      let upRate = this.upRate
+      if (this.question7 === '否') {
+        if (this.buyCount > 10) {
+          upRate += 10
+        }
+        if (this.sellCount > 10) {
+          upRate -= 10
+        }
+      }
+      return upRate
+    },
+    downFinalRate () {
+      let downRate = this.downRate
+      if (this.question7 === '否') {
+        if (this.buyCount > 10) {
+          downRate -= 10
+        }
+        if (this.sellCount > 10) {
+          downRate += 10
+        }
+      }
+      return downRate
+    }
   },
   mounted () {
   },
