@@ -17,7 +17,7 @@
         </mt-radio>
       </div>
       <div class="question">
-        2.市场强弱情况？(该跌不跌，该涨不涨)
+        2.市场强弱情况？(该跌不跌，该涨不涨，怂)
       </div>
       <div class="answer">
         <mt-radio
@@ -47,7 +47,7 @@
         </mt-radio>
       </div>
       <div class="question">
-        5.是否有上涨的意愿（从高开冲高看出）？
+        5.是否有上涨的意愿（高开冲高，只看前30分钟）？
       </div>
       <div class="answer">
         <mt-radio
