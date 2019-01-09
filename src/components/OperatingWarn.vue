@@ -156,25 +156,45 @@ export default {
   },
   computed: {
     upFinalRate () {
+      let one = 12
+      let two = 18
       let upRate = this.upRate
       if (this.question7 === '否') {
-        if (this.buyCount > 10) {
-          upRate += 10
+        if (this.buyCount > one) {
+          if (this.buyCount > two) {
+            upRate += 20
+          } else {
+            upRate += 10
+          }
         }
-        if (this.sellCount > 10) {
-          upRate -= 10
+        if (this.sellCount > one) {
+          if (this.sellCount > two) {
+            upRate -= 20
+          } else {
+            upRate -= 10
+          }
         }
       }
       return upRate
     },
     downFinalRate () {
+      let one = 12
+      let two = 18
       let downRate = this.downRate
       if (this.question7 === '否') {
-        if (this.buyCount > 10) {
-          downRate -= 10
+        if (this.buyCount > one) {
+          if (this.buyCount > two) {
+            downRate -= 20
+          } else {
+            downRate -= 10
+          }
         }
-        if (this.sellCount > 10) {
-          downRate += 10
+        if (this.sellCount > one) {
+          if (this.sellCount > two) {
+            downRate += 20
+          } else {
+            downRate += 10
+          }
         }
       }
       return downRate
