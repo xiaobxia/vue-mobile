@@ -17,6 +17,10 @@
         <span class="label">涨概率：</span>
         <span class="green-text">{{upRate + (buyCount > 10? 10: 0) + (sellCount > 10? -10: 0)}}%</span>
       </div>
+      <div class="item">
+        <span class="label">跌概率：</span>
+        <span class="green-text">{{downRate + (buyCount > 10? -10: 0) + (sellCount > 10? 10: 0)}}%</span>
+      </div>
     </div>
     <div class="warn-wrap">
       <p v-if="ifOperatingTime" class="red-text">操作前应该去标记市场状况</p>
@@ -36,6 +40,7 @@ const question3 = storageUtil.getMarketStatus('question_3')
 const question4 = storageUtil.getMarketStatus('question_4')
 const question5 = storageUtil.getMarketStatus('question_5')
 const question6 = storageUtil.getMarketStatus('question_6')
+const question7 = storageUtil.getMarketStatus('question_7')
 
 let ifOperatingTime = false
 const hour = new Date().getHours()
@@ -49,30 +54,38 @@ export default {
   name: 'OperatingWarn',
   data () {
     let upRate = 50
+    let downRate = 50
     // 是否要护盘
     if (question3 === '是') {
       upRate += 10
+      downRate -= 10
     }
     // 市场强弱
     if (question1 === '强') {
       upRate += 10
+      downRate -= 10
     }
     if (question1 === '弱') {
       upRate -= 10
+      downRate += 10
     }
     // 市场是否有利好
     if (question2 === '利好') {
       upRate += 10
+      downRate -= 10
     }
     if (question2 === '利空') {
       upRate -= 10
+      downRate += 10
     }
     // 是否有上涨意愿
     if (question5 === '是') {
       upRate += 10
+      downRate -= 10
     }
     if (question5 === '否') {
       upRate -= 10
+      downRate += 10
     }
     // 有外部事件，且长期悲观
     if (question4 === '是') {
@@ -80,10 +93,27 @@ export default {
         upRate += 10
       }
     }
+    if (question4 === '否') {
+      if (question6 === '是') {
+        downRate += 10
+      }
+    }
+    // 缩量，特殊情况再加10
+    if (question7 === '是') {
+      if (question4 === '是') {
+        upRate += 10
+      }
+    }
+    if (question7 === '是') {
+      if (question4 === '否') {
+        downRate += 10
+      }
+    }
     return {
       ifOperatingTime,
       upRate,
-      question1
+      question1,
+      downRate
     }
   },
   props: {

@@ -66,6 +66,16 @@
           :options="['是', '否']">
         </mt-radio>
       </div>
+      <div class="question">
+        7.是否缩量？
+      </div>
+      <div class="answer">
+        <mt-radio
+          align="right"
+          v-model="question_7"
+          :options="['是', '否']">
+        </mt-radio>
+      </div>
       <div class="suggest">
         <template v-if="['是'].indexOf(question_3) !== -1">
           <p>在需要护盘的下跌期，就不要再看创业板了，看50。</p>
@@ -100,7 +110,8 @@ export default {
       question_3: storageUtil.getMarketStatus('question_3') || '否',
       question_4: storageUtil.getMarketStatus('question_4') || '否',
       question_5: storageUtil.getMarketStatus('question_5') || '否',
-      question_6: storageUtil.getMarketStatus('question_6') || '否'
+      question_6: storageUtil.getMarketStatus('question_6') || '否',
+      question_7: storageUtil.getMarketStatus('question_7') || '否'
     }
   },
   watch: {
@@ -121,6 +132,9 @@ export default {
     },
     question_6 (val) {
       storageUtil.setMarketStatus('question_6', val)
+    },
+    question_7 (val) {
+      storageUtil.setMarketStatus('question_7', val)
     }
   },
   computed: {},
