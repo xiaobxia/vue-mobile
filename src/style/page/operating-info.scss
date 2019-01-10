@@ -4,6 +4,26 @@
     border: none;
     margin-bottom: 10px;
   }
+  .netChange {
+    position: relative;
+    margin: 0;
+    border-radius: 10px;
+    height: 10px;
+    span {
+      display: inline-block;
+      width: 15%;
+      padding: 5px 10px;
+      background-color: #ccc;
+      border-radius: 10px;
+      margin-right: 10px;
+      &.red-text {
+        background-color: $red-color;
+      }
+      &.green-text {
+        background-color: $green-color;
+      }
+    }
+  }
   .explain {
     position: relative;
     border-radius: 10px;

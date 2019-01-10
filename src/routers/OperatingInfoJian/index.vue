@@ -26,6 +26,7 @@
         :lock="lockMap[item.name]"
         :marketWarn="marketWarnMap[item.key]"
         :positionWarn="positionWarnMap[item.key]"
+        :netChangeRatioList="netChangeRatioMap[item.key]"
       />
     </div>
   </div>
@@ -52,6 +53,7 @@ export default {
   name: 'OperatingInfoJian',
   data () {
     let buySellMap = {}
+    let netChangeRatioMap = {}
     let list = []
     let firstClass = {}
     let marketWarnMap = {}
@@ -66,6 +68,7 @@ export default {
         goodBad: storageUtil.getGoodBad(codeMap[key].name) || '无'
       })
       buySellMap[key] = []
+      netChangeRatioMap[key] = []
       firstClass[key] = ''
       marketWarnMap[key] = ''
       positionWarnMap[key] = ''
@@ -76,6 +79,7 @@ export default {
     return {
       list: list,
       buySellMap,
+      netChangeRatioMap,
       firstClass,
       rateMap,
       lockMap,
@@ -191,6 +195,7 @@ export default {
              * 近的在前
              */
           let buySellList = []
+          let netChangeRatioList = []
           for (let i = 0; i < 8; i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
@@ -198,6 +203,7 @@ export default {
             let buyFlag = infoUtil[fnMap[item.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)
             let sellFlag = infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)
             if (i < 5) {
+              netChangeRatioList[i] = recentNetValue[i].netChangeRatio
               if ((buyFlag === true) || (buyFlag !== false && buyFlag.flag === true)) {
                 buySellList[i] = 'buy'
               } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
@@ -214,6 +220,7 @@ export default {
           this.marketWarnMap[item.key] = operatingTooltip.getMarketWarn(netChangeRatio, buySellList)
           this.positionWarnMap[item.key] = operatingTooltip.getPositionWarn(item, this.myAsset, this.totalSum, this.hasCount[item.name])
           this.buySellMap[item.key] = buySellList
+          this.netChangeRatioMap[item.key] = netChangeRatioList
           this.firstClass[item.key] = buySellList[0]
           this.rateMap[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
         }

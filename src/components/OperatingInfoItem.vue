@@ -18,6 +18,10 @@
             <span v-for="(subItem, index) in buySellList" :key="subItem + index"
                   :class="subItem">{{subItem === 'buy'?'买':subItem === 'sell'?'卖':''}}</span>
       </p>
+      <p class="netChange">
+            <span v-for="(subItem, index) in netChangeRatioList" :key="index"
+                  :class="numberClass(subItem)"></span>
+      </p>
       <div class="other-text">
         <p v-if="rate <= -3">是否有利空？是就先不接，标记利空，不是也不要接太多</p>
       </div>
@@ -54,6 +58,12 @@ export default {
       type: Array,
       default: function () {
         return ['', '', '', '', '']
+      }
+    },
+    netChangeRatioList: {
+      type: Array,
+      default: function () {
+        return [0, 0, 0, 0, 0]
       }
     },
     lock: {
