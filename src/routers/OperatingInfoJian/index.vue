@@ -1,6 +1,6 @@
 <template>
   <div class="operating-info">
-    <mt-header :title="'操作分析-简-'+buyNumber" :fixed="true">
+    <mt-header title="操作分析-简" :fixed="true">
       <mt-button slot="left" @click="backHandler">
         <i class="fas fa-chevron-left"></i>
       </mt-button>
@@ -14,6 +14,8 @@
         :sellCountLastDay="sellCountLastDay"
         :buyCountLastDay="buyCountLastDay"
         :nowMonthRate="nowMonthRate"
+        :myAsset="myAsset"
+        :type="'简'"
       />
       <operating-info-item
         v-for="(item) in list"
@@ -99,9 +101,6 @@ export default {
   },
   components: {OperatingInfoItem, OperatingWarn},
   computed: {
-    buyNumber () {
-      return operatingTooltip.getBuyNumber(1, this.myAsset)
-    },
     buyCount () {
       return this.countFlag(this.buySellMap, 0, 'buy')
     },

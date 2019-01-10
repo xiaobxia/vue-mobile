@@ -21,6 +21,10 @@
         <span class="label">跌概率：</span>
         <span class="green-text">{{downFinalRate}}%</span>
       </div>
+      <div class="item">
+        <span class="label">买金额：</span>
+        <span class="green-text">{{buyOne}}</span>
+      </div>
     </div>
     <div class="warn-wrap">
       <p v-if="ifOperatingTime" class="red-text">操作前应该去标记市场状况</p>
@@ -154,6 +158,14 @@ export default {
     nowMonthRate: {
       type: Number,
       default: 0
+    },
+    myAsset: {
+      type: Number,
+      default: 100000
+    },
+    type: {
+      type: String,
+      default: '简'
     }
   },
   computed: {
@@ -200,6 +212,27 @@ export default {
         }
       }
       return downRate
+    },
+    buyOne () {
+      const flag = this.type === '熊' ? 1 : 0.7
+      const base = flag * this.myAsset / 16000
+      let b = 1
+      if (this.upFinalRate >= 60) {
+        b = 1.2
+      }
+      if (this.upFinalRate >= 70) {
+        b = 1.4
+      }
+      if (this.upFinalRate >= 80) {
+        b = 1.6
+      }
+      if (this.upFinalRate >= 90) {
+        b = 1.8
+      }
+      if (this.upFinalRate >= 100) {
+        b = 2
+      }
+      return Math.round(base * b) * 100
     }
   },
   mounted () {
