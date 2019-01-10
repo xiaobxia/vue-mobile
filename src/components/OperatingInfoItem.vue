@@ -10,9 +10,9 @@
         <span v-if="positionWarn === 'danger'" class="danger-tag">危仓</span>
         <span v-if="positionWarn === 'warn'" class="warn-tag">高仓</span>
         <span style="float: right" :class="numberClass(rate)">{{rate}}%</span>
-        <span style="float: right" v-if="indexInfo.stable" class="stable-tag">稳定</span>
-        <span style="float: right" v-if="indexInfo.noLong" class="no-long-tag">短期</span>
-        <span style="float: right" v-if="indexInfo.incomeHighRate" class="incomeHighRate-tag">高增</span>
+        <!--<span style="float: right" v-if="indexInfo.stable" class="stable-tag">稳定</span>-->
+        <!--<span style="float: right" v-if="indexInfo.noLong" class="no-long-tag">短期</span>-->
+        <!--<span style="float: right" v-if="indexInfo.incomeHighRate" class="incomeHighRate-tag">高增</span>-->
       </h3>
       <p class="explain">
             <span v-for="(subItem, index) in buySellList" :key="subItem + index"
@@ -25,13 +25,19 @@
       <div class="other-text">
         <p v-if="rate <= -3">是否有利空？是就先不接，标记利空，不是也不要接太多</p>
       </div>
-      <div v-if="lock" class="lock-tag"></div>
-      <div v-if="lowSell" class="low-sell"><i class="fas fa-long-arrow-alt-down"></i></div>
+      <div class="left-tag">
+        <span v-if="lowSell" class="low-sell"><i class="fas fa-long-arrow-alt-down"></i></span>
+        <span v-if="changeMarket" class="change-tag"><i class="fas fa-exchange-alt"></i></span>
+      </div>
+      <div class="right-tag">
+        <span v-if="lock" class="lock-tag"></span>
+      </div>
     </div>
   </mt-cell-swipe>
 </template>
 
 <script>
+import storageUtil from '@/util/storageUtil.js'
 export default {
   name: 'OperatingInfoItem',
   data () {
@@ -83,6 +89,9 @@ export default {
     }
   },
   computed: {
+    changeMarket () {
+      return storageUtil.getChangeMarket(this.indexInfo.key) || false
+    }
   },
   mounted () {
   },

@@ -29,6 +29,7 @@ import changeMarket from '@/util/changeMarket.js'
 import qs from 'qs'
 import numberUtil from '@/util/numberUtil.js'
 import stockDataUtil from '@/util/stockDataUtil.js'
+import storageUtil from '@/util/storageUtil.js'
 
 const codeMap = changeMarket.codeMap
 const InfoUtil = changeMarket.Util
@@ -97,6 +98,7 @@ export default {
               infoList[i] = false
             }
           }
+          storageUtil.setChangeMarket(item.key, infoList[0])
           this.allInfo[item.key] = infoList
           this.rateInfo[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
         }

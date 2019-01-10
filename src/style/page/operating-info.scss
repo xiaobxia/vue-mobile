@@ -163,14 +163,21 @@
       width: 49%;
     }
   }
-
-  .lock-tag {
+  .left-tag {
     z-index: 10;
     position: absolute;
-    top: 0;
     bottom: 0;
-    right: -20px;
-    margin: auto;
+    left: -25px;
+    height: 100%;
+  }
+  .right-tag {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    right: -25px;
+    height: 100%;
+  }
+  .lock-tag {
     width: 20px;
     height: 20px;
     border-radius: 20px;
@@ -178,16 +185,17 @@
     background-color: $red-color;
   }
   .low-sell {
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -20px;
-    margin: auto;
     width: 20px;
     height: 30px;
     display: block;
     color: $green-color;
+  }
+  .change-tag {
+    width: 20px;
+    height: 30px;
+    display: block;
+    color: blue;
+    font-size: 20px;
   }
   .mint-cell-wrapper {
     overflow: visible;

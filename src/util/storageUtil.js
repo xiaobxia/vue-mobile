@@ -144,6 +144,29 @@ const storageUtil = {
     window._goodBad = config
     localStorage.setItem('goodBad', JSON.stringify(config))
     return config
+  },
+  getChangeMarket: function (key) {
+    let config = {}
+    if (window._changeMarket) {
+      config = window._changeMarket
+    } else {
+      const changeMarketString = localStorage.getItem('changeMarket')
+      if (changeMarketString) {
+        config = JSON.parse(changeMarketString)
+      }
+      window._changeMarket = config
+    }
+    if (key) {
+      return config[key]
+    }
+    return config
+  },
+  setChangeMarket: function (key, value) {
+    let config = this.getChangeMarket()
+    config[key] = value
+    window._changeMarket = config
+    localStorage.setItem('changeMarket', JSON.stringify(config))
+    return config
   }
 }
 
