@@ -57,13 +57,13 @@
         </mt-radio>
       </div>
       <div class="question">
-        6.是否长期悲观？
+        6.是否悲观（卖飞，买亏）？
       </div>
       <div class="answer">
         <mt-radio
           align="right"
           v-model="question_6"
-          :options="['是', '否']">
+          :options="['乐观', '无', '悲观']">
         </mt-radio>
       </div>
       <div class="question">
@@ -110,7 +110,7 @@ export default {
       question_3: storageUtil.getMarketStatus('question_3') || '否',
       question_4: storageUtil.getMarketStatus('question_4') || '否',
       question_5: storageUtil.getMarketStatus('question_5') || '否',
-      question_6: storageUtil.getMarketStatus('question_6') || '否',
+      question_6: storageUtil.getMarketStatus('question_6') || '无',
       question_7: storageUtil.getMarketStatus('question_7') || '否'
     }
   },

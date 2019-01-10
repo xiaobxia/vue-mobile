@@ -89,14 +89,16 @@ export default {
       upRate -= 10
       downRate += 10
     }
-    // 有外部事件，且长期悲观
-    if (question4 === '是') {
-      if (question6 === '是') {
+    // 乐观悲观，特殊情况再加10
+    if (question6 === '乐观') {
+      upRate += 10
+      if (question4 === '是') {
         upRate += 10
       }
     }
-    if (question4 === '否') {
-      if (question6 === '是') {
+    if (question6 === '悲观') {
+      downRate += 10
+      if (question4 === '否') {
         downRate += 10
       }
     }
