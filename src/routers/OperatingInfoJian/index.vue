@@ -227,7 +227,6 @@ export default {
           this.positionWarnMap[item.key] = operatingTooltip.getPositionWarn(item, this.myAsset, this.totalSum, this.hasCount[item.name])
           this.buySellMap[item.key] = buySellList
           this.lowSellMap[item.key] = operatingTooltip.ifLowSell(buySellList, closeList)
-          console.log(this.lowSellMap)
           this.netChangeRatioMap[item.key] = netChangeRatioList
           this.firstClass[item.key] = buySellList[0]
           this.rateMap[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
