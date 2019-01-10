@@ -27,6 +27,7 @@
         :marketWarn="marketWarnMap[item.key]"
         :positionWarn="positionWarnMap[item.key]"
         :netChangeRatioList="netChangeRatioMap[item.key]"
+        :lowSell="lowSellMap[item.key]"
       />
     </div>
   </div>
@@ -54,6 +55,7 @@ export default {
   data () {
     let buySellMap = {}
     let netChangeRatioMap = {}
+    let lowSellMap = {}
     let list = []
     let firstClass = {}
     let marketWarnMap = {}
@@ -71,6 +73,7 @@ export default {
       netChangeRatioMap[key] = []
       firstClass[key] = ''
       marketWarnMap[key] = ''
+      lowSellMap[key] = false
       positionWarnMap[key] = ''
       rateMap[key] = 0
       lockMap[codeMap[key].name] = false
@@ -85,6 +88,7 @@ export default {
       lockMap,
       hasCount,
       marketWarnMap,
+      lowSellMap,
       positionWarnMap,
       myAsset: 10000,
       // 持有金额，不计入定投
@@ -196,6 +200,7 @@ export default {
              */
           let buySellList = []
           let netChangeRatioList = []
+          let closeList = []
           for (let i = 0; i < 8; i++) {
             const nowRecord = recentNetValue[i]
             const oneDayRecord = recentNetValue[i + 1]
@@ -203,6 +208,7 @@ export default {
             let buyFlag = infoUtil[fnMap[item.key + 'Buy']](nowRecord, oneDayRecord, twoDayRecord)
             let sellFlag = infoUtil[fnMap[item.key + 'Sell']](nowRecord, oneDayRecord, twoDayRecord)
             if (i < 5) {
+              closeList[i] = recentNetValue[i].close
               netChangeRatioList[i] = recentNetValue[i].netChangeRatio
               if ((buyFlag === true) || (buyFlag !== false && buyFlag.flag === true)) {
                 buySellList[i] = 'buy'
@@ -220,6 +226,8 @@ export default {
           this.marketWarnMap[item.key] = operatingTooltip.getMarketWarn(netChangeRatio, buySellList)
           this.positionWarnMap[item.key] = operatingTooltip.getPositionWarn(item, this.myAsset, this.totalSum, this.hasCount[item.name])
           this.buySellMap[item.key] = buySellList
+          this.lowSellMap[item.key] = operatingTooltip.ifLowSell(buySellList, closeList)
+          console.log(this.lowSellMap)
           this.netChangeRatioMap[item.key] = netChangeRatioList
           this.firstClass[item.key] = buySellList[0]
           this.rateMap[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)

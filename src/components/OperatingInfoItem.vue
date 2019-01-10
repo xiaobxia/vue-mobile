@@ -26,6 +26,7 @@
         <p v-if="rate <= -3">是否有利空？是就先不接，标记利空，不是也不要接太多</p>
       </div>
       <div v-if="lock" class="lock-tag"></div>
+      <div v-if="lowSell" class="low-sell"><i class="fas fa-long-arrow-alt-down"></i></div>
     </div>
   </mt-cell-swipe>
 </template>
@@ -67,6 +68,10 @@ export default {
       }
     },
     lock: {
+      type: Boolean,
+      default: false
+    },
+    lowSell: {
       type: Boolean,
       default: false
     },

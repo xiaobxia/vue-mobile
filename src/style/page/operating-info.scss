@@ -164,29 +164,30 @@
     }
   }
 
-  .info-tag {
+  .lock-tag {
     z-index: 10;
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -25px;
+    right: -20px;
     margin: auto;
-    display: none;
     width: 20px;
     height: 20px;
     border-radius: 20px;
-    &.sell {
-      &.has {
-        display: block;
-        background-color: $green-color;
-      }
-    }
-    &.buy {
-      &.no-has {
-        display: block;
-        background-color: $red-color;
-      }
-    }
+    display: block;
+    background-color: $red-color;
+  }
+  .low-sell {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    margin: auto;
+    width: 20px;
+    height: 30px;
+    display: block;
+    color: $green-color;
   }
   .mint-cell-wrapper {
     overflow: visible;

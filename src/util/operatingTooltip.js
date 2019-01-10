@@ -59,6 +59,24 @@ const operatingTooltip = {
       return 'warn'
     }
     return ''
+  },
+  // 是否低于卖出信号时的点位
+  ifLowSell (buySellList, closeList) {
+    let firstFlag = ''
+    let flagIndex = 0
+    for (let i = 1; i < buySellList.length; i++) {
+      if (buySellList[i] !== '') {
+        firstFlag = buySellList[i]
+        flagIndex = i
+        break
+      }
+    }
+    if (firstFlag === 'sell') {
+      if (closeList[flagIndex] > closeList[0]) {
+        return true
+      }
+    }
+    return false
   }
 }
 export default operatingTooltip
