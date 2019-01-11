@@ -27,7 +27,7 @@ const operatingTooltip = {
           if (marketStatus === '略强' && netChangeRatio > 0) {
             marketWarn = 'buy'
           }
-          if (marketStatus === '强') {
+          if (marketStatus === '强' && netChangeRatio > 0) {
             marketWarn = 'buy'
           }
           break

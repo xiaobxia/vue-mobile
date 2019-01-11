@@ -91,6 +91,9 @@ export default{
           this.list = proportionList
         }
       })
+    },
+    backHandler () {
+      this.$router.history.go(-1)
     }
   }
 }
