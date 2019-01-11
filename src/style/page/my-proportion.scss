@@ -1,4 +1,7 @@
 .page-my-proportion {
+  .main-body {
+    background-color: #fff;
+  }
   .title {
     span {
       float: right;
@@ -6,5 +9,11 @@
   }
   .mt-progress-runway, .mt-progress-progress {
     border-radius: 10px;
+  }
+  .mt-progress-runway {
+    background-color: #ebeef5;
+  }
+  .mt-progress-progress {
+    background-color: #409eff;
   }
 }
