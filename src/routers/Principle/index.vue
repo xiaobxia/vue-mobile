@@ -57,7 +57,7 @@
         </mt-radio>
       </div>
       <div class="question">
-        6.是否悲观（卖飞，买亏）？
+        6.是否悲观（卖飞，买亏，大量那种）？
       </div>
       <div class="answer">
         <mt-radio
