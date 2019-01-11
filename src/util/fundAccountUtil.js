@@ -33,19 +33,45 @@ const fundAccountUtil = {
     return false
   },
   // 获取锁仓的仓位信息
-  getUnLockInfo (item) {
+  getLockInfo (item) {
     let data = {
       totalCost: 0,
-      shares: 0
+      shares: 0,
+      sum: 0,
+      valuationSum: 0
     }
     if (item['position_record']) {
       const list = JSON.parse(item['position_record'])
       for (let i = 0; i < list.length; i++) {
-        const item = list[i]
+        const subItem = list[i]
         // 没有解锁
-        if (!this.ifUnLock(item)) {
-          data.shares += item.shares
-          data.totalCost += item.shares * item.cost
+        if (!this.ifUnLock(subItem)) {
+          data.shares += subItem.shares
+          data.sum += subItem.shares * item.netValue
+          data.totalCost += subItem.shares * subItem.cost
+          data.valuationSum += subItem.shares * item.valuation
+        }
+      }
+    }
+    return data
+  },
+  getUnLockInfo (item) {
+    let data = {
+      totalCost: 0,
+      shares: 0,
+      sum: 0,
+      valuationSum: 0
+    }
+    if (item['position_record']) {
+      const list = JSON.parse(item['position_record'])
+      for (let i = 0; i < list.length; i++) {
+        const subItem = list[i]
+        // 没有解锁
+        if (this.ifUnLock(subItem)) {
+          data.shares += subItem.shares
+          data.sum += subItem.shares * item.netValue
+          data.totalCost += subItem.shares * subItem.cost
+          data.valuationSum += subItem.shares * item.valuation
         }
       }
     }

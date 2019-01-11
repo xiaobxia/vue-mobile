@@ -136,9 +136,9 @@ export default {
         list.forEach((item) => {
           // 处于锁仓
           lastTradingDayBuy += fundAccountUtil.getLastTradingDayBuy(item, this.lastTradingDay).totalCost
-          const unLockInfo = fundAccountUtil.getUnLockInfo(item)
-          newCost += unLockInfo.totalCost
-          newValuation += unLockInfo.shares * item.valuation
+          const lockInfo = fundAccountUtil.getLockInfo(item)
+          newCost += lockInfo.totalCost
+          newValuation += lockInfo.shares * item.valuation
           // 防止基金有主题，但是主题已经被删除的情况
           if (item.strategy !== '1') {
             dataMap['定投'].push(item)

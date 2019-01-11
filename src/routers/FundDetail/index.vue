@@ -15,6 +15,8 @@
         <span class="item">基金净值：{{currentFund.net_value}}</span>
         <span class="item">估算净值：{{currentFund.valuation}}</span>
         <span class="item">估算涨幅：{{countRate(currentFund.valuation, currentFund.net_value)}}%</span>
+        <span class="item">可卖份额：{{parseInt(canSellInfo.shares || 0)}}</span>
+        <span class="item">可卖金额：{{parseInt(canSellInfo.sum || 0)}}</span>
         <span>估值时间：{{formatDate(currentFund.valuation_date)}}</span>
       </div>
       <div class="theme-wrap">
@@ -172,7 +174,8 @@ export default {
       ifFocus: 'false',
       filterTheme: '',
       filterList,
-      popupVisible: false
+      popupVisible: false,
+      canSellInfo: {}
     }
   },
 
@@ -369,6 +372,7 @@ export default {
         code: code
       }).then((res) => {
         if (res.success === true && res.data.code) {
+          this.canSellInfo = fundAccountUtil.getUnLockInfo(res.data)
           let item = res.data
           this.type = 'edit'
           this.queryData = {
