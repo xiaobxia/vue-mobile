@@ -30,7 +30,7 @@
         <span v-if="changeMarket" class="change-tag bottom"><i class="fas fa-exchange-alt"></i></span>
       </div>
       <div class="right-tag">
-        <span v-if="!lock" class="lock-tag top"></span>
+        <span v-if="lock" class="lock-tag top"></span>
       </div>
     </div>
   </mt-cell-swipe>
