@@ -26,7 +26,7 @@
         <p v-if="rate <= -3">是否有利空？是就先不接，标记利空，不是也不要接太多</p>
       </div>
       <div class="left-tag">
-        <span v-if="lowSell" class="low-sell top"><i class="fas fa-long-arrow-alt-down"></i></span>
+        <span v-if="lowSell && hasCount > 0" class="low-sell top"><i class="fas fa-long-arrow-alt-down"></i></span>
         <span v-if="changeMarket" class="change-tag bottom"><i class="fas fa-exchange-alt"></i></span>
       </div>
       <div class="right-tag">
