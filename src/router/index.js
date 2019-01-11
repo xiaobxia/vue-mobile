@@ -104,11 +104,6 @@ const routers = [
     component: lazyLoading('IndexDetail')
   },
   {
-    name: 'OperatingInfo',
-    path: '/page/operatingInfo',
-    component: lazyLoading('OperatingInfo')
-  },
-  {
     name: 'FilterFund',
     path: '/page/filterFund',
     component: lazyLoading('FilterFund')

@@ -24,7 +24,7 @@ const operatingTooltip = {
       let marketStatus = storageUtil.getMarketStatus('question_1') || '强'
       for (let i = 1; i < buySellList.length; i++) {
         if (buySellList[i] === 'buy') {
-          if (marketStatus === '略强' && netChangeRatio < 0) {
+          if (marketStatus === '略强' && netChangeRatio > 0) {
             marketWarn = 'buy'
           }
           if (marketStatus === '强') {
