@@ -2,14 +2,14 @@
   <div>
     <mt-header title="基金" :fixed="true"/>
     <div class="main-body has-bar">
-      <div class="img-card" @click="toPath('/page/indexDifference')">
-        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
+      <div class="img-card" @click="toPath('/page/fixedInvestment')">
+        <!--<img src="../../assets/timg.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <img src="../../assets/相对标准偏差.png" alt="">
-            <!--<i class="fab fa-sellsy"></i>-->
+            <img src="../../assets/投币.png" alt="">
+            <!--<i class="fas fa-allergies"></i>-->
           </div>
-          <div class="bottom">差价策略</div>
+          <div class="bottom">定投策略</div>
         </div>
       </div>
       <!--<div class="img-card" @click="toPath('/page/filterFund')">-->
@@ -98,14 +98,14 @@
           <div class="bottom">近期排行</div>
         </div>
       </div>
-      <div class="img-card" @click="toPath('/page/fixedInvestment')">
-        <!--<img src="../../assets/timg.jpg" alt="">-->
+      <div class="img-card" @click="toPath('/page/indexDifference')">
+        <!--<img src="../../assets/800_600_dribbble_icons.jpg" alt="">-->
         <div class="container">
           <div class="content">
-            <img src="../../assets/投币.png" alt="">
-            <!--<i class="fas fa-allergies"></i>-->
+            <img src="../../assets/相对标准偏差.png" alt="">
+            <!--<i class="fab fa-sellsy"></i>-->
           </div>
-          <div class="bottom">定投策略</div>
+          <div class="bottom">差价策略</div>
         </div>
       </div>
       <!--<div class="img-card" @click="toPath('/page/operatingInfo')">-->
