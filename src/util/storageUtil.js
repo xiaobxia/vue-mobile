@@ -167,6 +167,52 @@ const storageUtil = {
     window._changeMarket = config
     localStorage.setItem('changeMarket', JSON.stringify(config))
     return config
+  },
+  getXiong: function (key) {
+    let config = {}
+    if (window._xiong) {
+      config = window._xiong
+    } else {
+      const xiongString = localStorage.getItem('xiong')
+      if (xiongString) {
+        config = JSON.parse(xiongString)
+      }
+      window._xiong = config
+    }
+    if (key) {
+      return config[key]
+    }
+    return config
+  },
+  setXiong: function (key, value) {
+    let config = this.getXiong()
+    config[key] = value
+    window._xiong = config
+    localStorage.setItem('xiong', JSON.stringify(config))
+    return config
+  },
+  getJian: function (key) {
+    let config = {}
+    if (window._jian) {
+      config = window._jian
+    } else {
+      const jianString = localStorage.getItem('jian')
+      if (jianString) {
+        config = JSON.parse(jianString)
+      }
+      window._jian = config
+    }
+    if (key) {
+      return config[key]
+    }
+    return config
+  },
+  setJian: function (key, value) {
+    let config = this.getJian()
+    config[key] = value
+    window._jian = config
+    localStorage.setItem('jian', JSON.stringify(config))
+    return config
   }
 }
 

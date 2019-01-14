@@ -31,6 +31,10 @@
       </div>
       <div class="right-tag">
         <span v-if="lock" class="lock-tag top"></span>
+        <span class="bottom buysell">
+          <i v-if="otherBuySell === 'buy'" class="red-text fas fa-shopping-cart"></i>
+          <i v-if="otherBuySell === 'sell'" class="green-text fas fa-sign-out-alt"></i>
+        </span>
       </div>
     </div>
   </mt-cell-swipe>
@@ -86,11 +90,22 @@ export default {
     },
     positionWarn: {
       type: String
+    },
+    type: {
+      type: String,
+      default: '简'
     }
   },
   computed: {
     changeMarket () {
       return storageUtil.getChangeMarket(this.indexInfo.key) || false
+    },
+    otherBuySell () {
+      if (this.type === '简') {
+        return storageUtil.getXiong(this.indexInfo.key)
+      } else {
+        return storageUtil.getJian(this.indexInfo.key)
+      }
     }
   },
   mounted () {

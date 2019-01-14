@@ -45,7 +45,6 @@
 <script>
 import Http from '@/util/httpUtil.js'
 import numberUtil from '@/util/numberUtil.js'
-import moment from 'moment'
 import {Indicator} from 'mint-ui'
 
 let webDataMap = {

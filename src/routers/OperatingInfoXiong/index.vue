@@ -30,6 +30,7 @@
         :positionWarn="positionWarnMap[item.key]"
         :netChangeRatioList="netChangeRatioMap[item.key]"
         :lowSell="lowSellMap[item.key]"
+        :type="'熊'"
       />
     </div>
   </div>
@@ -230,6 +231,7 @@ export default {
           this.netChangeRatioMap[item.key] = netChangeRatioList
           this.firstClass[item.key] = buySellList[0]
           this.rateMap[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
+          storageUtil.setXiong(item.key, buySellList[0])
         }
       })
     },
