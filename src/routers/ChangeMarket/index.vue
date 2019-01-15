@@ -14,7 +14,7 @@
             <span style="float: right" :class="numberClass(rateInfo[item.key])">{{rateInfo[item.key]}}%</span>
           </h3>
           <p class="explain">
-            <span v-for="(subItem, index) in allInfo[item.key]" :key="subItem + index"
+            <span v-for="(subItem, index) in allInfo[item.key]" :key="index"
                   :class="subItem === true? 'active': ''">{{subItem}}</span>
           </p>
         </div>

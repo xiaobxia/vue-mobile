@@ -176,12 +176,24 @@
       position: absolute;
       bottom: 0;
     }
+    .mid {
+      top: 0;
+      position: absolute;
+      bottom: 0;
+    }
   }
   .left-tag {
     left: -25px;
   }
   .right-tag {
     right: -5px;
+  }
+  .up-tag {
+    width: 20px;
+    display: block;
+    height: 20px;
+    font-size: 20px;
+    margin: auto;
   }
   .lock-tag {
     width: 20px;

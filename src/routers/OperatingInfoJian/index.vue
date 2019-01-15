@@ -30,6 +30,7 @@
         :positionWarn="positionWarnMap[item.key]"
         :netChangeRatioList="netChangeRatioMap[item.key]"
         :lowSell="lowSellMap[item.key]"
+        :closeList="closeListMap[item.key]"
         :type="'简'"
       />
     </div>
@@ -58,6 +59,7 @@ export default {
   data () {
     let buySellMap = {}
     let netChangeRatioMap = {}
+    let closeListMap = {}
     let lowSellMap = {}
     let list = []
     let firstClass = {}
@@ -74,6 +76,7 @@ export default {
       })
       buySellMap[key] = []
       netChangeRatioMap[key] = []
+      closeListMap[key] = []
       firstClass[key] = ''
       marketWarnMap[key] = ''
       lowSellMap[key] = false
@@ -86,6 +89,7 @@ export default {
       list: list,
       buySellMap,
       netChangeRatioMap,
+      closeListMap,
       firstClass,
       rateMap,
       lockMap,
@@ -138,47 +142,50 @@ export default {
   },
   methods: {
     initPage () {
-      let list = this.list
+      let indexList = this.list
       Http.get('fund/getUserNetValueNowMonthRate').then((res) => {
         this.nowMonthRate = res.data.rate
       })
-      Http.get('fund/getUserLastNetValue').then((res) => {
-        const nowNetValue = res.data.record
-        if (nowNetValue) {
-          this.myAsset = nowNetValue.asset
-        }
-      })
-      Http.get('fund/getUserFundsNormal').then((data) => {
-        if (data.success) {
-          const list = data.data.list
-          let totalSum = 0
-          for (let i = 0; i < list.length; i++) {
-            const item = list[i]
-            if (item.theme) {
-              // 定投不计入
-              if (item.strategy === '1') {
-                totalSum += item.sum
-                if (this.ifLock(item)) {
-                  if (this.lockMap[item.theme] !== '') {
-                    this.lockMap[item.theme] = true
+      Promise.all([
+        Http.get('fund/getUserLastNetValue').then((res) => {
+          const nowNetValue = res.data.record
+          if (nowNetValue) {
+            this.myAsset = nowNetValue.asset
+          }
+        }),
+        Http.get('fund/getUserFundsNormal').then((data) => {
+          if (data.success) {
+            const list = data.data.list
+            let totalSum = 0
+            for (let i = 0; i < list.length; i++) {
+              const item = list[i]
+              if (item.theme) {
+                // 定投不计入
+                if (item.strategy === '1') {
+                  totalSum += item.sum
+                  if (this.ifLock(item)) {
+                    if (this.lockMap[item.theme] !== '') {
+                      this.lockMap[item.theme] = true
+                    }
+                  } else {
+                    this.lockMap[item.theme] = false
                   }
-                } else {
-                  this.lockMap[item.theme] = false
-                }
-                // 拥有应该是现在的价值之和而不是成本
-                const sum = parseInt(item.sum)
-                if (this.hasCount[item.theme]) {
-                  this.hasCount[item.theme] += sum
-                } else {
-                  this.hasCount[item.theme] = sum
+                  // 拥有应该是现在的价值之和而不是成本
+                  const sum = parseInt(item.sum)
+                  if (this.hasCount[item.theme]) {
+                    this.hasCount[item.theme] += sum
+                  } else {
+                    this.hasCount[item.theme] = sum
+                  }
                 }
               }
             }
+            this.totalSum = totalSum
           }
-          this.totalSum = totalSum
-        }
-        for (let i = 0; i < list.length; i++) {
-          this.queryData(list[i])
+        })
+      ]).then(() => {
+        for (let i = 0; i < indexList.length; i++) {
+          this.queryData(indexList[i])
         }
       })
     },
@@ -226,6 +233,7 @@ export default {
           this.marketWarnMap[item.key] = operatingTooltip.getMarketWarn(netChangeRatio, buySellList)
           this.positionWarnMap[item.key] = operatingTooltip.getPositionWarn(item, this.myAsset, this.totalSum, this.hasCount[item.name])
           this.buySellMap[item.key] = buySellList
+          this.closeListMap[item.key] = closeList
           this.lowSellMap[item.key] = operatingTooltip.ifLowSell(buySellList, closeList)
           this.netChangeRatioMap[item.key] = netChangeRatioList
           this.firstClass[item.key] = buySellList[0]

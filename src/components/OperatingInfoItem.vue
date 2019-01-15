@@ -27,6 +27,8 @@
       </div>
       <div class="left-tag">
         <span v-if="lowSell && hasCount > 0" class="low-sell top"><i class="fas fa-long-arrow-alt-down"></i></span>
+        <span v-if="ifStepUp" class="up-tag red-text mid"><i class="fas fa-level-up-alt"></i></span>
+        <span v-if="ifStepDown" class="down-tag green-text mid"><i class="fas fa-level-down-alt"></i></span>
         <span v-if="changeMarket" class="change-tag bottom"><i class="fas fa-exchange-alt"></i></span>
       </div>
       <div class="right-tag">
@@ -42,6 +44,7 @@
 
 <script>
 import storageUtil from '@/util/storageUtil.js'
+import operatingTooltip from '@/util/operatingTooltip.js'
 export default {
   name: 'OperatingInfoItem',
   data () {
@@ -77,6 +80,12 @@ export default {
         return [0, 0, 0, 0, 0]
       }
     },
+    closeList: {
+      type: Array,
+      default: function () {
+        return [0, 0, 0, 0, 0]
+      }
+    },
     lock: {
       type: Boolean,
       default: false
@@ -106,6 +115,12 @@ export default {
       } else {
         return storageUtil.getJian(this.indexInfo.key)
       }
+    },
+    ifStepUp () {
+      return operatingTooltip.ifStepUp(this.netChangeRatioList, this.closeList)
+    },
+    ifStepDown () {
+      return operatingTooltip.ifStepDown(this.netChangeRatioList, this.closeList)
     }
   },
   mounted () {

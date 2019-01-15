@@ -77,6 +77,22 @@ const operatingTooltip = {
       }
     }
     return false
+  },
+  ifStepUp (netChangeRatioList, closeList) {
+    if (netChangeRatioList[0] < 0 && netChangeRatioList[1] > 0 && netChangeRatioList[2] < 0 && netChangeRatioList[3] > 0) {
+      if (closeList[0] > closeList[2] && closeList[1] > closeList[3]) {
+        return true
+      }
+    }
+    return false
+  },
+  ifStepDown (netChangeRatioList, closeList) {
+    if (netChangeRatioList[0] > 0 && netChangeRatioList[1] < 0 && netChangeRatioList[2] > 0 && netChangeRatioList[3] < 0) {
+      if (closeList[0] < closeList[2] && closeList[1] < closeList[3]) {
+        return true
+      }
+    }
+    return false
   }
 }
 export default operatingTooltip
