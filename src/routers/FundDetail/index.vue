@@ -15,8 +15,12 @@
         <span class="item">基金净值：{{currentFund.net_value}}</span>
         <span class="item">估算净值：{{currentFund.valuation}}</span>
         <span class="item">估算涨幅：{{countRate(currentFund.valuation, currentFund.net_value)}}%</span>
-        <span class="item">可卖份额：{{parseInt(canSellInfo.shares || 0)}}</span>
-        <span class="item">可卖金额：{{parseInt(canSellInfo.sum || 0)}}</span>
+        <span v-if="type==='edit'"  class="item">可卖金额：{{parseInt(canSellInfo.sum || 0)}}</span>
+        <span v-if="type==='edit'"  class="item">可卖份额：{{parseInt(canSellInfo.shares || 0)}}</span>
+        <span v-if="type==='edit'"  class="item">1/5：{{parseInt((canSellInfo.shares || 0)/5)}}</span>
+        <span v-if="type==='edit'"  class="item">1/4：{{parseInt((canSellInfo.shares || 0)/4)}}</span>
+        <span v-if="type==='edit'"  class="item">1/3：{{parseInt((canSellInfo.shares || 0)/3)}}</span>
+        <span v-if="type==='edit'"  class="item">1/2：{{parseInt((canSellInfo.shares || 0)/2)}}</span>
         <span>估值时间：{{formatDate(currentFund.valuation_date)}}</span>
       </div>
       <div class="theme-wrap">
