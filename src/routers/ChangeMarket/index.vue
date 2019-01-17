@@ -6,6 +6,12 @@
       </mt-button>
     </mt-header>
     <div class="main-body">
+      <div class="count-wrap">
+        <div class="item">
+          <span class="label">信号数：</span>
+          <span class="red-text">{{changeCount}}</span>
+        </div>
+      </div>
       <mt-cell-swipe v-for="(item) in list" :key="item.code" :to="'/page/changeMarketDetail?'+qsStringify(item)"
                      >
         <div slot="title">
@@ -57,7 +63,8 @@ export default {
     return {
       list: list,
       allInfo: allInfo,
-      rateInfo: rateInfo
+      rateInfo: rateInfo,
+      changeCount: 0
     }
   },
   computed: {
@@ -97,6 +104,9 @@ export default {
             } else {
               infoList[i] = false
             }
+          }
+          if (infoList[0]) {
+            this.changeCount = this.changeCount + 1
           }
           storageUtil.setChangeMarket(item.key, infoList[0])
           this.allInfo[item.key] = infoList
