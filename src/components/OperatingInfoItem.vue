@@ -22,6 +22,10 @@
             <span v-for="(subItem, index) in netChangeRatioList" :key="index"
                   :class="numberClass(subItem)"></span>
       </p>
+      <p class="otherBuySellList">
+            <span v-for="(subItem, index) in otherBuySellList" :key="index"
+                  :class="subItem">{{subItem}}</span>
+      </p>
       <div class="other-text">
         <p v-if="rate <= -3">是否有利空？是就先不接，标记利空，不是也不要接太多</p>
       </div>
@@ -114,6 +118,13 @@ export default {
         return storageUtil.getXiong(this.indexInfo.key)
       } else {
         return storageUtil.getJian(this.indexInfo.key)
+      }
+    },
+    otherBuySellList () {
+      if (this.type === '简') {
+        return storageUtil.getXiongBuySellList(this.indexInfo.key)
+      } else {
+        return storageUtil.getJianBuySellList(this.indexInfo.key)
       }
     },
     ifStepUp () {

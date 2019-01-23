@@ -213,6 +213,52 @@ const storageUtil = {
     window._jian = config
     localStorage.setItem('jian', JSON.stringify(config))
     return config
+  },
+  getJianBuySellList: function (key) {
+    let config = {}
+    if (window._jianBuySellList) {
+      config = window._jianBuySellList
+    } else {
+      const jianBuySellListString = localStorage.getItem('jianBuySellList')
+      if (jianBuySellListString) {
+        config = JSON.parse(jianBuySellListString)
+      }
+      window._jianBuySellList = config
+    }
+    if (key) {
+      return JSON.parse(config[key] || '["","","","",""]')
+    }
+    return config
+  },
+  setJianBuySellList: function (key, value) {
+    let config = this.getJianBuySellList()
+    config[key] = JSON.stringify(value)
+    window._jianBuySellList = config
+    localStorage.setItem('jianBuySellList', JSON.stringify(config))
+    return config
+  },
+  getXiongBuySellList: function (key) {
+    let config = {}
+    if (window._xiongBuySellList) {
+      config = window._xiongBuySellList
+    } else {
+      const xiongBuySellListString = localStorage.getItem('xiongBuySellList')
+      if (xiongBuySellListString) {
+        config = JSON.parse(xiongBuySellListString)
+      }
+      window._xiongBuySellList = config
+    }
+    if (key) {
+      return JSON.parse(config[key] || '["","","","",""]')
+    }
+    return config
+  },
+  setXiongBuySellList: function (key, value) {
+    let config = this.getXiongBuySellList()
+    config[key] = JSON.stringify(value)
+    window._xiongBuySellList = config
+    localStorage.setItem('xiongBuySellList', JSON.stringify(config))
+    return config
   }
 }
 

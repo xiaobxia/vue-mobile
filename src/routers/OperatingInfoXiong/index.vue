@@ -240,6 +240,7 @@ export default {
           this.firstClass[item.key] = buySellList[0]
           this.rateMap[item.key] = numberUtil.keepTwoDecimals(recentNetValue[0].netChangeRatio)
           storageUtil.setXiong(item.key, buySellList[0])
+          storageUtil.setXiongBuySellList(item.key, buySellList)
         }
       })
     },
